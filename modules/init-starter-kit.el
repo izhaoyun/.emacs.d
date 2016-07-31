@@ -141,5 +141,11 @@
     (setq undo-tree-visualizer-timestamps t))
   )
 
+(use-package hippie-exp
+  :commands (hippie-expand)
+  :bind ("M-/" . hippie-expand)
+  
+  )
+
 (provide 'init-starter-kit)
 ;; init-starter-kit.el ends here.

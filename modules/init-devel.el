@@ -4,6 +4,8 @@
     yasnippet
     projectile
     comment-dwim-2
+    aggressive-indent
+    magit
     ))
 
 (install-packages my/devel-packages)
@@ -50,6 +52,26 @@
   :diminish eldoc-mode
   :config
   (add-hook 'prog-mode-hook #'eldoc-mode)
+  )
+
+(use-package aggressive-indent
+  :diminish aggressive-indent-mode
+  :init
+  (add-hook 'prog-mode-hook #'aggressive-indent-mode)
+  )
+
+(use-package magit
+  :defer t
+  :bind ("C-x t g" . magit-status))
+
+(use-package yasnippet
+  :commands (yas-reload-all
+	     yas-minor-mode)
+  :init
+  (yas-reload-all)
+  (add-hook 'prog-mode-hook #'yas-minor-mode)
+  :config
+  (add-to-list 'hippie-expand-try-functions-list 'yas-hippie-try-expand)
   )
 
 (provide 'init-devel)
