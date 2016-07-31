@@ -98,7 +98,7 @@
   :init
   (setq org-src-fontify-natively t)
   (setq org-src-tab-acts-natively t)
-  (add-hook 'org-mode-hook 'init-org-bullets)
+  (add-hook 'org-mode-hook 'my/init-org-bullets)
   :config
   (add-to-list 'org-latex-packages-alist '("" "ctex"))
   (add-to-list 'org-latex-packages-alist '("" "minted"))
@@ -110,7 +110,7 @@
   (add-to-list 'org-latex-packages-alist '("" "natbib"))
   (add-to-list 'org-latex-packages-alist '("" "titlesec"))
   
-  (add-hook 'org-mode-hook 'init-org-babel)
-  (add-hook 'org-mode-hook 'init-org-export))
+  (add-hook 'org-mode-hook 'my/init-org-babel)
+  (add-hook 'org-mode-hook 'my/init-org-export))
 
 (provide 'init-org)
