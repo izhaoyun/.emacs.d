@@ -53,8 +53,7 @@
 (require 'init-utils)
 
 (require 'init-org)
-(eval-after-load "cc-mode"
-  (require 'init-c++))
+(require 'init-c++)
 (eval-after-load "python-mode"
   (require 'init-python))
 (require 'init-ruby)
