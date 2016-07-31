@@ -9,6 +9,7 @@
   (add-to-list 'package-archives '("popkit" . "https://elpa.popkit.org/packages/"))
   (add-to-list 'package-archives '("SC"     . "http://joseito.republika.pl/sunrise-commander/"))
   (package-initialize)
+  (setq package-enable-at-startup nil)
 
   ;; get `use-package' installed.
   (unless (package-installed-p 'use-package)
@@ -49,13 +50,15 @@
 (require 'init-custom)
 (require 'init-starter-kit)
 (require 'init-devel)
-
-(require 'init-c++)
-(require 'init-python)
-(require 'init-ruby)
-(require 'init-org)
-
 (require 'init-utils)
+
+(require 'init-org)
+(eval-after-load "cc-mode"
+  (require 'init-c++))
+(eval-after-load "python-mode"
+  (require 'init-python))
+(require 'init-ruby)
+(require 'init-makefile)
 
 (when window-system
   (add-hook 'after-init-hook

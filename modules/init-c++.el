@@ -4,8 +4,7 @@
     function-args
     rtags
     irony
-    cmake-mode
-    cmake-font-lock))
+    ))
 
 (install-packages my/c++-packages)
 
@@ -29,13 +28,6 @@
 	       (diminish 'hs-minor-mode)))
   )
 
-(use-package cmake-mode
-  :mode (("CMakeLists.txt\\'" . cmake-mode)
-         ("\\.cmake\\'"       . cmake-mode))
-  :config
-  (autoload 'cmake-font-lock-activate "cmake-font-lock" nil t)
-  (add-hook 'cmake-mode-hook 'cmake-font-lock-activate)
-  )
 
 (provide 'init-c++)
 ;; init-c++.el ends here.
