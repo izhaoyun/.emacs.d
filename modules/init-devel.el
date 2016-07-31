@@ -3,7 +3,8 @@
     company-quickhelp
     yasnippet
     projectile
-    comment-dwim-2))
+    comment-dwim-2
+    ))
 
 (install-packages my/devel-packages)
 
@@ -36,5 +37,19 @@
 
 (use-package comment-dwim-2
   :bind ("M-;" . comment-dwim-2))
+
+(use-package projectile
+  :diminish projectile-mode
+  :commands (projectile-global-mode)
+  :init
+  (projectile-global-mode)
+  (setq projectile-completion-system 'ivy)
+  )
+
+(use-package eldoc
+  :diminish eldoc-mode
+  :config
+  (add-hook 'prog-mode-hook #'eldoc-mode)
+  )
 
 (provide 'init-devel)

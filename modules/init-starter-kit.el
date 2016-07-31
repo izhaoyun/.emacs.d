@@ -1,18 +1,16 @@
-(eval-and-compile
-  ;; install packages
-  (mapc (lambda (package)
-	  (unless (package-installed-p package)
-	    (package-install package)))
-	'(ivy
-	  swiper
-	  counsel
-	  hydra
-	  avy
-	  which-key
-	  hi-lock
-	  expand-region
-	  rainbow-delimiters
-	  )))
+(defconst my/starter-kit-packages
+  '(ivy
+    swiper
+    counsel
+    hydra
+    avy
+    which-key
+    hi-lock
+    expand-region
+    rainbow-delimiters
+    undo-tree))
+
+(install-packages my/starter-kit-packages)
 
 (use-package hydra)
 
@@ -123,6 +121,25 @@
   :defer 5
   :config
   (winner-mode 1))
+
+(use-package recentf
+  :defer t
+  :bind ("C-x C-r" . recentf-open-files)
+  :config
+  (recentf-mode))
+
+(use-package undo-tree
+  :defer t
+  :diminish undo-tree-mode
+  :commands (global-undo-tree-mode)
+  :bind (("C-z"   . undo)
+	 ("C-S-z" . undo-tree-redo))
+  :config
+  (progn
+    (global-undo-tree-mode)
+    (setq undo-tree-visualizer-diff t)
+    (setq undo-tree-visualizer-timestamps t))
+  )
 
 (provide 'init-starter-kit)
 ;; init-starter-kit.el ends here.
