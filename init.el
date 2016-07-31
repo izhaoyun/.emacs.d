@@ -38,9 +38,7 @@
   (defun install-packages (packages-list)
     (dolist (package packages-list)
       (unless (package-installed-p package)
-	(package-install package)
-	)
-      )
+	(package-install package)))
     )
   )
 

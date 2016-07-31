@@ -1,6 +1,7 @@
 (defconst my/python-packages
   '(py-yapf
-    company-jedi))
+    company-jedi
+    pyvenv))
 
 (install-packages my/python-packages)
 
@@ -13,5 +14,9 @@
 (use-package company-jedi
   :init
   (add-to-list 'company-backends 'company-jedi))
+
+(use-package pyvenv
+  :init
+  (add-hook 'python-mode-hook 'pyvenv-mode))
 
 (provide 'init-python)
