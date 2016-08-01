@@ -8,7 +8,9 @@
     hi-lock
     expand-region
     rainbow-delimiters
-    undo-tree))
+    undo-tree
+    ace-window
+    iedit))
 
 (install-packages my/starter-kit-packages)
 
