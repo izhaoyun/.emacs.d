@@ -1,22 +1,12 @@
 (defconst my/python-packages
-  '(py-yapf
-    company-jedi
-    pyvenv))
+  '(elpy))
 
 (install-packages my/python-packages)
 
 (defvar python-indent-guess-indent-offset nil)
 
-(use-package py-yapf
-  :config
-  (add-hook 'python-mode-hook 'py-yapf-enable-on-save))
-
-(use-package company-jedi
+(use-package elpy
   :init
-  (add-to-list 'company-backends 'company-jedi))
-
-(use-package pyvenv
-  :init
-  (add-hook 'python-mode-hook 'pyvenv-mode))
+  (elpy-enable))
 
 (provide 'init-python)

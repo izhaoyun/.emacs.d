@@ -6,6 +6,7 @@
     comment-dwim-2
     aggressive-indent
     magit
+    highlight-indentation
     ))
 
 (install-packages my/devel-packages)
@@ -17,6 +18,7 @@
   (add-hook 'prog-mode-hook 'my/prog-mode-hook))
 
 (use-package company
+  :diminish company-mode
   :commands (company-mode
 	     company-yasnippet)
   :bind (("C-<tab>" . company-yasnippet))
@@ -69,5 +71,9 @@
   (add-hook 'prog-mode-hook #'yas-minor-mode)
   :config
   (add-to-list 'hippie-expand-try-functions-list 'yas-hippie-try-expand))
+
+(use-package highlight-indentation
+  :diminish highlight-indentation-mode
+  )
 
 (provide 'init-devel)

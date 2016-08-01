@@ -1,7 +1,5 @@
 (setq gc-cons-threshold 125829120)
 
-(defconst emacs-start-time (current-time))
-
 (eval-and-compile
   (require 'package)
   (add-to-list 'package-archives '("melpa"  . "http://melpa.org/packages/"))
@@ -56,12 +54,3 @@
   (require 'init-python))
 (require 'init-ruby)
 (require 'init-makefile)
-
-(when window-system
-  (add-hook 'after-init-hook
-	    `(lambda ()
-	       (let ((elapsed (float-time (time-subtract (current-time)
-							 emacs-start-time))))
-		 (message "Loading %s...done (%.3fs) [after-init]"
-			  ,load-file-name elapsed)))
-	    t))
