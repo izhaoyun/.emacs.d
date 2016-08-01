@@ -17,6 +17,16 @@
     )
   (add-hook 'prog-mode-hook 'my/prog-mode-hook))
 
+(use-package yasnippet
+  :diminish yas-minor-mode
+  :commands yas-minor-mode
+  :init
+  (add-hook 'prog-mode-hook #'yas-minor-mode)
+  (add-hook 'org-mode-hook #'yas-minor-mode)
+  :config
+  (add-to-list 'hippie-expand-try-functions-list 'yas-hippie-try-expand)
+  (yas-reload-all))
+
 (use-package company
   :diminish company-mode
   :commands (company-mode
@@ -25,8 +35,10 @@
   :init
   (add-hook 'prog-mode-hook 'company-mode)
   :config
+  (setq company-idle-delay 0)
   (setq company-show-numbers t)
-  (setq company-tooltip-limit 20))
+  (setq company-tooltip-limit 20)
+  (setq company-backends (delete 'company-semantic company-backends)))
 
 (use-package company-quickhelp
   :commands company-quickhelp-mode
@@ -63,14 +75,6 @@
   :defer t
   :bind ("C-x t g" . magit-status))
 
-(use-package yasnippet
-  :commands (yas-reload-all
-	     yas-minor-mode)
-  :init
-  (yas-reload-all)
-  (add-hook 'prog-mode-hook #'yas-minor-mode)
-  :config
-  (add-to-list 'hippie-expand-try-functions-list 'yas-hippie-try-expand))
 
 (use-package highlight-indentation
   :diminish highlight-indentation-mode
