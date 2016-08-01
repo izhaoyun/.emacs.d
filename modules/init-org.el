@@ -1,8 +1,7 @@
 (defconst my/org-packages
   '(org
     org-plus-contrib
-    htmlize)
-  )
+    htmlize))
 
 (install-packages my/org-packages)
 
@@ -96,10 +95,11 @@
 	 ("C-c c" . org-capture)
 	 ("C-c l" . org-store-link))
   :init
+
+  :config
   (setq org-src-fontify-natively t)
   (setq org-src-tab-acts-natively t)
-  (add-hook 'org-mode-hook 'my/init-org-bullets)
-  :config
+
   (add-to-list 'org-latex-packages-alist '("" "ctex"))
   (add-to-list 'org-latex-packages-alist '("" "minted"))
   (add-to-list 'org-latex-packages-alist '("" "color"))
@@ -111,6 +111,7 @@
   (add-to-list 'org-latex-packages-alist '("" "titlesec"))
   
   (add-hook 'org-mode-hook 'my/init-org-babel)
-  (add-hook 'org-mode-hook 'my/init-org-export))
+  (add-hook 'org-mode-hook 'my/init-org-export)
+  (add-hook 'org-mode-hook 'my/init-org-bullets))
 
 (provide 'init-org)
