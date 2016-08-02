@@ -100,6 +100,7 @@
 
 (use-package iedit
   :commands (iedit-mode)
+  :bind ("C-c i e" . iedit-mode)
   )
 
 (use-package lispy
