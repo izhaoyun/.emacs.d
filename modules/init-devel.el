@@ -7,6 +7,7 @@
     aggressive-indent
     magit
     highlight-indentation
+    stickyfunc-enhance
     ))
 
 (install-packages my/devel-packages)
@@ -79,5 +80,15 @@
 (use-package highlight-indentation
   :diminish highlight-indentation-mode
   )
+
+
+(defun my/init-stickyfunc-enhance ()
+  (use-package stickyfunc-enhance
+    :init
+    (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
+    (semantic-mode 1)
+    )
+  )
+(add-hook 'python-mode-hook 'my/init-stickyfunc-enhance)
 
 (provide 'init-devel)
