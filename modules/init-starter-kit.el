@@ -4,13 +4,13 @@
     counsel
     hydra
     avy
+    ace-window
     lispy
     which-key
     hi-lock
     expand-region
     rainbow-delimiters
     undo-tree
-    ace-window
     iedit))
 
 (install-packages my/starter-kit-packages)
@@ -21,16 +21,16 @@
   :commands (ivy-mode)
   :preface
   (defun ivy-dired ()
-      (interactive)
-      (if ivy--directory
-	  (ivy-quit-and-run
-	   (dired ivy--directory)
-	   (when (re-search-forward
-		  (regexp-quote
-		   (substring ivy--current 0 -1)) nil t)
-	     (goto-char (match-beginning 0))))
-	(user-error
-	 "Not completing files currently")))
+    (interactive)
+    (if ivy--directory
+	(ivy-quit-and-run
+	 (dired ivy--directory)
+	 (when (re-search-forward
+		(regexp-quote
+		 (substring ivy--current 0 -1)) nil t)
+	   (goto-char (match-beginning 0))))
+      (user-error
+       "Not completing files currently")))
   :bind (("C-s" . counsel-grep-or-swiper)
 	 ("M-x" . counsel-M-x)
 	 ("M-y" . counsel-yank-pop)
@@ -60,25 +60,27 @@
   :init
   (use-package ivy
     :init
-      (ivy-mode 1)
-      (diminish 'ivy-mode)
-      :config
-      (setq ivy-use-virtual-buffers t)
-      (setq ivy-display-style 'fancy)
-      (setq ivy-count-format "(%d/%d) ")
-      )
+    (ivy-mode 1)
+    (diminish 'ivy-mode)
+    :config
+    (setq ivy-use-virtual-buffers t)
+    (setq ivy-display-style 'fancy)
+    (setq ivy-count-format "(%d/%d) ")
+    )
   :config
   (setq counsel-find-file-at-point t)
   )
 
 (use-package avy
-  :bind (("C-:" . avy-goto-char)
-	 ("M-p" . avy-pop-mark))
+  :bind (("C-:" . avy-goto-char))
   :init
   (avy-setup-default)
   :config
   (advice-add 'swiper :before 'avy-push-mark)
   )
+
+(use-package ace-window
+  :bind ("M-p" . ace-window))
 
 (use-package which-key
   :diminish which-key-mode
