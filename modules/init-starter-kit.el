@@ -4,6 +4,7 @@
     counsel
     hydra
     avy
+    lispy
     which-key
     hi-lock
     expand-region
@@ -145,8 +146,17 @@
 
 (use-package hippie-exp
   :commands (hippie-expand)
-  :bind ("M-/" . hippie-expand)
-  
+  :bind ("M-/" . hippie-expand))
+
+(use-package lispy
+  :init
+  ;; enable lispy automatically for emacs-lisp-mode
+  (add-hook 'emacs-lisp-mode-hook 'lispy-mode)
+  ;; enable lispy for eval-expression
+  (defun conditionally-enable-lispy ()
+    (when (eq this-command 'eval-expression)
+      (lispy-mode 1)))
+  (add-hook 'minibuffer-setup-hook 'conditionally-enable-lispy)
   )
 
 (provide 'init-starter-kit)
