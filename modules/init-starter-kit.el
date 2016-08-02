@@ -98,6 +98,19 @@
 (use-package ace-window
   :bind ("M-p" . ace-window))
 
+(use-package iedit)
+
+(use-package lispy
+  :init
+  ;; enable lispy automatically for emacs-lisp-mode
+  (add-hook 'emacs-lisp-mode-hook 'lispy-mode)
+  ;; enable lispy for eval-expression
+  (defun conditionally-enable-lispy ()
+    (when (eq this-command 'eval-expression)
+      (lispy-mode 1)))
+  (add-hook 'minibuffer-setup-hook 'conditionally-enable-lispy)
+  )
+
 (use-package which-key
   :diminish which-key-mode
   :commands (which-key-mode
@@ -116,13 +129,15 @@
 
 (use-package expand-region
   :bind (("C-=" . er/expand-region)
-         ("C--" . er/contract-region)))
+         ("C--" . er/contract-region))
+  )
 
 (use-package paren
   :init
   (show-paren-mode)
   :config
-  (setq show-paren-style 'expression))
+  (setq show-paren-style 'expression)
+  )
 
 (use-package rainbow-delimiters
   :commands (rainbow-delimiters-mode)
@@ -142,7 +157,8 @@
   :defer t
   :bind ("C-x C-r" . recentf-open-files)
   :config
-  (recentf-mode))
+  (recentf-mode)
+  )
 
 (use-package undo-tree
   :defer t
@@ -161,16 +177,6 @@
   :commands (hippie-expand)
   :bind ("M-/" . hippie-expand))
 
-(use-package lispy
-  :init
-  ;; enable lispy automatically for emacs-lisp-mode
-  (add-hook 'emacs-lisp-mode-hook 'lispy-mode)
-  ;; enable lispy for eval-expression
-  (defun conditionally-enable-lispy ()
-    (when (eq this-command 'eval-expression)
-      (lispy-mode 1)))
-  (add-hook 'minibuffer-setup-hook 'conditionally-enable-lispy)
-  )
 
 
 (provide 'init-starter-kit)
