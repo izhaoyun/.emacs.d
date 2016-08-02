@@ -11,7 +11,9 @@
     expand-region
     rainbow-delimiters
     undo-tree
-    iedit))
+    iedit
+    highlight-symbol
+    ))
 
 (install-packages my/starter-kit-packages)
 
@@ -102,11 +104,15 @@
              which-key-setup-side-window-right-bottom)
   :init
   (which-key-mode)
-  (which-key-setup-side-window-right-bottom))
+  (which-key-setup-side-window-right-bottom)
+  )
 
-(use-package hi-lock
-  :init
-  (global-hi-lock-mode))
+(use-package highlight-symbol
+  :bind (("C-<f3>" . highlight-symbol)
+	 ("<f3>"   . highlight-symbol-next)
+	 ("S-<f3>" . highlight-symbol-prev)
+	 ("M-<f3>" . highlight-symbol-query-replace))
+  )
 
 (use-package expand-region
   :bind (("C-=" . er/expand-region)
@@ -165,6 +171,7 @@
       (lispy-mode 1)))
   (add-hook 'minibuffer-setup-hook 'conditionally-enable-lispy)
   )
+
 
 (provide 'init-starter-kit)
 ;; init-starter-kit.el ends here.
