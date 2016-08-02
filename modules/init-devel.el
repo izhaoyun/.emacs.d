@@ -74,13 +74,12 @@
 
 (use-package magit
   :defer t
-  :bind ("C-x t g" . magit-status))
-
+  :bind ("C-x t g" . magit-status)
+  )
 
 (use-package highlight-indentation
   :diminish highlight-indentation-mode
   )
-
 
 (defun my/init-stickyfunc-enhance ()
   (use-package stickyfunc-enhance
@@ -90,5 +89,6 @@
     )
   )
 (add-hook 'python-mode-hook 'my/init-stickyfunc-enhance)
+(add-hook 'c-mode-common-hook 'my/init-stickyfunc-enhance)
 
 (provide 'init-devel)
