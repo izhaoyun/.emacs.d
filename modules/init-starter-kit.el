@@ -13,6 +13,7 @@
     undo-tree
     iedit
     highlight-symbol
+    helm-swoop
     ))
 
 (install-packages my/starter-kit-packages)
@@ -40,7 +41,7 @@
 	 ("C-x C-f" . counsel-find-file)
 	 ("C-x r b" . counsel-bookmark)
 	 ("C-c s a" . counsel-ag)
-	 ("C-c s g" . counsel-git)
+	 ("C-c s f" . counsel-git)
 	 ("C-c s i" . counsel-imenu)
 	 ("C-c s p" . counsel-git-grep)
 	 ("C-c s l" . counsel-locate)
@@ -180,7 +181,20 @@
   :commands (hippie-expand)
   :bind ("M-/" . hippie-expand))
 
-
+(use-package helm-swoop
+  :commands (helm-swoop
+	     helm-swoop-back-to-last-point
+	     helm-multi-swoop
+	     helm-multi-swoop-all)
+  :bind (("C-c s j" . helm-swoop)
+	 ("C-c s k" . helm-swoop-back-to-last-point)
+	 ("C-c s y" . helm-multi-swoop)
+	 ("C-c s z" . helm-multi-swoop-all))
+  :config
+  (define-key helm-swoop-map (kbd "M-i") 'helm-multi-swoop-all-from-helm-swoop)
+  (define-key helm-swoop-map (kbd "M-m") 'helm-multi-swoop-current-mode-from-helm-swoop)
+  (setq helm-swoop-use-fuzzy-match t)
+  )
 
 (provide 'init-starter-kit)
 ;; init-starter-kit.el ends here.
