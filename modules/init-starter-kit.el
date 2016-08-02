@@ -72,12 +72,26 @@
   )
 
 (use-package avy
-  :bind (("C-:" . avy-goto-char))
+  :bind (("C-:" . avy-goto-char)
+	 ("C-'" . avy-goto-char-2)
+	 ("M-g f" . avy-goto-line)
+	 ("M-g w" . avy-goto-word-1)
+	 ("M-g e" . avy-goto-word-0)
+	 ("M-g c" . avy-goto-conditional)
+	 ("M-g p" . avy-goto-paren))
   :init
   (avy-setup-default)
+  (eval-and-compile
+    ;; Jumping to conditionals in Elisp
+    (defun avy-goto-conditional ()
+      (interactive)
+      (avy--generic-jump "\\s(\\(if\\|cond\\|when\\|unless\\)\\b" nil 'pre))
+    (defun avy-goto-paren ()
+      (interactive)
+      (avy--generic-jump "(" nil 'pre))
+    )
   :config
-  (advice-add 'swiper :before 'avy-push-mark)
-  )
+  (advice-add 'swiper :before 'avy-push-mark))
 
 (use-package ace-window
   :bind ("M-p" . ace-window))
@@ -101,15 +115,6 @@
 (use-package paren
   :init
   (show-paren-mode)
-  :preface
-  (defun match-paren (arg)
-      "Go to the matching paren if on a paren; otherwise insert
-%."
-      (interactive "p")
-      (cond ((looking-at "\\s\(") (forward-list 1) (backward-char 1))
-        ((looking-at "\\s\)") (forward-char 1) (backward-list 1))
-        (t (self-insert-command (or arg 1)))))
-  :bind (("%" . match-paren))
   :config
   (setq show-paren-style 'expression))
 
