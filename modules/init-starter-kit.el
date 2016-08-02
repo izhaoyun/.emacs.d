@@ -98,7 +98,9 @@
 (use-package ace-window
   :bind ("M-p" . ace-window))
 
-(use-package iedit)
+(use-package iedit
+  :commands (iedit-mode)
+  )
 
 (use-package lispy
   :init
