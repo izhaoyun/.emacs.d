@@ -88,8 +88,7 @@
 	       'ox-html-clear-single-linebreak-for-cjk))
 
 (use-package org
-  :mode (("\\.org$" . org-mode)
-	 ("\\.txt$" . txt-mode))
+  :mode (("\\.org$" . org-mode))
   :bind (("C-c a" . org-agenda)
 	 ("C-c b" . org-iswitch)
 	 ("C-c c" . org-capture)
