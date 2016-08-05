@@ -14,6 +14,7 @@
     iedit
     highlight-symbol
     helm-swoop
+    ace-pinyin
     ))
 
 (install-packages my/starter-kit-packages)
@@ -194,6 +195,13 @@
   (define-key helm-swoop-map (kbd "M-i") 'helm-multi-swoop-all-from-helm-swoop)
   (define-key helm-swoop-map (kbd "M-m") 'helm-multi-swoop-current-mode-from-helm-swoop)
   (setq helm-swoop-use-fuzzy-match t)
+  )
+
+(use-package ace-pinyin
+  :diminish ace-pinyin-mode
+  :after avy
+  :config
+  (ace-pinyin-global-mode)
   )
 
 (provide 'init-starter-kit)
