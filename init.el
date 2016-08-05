@@ -55,3 +55,4 @@
 (require 'init-ruby)
 (require 'init-makefile)
 (require 'init-lisp)
+(require 'init-erlang)
