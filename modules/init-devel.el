@@ -34,10 +34,12 @@
 (use-package company
   :diminish company-mode
   :commands (company-mode
+	     company-global-modes
 	     company-yasnippet)
   :bind (("C-<tab>" . company-yasnippet))
   :init
-  (add-hook 'prog-mode-hook 'company-mode)
+  ;; (add-hook 'prog-mode-hook 'company-mode)
+  (add-hook 'after-init-hook 'global-company-mode)
   :config
   (setq company-idle-delay 0)
   (setq company-show-numbers t)
@@ -65,14 +67,14 @@
           (if (looking-at "->") t nil)))))
 
   (defun do-yas-expand ()
-    (let ((yas/fallback-behavior 'return-nil))
-      (yas/expand)))
-
+    (let ((yas-fallback-behavior 'return-nil))
+      (yas-expand)))
+  
   (defun tab-indent-or-complete ()
     (interactive)
     (if (minibufferp)
         (minibuffer-complete)
-      (if (or (not yas/minor-mode)
+      (if (or (not yas-minor-mode)
               (null (do-yas-expand)))
           (if (check-expansion)
               (company-complete-common)
