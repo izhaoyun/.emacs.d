@@ -15,6 +15,7 @@
     highlight-symbol
     helm-swoop
     ace-pinyin
+    chinese-fonts-setup
     ))
 
 (install-packages my/starter-kit-packages)
@@ -202,6 +203,14 @@
   :after avy
   :config
   (ace-pinyin-global-mode)
+  )
+
+(use-package chinese-fonts-setup
+  :config
+  (setq cfs-profiles
+	'("program" "org-mode" "read-book"))
+  (setq cfs--current-profile "program")
+  (setq cfs--profiles-steps (quote (("program" . 3))))
   )
 
 (provide 'init-starter-kit)

@@ -40,10 +40,12 @@
     )
   )
 
+(setq custom-file (expand-file-name "settings.el" user-emacs-directory))
+(load custom-file)
+
 (eval-and-compile
   (add-to-list 'load-path (expand-file-name "modules" user-emacs-directory)))
 
-(require 'init-custom)
 (require 'init-starter-kit)
 (require 'init-devel)
 (require 'init-utils)
