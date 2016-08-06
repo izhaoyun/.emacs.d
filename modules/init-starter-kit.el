@@ -151,7 +151,26 @@
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
 (use-package ibuffer
-  :bind ("C-x C-b" . ibuffer))
+  :bind ("C-x C-b" . ibuffer)
+  :init
+  (setq ibuffer-saved-filter-groups
+	'("default"
+	  ("Commands" (or (mode . shell-mode)
+			  (mode . eshell-mode)
+			  (mode . term-mode)
+			  (mode . compilation-mode)))
+	  ("C++" (or (mode . c-mode)
+		     (mode . c++-mode)))
+	  ("Magit" (or (mode . magit-status-mode)
+		       (mode . magit-log-mode)
+		       (name . "^\\*magit")
+		       (name . "git-monitor")))
+	  ("Emacs" (or (mame . "^\\*scratch\\*$")
+		       (name . "^\\*Messages\\*$" )
+		       (name . "^\\*\\(Customize\\|Hellp\\)" )
+		       (name . "\\*\\(Echo\\|Minibuf\\)" )))
+	  ("lisp" (mode . emacs-lisp-mode))))
+  )
 
 (use-package winner
   :if (not noninteractive)

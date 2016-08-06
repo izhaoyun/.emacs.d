@@ -26,20 +26,36 @@
   (add-hook 'org-mode-hook #'yas-minor-mode)
   :config
   (add-to-list 'hippie-expand-try-functions-list 'yas-hippie-try-expand)
-  (yas-reload-all))
+  (yas-reload-all)
+  )
 
 (use-package company
   :diminish company-mode
   :commands (company-mode
 	     company-yasnippet)
-  :bind (("C-<tab>" . company-yasnippet))
+  ;; :bind (("C-<tab>" . company-yasnippet))
   :init
   (add-hook 'prog-mode-hook 'company-mode)
   :config
   (setq company-idle-delay 0)
   (setq company-show-numbers t)
   (setq company-tooltip-limit 20)
-  (setq company-backends (delete 'company-semantic company-backends)))
+  (setq company-backends (delete 'company-semantic company-backends))
+  ;; Add yasnippet support for all company backends
+  ;; https://github.com/syl20bnr/spacemacs/pull/179
+  (defvar company-mode/enable-yas t
+    "Enable yasnippet for all backends.")
+
+  (defun company-mode/backend-with-yas (backend)
+    (if (or (not company-mode/enable-yas)
+	    (and (listp backend)
+		 (member 'company-yasnippet backend)))
+	backend
+      (append (if (consp backend) backend (list backend))
+	      '(:with company-yasnippet))))
+
+  (setq company-backends
+	(mapcar #'company-mode/backend-with-yas company-backends)))
 
 (use-package company-quickhelp
   :commands company-quickhelp-mode
