@@ -1,5 +1,3 @@
-(setq gc-cons-threshold 125829120)
-
 (eval-and-compile
   (require 'package)
   (add-to-list 'package-archives '("melpa"  . "http://melpa.org/packages/"))
