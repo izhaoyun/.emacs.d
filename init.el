@@ -56,3 +56,4 @@
 (require 'init-makefile)
 (require 'init-lisp)
 (require 'init-erlang)
+(require 'init-latex)
