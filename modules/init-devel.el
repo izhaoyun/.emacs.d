@@ -21,14 +21,11 @@
 
 (use-package yasnippet
   :diminish yas-minor-mode
-  :commands yas-minor-mode
-  :bind 
+  :commands (yas-global-mode)
   :init
-  (add-hook 'prog-mode-hook #'yas-minor-mode)
-  (add-hook 'org-mode-hook #'yas-minor-mode)
-  :config
+  (yas-global-mode 1)
+  :init
   (add-to-list 'hippie-expand-try-functions-list 'yas-hippie-try-expand)
-  (yas-reload-all)
   )
 
 (use-package company
