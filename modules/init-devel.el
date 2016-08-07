@@ -14,8 +14,8 @@
 (install-packages my/devel-packages)
 
 (defun my/prog-mode-hook ()
-  (setq case-fold-search nil)
-  (setq tab-width 4)
+  (setq-default case-fold-search nil)
+  (setq-default tab-width 4)
   (electric-indent-mode -1)
   )
 (add-hook 'prog-mode-hook 'my/prog-mode-hook)

@@ -7,5 +7,6 @@ bookmarks
 projectile-bookmarks.eld
 irony
 semanticdb
+session.*
 
 company-statistics-cache.el
