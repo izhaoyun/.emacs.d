@@ -7,15 +7,14 @@
     aggressive-indent
     magit
     highlight-indentation
-    stickyfunc-enhance
+	clean-aindent-mode
     ))
 
 (install-packages my/devel-packages)
 
-
-
 (defun my/prog-mode-hook ()
   (setq case-fold-search nil)
+  (setq tab-width 4)
   (electric-indent-mode -1)
   )
 (add-hook 'prog-mode-hook 'my/prog-mode-hook)
@@ -121,14 +120,9 @@
   :diminish highlight-indentation-mode
   )
 
-(defun my/init-stickyfunc-enhance ()
-  (use-package stickyfunc-enhance
-    :init
-    (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
-    (semantic-mode 1)
-    )
+(use-package clean-aindent-mode
+  :init
+  (add-hook 'prog-mode-hook 'clean-aindent-mode)
   )
-(add-hook 'python-mode-hook 'my/init-stickyfunc-enhance)
-(add-hook 'c-mode-common-hook 'my/init-stickyfunc-enhance)
 
 (provide 'init-devel)

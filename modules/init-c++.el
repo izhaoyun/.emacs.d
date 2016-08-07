@@ -1,12 +1,11 @@
 (defconst my/c++-packages
   '(company-c-headers
-    google-c-style
-    function-args
     rtags
     irony
     company-irony
     flycheck-irony
     ggtags
+    cmake-ide
     ))
 
 (install-packages my/c++-packages)
@@ -14,27 +13,22 @@
 (use-package cc-mode
   :mode ("\\.h\\(h?\\|xx\\|pp\\)\\'" . c++-mode)
   :preface
-  (defun my/c++-mode-hook ()
-    (setq indent-tabs-mode nil)
-    (setq tab-width 4)
-    ;; (google-set-c-style)
-    ;; (google-make-newline-indent)
+  (defun my/init-hs-minor-mode ()
+    (hs-minor-mode 1)
+    (diminish 'hs-minor-mode)
     )
   :init
-  (add-hook 'c-mode-common-hook 'my/c++-mode-hook)
+  (setq indent-tabs-mode nil)
   :config
-  ;; HideShow
-  (add-hook 'c-mode-common-hook
-	    '(lambda ()
-	       (hs-minor-mode 1)
-	       (diminish 'hs-minor-mode)))
+  (setq-default c-basic-offset 4)
+  (setq-default c-default-style "linux")
+  (add-hook 'c-mode-common-hook 'my/init-hs-minor-mode)  
   )
 
 (use-package irony
-  :init
+  :config
   (add-hook 'c++-mode-hook 'irony-mode)
   (add-hook 'c-mode-hook 'irony-mode)
-  :config
   (defun my-irony-mode-hook ()
     (define-key irony-mode-map [remap completion-at-point]
       'irony-completion-at-point-async)
@@ -53,32 +47,43 @@
   )
 
 (defun my/init-rtags ()
-  (require 'rtags)
-  (require 'company-rtags)
+  (interactive)
 
-  (rtags-start-process-unless-running)
-  
-  (setq rtags-completions-enabled t)
-  (eval-after-load 'company
-    '(add-to-list 'company-backends 'company-rtags))
+  (use-package rtags
+    :defer t
+    :commands (rtags-start-process-unless-running)
+    :init
+    (add-hook 'c++-mode-hook 'rtags-start-process-unless-running)
+    :config
+    (setq rtags-completions-enabled t)
+    (rtags-enable-standard-keybindings c-mode-base-map)
 
-  (rtags-enable-standard-keybindings c-mode-base-map)
+    (define-key c-mode-base-map (kbd "M-.") 'rtags-find-symbol-at-point)
+    (define-key c-mode-base-map (kbd "M-,") 'rtags-find-references-at-point)
+    (define-key c-mode-base-map (kbd "M-;") 'rtags-find-file)
+    (define-key c-mode-base-map (kbd "C-.") 'rtags-find-symbol)
+    (define-key c-mode-base-map (kbd "C-,") 'rtags-find-references)
+    (define-key c-mode-base-map (kbd "C-<") 'rtags-find-virtuals-at-point)
+    (define-key c-mode-base-map (kbd "M-i") 'rtags-imenu)
+    )
 
-  (define-key c-mode-base-map (kbd "M-.") 'rtags-find-symbol-at-point)
-  (define-key c-mode-base-map (kbd "M-,") 'rtags-find-references-at-point)
-  (define-key c-mode-base-map (kbd "M-;") 'rtags-find-file)
-  (define-key c-mode-base-map (kbd "C-.") 'rtags-find-symbol)
-  (define-key c-mode-base-map (kbd "C-,") 'rtags-find-references)
-  (define-key c-mode-base-map (kbd "C-<") 'rtags-find-virtuals-at-point)
-  (define-key c-mode-base-map (kbd "M-i") 'rtags-imenu)
+  (use-package company-rtags
+    :defer t
+    :ensure rtags
+    :config
+    (eval-after-load 'company
+      '(add-to-list 'company-backends 'company-rtags))
+    )
   )
-(add-hook 'c-mode-common-hook 'my/init-rtags)
-
 
 (defun my/init-company-c-headers ()
-  (eval-after-load 'company
-    '(add-to-list 'company-backends 'company-c-headers))
+  (use-package company-c-headers
+    :config
+    (eval-after-load 'company
+      '(add-to-list 'company-backends 'company-c-headers))
+    )
   )
+(add-hook 'c-mode-common-hook 'my/init-company-c-headers)
 
 (provide 'init-c++)
 ;; init-c++.el ends here.
