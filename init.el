@@ -54,6 +54,5 @@
   (require 'init-python))
 (require 'init-ruby)
 (require 'init-makefile)
-(require 'init-lisp)
 (require 'init-erlang)
 (require 'init-latex)
