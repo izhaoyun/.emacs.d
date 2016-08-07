@@ -1,14 +1,15 @@
 (defconst my/devel-packages
   '(company
-    company-quickhelp
-    yasnippet
-    projectile
-    comment-dwim-2
-    aggressive-indent
-    magit
-    highlight-indentation
+	company-quickhelp
+	yasnippet
+	projectile
+	comment-dwim-2
+	aggressive-indent
+	magit
+	highlight-indentation
 	clean-aindent-mode
-    ))
+	ws-butler
+	))
 
 (install-packages my/devel-packages)
 
@@ -18,6 +19,18 @@
   (electric-indent-mode -1)
   )
 (add-hook 'prog-mode-hook 'my/prog-mode-hook)
+
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(use-package whitespace
+  :defer t
+  :config
+  (add-hook 'before-save-hook 'whitespace-cleanup)
+  )
+
+(use-package ws-butler
+  :defer t
+  :config
+  (ws-butler-global-mode))
 
 (use-package yasnippet
   :diminish yas-minor-mode
@@ -31,8 +44,8 @@
 (use-package company
   :diminish company-mode
   :commands (company-mode
-	     company-global-modes
-	     company-yasnippet)
+			 company-global-modes
+			 company-yasnippet)
   :bind (("C-<tab>" . company-yasnippet))
   :init
   ;; (add-hook 'prog-mode-hook 'company-mode)
@@ -42,40 +55,40 @@
   (setq company-show-numbers t)
   (setq company-tooltip-limit 20)
   (setq company-backends (delete 'company-semantic company-backends))
-  
+
   ;; Add yasnippet support for all company backends
   ;; https://github.com/syl20bnr/spacemacs/pull/179
   (defun company-mode/backend-with-yas (backend)
-    (if (and (listp backend) (member 'company-yasnippet backend))
-	backend
-      (append (if (consp backend) backend (list backend))
-	      '(:with company-yasnippet))
-      )
-    )
+	(if (and (listp backend) (member 'company-yasnippet backend))
+		backend
+	  (append (if (consp backend) backend (list backend))
+			  '(:with company-yasnippet))
+	  )
+	)
   (setq company-backends
-	(mapcar #'company-mode/backend-with-yas company-backends))
+		(mapcar #'company-mode/backend-with-yas company-backends))
   ;; solving conflicts in company and yasnippet
   (defun check-expansion ()
-    (save-excursion
-      (if (looking-at "\\_>") t
-        (backward-char 1)
-        (if (looking-at "\\.") t
-          (backward-char 1)
-          (if (looking-at "->") t nil)))))
+	(save-excursion
+	  (if (looking-at "\\_>") t
+		(backward-char 1)
+		(if (looking-at "\\.") t
+		  (backward-char 1)
+		  (if (looking-at "->") t nil)))))
 
   (defun do-yas-expand ()
-    (let ((yas-fallback-behavior 'return-nil))
-      (yas-expand)))
-  
+	(let ((yas-fallback-behavior 'return-nil))
+	  (yas-expand)))
+
   (defun tab-indent-or-complete ()
-    (interactive)
-    (if (minibufferp)
-        (minibuffer-complete)
-      (if (or (not yas-minor-mode)
-              (null (do-yas-expand)))
-          (if (check-expansion)
-              (company-complete-common)
-            (indent-for-tab-command)))))
+	(interactive)
+	(if (minibufferp)
+		(minibuffer-complete)
+	  (if (or (not yas-minor-mode)
+			  (null (do-yas-expand)))
+		  (if (check-expansion)
+			  (company-complete-common)
+			(indent-for-tab-command)))))
 
   (global-set-key [tab] 'tab-indent-or-complete)
   )

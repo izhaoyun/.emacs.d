@@ -19,6 +19,9 @@
 
 (install-packages my/starter-kit-packages)
 
+(defalias 'yes-or-no-p 'y-or-n-p)
+(global-set-key (kbd "RET") 'newline-and-indent)
+
 (use-package hydra)
 
 (use-package counsel
