@@ -50,8 +50,7 @@
 
 (require 'init-org)
 (require 'init-c++)
-(eval-after-load "python-mode"
-  (require 'init-python))
+(require 'init-python)
 (require 'init-ruby)
 (require 'init-makefile)
 (require 'init-erlang)
