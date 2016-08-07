@@ -1,7 +1,6 @@
 (defconst my/devel-packages
   '(company
     company-quickhelp
-    company-statistics
     yasnippet
     projectile
     comment-dwim-2
@@ -13,11 +12,13 @@
 
 (install-packages my/devel-packages)
 
-(eval-and-compile
-  (defun my/prog-mode-hook ()
-    (setq case-fold-search nil)
-    )
-  (add-hook 'prog-mode-hook 'my/prog-mode-hook))
+
+
+(defun my/prog-mode-hook ()
+  (setq case-fold-search nil)
+  (electric-indent-mode -1)
+  )
+(add-hook 'prog-mode-hook 'my/prog-mode-hook)
 
 (use-package yasnippet
   :diminish yas-minor-mode
@@ -78,13 +79,6 @@
             (indent-for-tab-command)))))
 
   (global-set-key [tab] 'tab-indent-or-complete)
-  )
-
-(use-package company-statistics
-  :after company
-  :commands (company-statistics-mode)
-  :config
-  (company-statistics-mode)
   )
 
 (use-package company-quickhelp
