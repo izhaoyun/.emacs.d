@@ -9,7 +9,8 @@
 	highlight-indentation
 	clean-aindent-mode
 	ws-butler
-	))
+	)
+  )
 
 (install-packages my/devel-packages)
 
@@ -28,9 +29,11 @@
   )
 
 (use-package ws-butler
+  :diminish ws-butler-mode
   :defer t
   :config
-  (ws-butler-global-mode))
+  (ws-butler-global-mode)
+  )
 
 (use-package yasnippet
   :diminish yas-minor-mode
@@ -136,6 +139,12 @@
 (use-package clean-aindent-mode
   :init
   (add-hook 'prog-mode-hook 'clean-aindent-mode)
+  )
+
+(use-package auto-revert
+  :diminish auto-revert-mode
+  :config
+  (global-auto-revert-mode)
   )
 
 (provide 'init-devel)
