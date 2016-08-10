@@ -49,12 +49,10 @@
 (use-package company
   :diminish company-mode
   :commands (company-mode
-			 company-global-modes
 			 company-yasnippet)
   :bind (("C-<tab>" . company-yasnippet))
   :init
-  ;; (add-hook 'prog-mode-hook 'company-mode)
-  (add-hook 'after-init-hook 'global-company-mode)
+  (add-hook 'prog-mode-hook 'company-mode)
   :config
   (setq company-idle-delay 0)
   (setq company-show-numbers t)
