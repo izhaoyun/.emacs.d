@@ -50,6 +50,13 @@
 	'(add-to-list 'company-backends 'company-irony))
   )
 
+(use-package flycheck-irony
+  :after irony
+  :config
+  (eval-after-load 'flycheck
+	'(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+  )
+
 (use-package company-c-headers
   :config
   (eval-after-load 'company
@@ -64,11 +71,11 @@
   )
 
 (use-package flycheck-google-cpplint
+  :commands (flycheck-add-next-checker)
   :after flycheck
-  :init
+  :config
   (flycheck-add-next-checker 'c/c++-cppcheck
 							 '(warning . c/c++-googlelint))
-  :config
   (setq flycheck-googlelint-verbose "3")
   (setq flycheck-googlelint-filter "-whitespace,+whitespace/braces")
   (setq flycheck-googlelint-root "project/src")
@@ -76,4 +83,4 @@
   )
 
 (provide 'init-c++)
-;; init-c++.el ends here.
+;;; init-c++.el ends here

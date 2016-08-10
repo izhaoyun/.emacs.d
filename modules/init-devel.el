@@ -6,6 +6,7 @@
 	comment-dwim-2
 	aggressive-indent
 	magit
+	flycheck
 	highlight-indentation
 	clean-aindent-mode
 	ws-butler
@@ -17,6 +18,7 @@
 (defun my/prog-mode-hook ()
   (setq-default case-fold-search nil)
   (setq-default tab-width 4)
+  (setq tab-always-indent 'complete)
   (electric-indent-mode -1)
   )
 (add-hook 'prog-mode-hook 'my/prog-mode-hook)
@@ -124,8 +126,11 @@
 
 (use-package aggressive-indent
   :diminish aggressive-indent-mode
-  :init
-  (add-hook 'prog-mode-hook #'aggressive-indent-mode))
+  :defer t
+  :commands (global-aggressive-indent-mode)
+  :config
+  (global-aggressive-indent-mode 1)
+  )
 
 (use-package magit
   :defer t
@@ -142,9 +147,17 @@
   )
 
 (use-package auto-revert
+  :defer t
   :diminish auto-revert-mode
   :config
   (global-auto-revert-mode)
+  )
+
+(use-package flycheck
+  :commands (flycheck-mode)
+  :init
+  ;; (global-flycheck-mode)
+  (add-hook 'prog-mode-hook 'flycheck-mode)
   )
 
 (provide 'init-devel)
