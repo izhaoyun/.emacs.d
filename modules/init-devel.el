@@ -146,18 +146,12 @@
   (add-hook 'prog-mode-hook 'clean-aindent-mode)
   )
 
-(use-package auto-revert
-  :defer t
-  :diminish auto-revert-mode
-  :config
-  (global-auto-revert-mode)
-  )
-
 (use-package flycheck
   :commands (flycheck-mode)
   :init
-  ;; (global-flycheck-mode)
   (add-hook 'prog-mode-hook 'flycheck-mode)
+  :config
+  (setq flycheck-check-syntax-automatically '(mode-enabled save))
   )
 
 (provide 'init-devel)
