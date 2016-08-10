@@ -55,3 +55,4 @@
 (require 'init-makefile)
 (require 'init-erlang)
 (require 'init-latex)
+(require 'init-markdown)
