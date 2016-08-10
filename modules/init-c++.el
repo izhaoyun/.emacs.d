@@ -1,10 +1,10 @@
 (defconst my/c++-packages
   '(company-c-headers
-	rtags
 	irony
 	company-irony
 	flycheck-irony
-	))
+	)
+  )
 
 (install-packages my/c++-packages)
 
@@ -14,9 +14,8 @@
   (defun my/init-hs-minor-mode ()
 	(hs-minor-mode 1)
 	(diminish 'hs-minor-mode)
+	(setq indent-tabs-mode nil)
 	)
-  :init
-  (setq indent-tabs-mode nil)
   :config
   (setq-default c-basic-offset 4)
   (setq-default c-default-style "linux")
@@ -24,9 +23,11 @@
   )
 
 (use-package irony
-  :config
+  :commands (irony-mode)
+  :init
   (add-hook 'c++-mode-hook 'irony-mode)
   (add-hook 'c-mode-hook 'irony-mode)
+  :config
   (defun my-irony-mode-hook ()
 	(define-key irony-mode-map [remap completion-at-point]
 	  'irony-completion-at-point-async)
@@ -37,6 +38,7 @@
   )
 
 (use-package company-irony
+  :commands (company-irony-setup-begin-commands)
   :init
   (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
   :config
@@ -44,38 +46,11 @@
 	'(add-to-list 'company-backends 'company-irony))
   )
 
-(defun my/init-rtags ()
-  ;; (interactive)
-
-  (require 'rtags)
-  (require 'company-rtags)
-
-  (rtags-start-process-unless-running)
-
-  (setq rtags-completions-enabled t)
-  (rtags-enable-standard-keybindings c-mode-base-map)
-
-  (define-key c-mode-base-map (kbd "M-.") 'rtags-find-symbol-at-point)
-  (define-key c-mode-base-map (kbd "M-,") 'rtags-find-references-at-point)
-  (define-key c-mode-base-map (kbd "M-;") 'rtags-find-file)
-  (define-key c-mode-base-map (kbd "C-.") 'rtags-find-symbol)
-  (define-key c-mode-base-map (kbd "C-,") 'rtags-find-references)
-  (define-key c-mode-base-map (kbd "C-<") 'rtags-find-virtuals-at-point)
-  (define-key c-mode-base-map (kbd "M-i") 'rtags-imenu)
-
+(use-package company-c-headers
+  :config
   (eval-after-load 'company
-	'(add-to-list 'company-backends 'company-rtags))
+	'(add-to-list 'company-backends 'company-c-headers))
   )
-(add-hook 'c++-mode-hook 'my/init-rtags)
-
-(defun my/init-company-c-headers ()
-  (use-package company-c-headers
-	:config
-	(eval-after-load 'company
-	  '(add-to-list 'company-backends 'company-c-headers))
-	)
-  )
-(add-hook 'c-mode-common-hook 'my/init-company-c-headers)
 
 (provide 'init-c++)
 ;; init-c++.el ends here.
