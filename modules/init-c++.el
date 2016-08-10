@@ -3,6 +3,8 @@
 	irony
 	company-irony
 	flycheck-irony
+	google-c-style
+	flycheck-google-cpplint
 	)
   )
 
@@ -17,8 +19,10 @@
 	(setq indent-tabs-mode nil)
 	)
   :config
+  (define-key c-mode-map  [(tab)] 'company-complete)
+  (define-key c++-mode-map  [(tab)] 'company-complete)
   (setq-default c-basic-offset 4)
-  (setq-default c-default-style "linux")
+  ;; (setq-default c-default-style "linux")
   (add-hook 'c-mode-common-hook 'my/init-hs-minor-mode)
   )
 
@@ -38,7 +42,7 @@
   )
 
 (use-package company-irony
-  :commands (company-irony-setup-begin-commands)
+  :after irony
   :init
   (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
   :config
@@ -50,6 +54,25 @@
   :config
   (eval-after-load 'company
 	'(add-to-list 'company-backends 'company-c-headers))
+  )
+
+(use-package google-c-style
+  :defer t
+  :config
+  (add-hook 'c-mode-common-hook 'google-set-c-style)
+  (add-hook 'c-mode-common-hook 'google-make-newline-indent)
+  )
+
+(use-package flycheck-google-cpplint
+  :after flycheck
+  :init
+  (flycheck-add-next-checker 'c/c++-cppcheck
+							 '(warning . c/c++-googlelint))
+  :config
+  (setq flycheck-googlelint-verbose "3")
+  (setq flycheck-googlelint-filter "-whitespace,+whitespace/braces")
+  (setq flycheck-googlelint-root "project/src")
+  (setq flycheck-googlelint-linelength "120")
   )
 
 (provide 'init-c++)
