@@ -16,7 +16,7 @@
   (defun my/init-hs-minor-mode ()
 	(hs-minor-mode 1)
 	(diminish 'hs-minor-mode)
-	(setq indent-tabs-mode nil)
+	(setq-default indent-tabs-mode nil)
 	)
   :config
   (define-key c-mode-map  [(tab)] 'company-complete)

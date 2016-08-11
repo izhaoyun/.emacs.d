@@ -135,7 +135,8 @@
   )
 
 (use-package highlight-indentation
-  :diminish highlight-indentation-mode
+  :diminish (highlight-indentation-mode
+			 highlight-indentation-current-column-mode)
   :init
   (dolist (hook '(python-mode-hook ruby-mode-hook))
 	(add-hook hook #'highlight-indentation-mode)

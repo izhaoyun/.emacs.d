@@ -110,6 +110,7 @@
   )
 
 (use-package lispy
+  :diminish lispy-mode
   :init
   ;; enable lispy automatically for emacs-lisp-mode
   (add-hook 'emacs-lisp-mode-hook 'lispy-mode)
