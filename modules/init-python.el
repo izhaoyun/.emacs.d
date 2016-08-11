@@ -1,5 +1,9 @@
 (defconst my/python-packages
-  '(elpy
+  '(pythonic
+	pyvenv
+	company-jedi
+	py-yapf
+	flycheck-pyflakes
 	)
   )
 
@@ -7,20 +11,33 @@
 
 (use-package python
   :init
-  (add-hook 'python-mode-hook
-			'(lambda ()
-			   (flycheck-mode -1)))
   :config
   (setq python-indent-guess-indent-offset nil)
   )
 
-(defun python/init-elpy ()
-  (use-package elpy
+(defun python/init-company-jedi ()
+  (use-package company-jedi
 	:init
-	(elpy-enable)
+	(add-hook 'company-backends 'company-jedi)
 	)
   )
-(add-hook 'python-mode-hook 'python/init-elpy)
+(add-hook 'python-mode-hook 'python/init-company-jedi)
 
+(defun python/init-pyvenv ()
+  (use-package pyvenv
+	:init
+	(add-hook 'pyvenv-post-activate-hooks 'pyvenv-restart-python)
+	)
+  )
+(add-hook 'python-mode-hook 'python/init-pyvenv)
+
+;; setup py-yapf
+(add-hook 'python-mode-hook 'py-yapf-enable-on-save)
+
+;;;###autoload
+(defun python/init-flycheck-pyflakes ()
+  (use-package flycheck-pyflakes)
+  )
+(add-hook 'python-mode-hook 'python/init-flycheck-pyflakes)
 
 (provide 'init-python)

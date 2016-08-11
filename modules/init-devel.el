@@ -7,6 +7,7 @@
 	aggressive-indent
 	magit
 	flycheck
+	flycheck-pos-tip
 	highlight-indentation
 	clean-aindent-mode
 	ws-butler
@@ -109,14 +110,16 @@
   (setq company-quickhelp-delay nil))
 
 (use-package comment-dwim-2
-  :bind ("M-;" . comment-dwim-2))
+  :bind ("M-;" . comment-dwim-2)
+  )
 
 (use-package projectile
   :diminish projectile-mode
   :commands (projectile-global-mode)
   :init
   (projectile-global-mode)
-  (setq projectile-completion-system 'ivy))
+  (setq projectile-completion-system 'ivy)
+  )
 
 (use-package eldoc
   :diminish eldoc-mode
@@ -158,6 +161,11 @@
   :config
   (setq flycheck-check-syntax-automatically '(mode-enabled save))
   (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
+
+  (use-package flycheck-pos-tip
+	:init
+	(flycheck-pos-tip-mode)
+	)
   )
 
 (provide 'init-devel)
