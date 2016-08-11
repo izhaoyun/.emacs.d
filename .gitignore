@@ -10,3 +10,4 @@ semanticdb
 session.*
 
 company-statistics-cache.el
+eshell/
