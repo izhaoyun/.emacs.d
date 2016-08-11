@@ -18,24 +18,27 @@
   :interpreter "ruby"
   )
 
-(use-package inf-ruby
-  :init
-  (add-hook 'ruby-mode-hook 'inf-ruby-minor-mode)
-  (add-hook 'compilation-filter-hook 'inf-ruby-auto-enter)
-  :config
-  (use-package company-inf-ruby
-	:config
-
+(defun ruby/init-inf-ruby ()
+  (progn
+	(use-package inf-ruby
+	  :init
+	  (inf-ruby-minor-mode 1)
+	  (add-hook 'compilation-filter-hook 'inf-ruby-auto-enter)
+	  )
+	(use-package company-inf-ruby)
 	)
   )
+(add-hook 'ruby-mode-hook 'ruby/init-inf-ruby)
 
-(use-package robe
-  :init
-  (add-hook 'ruby-mode-hook 'robe-mode)
-  :config
-  (eval-after-load 'company
-	'(push 'company-robe company-backends))
+(defun ruby/init-robe ()
+  (use-package robe
+	:init
+	(robe-mode)
+	:config
+	(push 'company-robe company-backends)
+	)
   )
+(add-hook 'ruby-mode-hook 'ruby/init-robe)
 
 (use-package puppet-mode
   :mode ("\\.pp$" . puppet-mode)

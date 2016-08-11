@@ -9,33 +9,31 @@
 
   ;; get `use-package' installed.
   (unless (package-installed-p 'use-package)
-    (package-refresh-contents)
-    (package-install 'use-package))
+	(package-refresh-contents)
+	(package-install 'use-package))
 
   (require 'use-package)
   (require 'diminish)
   (require 'bind-key)
   )
 
-(eval-and-compile
-  (setq load-prefer-newer t)
-;;;###autoload
-  (defun recompile-elisp-file ()
-    (interactive)
-    (when (and buffer-file-name (string-match "\\.el" buffer-file-name))
-      (let ((byte-file (concat buffer-file-name "\\.elc")))
-	(if (or (not (file-exists-p byte-file))
-		(file-newer-than-file-p buffer-file-name byte-file))
-	    (byte-compile-file buffer-file-name)))))
-  (add-hook 'after-save-hook #'recompile-elisp-file)
-  )
+(setq load-prefer-newer t)
 
-(eval-and-compile
-  (defun install-packages (packages-list)
-    (dolist (package packages-list)
-      (unless (package-installed-p package)
-	(package-install package)))
-    )
+;;;###autoload
+(defun recompile-elisp-file ()
+  (interactive)
+  (when (and buffer-file-name (string-match "\\.el" buffer-file-name))
+	(let ((byte-file (concat buffer-file-name "\\.elc")))
+	  (if (or (not (file-exists-p byte-file))
+			  (file-newer-than-file-p buffer-file-name byte-file))
+		  (byte-compile-file buffer-file-name)))))
+(add-hook 'after-save-hook #'recompile-elisp-file)
+
+;;;###autoload
+(defun install-packages (packages-list)
+  (dolist (package packages-list)
+	(unless (package-installed-p package)
+	  (package-install package)))
   )
 
 (setq custom-file (expand-file-name "settings.el" user-emacs-directory))

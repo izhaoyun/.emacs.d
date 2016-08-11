@@ -39,22 +39,18 @@
 	  'irony-completion-at-point-async))
   (add-hook 'irony-mode-hook 'my-irony-mode-hook)
   (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-  )
 
-(use-package company-irony
-  :after irony
-  :init
-  (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
-  :config
-  (eval-after-load 'company
-	'(add-to-list 'company-backends 'company-irony))
-  )
+  (use-package company-irony
+	:init
+	(add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
+	:config
+	(add-to-list 'company-backends 'company-irony)
+	)
 
-(use-package flycheck-irony
-  :after irony
-  :config
-  (eval-after-load 'flycheck
-	'(add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+  (use-package flycheck-irony
+	:init
+	(add-hook 'flycheck-mode-hook #'flycheck-irony-setup)
+	)
   )
 
 (use-package company-c-headers

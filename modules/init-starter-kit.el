@@ -1,21 +1,22 @@
 (defconst my/starter-kit-packages
   '(ivy
-    swiper
-    counsel
-    hydra
-    avy
-    ace-window
-    lispy
-    which-key
-    hi-lock
-    expand-region
-    rainbow-delimiters
-    undo-tree
-    iedit
-    highlight-symbol
-    ace-pinyin
-    chinese-fonts-setup
-    ))
+	swiper
+	counsel
+	hydra
+	avy
+	ace-window
+	lispy
+	which-key
+	hi-lock
+	expand-region
+	rainbow-delimiters
+	undo-tree
+	iedit
+	highlight-symbol
+	ace-pinyin
+	chinese-fonts-setup
+	)
+  )
 
 (install-packages my/starter-kit-packages)
 
@@ -28,16 +29,16 @@
   :commands (ivy-mode)
   :preface
   (defun ivy-dired ()
-    (interactive)
-    (if ivy--directory
+	(interactive)
+	(if ivy--directory
 	(ivy-quit-and-run
 	 (dired ivy--directory)
 	 (when (re-search-forward
 		(regexp-quote
 		 (substring ivy--current 0 -1)) nil t)
 	   (goto-char (match-beginning 0))))
-      (user-error
-       "Not completing files currently")))
+	  (user-error
+	   "Not completing files currently")))
   :bind (("C-s" . counsel-grep-or-swiper)
 	 ("M-x" . counsel-M-x)
 	 ("M-y" . counsel-yank-pop)
@@ -56,24 +57,24 @@
 	 ("C-c v"   . ivy-push-view)
 	 ("C-c V"   . ivy-pop-view))
   :bind (:map help-map
-	      ("b" . counsel-descbinds)
-	      ("f" . counsel-describe-function)
-	      ("v" . counsel-describe-variable)
-	      ("s" . counsel-info-lookup-symbol)
-	      ("u" . counsel-unicode-char))
+		  ("b" . counsel-descbinds)
+		  ("f" . counsel-describe-function)
+		  ("v" . counsel-describe-variable)
+		  ("s" . counsel-info-lookup-symbol)
+		  ("u" . counsel-unicode-char))
   :bind (:map ivy-minibuffer-map
-	      ("C-:" . ivy-dired)
-	      ("C-c o" . ivy-occur))
+		  ("C-:" . ivy-dired)
+		  ("C-c o" . ivy-occur))
   :init
   (use-package ivy
-    :init
-    (ivy-mode 1)
-    (diminish 'ivy-mode)
-    :config
-    (setq ivy-use-virtual-buffers t)
-    (setq ivy-display-style 'fancy)
-    (setq ivy-count-format "(%d/%d) ")
-    )
+	:init
+	(ivy-mode 1)
+	(diminish 'ivy-mode)
+	:config
+	(setq ivy-use-virtual-buffers t)
+	(setq ivy-display-style 'fancy)
+	(setq ivy-count-format "(%d/%d) ")
+	)
   :config
   (setq counsel-find-file-at-point t)
   )
@@ -89,14 +90,14 @@
   :init
   (avy-setup-default)
   (eval-and-compile
-    ;; Jumping to conditionals in Elisp
-    (defun avy-goto-conditional ()
-      (interactive)
-      (avy--generic-jump "\\s(\\(if\\|cond\\|when\\|unless\\)\\b" nil 'pre))
-    (defun avy-goto-paren ()
-      (interactive)
-      (avy--generic-jump "(" nil 'pre))
-    )
+	;; Jumping to conditionals in Elisp
+	(defun avy-goto-conditional ()
+	  (interactive)
+	  (avy--generic-jump "\\s(\\(if\\|cond\\|when\\|unless\\)\\b" nil 'pre))
+	(defun avy-goto-paren ()
+	  (interactive)
+	  (avy--generic-jump "(" nil 'pre))
+	)
   :config
   (advice-add 'swiper :before 'avy-push-mark))
 
@@ -114,15 +115,15 @@
   (add-hook 'emacs-lisp-mode-hook 'lispy-mode)
   ;; enable lispy for eval-expression
   (defun conditionally-enable-lispy ()
-    (when (eq this-command 'eval-expression)
-      (lispy-mode 1)))
+	(when (eq this-command 'eval-expression)
+	  (lispy-mode 1)))
   (add-hook 'minibuffer-setup-hook 'conditionally-enable-lispy)
   )
 
 (use-package which-key
   :diminish which-key-mode
   :commands (which-key-mode
-             which-key-setup-side-window-right-bottom)
+			 which-key-setup-side-window-right-bottom)
   :init
   (which-key-mode)
   (which-key-setup-side-window-right-bottom)
@@ -137,7 +138,7 @@
 
 (use-package expand-region
   :bind (("C-=" . er/expand-region)
-         ("C--" . er/contract-region))
+		 ("C--" . er/contract-region))
   )
 
 (use-package paren
@@ -162,15 +163,15 @@
 			  (mode . term-mode)
 			  (mode . compilation-mode)))
 	  ("C++" (or (mode . c-mode)
-		     (mode . c++-mode)))
+			 (mode . c++-mode)))
 	  ("Magit" (or (mode . magit-status-mode)
-		       (mode . magit-log-mode)
-		       (name . "^\\*magit")
-		       (name . "git-monitor")))
+			   (mode . magit-log-mode)
+			   (name . "^\\*magit")
+			   (name . "git-monitor")))
 	  ("Emacs" (or (mame . "^\\*scratch\\*$")
-		       (name . "^\\*Messages\\*$" )
-		       (name . "^\\*\\(Customize\\|Hellp\\)" )
-		       (name . "\\*\\(Echo\\|Minibuf\\)" )))
+			   (name . "^\\*Messages\\*$" )
+			   (name . "^\\*\\(Customize\\|Hellp\\)" )
+			   (name . "\\*\\(Echo\\|Minibuf\\)" )))
 	  ("lisp" (mode . emacs-lisp-mode))))
   )
 
@@ -195,9 +196,9 @@
 	 ("C-S-z" . undo-tree-redo))
   :config
   (progn
-    (global-undo-tree-mode)
-    (setq undo-tree-visualizer-diff t)
-    (setq undo-tree-visualizer-timestamps t))
+	(global-undo-tree-mode)
+	(setq undo-tree-visualizer-diff t)
+	(setq undo-tree-visualizer-timestamps t))
   )
 
 (use-package hippie-exp
@@ -222,7 +223,7 @@
 (use-package flyspell
   :diminish flyspell-mode
   :commands (flyspell-mode
-	     flyspell-prog-mode)
+		 flyspell-prog-mode)
   :init
   ;; if (aspell installed) { use aspell}
   ;; else if (hunspell installed) { use hunspell }
@@ -232,32 +233,32 @@
   ;; 2. looks Kevin Atkinson still get some road map for aspell:
   ;; @see http://lists.gnu.org/archive/html/aspell-announce/2011-09/msg00000.html
   (defun flyspell-detect-ispell-args (&optional run-together)
-    "if RUN-TOGETHER is true, spell check the CamelCase words."
-    (let (args)
-      (cond
-       ((string-match  "aspell$" ispell-program-name)
+	"if RUN-TOGETHER is true, spell check the CamelCase words."
+	(let (args)
+	  (cond
+	   ((string-match  "aspell$" ispell-program-name)
 	;; Force the English dictionary for aspell
 	;; Support Camel Case spelling check (tested with aspell 0.6)
 	(setq args (list "--sug-mode=ultra" "--lang=en_US"))
 	(if run-together
-	    (setq args (append args '("--run-together" "--run-together-limit=5" "--run-together-min=2")))))
-       ((string-match "hunspell$" ispell-program-name)
+		(setq args (append args '("--run-together" "--run-together-limit=5" "--run-together-min=2")))))
+	   ((string-match "hunspell$" ispell-program-name)
 	;; Force the English dictionary for hunspell
 	(setq args "-d en_US")))
-      args))
+	  args))
 
   (cond
    ((executable-find "aspell")
-    ;; you may also need `ispell-extra-args'
-    (setq ispell-program-name "aspell"))
+	;; you may also need `ispell-extra-args'
+	(setq ispell-program-name "aspell"))
    ((executable-find "hunspell")
-    (setq ispell-program-name "hunspell")
+	(setq ispell-program-name "hunspell")
 
-    ;; Please note that `ispell-local-dictionary` itself will be passed to hunspell cli with "-d"
-    ;; it's also used as the key to lookup ispell-local-dictionary-alist
-    ;; if we use different dictionary
-    (setq ispell-local-dictionary "en_US")
-    (setq ispell-local-dictionary-alist
+	;; Please note that `ispell-local-dictionary` itself will be passed to hunspell cli with "-d"
+	;; it's also used as the key to lookup ispell-local-dictionary-alist
+	;; if we use different dictionary
+	(setq ispell-local-dictionary "en_US")
+	(setq ispell-local-dictionary-alist
 	  '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8))))
    (t (setq ispell-program-name nil)))
 
@@ -268,32 +269,32 @@
   (setq-default ispell-extra-args (flyspell-detect-ispell-args t))
   ;; (setq ispell-cmd-args (flyspell-detect-ispell-args))
   (defadvice ispell-word (around my-ispell-word activate)
-    (let ((old-ispell-extra-args ispell-extra-args))
-      (ispell-kill-ispell t)
-      (setq ispell-extra-args (flyspell-detect-ispell-args))
-      ad-do-it
-      (setq ispell-extra-args old-ispell-extra-args)
-      (ispell-kill-ispell t)
-      ))
+	(let ((old-ispell-extra-args ispell-extra-args))
+	  (ispell-kill-ispell t)
+	  (setq ispell-extra-args (flyspell-detect-ispell-args))
+	  ad-do-it
+	  (setq ispell-extra-args old-ispell-extra-args)
+	  (ispell-kill-ispell t)
+	  ))
 
   (defadvice flyspell-auto-correct-word (around my-flyspell-auto-correct-word activate)
-    (let ((old-ispell-extra-args ispell-extra-args))
-      (ispell-kill-ispell t)
-      ;; use emacs original arguments
-      (setq ispell-extra-args (flyspell-detect-ispell-args))
-      ad-do-it
-      ;; restore our own ispell arguments
-      (setq ispell-extra-args old-ispell-extra-args)
-      (ispell-kill-ispell t)
-      ))
+	(let ((old-ispell-extra-args ispell-extra-args))
+	  (ispell-kill-ispell t)
+	  ;; use emacs original arguments
+	  (setq ispell-extra-args (flyspell-detect-ispell-args))
+	  ad-do-it
+	  ;; restore our own ispell arguments
+	  (setq ispell-extra-args old-ispell-extra-args)
+	  (ispell-kill-ispell t)
+	  ))
 
   (defun text-mode-hook-setup ()
-    ;; Turn off RUN-TOGETHER option when spell check text-mode
-    (setq-local ispell-extra-args (flyspell-detect-ispell-args)))
+	;; Turn off RUN-TOGETHER option when spell check text-mode
+	(setq-local ispell-extra-args (flyspell-detect-ispell-args)))
   (add-hook 'text-mode-hook 'text-mode-hook-setup)
 
   :config
-  (add-hook 'prog-mode-hook 'flyspell-prog-mode)  
+  (add-hook 'prog-mode-hook 'flyspell-prog-mode)
   )
 
 

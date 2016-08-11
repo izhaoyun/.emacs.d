@@ -79,9 +79,11 @@
 		  (backward-char 1)
 		  (if (looking-at "->") t nil)))))
 
-  (defun do-yas-expand ()
-	(let ((yas-fallback-behavior 'return-nil))
-	  (yas-expand)))
+  (eval-and-compile
+	(defun do-yas-expand ()
+	  (let ((yas-fallback-behavior 'return-nil))
+		(yas-expand)))
+	)
 
   (defun tab-indent-or-complete ()
 	(interactive)
@@ -124,19 +126,23 @@
 
 (use-package aggressive-indent
   :diminish aggressive-indent-mode
-  :defer t
-  :commands (global-aggressive-indent-mode)
-  :config
+  :init
   (global-aggressive-indent-mode 1)
   )
 
 (use-package magit
-  :defer t
   :bind ("C-x t g" . magit-status)
   )
 
 (use-package highlight-indentation
   :diminish highlight-indentation-mode
+  :init
+  (dolist (hook '(python-mode-hook ruby-mode-hook))
+	(add-hook hook #'highlight-indentation-mode)
+	(add-hook hook #'highlight-indentation-current-column-mode))
+  :config
+  (set-face-background 'highlight-indentation-face "#e3e3d3")
+  (set-face-background 'highlight-indentation-current-column-face "#c3b3b3")
   )
 
 (use-package clean-aindent-mode
@@ -150,7 +156,7 @@
   (add-hook 'prog-mode-hook 'flycheck-mode)
   :config
   (setq flycheck-check-syntax-automatically '(mode-enabled save))
-  (setq flycheck-disabled-checkers '(emacs-lisp-checkdoc))
+  (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
   )
 
 (provide 'init-devel)
