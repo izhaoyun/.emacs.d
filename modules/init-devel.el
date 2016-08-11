@@ -150,6 +150,7 @@
   (add-hook 'prog-mode-hook 'flycheck-mode)
   :config
   (setq flycheck-check-syntax-automatically '(mode-enabled save))
+  (setq flycheck-disabled-checkers '(emacs-lisp-checkdoc))
   )
 
 (provide 'init-devel)
