@@ -16,15 +16,6 @@
 
 (install-packages my/devel-packages)
 
-(defun my/prog-mode-hook ()
-  (setq-default case-fold-search nil)
-  (setq-default tab-width 4)
-  (setq tab-always-indent 'complete)
-  (electric-indent-mode -1)
-  )
-(add-hook 'prog-mode-hook 'my/prog-mode-hook)
-
-(add-hook 'before-save-hook 'delete-trailing-whitespace)
 (use-package whitespace
   :defer t
   :config
@@ -71,7 +62,7 @@
 	)
   (setq company-backends
 		(mapcar #'company-mode/backend-with-yas company-backends))
-  ;; solving conflicts in company and yasnippet
+
   (defun check-expansion ()
 	(save-excursion
 	  (if (looking-at "\\_>") t
@@ -80,23 +71,69 @@
 		  (backward-char 1)
 		  (if (looking-at "->") t nil)))))
 
-  (eval-and-compile
-	(defun do-yas-expand ()
-	  (let ((yas-fallback-behavior 'return-nil))
-		(yas-expand)))
-	)
+  (defun do-yas-expand ()
+	(let ((yas/fallback-behavior 'return-nil))
+	  (yas/expand)))
 
   (defun tab-indent-or-complete ()
 	(interactive)
-	(if (minibufferp)
-		(minibuffer-complete)
-	  (if (or (not yas-minor-mode)
+	(cond
+	 ((minibufferp)
+	  (minibuffer-complete))
+	 (t
+	  (indent-for-tab-command)
+	  (if (or (not yas/minor-mode)
 			  (null (do-yas-expand)))
 		  (if (check-expansion)
-			  (company-complete-common)
-			(indent-for-tab-command)))))
+			  (progn
+				(company-manual-begin)
+				(if (null company-candidates)
+					(progn
+					  (company-abort)
+					  (indent-for-tab-command)))))))))
+
+  (defun tab-complete-or-next-field ()
+	(interactive)
+	(if (or (not yas/minor-mode)
+			(null (do-yas-expand)))
+		(if company-candidates
+			(company-complete-selection)
+		  (if (check-expansion)
+			  (progn
+				(company-manual-begin)
+				(if (null company-candidates)
+					(progn
+					  (company-abort)
+					  (yas-next-field))))
+			(yas-next-field)))))
+
+  (defun expand-snippet-or-complete-selection ()
+	(interactive)
+	(if (or (not yas/minor-mode)
+			(null (do-yas-expand))
+			(company-abort))
+		(company-complete-selection)))
+
+  (defun abort-company-or-yas ()
+	(interactive)
+	(if (null company-candidates)
+		(yas-abort-snippet)
+	  (company-abort)))
 
   (global-set-key [tab] 'tab-indent-or-complete)
+  (global-set-key (kbd "TAB") 'tab-indent-or-complete)
+  (global-set-key [(control return)] 'company-complete-common)
+
+  (define-key company-active-map [tab] 'expand-snippet-or-complete-selection)
+  (define-key company-active-map (kbd "TAB") 'expand-snippet-or-complete-selection)
+
+  (define-key yas-minor-mode-map [tab] nil)
+  (define-key yas-minor-mode-map (kbd "TAB") nil)
+
+  (define-key yas-keymap [tab] 'tab-complete-or-next-field)
+  (define-key yas-keymap (kbd "TAB") 'tab-complete-or-next-field)
+  (define-key yas-keymap [(control tab)] 'yas-next-field)
+  (define-key yas-keymap (kbd "C-g") 'abort-company-or-yas)
   )
 
 (use-package company-quickhelp
@@ -119,6 +156,8 @@
   :init
   (projectile-global-mode)
   (setq projectile-completion-system 'ivy)
+  :config
+  (setq projectile-enable-caching t)
   )
 
 (use-package eldoc
@@ -130,6 +169,8 @@
 (use-package aggressive-indent
   :diminish aggressive-indent-mode
   :init
+  ;; when `global-aggressive-indent-mode' is enabled it will not
+  ;; affect major modes listed in `aggressive-indent-excluded-modes'.
   (global-aggressive-indent-mode 1)
   )
 

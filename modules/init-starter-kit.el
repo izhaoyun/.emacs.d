@@ -14,7 +14,6 @@
 	iedit
 	highlight-symbol
 	ace-pinyin
-	chinese-fonts-setup
 	)
   )
 
@@ -101,8 +100,7 @@
   :config
   (advice-add 'swiper :before 'avy-push-mark))
 
-(use-package ace-window
-  :bind ("M-p" . ace-window))
+(use-package ace-window)
 
 (use-package iedit
   :commands (iedit-mode)
@@ -123,8 +121,6 @@
 
 (use-package which-key
   :diminish which-key-mode
-  :commands (which-key-mode
-			 which-key-setup-side-window-right-bottom)
   :init
   (which-key-mode)
   (which-key-setup-side-window-right-bottom)
@@ -132,21 +128,14 @@
 
 (use-package highlight-symbol
   :bind (("C-<f3>" . highlight-symbol)
-	 ("<f3>"   . highlight-symbol-next)
-	 ("S-<f3>" . highlight-symbol-prev)
-	 ("M-<f3>" . highlight-symbol-query-replace))
+		 ("<f3>"   . highlight-symbol-next)
+		 ("S-<f3>" . highlight-symbol-prev)
+		 ("M-<f3>" . highlight-symbol-query-replace))
   )
 
 (use-package expand-region
   :bind (("C-=" . er/expand-region)
 		 ("C--" . er/contract-region))
-  )
-
-(use-package paren
-  :init
-  (show-paren-mode)
-  :config
-  (setq show-paren-style 'expression)
   )
 
 (use-package rainbow-delimiters
@@ -156,55 +145,40 @@
 
 (use-package ibuffer
   :bind ("C-x C-b" . ibuffer)
-  :init
-  (setq ibuffer-saved-filter-groups
-	'("default"
-	  ("Commands" (or (mode . shell-mode)
-			  (mode . eshell-mode)
-			  (mode . term-mode)
-			  (mode . compilation-mode)))
-	  ("C++" (or (mode . c-mode)
-			 (mode . c++-mode)))
-	  ("Magit" (or (mode . magit-status-mode)
-			   (mode . magit-log-mode)
-			   (name . "^\\*magit")
-			   (name . "git-monitor")))
-	  ("Emacs" (or (mame . "^\\*scratch\\*$")
-			   (name . "^\\*Messages\\*$" )
-			   (name . "^\\*\\(Customize\\|Hellp\\)" )
-			   (name . "\\*\\(Echo\\|Minibuf\\)" )))
-	  ("lisp" (mode . emacs-lisp-mode))))
   )
 
 (use-package winner
   :if (not noninteractive)
-  :defer 5
+  :defer 12
   :config
-  (winner-mode 1))
+  (winner-mode 1)
+  )
 
 (use-package recentf
-  :defer t
+  :defer 10
   :bind ("C-x C-r" . recentf-open-files)
   :config
-  (recentf-mode)
+  (recentf-mode 1)
   )
 
 (use-package undo-tree
-  :defer t
+  :defer 10
   :diminish undo-tree-mode
-  :commands (global-undo-tree-mode)
+  :commands (undo-tree-visualizer-mode)
   :bind (("C-z"   . undo)
-	 ("C-S-z" . undo-tree-redo))
+		 ("C-S-z" . undo-tree-redo)
+		 ("C-x u" . undo-tree-visualize-mode))
+  :init
+  (global-undo-tree-mode 1)
   :config
-  (progn
-	(global-undo-tree-mode)
-	(setq undo-tree-visualizer-diff t)
-	(setq undo-tree-visualizer-timestamps t))
+  (setq undo-tree-visualizer-diff t)
+  (setq undo-tree-visualizer-timestamps t)
   )
 
 (use-package hippie-exp
   :commands (hippie-expand)
-  :bind ("M-/" . hippie-expand))
+  :bind ("M-/" . hippie-expand)
+  )
 
 (use-package ace-pinyin
   :diminish ace-pinyin-mode
@@ -213,18 +187,10 @@
   (ace-pinyin-global-mode)
   )
 
-(use-package chinese-fonts-setup
-  :config
-  (setq cfs-profiles
-	'("program" "org-mode" "read-book"))
-  (setq cfs--current-profile "program")
-  (setq cfs--profiles-steps (quote (("program" . 3))))
-  )
-
 (use-package flyspell
   :diminish flyspell-mode
   :commands (flyspell-mode
-		 flyspell-prog-mode)
+			 flyspell-prog-mode)
   :init
   ;; if (aspell installed) { use aspell}
   ;; else if (hunspell installed) { use hunspell }
@@ -238,14 +204,14 @@
 	(let (args)
 	  (cond
 	   ((string-match  "aspell$" ispell-program-name)
-	;; Force the English dictionary for aspell
-	;; Support Camel Case spelling check (tested with aspell 0.6)
-	(setq args (list "--sug-mode=ultra" "--lang=en_US"))
-	(if run-together
-		(setq args (append args '("--run-together" "--run-together-limit=5" "--run-together-min=2")))))
+		;; Force the English dictionary for aspell
+		;; Support Camel Case spelling check (tested with aspell 0.6)
+		(setq args (list "--sug-mode=ultra" "--lang=en_US"))
+		(if run-together
+			(setq args (append args '("--run-together" "--run-together-limit=5" "--run-together-min=2")))))
 	   ((string-match "hunspell$" ispell-program-name)
-	;; Force the English dictionary for hunspell
-	(setq args "-d en_US")))
+		;; Force the English dictionary for hunspell
+		(setq args "-d en_US")))
 	  args))
 
   (cond
@@ -260,7 +226,7 @@
 	;; if we use different dictionary
 	(setq ispell-local-dictionary "en_US")
 	(setq ispell-local-dictionary-alist
-	  '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8))))
+		  '(("en_US" "[[:alpha:]]" "[^[:alpha:]]" "[']" nil ("-d" "en_US") nil utf-8))))
    (t (setq ispell-program-name nil)))
 
   ;; ispell-cmd-args is useless, it's the list of *extra* arguments we will append to the ispell process when "ispell-word" is called.
