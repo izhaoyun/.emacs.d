@@ -11,3 +11,5 @@ session.*
 
 company-statistics-cache.el
 eshell/
+.python-environments/
+projectile.cache
