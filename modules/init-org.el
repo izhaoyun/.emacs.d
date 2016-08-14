@@ -1,6 +1,8 @@
 (defconst my/org-packages
   '(org
+	org-bullets
     org-plus-contrib
+	ob-ipython
     htmlize
 	chinese-fonts-setup
 	)
@@ -8,57 +10,53 @@
 
 (install-packages my/org-packages)
 
-(defun my/init-org-fonts ()
-  (use-package chinese-fonts-setup
-	:config
-	(setq cfs-profiles '("program"))
-	(setq cfs--current-profile "program")
-	(setq cfs--profiles-steps (quote (("program" . 3))))
-	)
+(use-package chinese-fonts-setup
+  :config
+  (setq cfs-profiles '("program"))
+  (setq cfs--current-profile "program")
+  (setq cfs--profiles-steps (quote (("program" . 3))))
   )
-(add-hook 'org-mode-hook 'my/init-org-fonts)
 
 (use-package org-bullets
-  :ensure org-plus-contrib
   :init
   (add-hook 'org-mode-hook 'org-bullets-mode)
   )
 
-(eval-and-compile
-  (defun my/init-org-babel ()
-    (use-package ob-C)
-    (use-package ob-awk)
-    (use-package ob-dot)
-    (use-package ob-sed)
-    (use-package ob-sql)
-    (use-package ob-ruby)
-    (use-package ob-shell)
-    (use-package ob-python)
-    (use-package ob-emacs-lisp)
-    (use-package ob-plantuml
-      :config
-      (setq org-plantuml-jar-path "/opt/plantuml/plantuml.jar"))
-    (use-package ob-ditaa
-      :config
-      (setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_9.jar"))
+;;;###autoload
+(defun my/init-org-babel ()
+  ;; (use-package ob-C)
+  ;; (use-package ob-awk)
+  ;; (use-package ob-dot)
+  ;; (use-package ob-sed)
+  ;; (use-package ob-sql)
+  ;; (use-package ob-ruby)
+  ;; (use-package ob-shell)
+  ;; (use-package ob-python)
+  ;; (use-package ob-emacs-lisp)
+  ;; (use-package ob-plantuml
+  ;; 	:defer t
+  ;; 	:config
+  ;; 	(setq org-plantuml-jar-path (shell-command-to-string "locate plantuml.jar"))
+  ;; 	)
+  ;; (use-package ob-ditaa
+  ;; 	:config
+  ;; 	(setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_9.jar")
+  ;; 	)
 
-    (use-package ob
-      :config
-      (org-babel-do-load-languages
-       'org-babel-load-languages
-       '((C          . t)
-		 (awk        . t)
-		 (dot        . t)
-		 (sed        . t)
-		 (sql        . t)
-		 (ruby       . t)
-		 (ditaa      . t)
-		 (shell      . t)
-		 (python     . t)
-		 (plantuml   . t)
-		 (emacs-lisp . t)))
-	  )
-	)
+  (org-babel-do-load-languages
+   'org-babel-load-languages
+   '((C          . t)
+	 (awk        . t)
+	 (dot        . t)
+	 (sed        . t)
+	 (sql        . t)
+	 (ruby       . t)
+	 (ditaa      . t)
+	 (shell      . t)
+	 (python     . t)
+	 (plantuml   . t)
+	 (emacs-lisp . t))
+   )
   )
 
 ;;;###autoload
@@ -98,7 +96,7 @@
 	)
   :config
   (setq org-export-default-language "zh-CN")
-  (setq org-latex-compiler "xelatex")
+  ;; (setq org-latex-compiler "xelatex")
   (add-to-list 'org-export-filter-final-output-functions
 			   'ox-html-clear-single-linebreak-for-cjk)
   )
