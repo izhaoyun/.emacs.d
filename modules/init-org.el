@@ -5,8 +5,8 @@
 	ob-ipython
 	ob-http
     htmlize
-    ;; gnuplot-mode
 	gnuplot
+	graphviz-dot-mode
 	)
   )
 
@@ -19,11 +19,9 @@
 
 (use-package ob
   :config
-  (require 'ob-C)
-  (require 'ob-emacs-lisp)
-  (require 'ob-python)
-  (require 'ob-shell)
-  (require 'ob-sql)
+  (setq org-confirm-babel-evaluate nil)
+  (add-hook 'org-babel-after-execute-hook 'org-display-inline-images 'append)
+
   (use-package ob-plantuml
   	:config
   	(setq org-plantuml-jar-path
@@ -37,15 +35,29 @@
 	  )
 	)
 
+  (use-package ob-dot
+	:init
+	(use-package graphviz-dot-mode
+	  :mode ("\\.dot\\'" . graphviz-dot-mode)
+	  )
+	)
+
+  (use-package ob-ditaa
+	:config
+	(setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_9.jar")
+	)
+
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((C          . t)
+   '((C          . t)					; C, C++, D
 	 (awk        . t)
 	 (dot        . t)
 	 (sed        . t)
 	 (sql        . t)
+	 (calc       . t)
 	 (ruby       . t)
 	 (ditaa      . t)
+	 (latex      . t)
 	 (shell      . t)
 	 (python     . t)
 	 (plantuml   . t)
@@ -57,38 +69,19 @@
   )
 
 ;;;###autoload
-(defun my/init-org-babel ()
-
-  ;; (use-package ob-awk)
-  ;; (use-package ob-dot)
-  ;; (use-package ob-sed)
-
-  ;; (use-package ob-ruby)
-  ;; (use-package ob-shell)
-  ;; (use-package ob-python)
-
-  ;; (use-package ob-ditaa
-  ;; 	:config
-  ;; 	(setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_9.jar")
-  ;; 	)
-
-
-  )
-
-;;;###autoload
 (defun my/init-org-export ()
-  (use-package htmlize)
-  ;; export to markdown files.
-  (use-package ox-beamer)
-  (use-package ox-gfm
-	:ensure org-plus-contrib)
+
+  (require 'ox-beamer)
+  (require 'ox-gfm)
+
+  (require 'htmlize)
   (use-package ox-html)
+
   (use-package ox-latex
 	:config
 	(setq org-latex-listings 'minted)
-	(setq org-latex-minted-options
-		  '(("frame"      "single")
-			("breaklines" "")))
+	(setq org-latex-minted-options '(("frame"      "single")
+									 ("breaklines" "")))
 	(setq org-latex-pdf-process
 		  '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
 			"xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
@@ -123,8 +116,6 @@
 		 ("C-c b" . org-iswitch)
 		 ("C-c c" . org-capture)
 		 ("C-c l" . org-store-link))
-  :init
-
   :config
   (setq org-src-fontify-natively t)
   (setq org-src-tab-acts-natively t)
@@ -140,12 +131,7 @@
   (add-to-list 'org-latex-packages-alist '("" "natbib"))
   (add-to-list 'org-latex-packages-alist '("" "titlesec"))
 
-  (add-hook 'org-mode-hook 'my/init-org-babel)
   (add-hook 'org-mode-hook 'my/init-org-export)
   )
-
-
-
-
 
 (provide 'init-org)
