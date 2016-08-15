@@ -5,6 +5,8 @@
 	ob-ipython
 	ob-http
     htmlize
+    ;; gnuplot-mode
+	gnuplot
 	)
   )
 
@@ -28,6 +30,13 @@
 		  (shell-command-to-string "locate plantuml.jar"))
   	)
 
+  (use-package ob-gnuplot
+	:init
+	(use-package gnuplot
+	  :mode ("\\.\\(gp\\|gnuplot\\)$" . gnuplot-mode)
+	  )
+	)
+
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((C          . t)
@@ -41,8 +50,8 @@
 	 (python     . t)
 	 (plantuml   . t)
 	 (emacs-lisp . t)
-	 (http . t)
-	 (gnuplot . t)
+	 (http       . t)
+	 (gnuplot    . t)
 	 )
    )
   )
@@ -134,5 +143,9 @@
   (add-hook 'org-mode-hook 'my/init-org-babel)
   (add-hook 'org-mode-hook 'my/init-org-export)
   )
+
+
+
+
 
 (provide 'init-org)
