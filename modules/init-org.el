@@ -3,45 +3,30 @@
 	org-bullets
     org-plus-contrib
 	ob-ipython
+	ob-http
     htmlize
-	chinese-fonts-setup
 	)
   )
 
 (install-packages my/org-packages)
-
-(use-package chinese-fonts-setup
-  :config
-  (setq cfs-profiles '("program"))
-  (setq cfs--current-profile "program")
-  (setq cfs--profiles-steps (quote (("program" . 3))))
-  )
 
 (use-package org-bullets
   :init
   (add-hook 'org-mode-hook 'org-bullets-mode)
   )
 
-;;;###autoload
-(defun my/init-org-babel ()
-  ;; (use-package ob-C)
-  ;; (use-package ob-awk)
-  ;; (use-package ob-dot)
-  ;; (use-package ob-sed)
-  ;; (use-package ob-sql)
-  ;; (use-package ob-ruby)
-  ;; (use-package ob-shell)
-  ;; (use-package ob-python)
-  ;; (use-package ob-emacs-lisp)
-  ;; (use-package ob-plantuml
-  ;; 	:defer t
-  ;; 	:config
-  ;; 	(setq org-plantuml-jar-path (shell-command-to-string "locate plantuml.jar"))
-  ;; 	)
-  ;; (use-package ob-ditaa
-  ;; 	:config
-  ;; 	(setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_9.jar")
-  ;; 	)
+(use-package ob
+  :config
+  (require 'ob-C)
+  (require 'ob-emacs-lisp)
+  (require 'ob-python)
+  (require 'ob-shell)
+  (require 'ob-sql)
+  (use-package ob-plantuml
+  	:config
+  	(setq org-plantuml-jar-path
+		  (shell-command-to-string "locate plantuml.jar"))
+  	)
 
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -55,8 +40,30 @@
 	 (shell      . t)
 	 (python     . t)
 	 (plantuml   . t)
-	 (emacs-lisp . t))
+	 (emacs-lisp . t)
+	 (http . t)
+	 (gnuplot . t)
+	 )
    )
+  )
+
+;;;###autoload
+(defun my/init-org-babel ()
+
+  ;; (use-package ob-awk)
+  ;; (use-package ob-dot)
+  ;; (use-package ob-sed)
+
+  ;; (use-package ob-ruby)
+  ;; (use-package ob-shell)
+  ;; (use-package ob-python)
+
+  ;; (use-package ob-ditaa
+  ;; 	:config
+  ;; 	(setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_9.jar")
+  ;; 	)
+
+
   )
 
 ;;;###autoload
@@ -112,6 +119,7 @@
   :config
   (setq org-src-fontify-natively t)
   (setq org-src-tab-acts-natively t)
+  (setq org-src-preserve-indentation t)
 
   (add-to-list 'org-latex-packages-alist '("" "ctex"))
   (add-to-list 'org-latex-packages-alist '("" "minted"))
