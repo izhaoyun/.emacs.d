@@ -264,7 +264,5 @@
   (add-hook 'prog-mode-hook 'flyspell-prog-mode)
   )
 
-
-
 (provide 'init-starter-kit)
 ;; init-starter-kit.el ends here.

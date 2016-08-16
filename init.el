@@ -54,3 +54,4 @@
 (require 'init-erlang)
 (require 'init-latex)
 (require 'init-markdown)
+(require 'init-shell)
