@@ -13,3 +13,4 @@ company-statistics-cache.el
 eshell/
 .python-environments/
 projectile.cache
+.org-id-locations
