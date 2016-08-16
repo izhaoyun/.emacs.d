@@ -7,10 +7,10 @@
 	aggressive-indent
 	magit
 	flycheck
-	flycheck-pos-tip
 	highlight-indentation
 	clean-aindent-mode
 	ws-butler
+	stickyfunc-enhance
 	)
   )
 
@@ -69,11 +69,13 @@
 		(backward-char 1)
 		(if (looking-at "\\.") t
 		  (backward-char 1)
-		  (if (looking-at "->") t nil)))))
+		  (if (looking-at "->") t nil))))
+	)
 
   (defun do-yas-expand ()
-	(let ((yas/fallback-behavior 'return-nil))
-	  (yas/expand)))
+	(let ((yas-fallback-behavior 'return-nil))
+	  (yas-expand))
+	)
 
   (defun tab-indent-or-complete ()
 	(interactive)
@@ -82,7 +84,7 @@
 	  (minibuffer-complete))
 	 (t
 	  (indent-for-tab-command)
-	  (if (or (not yas/minor-mode)
+	  (if (or (not yas-minor-mode)
 			  (null (do-yas-expand)))
 		  (if (check-expansion)
 			  (progn
@@ -90,11 +92,12 @@
 				(if (null company-candidates)
 					(progn
 					  (company-abort)
-					  (indent-for-tab-command)))))))))
+					  (indent-for-tab-command))))))))
+	)
 
   (defun tab-complete-or-next-field ()
 	(interactive)
-	(if (or (not yas/minor-mode)
+	(if (or (not yas-minor-mode)
 			(null (do-yas-expand)))
 		(if company-candidates
 			(company-complete-selection)
@@ -105,46 +108,46 @@
 					(progn
 					  (company-abort)
 					  (yas-next-field))))
-			(yas-next-field)))))
+			(yas-next-field))))
+	)
 
   (defun expand-snippet-or-complete-selection ()
 	(interactive)
-	(if (or (not yas/minor-mode)
+	(if (or (not yas-minor-mode)
 			(null (do-yas-expand))
 			(company-abort))
-		(company-complete-selection)))
+		(company-complete-selection))
+	)
 
   (defun abort-company-or-yas ()
 	(interactive)
 	(if (null company-candidates)
 		(yas-abort-snippet)
-	  (company-abort)))
+	  (company-abort))
+	)
 
   (global-set-key [tab] 'tab-indent-or-complete)
   (global-set-key (kbd "TAB") 'tab-indent-or-complete)
   (global-set-key [(control return)] 'company-complete-common)
-
   (define-key company-active-map [tab] 'expand-snippet-or-complete-selection)
   (define-key company-active-map (kbd "TAB") 'expand-snippet-or-complete-selection)
-
   (define-key yas-minor-mode-map [tab] nil)
   (define-key yas-minor-mode-map (kbd "TAB") nil)
-
   (define-key yas-keymap [tab] 'tab-complete-or-next-field)
   (define-key yas-keymap (kbd "TAB") 'tab-complete-or-next-field)
   (define-key yas-keymap [(control tab)] 'yas-next-field)
   (define-key yas-keymap (kbd "C-g") 'abort-company-or-yas)
-  )
 
-(use-package company-quickhelp
-  :commands company-quickhelp-mode
-  :after company
-  :bind
-  (:map company-active-map
-	("M-h" . company-quickhelp-manual-begin))
-  :init
-  (company-quickhelp-mode 1)
-  (setq company-quickhelp-delay nil))
+  (use-package company-quickhelp
+	:bind
+	(:map company-active-map
+		  ("M-h" . company-quickhelp-manual-begin))
+	:init
+	(company-quickhelp-mode 1)
+	:config
+	(setq company-quickhelp-delay nil)
+	)
+  )
 
 (use-package comment-dwim-2
   :bind ("M-;" . comment-dwim-2)
@@ -175,7 +178,7 @@
   )
 
 (use-package magit
-  :bind ("C-x t g" . magit-status)
+  :bind (("C-x t g" . magit-status))
   )
 
 (use-package highlight-indentation
@@ -196,17 +199,18 @@
   )
 
 (use-package flycheck
-  :commands (flycheck-mode)
   :init
-  (add-hook 'prog-mode-hook 'flycheck-mode)
+  (add-hook 'after-init-hook #'global-flycheck-mode)
   :config
+  ;; check the buffer only when it was saved.
   (setq flycheck-check-syntax-automatically '(mode-enabled save))
   (setq-default flycheck-disabled-checkers '(emacs-lisp-checkdoc))
+  )
 
-  (use-package flycheck-pos-tip
-	:init
-	(flycheck-pos-tip-mode)
-	)
+(use-package stickyfunc-enhance
+  :init
+  (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
+  (semantic-mode 1)
   )
 
 (provide 'init-devel)
