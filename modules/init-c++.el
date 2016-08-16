@@ -13,7 +13,7 @@
 (use-package cc-mode
   :mode ("\\.h\\(h?\\|xx\\|pp\\)\\'" . c++-mode)
   :preface
-  (defun my/init-hs-minor-mode ()
+  (defun my/cc-mode-hook ()
 	(hs-minor-mode 1)
 	(diminish 'hs-minor-mode)
 	(setq-default indent-tabs-mode nil)
@@ -23,7 +23,7 @@
   (define-key c++-mode-map  [(tab)] 'company-complete)
   (setq-default c-basic-offset 4)
   ;; (setq-default c-default-style "linux")
-  (add-hook 'c-mode-common-hook 'my/init-hs-minor-mode)
+  (add-hook 'c-mode-common-hook 'my/cc-mode-hook)
   )
 
 (use-package irony
