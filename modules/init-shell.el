@@ -7,7 +7,20 @@
 (use-package sh-script
   :mode (("\\.zsh$" . shell-script-mode) ; use shell-script-mode for .zsh files
 		 )
+  :init
+  (defvar sh-script-initialized nil)
+  (defun initialize-sh-script ()
+    (unless sh-script-initialized
+      (setq sh-script-initialized t)
+      (info-lookup-add-help :mode 'shell-script-mode
+                            :regexp ".*"
+                            :doc-spec
+                            '(("(bash)Index"))))
+	)
+
+  (add-hook 'shell-mode-hook 'initialize-sh-script)
   )
+
 
 (use-package systemd)
 
