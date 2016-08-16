@@ -74,7 +74,6 @@
   (require 'ox-beamer)
   (require 'ox-gfm)
 
-  (require 'htmlize)
   (use-package ox-html)
 
   (use-package ox-latex
@@ -116,6 +115,8 @@
 		 ("C-c b" . org-iswitch)
 		 ("C-c c" . org-capture)
 		 ("C-c l" . org-store-link))
+  :init
+  (use-package htmlize)
   :config
   (setq org-src-fontify-natively t)
   (setq org-src-tab-acts-natively t)
