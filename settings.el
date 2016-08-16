@@ -23,7 +23,8 @@
  '(tab-width 4)
  '(tool-bar-mode nil)
  '(tooltip-mode nil)
- '(winner-mode t))
+ '(winner-mode t)
+ '(x-select-enable-primary t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
