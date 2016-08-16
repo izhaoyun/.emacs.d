@@ -133,6 +133,11 @@
   (add-to-list 'org-latex-packages-alist '("" "titlesec"))
 
   (add-hook 'org-mode-hook 'my/init-org-export)
+
+  (setq org-file-apps '((auto-mode . emacs)
+						("\\.mm\\'" . default)
+						("\\.x?html?\\'" . default)
+						("\\.pdf\\'" . "evince %s")))
   )
 
 (provide 'init-org)
