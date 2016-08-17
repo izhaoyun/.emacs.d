@@ -39,12 +39,15 @@
   )
 
 (use-package company
-  :diminish company-mode
+  ;; :diminish company-mode
   :commands (company-mode
 			 company-yasnippet)
   :bind (("C-<tab>" . company-yasnippet))
   :init
-  (add-hook 'prog-mode-hook 'company-mode)
+  (progn
+	(setq company-global-modes '(not python-mode pip-requirements-mode))
+	(global-company-mode))
+  ;; (add-hook 'prog-mode-hook 'company-mode)
   :config
   (setq company-idle-delay 0)
   (setq company-show-numbers t)

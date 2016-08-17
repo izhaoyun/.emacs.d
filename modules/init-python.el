@@ -1,25 +1,29 @@
 (defconst my/python-packages
-  '(pythonic
+  '(python-mode
 	pyvenv
-	company-jedi
+	jedi
 	py-yapf
 	flycheck-pyflakes
+	pip-requirements
 	)
   )
 
 (install-packages my/python-packages)
 
-(use-package python
-  :mode ("\\.py\\'" . python-mode)
-  :interpreter ("python" . python-mode)
+(use-package python-mode
   :init
   :config
-  (setq python-indent-guess-indent-offset nil)
+  (setq-default py-shell-name "ipython")
+  (setq-default py-which-bufname "IPython")
+  (setq py-python-command-args '("--gui=wx", "--pylab=wx" "--colors" "Linux"))
+  (setq py-smart-indentation t)
   )
 
-(use-package company-jedi
+(use-package jedi
   :init
-  (add-hook 'company-backends 'company-jedi)
+  (add-hook 'python-mode-hook 'jedi:setup)
+  :config
+  (setq jedi:complete-on-dot t)
   )
 
 (defun python/init-pyvenv ()
@@ -34,5 +38,13 @@
 (add-hook 'python-mode-hook 'py-yapf-enable-on-save)
 
 (use-package flycheck-pyflakes)
+
+(use-package pip-requirements
+  :mode (("\\.pip\'" . pip-requirements-mode)
+		 ("requirements\.txt\'" . pip-requirements-mode)
+		 ("test-requirements\.txt\'" . pip-requirements-mode))
+  :init
+  (add-hook 'python-mode-hook 'pip-requirements-auto-complete-setup)
+  )
 
 (provide 'init-python)
