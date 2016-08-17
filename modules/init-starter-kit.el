@@ -25,45 +25,45 @@
 (use-package hydra)
 
 (use-package counsel
-  :commands (ivy-mode)
   :preface
   (defun ivy-dired ()
 	(interactive)
 	(if ivy--directory
-	(ivy-quit-and-run
-	 (dired ivy--directory)
-	 (when (re-search-forward
-		(regexp-quote
-		 (substring ivy--current 0 -1)) nil t)
-	   (goto-char (match-beginning 0))))
+		(ivy-quit-and-run
+		 (dired ivy--directory)
+		 (when (re-search-forward
+				(regexp-quote
+				 (substring ivy--current 0 -1)) nil t)
+		   (goto-char (match-beginning 0))))
 	  (user-error
-	   "Not completing files currently")))
+	   "Not completing files currently"))
+	)
   :bind (("C-s" . counsel-grep-or-swiper)
-	 ("M-x" . counsel-M-x)
-	 ("M-y" . counsel-yank-pop)
-	 ("C-r" . ivy-resume)
-	 ("C-x C-f" . counsel-find-file)
-	 ("C-x r b" . counsel-bookmark)
-	 ("C-c s a" . counsel-ag)
-	 ("C-c s f" . counsel-git)
-	 ("C-c s i" . counsel-imenu)
-	 ("C-c s p" . counsel-git-grep)
-	 ("C-c s l" . counsel-locate)
-	 ("C-c s t" . counsel-tmm)
-	 ("C-c s r" . counsel-load-library)
-	 ("C-c s n" . counsel-linux-app)
-	 ("C-c u"   . swiper-all)
-	 ("C-c v"   . ivy-push-view)
-	 ("C-c V"   . ivy-pop-view))
+		 ("M-x" . counsel-M-x)
+		 ("M-y" . counsel-yank-pop)
+		 ("C-r" . ivy-resume)
+		 ("C-x C-f" . counsel-find-file)
+		 ("C-x r b" . counsel-bookmark)
+		 ("C-c s a" . counsel-ag)
+		 ("C-c s f" . counsel-git)
+		 ("C-c s i" . counsel-imenu)
+		 ("C-c s p" . counsel-git-grep)
+		 ("C-c s l" . counsel-locate)
+		 ("C-c s t" . counsel-tmm)
+		 ("C-c s r" . counsel-load-library)
+		 ("C-c s n" . counsel-linux-app)
+		 ("C-c u"   . swiper-all)
+		 ("C-c v"   . ivy-push-view)
+		 ("C-c V"   . ivy-pop-view))
   :bind (:map help-map
-		  ("b" . counsel-descbinds)
-		  ("f" . counsel-describe-function)
-		  ("v" . counsel-describe-variable)
-		  ("s" . counsel-info-lookup-symbol)
-		  ("u" . counsel-unicode-char))
+			  ("b" . counsel-descbinds)
+			  ("f" . counsel-describe-function)
+			  ("v" . counsel-describe-variable)
+			  ("s" . counsel-info-lookup-symbol)
+			  ("u" . counsel-unicode-char))
   :bind (:map ivy-minibuffer-map
-		  ("C-:" . ivy-dired)
-		  ("C-c o" . ivy-occur))
+			  ("C-:" . ivy-dired)
+			  ("C-c o" . ivy-occur))
   :init
   (use-package ivy
 	:init
@@ -79,26 +79,35 @@
   )
 
 (use-package avy
-  :bind (("C-:" . avy-goto-char)
-	 ("C-'" . avy-goto-char-2)
-	 ("M-g f" . avy-goto-line)
-	 ("M-g w" . avy-goto-word-1)
-	 ("M-g e" . avy-goto-word-0)
-	 ("M-g c" . avy-goto-conditional)
-	 ("M-g p" . avy-goto-paren))
+  :bind (("C-:"   . avy-goto-char)
+		 ("C-'"   . avy-goto-char-2)
+		 ("M-g f" . avy-goto-line)
+		 ("M-g w" . avy-goto-word-1)
+		 ("M-g e" . avy-goto-word-0)
+		 ("M-g c" . avy-goto-conditional)
+		 ("M-g p" . avy-goto-paren))
   :init
   (avy-setup-default)
   (eval-and-compile
 	;; Jumping to conditionals in Elisp
 	(defun avy-goto-conditional ()
 	  (interactive)
-	  (avy--generic-jump "\\s(\\(if\\|cond\\|when\\|unless\\)\\b" nil 'pre))
+	  (avy--generic-jump "\\s(\\(if\\|cond\\|when\\|unless\\)\\b" nil 'pre)
+	  )
 	(defun avy-goto-paren ()
 	  (interactive)
-	  (avy--generic-jump "(" nil 'pre))
+	  (avy--generic-jump "(" nil 'pre)
+	  )
 	)
   :config
-  (advice-add 'swiper :before 'avy-push-mark))
+  (advice-add 'swiper :before 'avy-push-mark)
+
+  (use-package ace-pinyin
+	:diminish ace-pinyin-mode
+	:init
+	(ace-pinyin-global-mode)
+	)
+  )
 
 (use-package ace-window)
 
@@ -141,7 +150,8 @@
 (use-package rainbow-delimiters
   :commands (rainbow-delimiters-mode)
   :init
-  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+  )
 
 (use-package ibuffer
   :bind ("C-x C-b" . ibuffer)
@@ -165,26 +175,23 @@
   :defer 10
   :diminish undo-tree-mode
   :commands (undo-tree-visualizer-mode)
-  :bind (("C-z"   . undo)
-		 ("C-S-z" . undo-tree-redo)
-		 ("C-x u" . undo-tree-visualize-mode))
+  :bind (("C-/"   . undo-tree-undo)
+		 ("C-_"   . undo-tree-undo)
+		 ("M-_"   . undo-tree-redo)
+		 ("C-?"   . undo-tree-redo)
+		 ("C-x u" . undo-tree-visualize-mode)
+		 ("C-x r u" . undo-tree-save-state-to-register)
+		 ("C-x r U" . undo-tree-restore-state-from-register))
   :init
   (global-undo-tree-mode 1)
   :config
+  (setq undo-tree-auto-save-history t)
   (setq undo-tree-visualizer-diff t)
   (setq undo-tree-visualizer-timestamps t)
   )
 
 (use-package hippie-exp
-  :commands (hippie-expand)
   :bind ("M-/" . hippie-expand)
-  )
-
-(use-package ace-pinyin
-  :diminish ace-pinyin-mode
-  :after avy
-  :config
-  (ace-pinyin-global-mode)
   )
 
 (use-package flyspell

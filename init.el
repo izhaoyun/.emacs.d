@@ -12,9 +12,9 @@
 	(package-refresh-contents)
 	(package-install 'use-package))
 
-  (require 'use-package)
   (require 'diminish)
   (require 'bind-key)
+  (require 'use-package)
   )
 
 (setq load-prefer-newer t)
@@ -29,18 +29,18 @@
 		  (byte-compile-file buffer-file-name)))))
 (add-hook 'after-save-hook #'recompile-elisp-file)
 
-;;;###autoload
-(defun install-packages (packages-list)
-  (dolist (package packages-list)
-	(unless (package-installed-p package)
-	  (package-install package)))
+(eval-and-compile
+  (defun install-packages (packages-list)
+	(dolist (package packages-list)
+	  (unless (package-installed-p package)
+		(package-install package)))
+	)
   )
 
 (setq custom-file (expand-file-name "settings.el" user-emacs-directory))
 (load custom-file)
 
-(eval-and-compile
-  (add-to-list 'load-path (expand-file-name "modules" user-emacs-directory)))
+(add-to-list 'load-path (expand-file-name "modules" user-emacs-directory))
 
 (require 'init-starter-kit)
 (require 'init-devel)
