@@ -14,3 +14,4 @@ eshell/
 .python-environments/
 projectile.cache
 .org-id-locations
+ac-comphist.dat
