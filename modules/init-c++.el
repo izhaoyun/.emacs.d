@@ -13,21 +13,29 @@
 (use-package cc-mode
   :mode ("\\.h\\(h?\\|xx\\|pp\\)\\'" . c++-mode)
   :preface
-  (defun my/cc-mode-hook ()
+  (defun my/init-hs-minor-mode ()
 	(hs-minor-mode 1)
 	(diminish 'hs-minor-mode)
-	(setq-default indent-tabs-mode nil)
 	)
   :config
-  (define-key c-mode-map  [(tab)] 'company-complete)
-  (define-key c++-mode-map  [(tab)] 'company-complete)
-  (setq-default c-basic-offset 4)
-  ;; (setq-default c-default-style "linux")
-  (add-hook 'c-mode-common-hook 'my/cc-mode-hook)
+  (defun my/c-mode-common-hook ()
+    (setq-default indent-tabs-mode nil)
+
+    (define-key c-mode-map  [(tab)] 'company-complete)
+    (define-key c++-mode-map  [(tab)] 'company-complete)
+
+    (use-package google-c-style
+      :config
+      (c-set-style "Google")
+      (setq-default c-basic-offset 4)
+      (google-make-newline-indent)
+      )
+    )
+  (add-hook 'c-mode-common-hook 'my/c-mode-common-hook)
+  (add-hook 'c-mode-common-hook 'my/init-hs-minor-mode)
   )
 
 (use-package irony
-  :commands (irony-mode)
   :init
   (add-hook 'c++-mode-hook 'irony-mode)
   (add-hook 'c-mode-hook 'irony-mode)
@@ -36,34 +44,23 @@
 	(define-key irony-mode-map [remap completion-at-point]
 	  'irony-completion-at-point-async)
 	(define-key irony-mode-map [remap complete-symbol]
-	  'irony-completion-at-point-async))
+	  'irony-completion-at-point-async)
+    )
   (add-hook 'irony-mode-hook 'my-irony-mode-hook)
+
   (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
-  (use-package company-irony
-	:init
-	(add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
-	:config
-	(add-to-list 'company-backends 'company-irony)
-	)
+  (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
+  (eval-after-load 'company
+	'(add-to-list 'company-backends 'company-irony))
 
-  (use-package flycheck-irony
-	:init
-	(add-hook 'flycheck-mode-hook #'flycheck-irony-setup)
-	)
+  (add-hook 'flycheck-mode-hook #'flycheck-irony-setup)
   )
 
 (use-package company-c-headers
   :config
   (eval-after-load 'company
 	'(add-to-list 'company-backends 'company-c-headers))
-  )
-
-(use-package google-c-style
-  :defer t
-  :config
-  (add-hook 'c-mode-common-hook 'google-set-c-style)
-  (add-hook 'c-mode-common-hook 'google-make-newline-indent)
   )
 
 (use-package flycheck-google-cpplint
