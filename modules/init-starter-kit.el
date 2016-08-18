@@ -21,6 +21,15 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 (global-set-key (kbd "RET") 'newline-and-indent)
+;; expand-region
+(global-set-key (kbd "C-=") 'er/expand-region)
+(global-set-key (kbd "C--") 'er/contract-region)
+;; ibuffer
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+;; hippie-expand
+(global-set-key (kbd "M-/") 'hippie-expand)
+
+(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
 
 (use-package hydra)
 
@@ -112,7 +121,6 @@
 (use-package ace-window)
 
 (use-package iedit
-  :commands (iedit-mode)
   :bind ("C-c i e" . iedit-mode)
   )
 
@@ -142,21 +150,6 @@
 		 ("M-<f3>" . highlight-symbol-query-replace))
   )
 
-(use-package expand-region
-  :bind (("C-=" . er/expand-region)
-		 ("C--" . er/contract-region))
-  )
-
-(use-package rainbow-delimiters
-  :commands (rainbow-delimiters-mode)
-  :init
-  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-  )
-
-(use-package ibuffer
-  :bind ("C-x C-b" . ibuffer)
-  )
-
 (use-package winner
   :if (not noninteractive)
   :defer 12
@@ -166,6 +159,7 @@
 
 (use-package recentf
   :defer 10
+  :commands (recentf-open-files)
   :bind ("C-x C-r" . recentf-open-files)
   :config
   (recentf-mode 1)
@@ -190,14 +184,8 @@
   (setq undo-tree-visualizer-timestamps t)
   )
 
-(use-package hippie-exp
-  :bind ("M-/" . hippie-expand)
-  )
-
 (use-package flyspell
   :diminish flyspell-mode
-  :commands (flyspell-mode
-			 flyspell-prog-mode)
   :init
   ;; if (aspell installed) { use aspell}
   ;; else if (hunspell installed) { use hunspell }

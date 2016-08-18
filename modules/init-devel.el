@@ -45,8 +45,10 @@
   :bind (("C-<tab>" . company-yasnippet))
   :init
   (progn
-	(setq company-global-modes '(not python-mode pip-requirements-mode))
-	(global-company-mode))
+	(setq company-global-modes
+		  '(not python-mode pip-requirements-mode web-mode))
+	(global-company-mode)
+	)
   ;; (add-hook 'prog-mode-hook 'company-mode)
   :config
   (setq company-idle-delay 0)

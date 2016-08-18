@@ -55,3 +55,4 @@
 (require 'init-latex)
 (require 'init-markdown)
 (require 'init-shell)
+(require 'init-web)
