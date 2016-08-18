@@ -44,12 +44,14 @@
 
   (use-package ob-ditaa
 	:config
-	(setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_9.jar")
+	;; get the location of ditaa*.jar.
+	(setq org-ditaa-jar-path
+		  (shell-command-to-string "locate ditaa | grep '\.jar$' | grep '/usr/share'"))
 	)
 
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((C          . t)					; C, C++, D
+   '((C          . t)
 	 (awk        . t)
 	 (dot        . t)
 	 (sed        . t)
