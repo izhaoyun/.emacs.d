@@ -168,9 +168,11 @@
 
 (use-package eldoc
   :diminish eldoc-mode
-  :commands eldoc-mode
+  :init
+  (add-hook 'prog-mode 'eldoc-mode)
   :config
-  (setq eldoc-minor-mode-string ""))
+  (setq eldoc-minor-mode-string "")
+  )
 
 (use-package aggressive-indent
   :diminish aggressive-indent-mode
