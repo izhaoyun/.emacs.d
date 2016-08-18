@@ -47,10 +47,10 @@
 	  (user-error
 	   "Not completing files currently"))
 	)
-  :bind (("C-s" . counsel-grep-or-swiper)
-		 ("M-x" . counsel-M-x)
-		 ("M-y" . counsel-yank-pop)
-		 ("C-r" . ivy-resume)
+  :bind (("C-s"		. counsel-grep-or-swiper)
+		 ("M-x"		. counsel-M-x)
+		 ("M-y"		. counsel-yank-pop)
+		 ("C-r"		. ivy-resume)
 		 ("C-x C-f" . counsel-find-file)
 		 ("C-x r b" . counsel-bookmark)
 		 ("C-c s a" . counsel-ag)
@@ -71,8 +71,8 @@
 			  ("s" . counsel-info-lookup-symbol)
 			  ("u" . counsel-unicode-char))
   :bind (:map ivy-minibuffer-map
-			  ("C-:" . ivy-dired)
-			  ("C-c o" . ivy-occur))
+			  ("C-:"	. ivy-dired)
+			  ("C-c o"	. ivy-occur))
   :init
   (use-package ivy
 	:init
@@ -257,6 +257,25 @@
 
   :config
   (add-hook 'prog-mode-hook 'flyspell-prog-mode)
+  )
+
+(use-package abbrev
+  :diminish abbrev-mode
+  :commands abbrev-mode
+  :config
+  (if (file-exists-p abbrev-file-name)
+	  (quietly-read-abbrev-file))
+
+  (add-hook 'prog-mode-hook #'abbrev-mode)
+  (add-hook 'text-mode-hook #'abbrev-mode)
+  (add-hook 'LaTeX-mode-hook #'abbrev-mode)
+  )
+
+(use-package autorevert
+  :diminish auto-revert-mode
+  :defer t
+  :config
+  (global-auto-revert-mode)
   )
 
 (provide 'init-starter-kit)
