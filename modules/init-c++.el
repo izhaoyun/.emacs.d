@@ -49,19 +49,28 @@
 
   (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
-  (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
-  (eval-after-load 'company
-	'(add-to-list 'company-backends 'company-irony))
+  (use-package company-irony
+	:init
+	(add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
+	:config
+	(add-to-list 'company-backends 'company-irony)
+	)
 
-  (add-hook 'flycheck-mode-hook #'flycheck-irony-setup)
+  (use-package flycheck-irony
+	:init
+	(add-hook 'flycheck-mode-hook #'flycheck-irony-setup)
+	)
 
-  (add-hook 'irony-mode-hook 'irony-eldoc)
+  (use-package irony-eldoc
+	:init
+	(add-hook 'irony-mode-hook 'irony-eldoc)
+	)
   )
 
 (use-package company-c-headers
+  :after company
   :config
-  (eval-after-load 'company
-	'(add-to-list 'company-backends 'company-c-headers))
+  (add-to-list 'company-backends 'company-c-headers)
   )
 
 (use-package flycheck-google-cpplint
