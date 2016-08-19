@@ -1,6 +1,7 @@
 (defconst my/web-packages
   '(web-mode
 	impatient-mode
+	restclient
 	)
   )
 
@@ -29,6 +30,14 @@
 		  ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
   )
 
-(use-package impatient-mode)
+(defun web/init-impatient-mode ()
+  (use-package impatient-mode)
+  )
+(add-hook 'web-mode-hook 'web/init-impatient-mode)
+
+(use-package restclient
+  :defer t
+  :mode ("\\.rest\\'" . restclient-mode)
+  )
 
 (provide 'init-web)
