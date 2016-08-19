@@ -5,7 +5,7 @@
 (install-packages my/shell-packages)
 
 (use-package sh-script
-  :mode (("\\.zsh$" . shell-script-mode) ; use shell-script-mode for .zsh files
+  :mode (("\\.zsh$" . shell-script-mode)
 		 )
   :init
   (defvar sh-script-initialized nil)

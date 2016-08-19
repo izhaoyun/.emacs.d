@@ -1,5 +1,6 @@
 (defconst my/web-packages
   '(web-mode
+	impatient-mode
 	)
   )
 
@@ -23,6 +24,11 @@
 	)
   (add-hook 'web-mode-hook 'web-mode/indentation-hook)
 
+  (setq web-mode-ac-sources-alist
+		'(("css" .  (ac-source-css-property))
+		  ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
   )
+
+(use-package impatient-mode)
 
 (provide 'init-web)

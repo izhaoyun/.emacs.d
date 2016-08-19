@@ -21,19 +21,17 @@
   :config
   (defun my/c-mode-common-hook ()
     (setq-default indent-tabs-mode nil)
-
     (define-key c-mode-map  [(tab)] 'company-complete)
     (define-key c++-mode-map  [(tab)] 'company-complete)
-
-    (use-package google-c-style
-      :config
-      (c-set-style "Google")
-      (setq-default c-basic-offset 4)
-      (google-make-newline-indent)
-      )
+	(setq-default c-basic-offset 4)
     )
-  (add-hook 'c-mode-common-hook 'my/c-mode-common-hook)
+  (use-package google-c-style
+	:init
+	(add-hook 'c-mode-common-hook 'google-set-c-style)
+	(add-hook 'c-mode-common-hook 'google-make-newline-indent)
+	)
   (add-hook 'c-mode-common-hook 'my/init-hs-minor-mode)
+  (add-hook 'c-mode-common-hook 'my/c-mode-common-hook)
   )
 
 (use-package irony
@@ -79,5 +77,4 @@
   )
 
 (provide 'init-c++)
-
 ;;; init-c++.el ends here
