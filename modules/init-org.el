@@ -12,6 +12,52 @@
 
 (install-packages my/org-packages)
 
+(use-package org
+  :mode (("\\.org$" . org-mode))
+  :bind (("C-c a" . org-agenda)
+		 ("C-c b" . org-iswitch)
+		 ("C-c c" . org-capture)
+		 ("C-c l" . org-store-link))
+  :commands (transient-mark-mode)
+  :init
+  (use-package htmlize)
+  (transient-mark-mode 1)
+
+  (setq org-emphasis-regexp-components
+		;; markup 记号前后允许中文
+		(list (concat " \t('\"{"            "[:nonascii:]")
+			  (concat "- \t.,:!?;'\")}\\["  "[:nonascii:]")
+			  " \t\r\n,\"'"
+			  "."
+			  1))
+  :config
+  (setq org-src-fontify-natively t)
+  (setq org-src-tab-acts-natively t)
+  (setq org-src-preserve-indentation t)
+
+  (add-to-list 'org-latex-packages-alist '("" "ctex"))
+  (add-to-list 'org-latex-packages-alist '("" "minted"))
+  (add-to-list 'org-latex-packages-alist '("" "color"))
+  (add-to-list 'org-latex-packages-alist '("" "geometry"))
+  (add-to-list 'org-latex-packages-alist '("" "tabularx"))
+  (add-to-list 'org-latex-packages-alist '("" "tabu"))
+  (add-to-list 'org-latex-packages-alist '("" "fancyhdr"))
+  (add-to-list 'org-latex-packages-alist '("" "natbib"))
+  (add-to-list 'org-latex-packages-alist '("" "titlesec"))
+
+  (add-hook 'org-mode-hook 'my/init-org-export)
+
+  ;; (setcar (nthcdr 0 org-emphasis-regexp-components) " \t('\"{[:nonascii:]")
+  ;; (setcar (nthcdr 1 org-emphasis-regexp-components) "- \t.,:!?;'\")}\\[[:nonascii:]")
+  ;; (org-set-emph-re 'org-emphasis-regexp-components org-emphasis-regexp-components)
+  ;; (org-element-update-syntax)
+
+  (setq org-file-apps '((auto-mode . emacs)
+						("\\.mm\\'" . default)
+						("\\.x?html?\\'" . default)
+						("\\.pdf\\'" . "evince %s")))
+  )
+
 (use-package org-bullets
   :init
   (add-hook 'org-mode-hook 'org-bullets-mode)
@@ -109,37 +155,6 @@
   ;; (setq org-latex-compiler "xelatex")
   (add-to-list 'org-export-filter-final-output-functions
 			   'ox-html-clear-single-linebreak-for-cjk)
-  )
-
-(use-package org
-  :mode (("\\.org$" . org-mode))
-  :bind (("C-c a" . org-agenda)
-		 ("C-c b" . org-iswitch)
-		 ("C-c c" . org-capture)
-		 ("C-c l" . org-store-link))
-  :init
-  (use-package htmlize)
-  :config
-  (setq org-src-fontify-natively t)
-  (setq org-src-tab-acts-natively t)
-  (setq org-src-preserve-indentation t)
-
-  (add-to-list 'org-latex-packages-alist '("" "ctex"))
-  (add-to-list 'org-latex-packages-alist '("" "minted"))
-  (add-to-list 'org-latex-packages-alist '("" "color"))
-  (add-to-list 'org-latex-packages-alist '("" "geometry"))
-  (add-to-list 'org-latex-packages-alist '("" "tabularx"))
-  (add-to-list 'org-latex-packages-alist '("" "tabu"))
-  (add-to-list 'org-latex-packages-alist '("" "fancyhdr"))
-  (add-to-list 'org-latex-packages-alist '("" "natbib"))
-  (add-to-list 'org-latex-packages-alist '("" "titlesec"))
-
-  (add-hook 'org-mode-hook 'my/init-org-export)
-
-  (setq org-file-apps '((auto-mode . emacs)
-						("\\.mm\\'" . default)
-						("\\.x?html?\\'" . default)
-						("\\.pdf\\'" . "evince %s")))
   )
 
 (provide 'init-org)
