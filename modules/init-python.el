@@ -13,10 +13,7 @@
 (use-package python-mode
   :init
   :config
-  (setq-default py-shell-name "ipython")
-  (setq-default py-which-bufname "IPython")
-  (setq py-python-command-args '("--gui=wx", "--pylab=wx" "--colors" "Linux"))
-  (setq py-smart-indentation t)
+
   )
 
 (use-package jedi
