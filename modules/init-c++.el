@@ -6,6 +6,8 @@
 	google-c-style
 	flycheck-google-cpplint
 	irony-eldoc
+	ggtags
+    cmake-ide
 	)
   )
 
@@ -38,9 +40,7 @@
   (use-package irony
 	:init
 	(irony-mode)
-	;; (add-hook 'c++-mode-hook 'irony-mode)
-	;; (add-hook 'c-mode-hook 'irony-mode)
-	:config
+    :config
 	(defun my-irony-mode-hook ()
 	  (define-key irony-mode-map [remap completion-at-point]
 		'irony-completion-at-point-async)
@@ -94,6 +94,15 @@
 	)
   )
 (add-hook 'c-mode-common-hook 'c++/init-flycheck-google-cpplint)
+
+(use-package cmake-ide
+  :defer t
+  :init
+  (setq cmake-ide-rdm-executable "/usr/local/bin/rdm")
+  (require 'rtags)
+  (cmake-ide-setup)
+  (rtags-enable-standard-keybindings c-mode-base-map)
+  )
 
 (provide 'init-c++)
 ;;; init-c++.el ends here

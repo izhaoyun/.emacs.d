@@ -141,7 +141,7 @@
 (use-package which-key
   :defer t
   :diminish which-key-mode
-  :config
+  :init
   (which-key-mode)
   (which-key-setup-side-window-right-bottom)
   )
