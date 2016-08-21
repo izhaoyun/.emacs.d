@@ -2,6 +2,8 @@
   '(web-mode
 	impatient-mode
 	restclient
+	yaml-mode
+
 	)
   )
 
@@ -16,15 +18,12 @@
 		 ("\\.mustache\\'"	. web-mode)
 		 ("\\.djhtml\\'"	. web-mode)
 		 ("\\.html?\\'"		. web-mode))
-  :config
-  ;; indentation
-  (defun web-mode/indentation-hook ()
-	(setq web-mode-markup-indent-offset 2)
-	(setq web-mode-css-indent-offset 2)
-	(setq web-mode-code-indent-offset 2)
-	)
-  (add-hook 'web-mode-hook 'web-mode/indentation-hook)
+  :init
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
+  (setq web-mode-code-indent-offset 2)
 
+  :config
   (setq web-mode-ac-sources-alist
 		'(("css" .  (ac-source-css-property))
 		  ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
