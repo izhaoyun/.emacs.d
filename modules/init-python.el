@@ -13,7 +13,6 @@
 (use-package python-mode
   :init
   :config
-
   )
 
 (use-package jedi
@@ -31,10 +30,17 @@
   )
 (add-hook 'python-mode-hook 'python/init-pyvenv)
 
-;; setup py-yapf
-(add-hook 'python-mode-hook 'py-yapf-enable-on-save)
+(use-package py-yapf
+  :init
+  (add-hook 'python-mode-hook 'py-yapf-enable-on-save)
+  )
 
-(use-package flycheck-pyflakes)
+(use-package flycheck-pyflakes
+  :after flycheck
+  :init
+  (add-to-list 'flycheck-disabled-checkers 'python-pylint)
+  (add-to-list 'flycheck-disabled-checkers 'python-flake8)
+  )
 
 (use-package pip-requirements
   :mode (("\\.pip\'" . pip-requirements-mode)

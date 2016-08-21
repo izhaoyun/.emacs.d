@@ -34,56 +34,66 @@
   (add-hook 'c-mode-common-hook 'my/c-mode-common-hook)
   )
 
-(use-package irony
-  :init
-  (add-hook 'c++-mode-hook 'irony-mode)
-  (add-hook 'c-mode-hook 'irony-mode)
-  :config
-  (defun my-irony-mode-hook ()
-	(define-key irony-mode-map [remap completion-at-point]
-	  'irony-completion-at-point-async)
-	(define-key irony-mode-map [remap complete-symbol]
-	  'irony-completion-at-point-async)
-    )
-  (add-hook 'irony-mode-hook 'my-irony-mode-hook)
-
-  (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-
-  (use-package company-irony
+(defun c++/init-irony ()
+  (use-package irony
 	:init
-	(add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
+	(irony-mode)
+	;; (add-hook 'c++-mode-hook 'irony-mode)
+	;; (add-hook 'c-mode-hook 'irony-mode)
 	:config
-	(add-to-list 'company-backends 'company-irony)
-	)
+	(defun my-irony-mode-hook ()
+	  (define-key irony-mode-map [remap completion-at-point]
+		'irony-completion-at-point-async)
+	  (define-key irony-mode-map [remap complete-symbol]
+		'irony-completion-at-point-async)
+	  )
+	(add-hook 'irony-mode-hook 'my-irony-mode-hook)
 
-  (use-package flycheck-irony
+	(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+
+	(use-package company-irony
+	  :init
+	  (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
+	  :config
+	  (add-to-list 'company-backends 'company-irony)
+	  )
+
+	(use-package flycheck-irony
+	  :init
+	  (add-hook 'flycheck-mode-hook #'flycheck-irony-setup)
+	  )
+
+	(use-package irony-eldoc
+	  :init
+	  (add-hook 'irony-mode-hook 'irony-eldoc)
+	  )
+	)
+  )
+(add-hook 'c-mode-hook 'c++/init-irony)
+(add-hook 'c++-mode-hook 'c++/init-irony)
+
+(defun c++/init-company-c-headers ()
+  (use-package company-c-headers
 	:init
-	(add-hook 'flycheck-mode-hook #'flycheck-irony-setup)
+	(add-to-list 'company-backends 'company-c-headers)
 	)
+  )
+(add-hook 'c-mode-common-hook 'c++/init-company-c-headers)
 
-  (use-package irony-eldoc
+(defun c++/init-flycheck-google-cpplint ()
+  (use-package flycheck-google-cpplint
+	:after flycheck
 	:init
-	(add-hook 'irony-mode-hook 'irony-eldoc)
+	(setq flycheck-googlelint-verbose "3")
+	(setq flycheck-googlelint-filter "-whitespace,+whitespace/braces")
+	(setq flycheck-googlelint-root "project/src")
+	(setq flycheck-googlelint-linelength "120")
+	:config
+	(flycheck-add-next-checker 'c/c++-cppcheck
+							   '(warning . c/c++-googlelint))
 	)
   )
-
-(use-package company-c-headers
-  :after company
-  :config
-  (add-to-list 'company-backends 'company-c-headers)
-  )
-
-(use-package flycheck-google-cpplint
-  :commands (flycheck-add-next-checker)
-  :after flycheck
-  :config
-  (flycheck-add-next-checker 'c/c++-cppcheck
-							 '(warning . c/c++-googlelint))
-  (setq flycheck-googlelint-verbose "3")
-  (setq flycheck-googlelint-filter "-whitespace,+whitespace/braces")
-  (setq flycheck-googlelint-root "project/src")
-  (setq flycheck-googlelint-linelength "120")
-  )
+(add-hook 'c-mode-common-hook 'c++/init-flycheck-google-cpplint)
 
 (provide 'init-c++)
 ;;; init-c++.el ends here
