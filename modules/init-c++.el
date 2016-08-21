@@ -6,7 +6,7 @@
 	google-c-style
 	flycheck-google-cpplint
 	irony-eldoc
-	ggtags
+    rtags
     cmake-ide
 	)
   )
@@ -99,6 +99,7 @@
   :defer t
   :init
   (setq cmake-ide-rdm-executable "/usr/local/bin/rdm")
+  :config
   (require 'rtags)
   (cmake-ide-setup)
   (rtags-enable-standard-keybindings c-mode-base-map)
