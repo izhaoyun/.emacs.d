@@ -7,7 +7,7 @@
  '(backup-directory-alist (quote (("." . "~/.emacs.d/backups"))))
  '(before-save-hook
    (quote
-	(copyright-update time-stamp delete-trailing-whitespace)))
+    (copyright-update time-stamp delete-trailing-whitespace)))
  '(case-fold-search nil)
  '(column-number-mode t)
  '(electric-indent-mode nil)
@@ -30,4 +30,4 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(cursor ((t (:background "red")))))

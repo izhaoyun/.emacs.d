@@ -1,17 +1,19 @@
 (defconst my/devel-packages
   '(company
-	company-quickhelp
-	yasnippet
-	projectile
-	comment-dwim-2
-	aggressive-indent
-	magit
-	flycheck
-	highlight-indentation
-	clean-aindent-mode
-	ws-butler
-	stickyfunc-enhance
-	)
+    company-quickhelp
+    yasnippet
+    projectile
+    comment-dwim-2
+    aggressive-indent
+    magit
+    flycheck
+    highlight-indentation
+    clean-aindent-mode
+    dtrt-indent
+    ws-butler
+    stickyfunc-enhance
+    smartparens
+    )
   )
 
 (install-packages my/devel-packages)
@@ -43,10 +45,10 @@
   :bind (("C-<tab>" . company-yasnippet))
   :init
   (progn
-	(setq company-global-modes
-		  '(not python-mode pip-requirements-mode web-mode))
-	(global-company-mode)
-	)
+    (setq company-global-modes
+          '(not python-mode pip-requirements-mode web-mode))
+    (global-company-mode)
+    )
   :config
   (setq company-idle-delay 0)
   (setq company-show-numbers t)
@@ -56,77 +58,77 @@
   ;; Add yasnippet support for all company backends
   ;; https://github.com/syl20bnr/spacemacs/pull/179
   (defun company-mode/backend-with-yas (backend)
-	(if (and (listp backend) (member 'company-yasnippet backend))
-		backend
-	  (append (if (consp backend) backend (list backend))
-			  '(:with company-yasnippet))
-	  )
-	)
+    (if (and (listp backend) (member 'company-yasnippet backend))
+        backend
+      (append (if (consp backend) backend (list backend))
+              '(:with company-yasnippet))
+      )
+    )
   (setq company-backends
-		(mapcar #'company-mode/backend-with-yas company-backends))
+        (mapcar #'company-mode/backend-with-yas company-backends))
 
   (defun check-expansion ()
-	(save-excursion
-	  (if (looking-at "\\_>") t
-		(backward-char 1)
-		(if (looking-at "\\.") t
-		  (backward-char 1)
-		  (if (looking-at "->") t nil))))
-	)
+    (save-excursion
+      (if (looking-at "\\_>") t
+        (backward-char 1)
+        (if (looking-at "\\.") t
+          (backward-char 1)
+          (if (looking-at "->") t nil))))
+    )
 
   (defun do-yas-expand ()
-	(let ((yas-fallback-behavior 'return-nil))
-	  (yas-expand))
-	)
+    (let ((yas-fallback-behavior 'return-nil))
+      (yas-expand))
+    )
 
   (defun tab-indent-or-complete ()
-	(interactive)
-	(cond
-	 ((minibufferp)
-	  (minibuffer-complete))
-	 (t
-	  (indent-for-tab-command)
-	  (if (or (not yas-minor-mode)
-			  (null (do-yas-expand)))
-		  (if (check-expansion)
-			  (progn
-				(company-manual-begin)
-				(if (null company-candidates)
-					(progn
-					  (company-abort)
-					  (indent-for-tab-command))))))))
-	)
+    (interactive)
+    (cond
+     ((minibufferp)
+      (minibuffer-complete))
+     (t
+      (indent-for-tab-command)
+      (if (or (not yas-minor-mode)
+              (null (do-yas-expand)))
+          (if (check-expansion)
+              (progn
+                (company-manual-begin)
+                (if (null company-candidates)
+                    (progn
+                      (company-abort)
+                      (indent-for-tab-command))))))))
+    )
 
   (defun tab-complete-or-next-field ()
-	(interactive)
-	(if (or (not yas-minor-mode)
-			(null (do-yas-expand)))
-		(if company-candidates
-			(company-complete-selection)
-		  (if (check-expansion)
-			  (progn
-				(company-manual-begin)
-				(if (null company-candidates)
-					(progn
-					  (company-abort)
-					  (yas-next-field))))
-			(yas-next-field))))
-	)
+    (interactive)
+    (if (or (not yas-minor-mode)
+            (null (do-yas-expand)))
+        (if company-candidates
+            (company-complete-selection)
+          (if (check-expansion)
+              (progn
+                (company-manual-begin)
+                (if (null company-candidates)
+                    (progn
+                      (company-abort)
+                      (yas-next-field))))
+            (yas-next-field))))
+    )
 
   (defun expand-snippet-or-complete-selection ()
-	(interactive)
-	(if (or (not yas-minor-mode)
-			(null (do-yas-expand))
-			(company-abort))
-		(company-complete-selection))
-	)
+    (interactive)
+    (if (or (not yas-minor-mode)
+            (null (do-yas-expand))
+            (company-abort))
+        (company-complete-selection))
+    )
 
   (defun abort-company-or-yas ()
-	(interactive)
-	(if (null company-candidates)
-		(yas-abort-snippet)
-	  (company-abort))
-	)
+    (interactive)
+    (if (null company-candidates)
+        (yas-abort-snippet)
+      (company-abort))
+    )
 
   (global-set-key [tab] 'tab-indent-or-complete)
   (global-set-key (kbd "TAB") 'tab-indent-or-complete)
@@ -141,14 +143,14 @@
   (define-key yas-keymap (kbd "C-g") 'abort-company-or-yas)
 
   (use-package company-quickhelp
-	:bind
-	(:map company-active-map
-		  ("M-h" . company-quickhelp-manual-begin))
-	:init
-	(company-quickhelp-mode 1)
-	:config
-	(setq company-quickhelp-delay nil)
-	)
+    :bind
+    (:map company-active-map
+          ("M-h" . company-quickhelp-manual-begin))
+    :init
+    (company-quickhelp-mode 1)
+    :config
+    (setq company-quickhelp-delay nil)
+    )
   )
 
 (use-package comment-dwim-2
@@ -187,11 +189,11 @@
 
 (use-package highlight-indentation
   :diminish (highlight-indentation-mode
-			 highlight-indentation-current-column-mode)
+             highlight-indentation-current-column-mode)
   :init
   (dolist (hook '(python-mode-hook ruby-mode-hook))
-	(add-hook hook #'highlight-indentation-mode)
-	(add-hook hook #'highlight-indentation-current-column-mode))
+    (add-hook hook #'highlight-indentation-mode)
+    (add-hook hook #'highlight-indentation-current-column-mode))
   :config
   (set-face-background 'highlight-indentation-face "#e3e3d3")
   (set-face-background 'highlight-indentation-current-column-face "#c3b3b3")
@@ -215,6 +217,22 @@
   :init
   (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
   (semantic-mode 1)
+  )
+
+(use-package smartparens-config
+  :diminish smartparens-mode
+  :ensure smartparens
+  :init
+  (add-hook 'prog-mode-hook 'turn-on-smartparens-mode)
+  (add-hook 'emacs-lisp-mode-hook 'turn-off-smartparens-mode)
+  )
+
+(use-package dtrt-indent
+  :diminish dtrt-indent-mode
+  :init
+  (dtrt-indent-mode 1)
+  :config
+  (setq dtrt-indent-verbosity 0)
   )
 
 (provide 'init-devel)
