@@ -6,9 +6,9 @@
     google-c-style
     flycheck-google-cpplint
     irony-eldoc
-    company-irony-c-headers
     rtags
     cmake-ide
+    ggtags
     )
   )
 
@@ -43,6 +43,7 @@
   (add-hook 'c++-mode-hook 'irony-mode)
   (add-hook 'c-mode-hook 'irony-mode)
   (add-hook 'objc-mode-hook 'irony-mode)
+  (setq irony-additional-clang-options '("-std=c++11"))
   :config
   (defun my-irony-mode-hook ()
     (define-key irony-mode-map [remap completion-at-point]
@@ -56,11 +57,6 @@
 
   (use-package company-irony
     :init
-    (use-package company-irony-c-headers
-      :init
-      (eval-after-load 'company
-        '(add-to-list 'company-backends 'company-irony-c-headers))
-      )
     (add-hook 'irony-mode-hook 'company-irony-setup-begin-commands)
     :config
     (add-to-list 'company-backends 'company-irony)
@@ -97,18 +93,39 @@
   )
 (add-hook 'c-mode-common-hook 'c++/init-flycheck-google-cpplint)
 
-(defun c++/init-cmake-ide ()
+(use-package rtags
+  :defer t
+  :init
+  :config
+  ;; TODO: fix the process to initialize rtags.
+  (rtags-enable-standard-keybindings c-mode-base-map)
   (use-package cmake-ide
-    :defer t
     :init
     (setq cmake-ide-rdm-executable "/usr/local/bin/rdm")
-    :config
-    (require 'rtags)
     (cmake-ide-setup)
-    (rtags-enable-standard-keybindings c-mode-base-map)
     )
   )
-(add-hook 'c-mode-common-hook 'c++/init-cmake-ide)
+
+(use-package ggtags
+  :init
+  (add-hook 'c-mode-common-hook
+            (lambda ()
+              (when (derived-mode-p 'c-mode 'c++-mode 'java-mode)
+                (ggtags-mode 1))))
+  :commands (ggtags-find-other-symbol)
+  :config
+  (setq-local eldoc-documentation-function #'ggtags-eldoc-function)
+  (setq-local imenu-create-index-function #'ggtags-build-imenu-index)
+  (setq-local hippie-expand-try-functions-list
+              (cons 'ggtags-try-complete-tag hippie-expand-try-functions-list))
+
+  (define-key ggtags-mode-map (kbd "C-c g s") 'ggtags-find-other-symbol)
+  (define-key ggtags-mode-map (kbd "C-c g h") 'ggtags-view-tag-history)
+  (define-key ggtags-mode-map (kbd "C-c g r") 'ggtags-find-reference)
+  (define-key ggtags-mode-map (kbd "C-c g f") 'ggtags-find-file)
+  (define-key ggtags-mode-map (kbd "C-c g c") 'ggtags-create-tags)
+  (define-key ggtags-mode-map (kbd "C-c g u") 'ggtags-update-tags)
+  )
 
 (provide 'init-c++)
 ;;; init-c++.el ends here
