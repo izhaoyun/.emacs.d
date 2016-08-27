@@ -21,15 +21,35 @@
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 (global-set-key (kbd "RET") 'newline-and-indent)
-;; expand-region
-(global-set-key (kbd "C-=") 'er/expand-region)
-(global-set-key (kbd "C--") 'er/contract-region)
-;; ibuffer
-(global-set-key (kbd "C-x C-b") 'ibuffer)
-;; hippie-expand
-(global-set-key (kbd "M-/") 'hippie-expand)
 
-(add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+(use-package expand-region
+  :commands (er/contract-region)
+  :bind (("C-=" . er/expand-region)
+		 ("C--" . er/contract-region))
+  )
+
+(use-package ibuffer
+  :defer t
+  :bind (("C-x C-b" . ibuffer))
+  )
+
+(use-package hippie-expand
+  :defer t
+  :bind (("M-/" . hippie-expand))
+  )
+
+(use-package rainbow-delimiters
+  :init
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+  )
+
+(use-package recentf
+  :defer t
+  :init
+  (recentf-mode 1)
+  :config
+  (setq recentf-max-menu-items 15)
+  )
 
 (use-package hydra)
 
@@ -52,10 +72,12 @@
 		 ("M-y"		. counsel-yank-pop)
 		 ("C-r"		. ivy-resume)
 		 ("C-x C-f" . counsel-find-file)
+		 ("C-x C-r" . counsel-recentf)
 		 ("C-x r b" . counsel-bookmark)
 		 ("C-c s a" . counsel-ag)
+		 ("C-c s c" . counsel-company)
 		 ("C-c s f" . counsel-git)
-		 ("C-c s i" . counsel-imenu)
+		 ("C-c s m" . counsel-imenu)
 		 ("C-c s p" . counsel-git-grep)
 		 ("C-c s l" . counsel-locate)
 		 ("C-c s t" . counsel-tmm)
@@ -121,7 +143,7 @@
 (use-package ace-window)
 
 (use-package iedit
-  :bind ("C-c i e" . iedit-mode)
+  :bind ("M-s e" . iedit-mode)
   )
 
 (use-package lispy
@@ -160,13 +182,7 @@
   (winner-mode 1)
   )
 
-(use-package recentf
-  :defer 10
-  :commands (recentf-open-files)
-  :bind ("C-x C-r" . recentf-open-files)
-  :config
-  (recentf-mode 1)
-  )
+
 
 (use-package undo-tree
   :defer 15
@@ -181,7 +197,7 @@
 		 ("C-x r U" . undo-tree-restore-state-from-register))
   :config
   (global-undo-tree-mode 1)
-  (setq undo-tree-auto-save-history t)
+  ;; (setq undo-tree-auto-save-history t)
   (setq undo-tree-visualizer-diff t)
   (setq undo-tree-visualizer-timestamps t)
   )
