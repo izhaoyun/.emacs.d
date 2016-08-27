@@ -143,7 +143,11 @@ without unwanted space when exporting org-mode to html."
   (use-package org-bullets
 	:init
 	(add-hook 'org-mode-hook 'org-bullets-mode)
+
+	(setq org-bullets-bullet-list
+		  '("◉" "◎" "⚫" "○" "►" "◇"))
 	)
+
   )
 
 (provide 'init-org)
