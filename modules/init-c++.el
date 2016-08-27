@@ -7,7 +7,6 @@
     flycheck-google-cpplint
     irony-eldoc
     rtags
-    cmake-ide
     ggtags
     )
   )
@@ -99,11 +98,6 @@
   :config
   ;; TODO: fix the process to initialize rtags.
   (rtags-enable-standard-keybindings c-mode-base-map)
-  (use-package cmake-ide
-    :init
-    (setq cmake-ide-rdm-executable "/usr/local/bin/rdm")
-    (cmake-ide-setup)
-    )
   )
 
 (use-package ggtags
