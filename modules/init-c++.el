@@ -6,7 +6,6 @@
     google-c-style
     flycheck-google-cpplint
     irony-eldoc
-    rtags
     ggtags
     )
   )
@@ -91,14 +90,6 @@
     )
   )
 (add-hook 'c-mode-common-hook 'c++/init-flycheck-google-cpplint)
-
-(use-package rtags
-  :defer t
-  :init
-  :config
-  ;; TODO: fix the process to initialize rtags.
-  (rtags-enable-standard-keybindings c-mode-base-map)
-  )
 
 (use-package ggtags
   :init

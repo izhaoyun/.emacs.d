@@ -1,7 +1,6 @@
 (defconst my/python-packages
-  '(python-mode
-	pyvenv
-	jedi
+  '(anaconda-mode
+	company-anaconda
 	py-yapf
 	flycheck-pyflakes
 	pip-requirements
@@ -10,25 +9,20 @@
 
 (install-packages my/python-packages)
 
-(use-package python-mode
-  :init
-  :config
+(use-package python
+  :mode ("\\.py\\'" . python-mode)
+  :interpreter ("python" . python-mode)
   )
 
-(use-package jedi
+(use-package anaconda-mode
   :init
-  (add-hook 'python-mode-hook 'jedi:setup)
+  (add-hook 'python-mode-hook 'anaconda-mode)
+  (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
   :config
-  (setq jedi:complete-on-dot t)
+  ;; company-anaconda
+  (eval-after-load "company"
+	'(add-to-list 'company-backends 'company-anaconda))
   )
-
-(defun python/init-pyvenv ()
-  (use-package pyvenv
-	:init
-	(add-hook 'pyvenv-post-activate-hooks 'pyvenv-restart-python)
-	)
-  )
-(add-hook 'python-mode-hook 'python/init-pyvenv)
 
 (use-package py-yapf
   :init
@@ -43,8 +37,8 @@
   )
 
 (use-package pip-requirements
-  :mode (("\\.pip\'" . pip-requirements-mode)
-		 ("requirements\.txt\'" . pip-requirements-mode)
+  :mode (("\\.pip\\'" . pip-requirements-mode)
+		 ("requirements\.txt\\'" . pip-requirements-mode)
 		 ("test-requirements\.txt\'" . pip-requirements-mode))
   :init
   (add-hook 'python-mode-hook 'pip-requirements-auto-complete-setup)

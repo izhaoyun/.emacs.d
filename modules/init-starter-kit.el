@@ -147,6 +147,7 @@
   )
 
 (use-package lispy
+  :disabled yes
   :diminish lispy-mode
   :init
   ;; enable lispy automatically for emacs-lisp-mode

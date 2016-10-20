@@ -2,7 +2,6 @@
   (require 'package)
   (add-to-list 'package-archives '("melpa"  . "http://melpa.org/packages/"))
   (add-to-list 'package-archives '("org"    . "http://orgmode.org/elpa/"))
-  (add-to-list 'package-archives '("popkit" . "https://elpa.popkit.org/packages/"))
   (add-to-list 'package-archives '("SC"     . "http://joseito.republika.pl/sunrise-commander/"))
   (package-initialize)
   (setq package-enable-at-startup nil)
