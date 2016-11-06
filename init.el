@@ -1,13 +1,10 @@
 (require 'package)
-  (setq package-archives '(("gnu" . "https://elpa.gnu.org/packages/")
-                           ("marmalade" . "https://marmalade-repo.org/packages/")
-                           ("melpa"  . "https://melpa.org/packages/")
-                           ("org"    . "http://orgmode.org/elpa/")
-                           ("SC"     . "http://joseito.republika.pl/sunrise-commander/")))
+(setq package-archives '(("melpa"  . "http://melpa.org/packages/")
+						 ("org"    . "http://orgmode.org/elpa/")
+						 ("SC"     . "http://joseito.republika.pl/sunrise-commander/")))
 (package-initialize)
 (setq package-enable-at-startup nil)
 
-;; get `use-package' installed.
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
