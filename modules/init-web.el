@@ -1,14 +1,3 @@
-(defconst my/web-packages
-  '(web-mode
-	impatient-mode
-	restclient
-	yaml-mode
-
-	)
-  )
-
-(install-packages my/web-packages)
-
 (use-package web-mode
   :mode (("\\.phtml\\'"		. web-mode)
 		 ("\\.tpl\\.php\\'" . web-mode)

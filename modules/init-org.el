@@ -1,17 +1,3 @@
-(defconst my/org-packages
-  '(org
-	org-bullets
-    org-plus-contrib
-	ob-ipython
-	ob-http
-    htmlize
-	gnuplot
-	graphviz-dot-mode
-	)
-  )
-
-(install-packages my/org-packages)
-
 (use-package org
   :mode (("\\.org$" . org-mode))
   :bind (("C-c a" . org-agenda)
@@ -24,12 +10,12 @@
   (transient-mark-mode 1)
 
   (setq org-emphasis-regexp-components
-		;; markup 记号前后允许中文
 		(list (concat " \t('\"{"            "[:nonascii:]")
 			  (concat "- \t.,:!?;'\")}\\["  "[:nonascii:]")
 			  " \t\r\n,\"'"
 			  "."
-			  1))
+			  1)
+		)
 
   (setq org-file-apps '((auto-mode . emacs)
 						("\\.mm\\'" . default)
@@ -44,7 +30,7 @@
 
   (use-package ox
 	:init
-    (setq org-export-default-language "zh-CN")
+	(setq org-export-default-language "zh-CN")
 	:config
 	(use-package ox-beamer)
 	(use-package ox-gfm)
@@ -65,14 +51,14 @@ without unwanted space when exporting org-mode to html."
 		)
 	  )
 	(use-package ox-latex
-      :init
-      (setq org-latex-listings 'minted)
-      (setq org-latex-minted-options '(("frame"      "single")
-                                       ("breaklines" "")))
-      (setq org-latex-pdf-process
-            '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-              "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-              "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+	  :init
+	  (setq org-latex-listings 'minted)
+	  (setq org-latex-minted-options '(("frame"      "single")
+									   ("breaklines" "")))
+	  (setq org-latex-pdf-process
+			'("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+			  "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+			  "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
 
 	  (add-to-list 'org-latex-packages-alist '("" "ctex"))
 	  (add-to-list 'org-latex-packages-alist '("" "minted"))
@@ -84,7 +70,7 @@ without unwanted space when exporting org-mode to html."
 	  (add-to-list 'org-latex-packages-alist '("" "natbib"))
 	  (add-to-list 'org-latex-packages-alist '("" "titlesec"))
 	  )
-    )
+	)
 
   (use-package ob
 	:init

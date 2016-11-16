@@ -1,23 +1,3 @@
-(defconst my/devel-packages
-  '(company
-    company-quickhelp
-    yasnippet
-    projectile
-    comment-dwim-2
-    aggressive-indent
-    magit
-    flycheck
-    highlight-indentation
-    clean-aindent-mode
-    dtrt-indent
-    ws-butler
-    stickyfunc-enhance
-    smartparens
-    )
-  )
-
-(install-packages my/devel-packages)
-
 (use-package whitespace
   :defer t
   :config

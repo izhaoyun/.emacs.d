@@ -1,12 +1,6 @@
-(defconst my/init-erlang
-  '(erlang)
-  )
-
-(install-packages my/init-erlang)
-
 (use-package erlang-start
   :mode (("\\.erl?$" . erlang-mode)
-		 ("\\.hrl?$" . erlang-mode))
+         ("\\.hrl?$" . erlang-mode))
   :ensure erlang
   :init
   (setq erlang-root-dir "/usr/lib/erlang")

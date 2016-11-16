@@ -1,9 +1,3 @@
-(defconst my/latex-packages
-  '(auctex)
-  )
-
-(install-packages my/latex-packages)
-
 (use-package latex
   :ensure auctex
   :config

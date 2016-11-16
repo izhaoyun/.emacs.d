@@ -1,16 +1,3 @@
-(defconst my/ruby-packages
-  '(inf-ruby
-	robe
-	yari
-	ruby-tools
-	puppet-mode
-	bundler
-	company-inf-ruby
-	)
-  )
-
-(install-packages my/ruby-packages)
-
 (use-package ruby-mode
   :mode (("\\.rb\\'" . ruby-mode)
 		 ("\\.rake$" . ruby-mode)

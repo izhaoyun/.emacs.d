@@ -1,24 +1,3 @@
-(defconst my/starter-kit-packages
-  '(ivy
-	swiper
-	counsel
-	hydra
-	avy
-	ace-window
-	lispy
-	which-key
-	hi-lock
-	expand-region
-	rainbow-delimiters
-	undo-tree
-	iedit
-	highlight-symbol
-	ace-pinyin
-	)
-  )
-
-(install-packages my/starter-kit-packages)
-
 (defalias 'yes-or-no-p 'y-or-n-p)
 (global-set-key (kbd "RET") 'newline-and-indent)
 

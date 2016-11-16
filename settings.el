@@ -16,16 +16,8 @@
  '(inhibit-startup-screen t)
  '(menu-bar-mode nil)
  '(package-selected-packages
-   (quote (
-	 ;; c/c++
-	 cmake-mode	cmake-font-lock cmake-ide google-c-style company-c-headers irony company-irony-c-headers company-irony flycheck-irony cpputils-cmake ggtags irony-eldoc flycheck-google-cpplint
-	 ;; org-mode
-	 org-bullets htmlize org-plus-contrib plantuml-mode ob-http ob-ipython graphviz-dot-mode gnuplot
-	 ;; python
-	 company-anaconda anaconda-mode pip-requirements py-yapf flycheck-pyflakes
-	 ;; ruby
-	 inf-ruby robe yari company-inf-ruby ruby-tools
-	 web-mode systemd puppet-mode smartparens projectile yasnippet undo-tree which-key haskell-mode yaml-mode ws-butler window-numbering sunrise-commander stickyfunc-enhance restclient rainbow-delimiters markdown-preview-eww markdown-mode magit lispy levenshtein impatient-mode highlight-symbol highlight-indentation expand-region erlang dtrt-indent counsel company-quickhelp comment-dwim-2 clean-aindent-mode bundler auctex aggressive-indent ace-pinyin 4clojure)))
+   (quote
+	(ace-window avy hydra swiper ivy cmake-mode cmake-font-lock google-c-style company-c-headers irony company-irony-c-headers company-irony flycheck-irony cpputils-cmake ggtags irony-eldoc flycheck-google-cpplint org-bullets htmlize org-plus-contrib plantuml-mode ob-http ob-ipython graphviz-dot-mode gnuplot company-anaconda anaconda-mode pip-requirements py-yapf flycheck-pyflakes inf-ruby robe yari company-inf-ruby ruby-tools web-mode systemd puppet-mode smartparens projectile yasnippet undo-tree which-key haskell-mode yaml-mode ws-butler window-numbering sunrise-commander stickyfunc-enhance restclient rainbow-delimiters markdown-preview-eww markdown-mode magit lispy levenshtein impatient-mode highlight-symbol highlight-indentation expand-region erlang dtrt-indent counsel company-quickhelp comment-dwim-2 clean-aindent-mode bundler auctex aggressive-indent ace-pinyin 4clojure)))
  '(recentf-mode t)
  '(scroll-bar-mode nil)
  '(select-enable-primary t)

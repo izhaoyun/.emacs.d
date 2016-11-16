@@ -1,9 +1,3 @@
-(defconst my/shell-packages
-  '(systemd)
-  )
-
-(install-packages my/shell-packages)
-
 (use-package sh-script
   :mode (("\\.zsh$" . shell-script-mode)
 		 )

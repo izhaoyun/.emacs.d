@@ -1,10 +1,3 @@
-(defconst my/markdown-packages
-  '(markdown-mode
-	markdown-preview-eww)
-  )
-
-(install-packages my/markdown-packages)
-
 (use-package markdown-mode
   :commands (markdown-mode
 			 gfm-mode)

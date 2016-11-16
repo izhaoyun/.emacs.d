@@ -1,11 +1,3 @@
-(defconst my/utils-package
-  '(sunrise-commander
-	async
-	)
-  )
-
-(install-packages my/utils-package)
-
 (use-package sunrise-commander
   :commands (sunrise)
   :bind ("C-x t c" . sunrise)

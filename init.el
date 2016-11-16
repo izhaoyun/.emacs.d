@@ -25,14 +25,6 @@
 		  (byte-compile-file buffer-file-name)))))
 (add-hook 'after-save-hook #'recompile-elisp-file)
 
-(eval-and-compile
-  (defun install-packages (packages-list)
-	(dolist (package packages-list)
-	  (unless (package-installed-p package)
-		(package-install package)))
-	)
-  )
-
 (setq custom-file (expand-file-name "settings.el" user-emacs-directory))
 (load custom-file)
 

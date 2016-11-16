@@ -1,17 +1,3 @@
-(defconst my/c++-packages
-  '(company-c-headers
-    irony
-    company-irony
-    flycheck-irony
-    google-c-style
-    flycheck-google-cpplint
-    irony-eldoc
-    ggtags
-    )
-  )
-
-(install-packages my/c++-packages)
-
 (use-package cc-mode
   :mode ("\\.h\\(h?\\|xx\\|pp\\)\\'" . c++-mode)
   :preface
@@ -25,7 +11,7 @@
     (define-key c-mode-map  [(tab)] 'company-complete)
     (define-key c++-mode-map  [(tab)] 'company-complete)
 
-	(setq-default indent-tabs-mode nil)
+    (setq-default indent-tabs-mode nil)
     )
   (use-package google-c-style
     :init

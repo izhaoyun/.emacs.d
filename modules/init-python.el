@@ -1,14 +1,3 @@
-(defconst my/python-packages
-  '(anaconda-mode
-	company-anaconda
-	py-yapf
-	flycheck-pyflakes
-	pip-requirements
-	)
-  )
-
-(install-packages my/python-packages)
-
 (use-package python
   :mode ("\\.py\\'" . python-mode)
   :interpreter ("python" . python-mode)
