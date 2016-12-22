@@ -24,11 +24,9 @@
   :diminish company-mode
   :bind (("C-<tab>" . company-yasnippet))
   :init
-  (progn
-    (setq company-global-modes
-          '(not python-mode pip-requirements-mode web-mode))
-    (global-company-mode)
-    )
+  (setq company-global-modes
+        '(not python-mode pip-requirements-mode web-mode))
+  (global-company-mode)
   :config
   (setq company-idle-delay 0)
   (setq company-show-numbers t)
@@ -139,11 +137,10 @@
 
 (use-package projectile
   :diminish projectile-mode
-  :commands (projectile-global-mode)
   :init
-  (projectile-global-mode)
-  (setq projectile-completion-system 'ivy)
+  (projectile-mode)
   :config
+  (setq projectile-completion-system 'ivy)
   (setq projectile-enable-caching t)
   )
 

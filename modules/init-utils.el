@@ -1,8 +1,3 @@
-(use-package sunrise-commander
-  :commands (sunrise)
-  :bind ("C-x t c" . sunrise)
-  )
-
 (use-package async-bytecomp
   :ensure async
   :config

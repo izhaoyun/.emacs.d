@@ -125,21 +125,6 @@
   :bind ("M-s e" . iedit-mode)
   )
 
-(use-package lispy
-  :disabled yes
-  :diminish lispy-mode
-  :init
-  ;; enable lispy automatically for emacs-lisp-mode
-  (add-hook 'emacs-lisp-mode-hook 'lispy-mode)
-
-  ;; enable lispy for eval-expression
-  (defun conditionally-enable-lispy ()
-	(when (eq this-command 'eval-expression)
-	  (lispy-mode 1))
-	)
-  (add-hook 'minibuffer-setup-hook 'conditionally-enable-lispy)
-  )
-
 (use-package which-key
   :defer 12
   :diminish which-key-mode
@@ -162,8 +147,6 @@
   (winner-mode 1)
   )
 
-
-
 (use-package undo-tree
   :defer 15
   :diminish undo-tree-mode
@@ -177,7 +160,7 @@
 		 ("C-x r U" . undo-tree-restore-state-from-register))
   :config
   (global-undo-tree-mode 1)
-  ;; (setq undo-tree-auto-save-history t)
+
   (setq undo-tree-visualizer-diff t)
   (setq undo-tree-visualizer-timestamps t)
   )

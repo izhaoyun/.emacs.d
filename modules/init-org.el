@@ -80,8 +80,7 @@ without unwanted space when exporting org-mode to html."
 
 	(use-package ob-plantuml
 	  :init
-	  (setq org-plantuml-jar-path
-			(shell-command-to-string "locate plantuml.jar"))
+	  (setq org-plantuml-jar-path "/opt/plantuml/plantuml.jar")
 	  )
 
 	(use-package ob-gnuplot
@@ -101,8 +100,7 @@ without unwanted space when exporting org-mode to html."
 	(use-package ob-ditaa
 	  :init
 	  ;; get the location of ditaa*.jar.
-	  (setq org-ditaa-jar-path
-			(shell-command-to-string "locate ditaa | grep '\.jar$' | grep '/usr/share'"))
+	  (setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_9.jar")
 	  )
 
 	(org-babel-do-load-languages

@@ -98,5 +98,13 @@
   (define-key ggtags-mode-map (kbd "C-c g u") 'ggtags-update-tags)
   )
 
+(use-package rtags
+  :ensure company
+  :config
+  (require 'company-rtags)
+  (push 'company-rtags company-backends)
+  (rtags-enable-standard-keybindings)
+  )
+
 (provide 'init-c++)
 ;;; init-c++.el ends here

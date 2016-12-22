@@ -1,7 +1,7 @@
 (require 'package)
 (setq package-archives '(("melpa"  . "http://melpa.org/packages/")
-						 ("org"    . "http://orgmode.org/elpa/")
-						 ("SC"     . "http://joseito.republika.pl/sunrise-commander/")))
+						 ("org"    . "http://orgmode.org/elpa/")))
+
 (package-initialize)
 (setq package-enable-at-startup nil)
 
@@ -33,7 +33,7 @@
 (require 'init-starter-kit)
 (require 'init-devel)
 (require 'init-utils)
-
+(require 'init-lisp)
 (require 'init-org)
 (require 'init-c++)
 (require 'init-python)
