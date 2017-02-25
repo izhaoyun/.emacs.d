@@ -1,3 +1,5 @@
 ((nil . ((indent-tabs-mode . nil)
-         (tab-width . 2)))
- (makefile-mode . (indent-tabs-mode . t))
+	 (tab-width . 2)))
+ (emacs-lisp . ((indent-tabs-mode . nil)
+		(tab-width . 2)))
+ (makefile-mode . (indent-tabs-mode . t)))

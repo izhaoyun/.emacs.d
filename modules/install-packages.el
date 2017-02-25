@@ -6,7 +6,8 @@
     swiper
     hydra
     which-key
-    window-number
+    window-numbering
+    auto-compile
     ;; edit
     avy
     ace-pinyin
@@ -14,11 +15,13 @@
     ws-butler
     expand-region
     aggressive-indent
+    highlight-symbol
+    comment-dwim-2
     ;; project
     projectile
     ;; version control
     magit
-    ;;
+    git-commit
     company
     ;; languages
     ;;--------------------
@@ -45,9 +48,10 @@
     ;; latex
     auctex
     ;;--------------------
-    ))
-(eval-after-load 'package
-  '(setq package-selected-packages my/packages))
+    )
+  )
+;;(eval-after-load 'package
+;;  '(setq package-selected-packages my/packages))
 
 (defun install-packages-from-list (pkgs-list)
   (dolist (pkg pkgs-list)

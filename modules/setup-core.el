@@ -1,3 +1,5 @@
+;;; -*- lexical-binding: t; -*-
+
 ;; swipper
 (use-package counsel
   :init
@@ -16,7 +18,6 @@
 	 ("M-y" . counsel-yank-pop)
 	 ("C-x C-f" . counsel-find-file)
 	 ("C-x C-r" . counsel-recentf)
-	 ("C-x C-b" . counsel-bookmark))
-  )
+	 ("C-x C-b" . counsel-bookmark)))
 
 (provide 'setup-core)

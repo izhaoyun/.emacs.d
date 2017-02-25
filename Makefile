@@ -1,9 +1,10 @@
 EMACS=emacs
 
 FILES=init.el \
-      modules/setup-editor.el \
       modules/install-packages.el \
-      modules/setup-core.el
+      modules/setup-editor.el \
+      modules/setup-core.el \
+      modules/init-lisp.el
 
 
 all: $(FILES)
