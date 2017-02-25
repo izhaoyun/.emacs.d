@@ -1,5 +1,6 @@
 *.elc
 *~
+*.swp
 elpa
 auto-save-list
 recentf
