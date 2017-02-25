@@ -26,3 +26,5 @@
 (require 'setup-core)
 (require 'init-lisp)
 (require 'init-latex)
+(require 'init-org)
+(require 'init-python)

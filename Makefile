@@ -5,7 +5,10 @@ FILES=init.el \
       modules/install-packages.el \
       modules/setup-editor.el \
       modules/setup-core.el \
-      modules/init-lisp.el
+      modules/init-lisp.el \
+      modules/init-python.el \
+      modules/init-latex.el \
+      modules/init-org.el
 
 
 all: $(FILES)

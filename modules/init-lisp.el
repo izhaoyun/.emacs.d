@@ -12,6 +12,18 @@
   (setq auto-compile-display-buffer nil)
   (setq auto-compile-mode-line-counter t))
 
-(use-package lispy)
+;; make it easy to navigate and edit lisp code.
+;; @github: abo-abo/lispy
+(use-package lispy
+  :config
+  (dolist (hook '(emacs-lisp-mode-hook
+                  scheme-mode-hook))
+    (add-hook hook (lambda () (lispy-mode 1))))
+
+  ;; use lispy in the minibuffer during `eval-expression'.
+  (defun conditionally-enable-lispy ()
+    (when (eq this-command 'eval-expression)
+      (lispy-mode 1)))
+  (add-hook 'minibuffer-setup-hook 'conditionally-enable-lispy))
 
 (provide 'init-lisp)
