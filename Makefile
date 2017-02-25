@@ -1,6 +1,7 @@
 EMACS=emacs
 
 FILES=init.el \
+      custom.el \
       modules/install-packages.el \
       modules/setup-editor.el \
       modules/setup-core.el \

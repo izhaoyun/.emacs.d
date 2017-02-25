@@ -17,8 +17,12 @@
 (require 'use-package)
 ;; (setq use-package-always-ensure t)
 
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(load custom-file 'noerror)
+
 (add-to-list 'load-path (expand-file-name "modules" user-emacs-directory))
 (require 'install-packages)
 (require 'setup-editor)
 (require 'setup-core)
 (require 'init-lisp)
+(require 'init-latex)

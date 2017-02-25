@@ -1,5 +1,6 @@
 ((nil . ((indent-tabs-mode . nil)
-	 (tab-width . 2)))
+         (tab-width . 2)))
  (emacs-lisp . ((indent-tabs-mode . nil)
-		(tab-width . 2)))
+                (tab-width . 2)
+                (outline-regexp . ";;\\([;*]+ [^\s\t\n]\\|###autoload\\)\\|(")))
  (makefile-mode . (indent-tabs-mode . t)))

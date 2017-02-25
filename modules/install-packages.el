@@ -9,6 +9,7 @@
     window-numbering
     auto-compile
     ;; edit
+    golden-ratio
     avy
     ace-pinyin
     undo-tree
