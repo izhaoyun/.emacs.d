@@ -26,4 +26,8 @@
       (lispy-mode 1)))
   (add-hook 'minibuffer-setup-hook 'conditionally-enable-lispy))
 
+(use-package paren
+  :init
+  (add-hook 'emacs-lisp-mode-hook 'show-paren-mode))
+
 (provide 'init-lisp)

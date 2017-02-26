@@ -15,7 +15,6 @@
 (require 'diminish)
 (require 'bind-key)
 (require 'use-package)
-;; (setq use-package-always-ensure t)
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file 'noerror)
@@ -24,7 +23,9 @@
 (require 'install-packages)
 (require 'setup-editor)
 (require 'setup-core)
+;; --- language modules ---
 (require 'init-lisp)
 (require 'init-latex)
 (require 'init-org)
 (require 'init-python)
+(require 'init-web)

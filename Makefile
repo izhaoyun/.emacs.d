@@ -8,7 +8,8 @@ FILES=init.el \
       modules/init-lisp.el \
       modules/init-python.el \
       modules/init-latex.el \
-      modules/init-org.el
+      modules/init-org.el \
+      modules/init-web.el
 
 
 all: $(FILES)

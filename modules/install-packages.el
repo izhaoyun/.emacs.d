@@ -1,12 +1,14 @@
-(defvar my/packages '( ;; utils
-                      counsel
-                      ivy
+;;; -*- lexical-binding: t; -*-
+(defvar my/packages '(ivy
                       swiper
                       hydra
+                      use-package
+                      diminish
+                      counsel
+                      bind-key
                       ace-window
                       hungry-delete
                       which-key
-                      auto-compile
                       golden-ratio
                       avy
                       ace-pinyin
@@ -16,30 +18,34 @@
                       aggressive-indent
                       highlight-symbol
                       comment-dwim-2
-                      ;; project
                       projectile
-                      ;; --- version control ---
                       magit
                       git-commit
-                      ;;
                       company
-                      ;;--- org ---
+                      company-quickhelp
+                      yasnippet
+                      ;; --- org ---
                       org
                       org-plus-contrib
                       htmlize
-                      ;; lisp
+                      ;; --- lisp ---
+                      auto-compile
                       lispy
-                      ;; c/c++
+                      ;; --- c/c++ ---
                       ggtags
                       irony
-                      ;; shell
+                      ;; --- shell ---
                       ;; python
                       ;; ruby
                       ;; erlang
-                      ;; latex
-                      auctex))
+                      ;; --- latex ---
+                      auctex
+                      ;; --- web ---
+                      js2-mode))
 
 (setq package-selected-packages my/packages)
+
+(require 'cl)
 
 (defun my/packages-installed-p ()
   (loop for pkg in my/packages

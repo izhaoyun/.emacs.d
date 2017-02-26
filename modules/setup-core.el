@@ -54,4 +54,40 @@
          ("M-g w" . avy-goto-word-1)
          ("M-g e" . avy-goto-word-0)))
 
+;; display the key bindings following currently entered incomplete
+;; command in a popup.
+;; @github: justbur/emacs-which-key
+(use-package which-key
+  :init
+  (setq which-key-idle-delay 0.5)
+  (which-key-mode)
+  :config
+  (which-key-setup-side-window-right-bottom))
+
+;; @github: company-mode/company-mode
+(use-package company
+  :init
+  ;; (setq company-global-modes
+  ;;       '(not python-mode web-mode))
+  (add-hook 'after-init-hook 'global-company-mode)
+  :config
+  (setq company-show-numbers t)
+  ;;
+  (use-package company-quickhelp
+    :bind (:map company-active-map
+                ("M-h" . company-quickhelp-manual-begin))
+    :config
+    (company-quickhelp-mode 1)
+    (setq company-quickhelp-delay nil)))
+
+;; @github: joaotavora/yasnippet
+(use-package yasnippet
+  :init
+  (yas-global-mode 1)
+  :config)
+
+(use-package hippie-exp
+  :bind  ("M-/" . hippie-expand)
+  :config)
+
 (provide 'setup-core)

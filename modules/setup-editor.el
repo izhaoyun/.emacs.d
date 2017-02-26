@@ -1,17 +1,30 @@
 ;;; -*- lexical-binding: t; -*-
 
-;; disable statup screen
+;; disable default statup message.
 (setq inhibit-startup-screen t)
 
+(when window-system
+  (tooltip-mode -1)
+  (tool-bar-mode -1)
+  (scroll-bar-mode -1))
+
 (menu-bar-mode -1)
-(tool-bar-mode -1)
-(scroll-bar-mode -1)
+
 (global-linum-mode 1)
+(global-hl-line-mode 1)
 (setq make-backup-files nil)
 
-;; automatic and manual symbol highlighting for Emacs.
+;; os clipboard integration.
+(setq select-enable-clipboard t)
+(setq select-enable-primary t)
+(setq mouse-drag-copy-region t)
+
+(set-language-environment "UTF-8")
+
+;; automatic and manual symbol highlighting for emacs.
 ;; @github: nschum/highlight-symbol.el
 (use-package highlight-symbol
+  :defer t
   :bind (("C-<f3>" . highlight-symbol)
          ("<f3>"   . highlight-symbol-next)
          ("S-<f3>" . highlight-symbol-prev)
@@ -20,11 +33,17 @@
 ;; trim spaces from end of line.
 ;; @github: lewang/ws-butler
 (use-package ws-butler
+  :defer t
   :diminish ws-butler-mode
-  :init
+  :config
   (ws-butler-global-mode))
 
-;; a replacement for the Emacs' built-in command `comment-dwim'.
+(use-package whitespace
+  :defer t
+  :config
+  (add-hook 'before-save-hook 'whitespace-cleanup))
+
+;; a replacement for the emacs' built-in command `comment-dwim'.
 ;; @github: remyferre/comment-dwim-2
 (use-package comment-dwim-2
   :bind ("M-;" . comment-dwim-2))
@@ -50,5 +69,7 @@
   :diminish golden-ratio-mode
   :config
   (golden-ratio-mode 1))
+
+
 
 (provide 'setup-editor)
