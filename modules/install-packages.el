@@ -8,6 +8,7 @@
                       bind-key
                       ace-window
                       hungry-delete
+                      popwin
                       which-key
                       golden-ratio
                       avy

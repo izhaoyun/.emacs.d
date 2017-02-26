@@ -9,10 +9,18 @@
   (scroll-bar-mode -1))
 
 (menu-bar-mode -1)
+(setq visible-bell t)
 
+(global-font-lock-mode 1)
 (global-linum-mode 1)
 (global-hl-line-mode 1)
 (setq make-backup-files nil)
+
+;; tabs, spaces, lines and parenthesis
+(setq-default indent-tabs-mode nil)
+(setq tab-width 4)
+;; Sentences end with one space
+(setq sentence-end-double-space nil)
 
 ;; os clipboard integration.
 (setq select-enable-clipboard t)
@@ -20,6 +28,19 @@
 (setq mouse-drag-copy-region t)
 
 (set-language-environment "UTF-8")
+
+(global-set-key (kbd "C-h C-f") 'find-function)
+(global-set-key (kbd "C-h C-v") 'find-variable)
+
+(use-package paren
+  :init
+  (show-paren-mode 1)
+  :config
+  (setq blink-matching-paren-distance nil)
+  ;; highlight text between parens.
+  (setq show-paren-style 'expression))
+
+(defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; automatic and manual symbol highlighting for emacs.
 ;; @github: nschum/highlight-symbol.el
@@ -70,6 +91,12 @@
   :config
   (golden-ratio-mode 1))
 
-
+;; a popup window manager.
+;; @github: m2ym/popwin-el
+(use-package popwin
+  :defer t
+  :config
+  (popwin-mode 1)
+  (global-set-key (kbd "C-z") popwin:keymap))
 
 (provide 'setup-editor)
