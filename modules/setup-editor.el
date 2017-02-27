@@ -73,22 +73,23 @@
 ;; a popup window manager.
 ;; @github: m2ym/popwin-el
 (use-package popwin
-  :defer t
   :config
   (popwin-mode 1)
   (global-set-key (kbd "C-z") popwin:keymap))
 
 ;; @github: malabarba/aggressive-indent-mode
 (use-package aggressive-indent
-  :defer t
   :config
   (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode))
 
 ;; show vertical lines to guide indentation.
 ;; @github: zk-phi/indent-guide
 (use-package indent-guide
-  :defer t
   :config
   (setq indent-guide-delay 0.1))
+
+(use-package winner
+  :init
+  (winner-mode 1))
 
 (provide 'setup-editor)
