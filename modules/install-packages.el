@@ -20,12 +20,14 @@
                           company-quickhelp
                           yasnippet
                           ;; --- org ---
-                          org org-plus-contrib htmlize
+                          org org-plus-contrib htmlize gnuplot-mode
                           ;; --- lisp ---
                           auto-compile lispy
                           ;; --- c/c++ ---
                           ggtags irony
                           ;; --- shell ---
+                          ;; --- makefile ---
+                          cmake-mode cmake-font-lock
                           ;; --- python ---
                           ;; --- erlang ---
                           ;; --- latex ---

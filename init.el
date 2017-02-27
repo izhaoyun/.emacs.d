@@ -17,7 +17,8 @@
 (require 'use-package)
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(load custom-file 'noerror)
+(when (file-exists-p custom-file)
+  (load custom-file 'noerror))
 
 (add-to-list 'load-path (expand-file-name "modules" user-emacs-directory))
 (require 'install-packages)
@@ -29,3 +30,4 @@
 (require 'init-org)
 (require 'init-python)
 (require 'init-web)
+(require 'init-c++)

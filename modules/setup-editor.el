@@ -1,15 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
-(setq visible-bell t)
+(defalias 'yes-or-no-p 'y-or-n-p)
 
-(global-font-lock-mode 1)
-(global-linum-mode 1)
-(global-hl-line-mode 1)
-(setq make-backup-files nil)
-
-;; tabs, spaces, lines and parenthesis
-(setq-default indent-tabs-mode nil)
-(setq tab-width 4)
 ;; Sentences end with one space
 (setq sentence-end-double-space nil)
 
@@ -18,7 +10,12 @@
 (setq select-enable-primary t)
 (setq mouse-drag-copy-region t)
 
+(prefer-coding-system 'utf-8)
 (set-language-environment "UTF-8")
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(setq buffer-file-coding-system 'utf-8)
 
 (global-set-key (kbd "C-h C-f") 'find-function)
 (global-set-key (kbd "C-h C-v") 'find-variable)
@@ -30,8 +27,6 @@
   (setq blink-matching-paren-distance nil)
   ;; highlight text between parens.
   (setq show-paren-style 'expression))
-
-(defalias 'yes-or-no-p 'y-or-n-p)
 
 ;; automatic and manual symbol highlighting for emacs.
 ;; @github: nschum/highlight-symbol.el
