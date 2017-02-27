@@ -87,7 +87,12 @@
   :config)
 
 (use-package hippie-exp
-  :bind  ("M-/" . hippie-expand)
-  :config)
+  :bind  ("M-/" . hippie-expand))
+
+;; @github: magit/magit
+(use-package magit
+  :defer t
+  :bind (("C-x g" . magit-status)
+         ("C-x M-g" . magit-dispatch-popup)))
 
 (provide 'setup-core)

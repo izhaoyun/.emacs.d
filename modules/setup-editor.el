@@ -1,14 +1,5 @@
 ;;; -*- lexical-binding: t; -*-
 
-;; disable default statup message.
-(setq inhibit-startup-screen t)
-
-(when window-system
-  (tooltip-mode -1)
-  (tool-bar-mode -1)
-  (scroll-bar-mode -1))
-
-(menu-bar-mode -1)
 (setq visible-bell t)
 
 (global-font-lock-mode 1)
@@ -84,13 +75,6 @@
   :bind (("C-=" . er/expand-region)
          ("C--" . er/contract-region)))
 
-;; automatic resize windows by golden ratio.
-;; @github: roman/golden-ratio.el
-(use-package golden-ratio
-  :diminish golden-ratio-mode
-  :config
-  (golden-ratio-mode 1))
-
 ;; a popup window manager.
 ;; @github: m2ym/popwin-el
 (use-package popwin
@@ -98,5 +82,18 @@
   :config
   (popwin-mode 1)
   (global-set-key (kbd "C-z") popwin:keymap))
+
+;; @github: malabarba/aggressive-indent-mode
+(use-package aggressive-indent
+  :defer t
+  :config
+  (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode))
+
+;; show vertical lines to guide indentation.
+;; @github: zk-phi/indent-guide
+(use-package indent-guide
+  :defer t
+  :config
+  (setq indent-guide-delay 0.1))
 
 (provide 'setup-editor)

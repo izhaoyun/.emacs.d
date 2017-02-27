@@ -31,6 +31,7 @@
     (setq org-export-default-language "zh-CN")
     :config
     (use-package ox-beamer)
+
     (use-package ox-html
       :config
       (defadvice org-html-paragraph (before org-html-paragraph-advice
@@ -45,6 +46,7 @@ without unwanted space when exporting org-mode to html."
                   "\\(" fix-regexp "\\) *\n *\\(" fix-regexp "\\)") "\\1\\2" origin-contents)))
 
           (ad-set-arg 1 fixed-contents))))
+
     (use-package ox-latex
       :init
       (setq org-latex-listings 'minted)
