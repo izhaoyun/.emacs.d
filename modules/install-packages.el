@@ -29,6 +29,7 @@
                           ;; --- makefile ---
                           cmake-mode cmake-font-lock
                           ;; --- python ---
+                          anaconda-mode company-anaconda pyenv-mode
                           ;; --- erlang ---
                           ;; --- latex ---
                           auctex

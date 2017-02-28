@@ -1,7 +1,7 @@
 ;;; -*- lexical-binding: t; -*-
 
 (use-package org
-  :mode (("\\.org$" . org-mode))
+  :mode (("\\.org\\'" . org-mode))
   :bind (("C-c a" . org-agenda)
          ("C-c b" . org-iswitch)
          ("C-c c" . org-capture)
@@ -23,8 +23,10 @@
                         ("\\.x?html?\\'" . default)
                         ("\\.pdf\\'" . "evince %s")))
   (setq org-src-fontify-natively t)
-  (setq org-src-tab-acts-natively t)
-  (setq org-src-preserve-indentation t)
+  (use-package org-src
+    :config
+    (setq org-src-tab-acts-natively t)
+    (setq org-src-preserve-indentation t))
   :config
   (use-package ox
     :init
@@ -81,10 +83,7 @@ without unwanted space when exporting org-mode to html."
       (use-package gnuplot
         :mode ("\\.\\(gp\\|gnuplot\\)$" . gnuplot-mode)))
 
-    (use-package ob-dot
-      :init
-      (use-package graphviz-dot-mode
-        :mode ("\\.dot\\'" . graphviz-dot-mode)))
+    (use-package ob-dot)
 
     (use-package ob-ditaa
       :init
@@ -110,5 +109,13 @@ without unwanted space when exporting org-mode to html."
     :init
     (add-hook 'org-mode-hook 'org-bullets-mode)
     (setq org-bullets-bullet-list '("◉" "◎" "⚫" "○" "►" "◇"))))
+
+(use-package graphviz-dot-mode
+  :mode (("\\.diag\\'"      . graphviz-dot-mode)
+         ("\\.blockdiag\\'" . graphviz-dot-mode)
+         ("\\.nwdiag\\'"    . graphviz-dot-mode)
+         ("\\.rackdiag\\'"  . graphviz-dot-mode)
+         ("\\.dot\\'"       . graphviz-dot-mode)
+         ("\\.gv\\'"        . graphviz-dot-mode)))
 
 (provide 'init-org)
