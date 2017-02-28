@@ -82,11 +82,17 @@
   :config
   (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode))
 
-;; show vertical lines to guide indentation.
-;; @github: zk-phi/indent-guide
-(use-package indent-guide
+;; highlights indentation levels via font-lock.
+;; @github: DarthFennec/highlight-indent-guides
+(use-package highlight-indent-guides
+  :init
+  (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
   :config
-  (setq indent-guide-delay 0.1))
+  (setq highlight-indent-guides-method 'character)
+  (setq highlight-indent-guides-character ?\|)
+  (setq highlight-indent-guides-auto-odd-face-perc 15)
+  (setq highlight-indent-guides-auto-even-face-perc 15)
+  (setq highlight-indent-guides-auto-character-face-perc 20))
 
 (use-package winner
   :init

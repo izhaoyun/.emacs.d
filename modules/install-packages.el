@@ -10,7 +10,7 @@
                           expand-region
                           ;; --- indent ---
                           aggressive-indent
-                          indent-guide
+                          highlight-indent-guides
                           highlight-symbol
                           comment-dwim-2
                           projectile
@@ -37,7 +37,8 @@
 
 (setq package-selected-packages my/packages)
 
-(require 'cl)
+(eval-when-compile
+  (require 'cl))
 
 (defun my/packages-installed-p ()
   (loop for pkg in my/packages

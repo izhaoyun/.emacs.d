@@ -26,8 +26,9 @@
 (require 'setup-core)
 ;; --- language modules ---
 (require 'init-lisp)
+(require 'init-c++)
 (require 'init-latex)
 (require 'init-org)
 (require 'init-python)
 (require 'init-web)
-(require 'init-c++)
+
