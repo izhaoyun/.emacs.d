@@ -73,9 +73,9 @@
 ;; a popup window manager.
 ;; @github: m2ym/popwin-el
 (use-package popwin
+  :bind-keymap ("C-z" . popwin:keymap)
   :config
-  (popwin-mode 1)
-  (global-set-key (kbd "C-z") popwin:keymap))
+  (popwin-mode 1))
 
 ;; @github: malabarba/aggressive-indent-mode
 (use-package aggressive-indent
