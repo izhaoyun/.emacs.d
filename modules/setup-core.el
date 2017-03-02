@@ -13,16 +13,16 @@
     (setq ivy-count-format "(%d/%d) ")
     (setq ivy-wrap t))
   :bind (("C-s" . counsel-grep-or-swiper)
+         ("C-r" . ivy-resume)
          ("M-x" . counsel-M-x)
          ("M-y" . counsel-yank-pop)
-         ("C-c C-r" . ivy-resume)
          ("C-x C-f" . counsel-find-file)
          ("C-x C-r" . counsel-recentf)
          ("C-x C-b" . counsel-bookmark)
-         ("C-c g" . counsel-git)
+         ("C-c f" . counsel-git)
          ("C-c j" . counsel-git-grep)
          ("C-c k" . counsel-ag)
-         ("C-c l" . counsel-locate)
+         ("C-c h" . counsel-locate)
          :map help-map
          ("b" . counsel-descbinds)
          ("f" . counsel-describe-function)
@@ -94,5 +94,19 @@
   :defer t
   :bind (("C-x g" . magit-status)
          ("C-x M-g" . magit-dispatch-popup)))
+
+(use-package projectile
+  :init
+  (projectile-mode 1)
+  :config
+  (setq projectile-completion-system 'ivy)
+  (setq projectile-enable-caching t)
+  (setq projectile-enable-idle-timer t)
+  (setq projectile-find-dir-includes-top-level t)
+  (setq projectile-switch-project-action #'projectile-dired)
+  ;; ignored directories
+  (add-to-list 'projectile-globally-ignored-directories "man")
+  (add-to-list 'projectile-globally-ignored-directories "bin")
+  (add-to-list 'projectile-globally-ignored-directories "doxygen"))
 
 (provide 'setup-core)

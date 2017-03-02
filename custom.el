@@ -14,7 +14,7 @@
  '(menu-bar-mode nil)
  '(package-selected-packages
    (quote
-    (ox-beamer preview counsel ivy swiper hydra ace-window hungry-delete which-key auto-compile golden-ratio avy ace-pinyin undo-tree ws-butler expand-region aggressive-indent highlight-symbol comment-dwim-2 projectile magit git-commit company org org-plus-contrib htmlize lispy ggtags irony auctex)))
+    (pip-requirements ivy swiper hydra counsel ace-window avy use-package diminish bind-key hungry-delete popwin which-key ace-pinyin undo-tree ws-butler expand-region aggressive-indent highlight-indent-guides highlight-symbol comment-dwim-2 projectile magit git-commit company company-quickhelp yasnippet org org-plus-contrib htmlize gnuplot-mode auto-compile lispy ggtags irony cmake-mode cmake-font-lock anaconda-mode company-anaconda pyenv-mode pip-requirements-mode auctex js2-mode)))
  '(scroll-bar-mode nil)
  '(tab-width 4)
  '(tool-bar-mode nil)
