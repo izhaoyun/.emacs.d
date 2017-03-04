@@ -69,6 +69,7 @@
                       edbi
                       company-edbi
                       ;; --- web ---
+                      web-mode
                       js2-mode))
 
 (setq package-selected-packages my/packages)
