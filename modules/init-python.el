@@ -1,4 +1,8 @@
-;;; -*- lexical-binding: t; -*-
+;;; init-python --- Python packages configuration -*- lexical-binding: t; -*-
+
+;;; Commentary:
+
+;;; Code:
 
 (use-package python
   :mode ("\\.py\\'" . python-mode)
@@ -28,4 +32,8 @@
   :init
   (add-hook 'python-mode-hook #'pyenv-mode))
 
+;; @github: Wilfred/pip-requirements.el
+(use-package pip-requirements)
+
 (provide 'init-python)
+;;; init-python.el ends here
