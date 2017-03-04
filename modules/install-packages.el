@@ -1,4 +1,9 @@
-;;; -*- lexical-binding: t; -*-
+;;; install-packages --- Installed Packages Lists -*- lexical-binding: t; -*-
+
+;;; Commentary:
+
+;;; Code:
+
 (defvar my/packages '(ivy
                       swiper
                       hydra
@@ -15,8 +20,12 @@
                       undo-tree
                       ws-butler
                       expand-region
+                      flycheck
+                      stickyfunc-enhance
                       ;; --- indent ---
+                      dtrt-indent
                       aggressive-indent
+                      clean-aindent-mode
                       highlight-indent-guides
                       highlight-symbol
                       comment-dwim-2
@@ -37,6 +46,10 @@
                       ;; --- c/c++ ---
                       ggtags
                       irony
+                      company-irony
+                      flycheck-irony
+                      company-c-headers
+                      function-args
                       ;; --- shell ---
                       ;; --- makefile ---
                       cmake-mode
@@ -47,8 +60,14 @@
                       pyenv-mode
                       pip-requirements
                       ;; --- erlang ---
+                      ivy-erlang-complete
+                      company-erlang
                       ;; --- latex ---
                       auctex
+                      company-auctex
+                      ;; --- sql ---
+                      edbi
+                      company-edbi
                       ;; --- web ---
                       js2-mode))
 
@@ -70,3 +89,4 @@
       (package-install pkg))))
 
 (provide 'install-packages)
+;;; install-packages.el ends here

@@ -94,6 +94,16 @@
   (setq highlight-indent-guides-auto-even-face-perc 15)
   (setq highlight-indent-guides-auto-character-face-perc 20))
 
+(use-package clean-aindent-mode
+  :config
+  (add-hook 'prog-mode-hook 'clean-aindent-mode))
+
+(use-package dtrt-indent
+  :init
+  (dtrt-indent-mode 1)
+  :config
+  (setq dtrt-indent-verbosity 0))
+
 (use-package winner
   :init
   (winner-mode 1))

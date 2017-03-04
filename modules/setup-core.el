@@ -1,4 +1,8 @@
-;;; -*- lexical-binding: t; -*-
+;;; setup-core --- Packages bla bla ... -*- lexical-binding: t; -*-
+
+;;; Commentary:
+
+;;; Code:
 
 ;; swipper
 (use-package counsel
@@ -59,20 +63,18 @@
 ;; @github: justbur/emacs-which-key
 (use-package which-key
   :init
-  (setq which-key-idle-delay 0.5)
   (which-key-mode)
   :config
+  (setq which-key-idle-delay 0.7)
   (which-key-setup-side-window-right-bottom))
 
 ;; @github: company-mode/company-mode
 (use-package company
   :init
-  ;; (setq company-global-modes
-  ;;       '(not python-mode web-mode))
   (add-hook 'after-init-hook 'global-company-mode)
   :config
   (setq company-show-numbers t)
-  ;;
+  ;; @github:
   (use-package company-quickhelp
     :bind (:map company-active-map
                 ("M-h" . company-quickhelp-manual-begin))
@@ -83,8 +85,7 @@
 ;; @github: joaotavora/yasnippet
 (use-package yasnippet
   :init
-  (yas-global-mode 1)
-  :config)
+  (yas-global-mode 1))
 
 (use-package hippie-exp
   :bind  ("M-/" . hippie-expand))
@@ -109,4 +110,17 @@
   (add-to-list 'projectile-globally-ignored-directories "bin")
   (add-to-list 'projectile-globally-ignored-directories "doxygen"))
 
+(use-package flycheck
+  :init
+  (add-hook 'after-init-hook #'global-flycheck-mode)
+  :config
+  (setq flycheck-check-syntax-automatically '(mode-enabled save)))
+
+;; @github: tuhdo/semantic-stickyfunc-enhance
+(use-package stickyfunc-enhance
+  :init
+  (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
+  (semantic-mode 1))
+
 (provide 'setup-core)
+;;; setup-core.el ends here
