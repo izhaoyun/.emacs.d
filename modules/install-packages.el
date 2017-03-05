@@ -21,6 +21,7 @@
                       ws-butler
                       expand-region
                       flycheck
+                      ztree
                       stickyfunc-enhance
                       ;; --- indent ---
                       dtrt-indent

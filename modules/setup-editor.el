@@ -1,4 +1,8 @@
-;;; -*- lexical-binding: t; -*-
+;;; setup-editor --- basic settings -*- lexical-binding: t; -*-
+
+;;; Commentary:
+
+;;; Code:
 
 (defalias 'yes-or-no-p 'y-or-n-p)
 
@@ -108,4 +112,8 @@
   :init
   (winner-mode 1))
 
+;; @github: fourier/ztree
+(use-package ztree)
+
 (provide 'setup-editor)
+;;; setup-editor.el ends here
