@@ -1,4 +1,8 @@
-;;; -*- lexical-binding: t; -*-
+;;; init --- all magic things start from here -*- lexical-binding: t; -*-
+
+;;; Commentary:
+
+;;; Code:
 (require 'package)
 (setq load-prefer-newer t)
 (package-initialize)
@@ -32,3 +36,4 @@
 (require 'init-python)
 (require 'init-web)
 
+;;; init.el ends here
