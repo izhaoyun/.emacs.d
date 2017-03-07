@@ -21,6 +21,7 @@
                       ws-butler
                       expand-region
                       flycheck
+                      flycheck-pos-tip
                       ztree
                       stickyfunc-enhance
                       ;; --- indent ---

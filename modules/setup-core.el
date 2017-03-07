@@ -110,11 +110,18 @@
   (add-to-list 'projectile-globally-ignored-directories "bin")
   (add-to-list 'projectile-globally-ignored-directories "doxygen"))
 
+;; @github: flycheck/flycheck
 (use-package flycheck
   :init
   (add-hook 'after-init-hook #'global-flycheck-mode)
   :config
   (setq flycheck-check-syntax-automatically '(mode-enabled save)))
+
+;; @github: flycheck/flycheck-pos-tip
+(use-package flycheck-pos-tip
+  :after flycheck
+  :init
+  (flycheck-pos-tip-mode))
 
 ;; @github: tuhdo/semantic-stickyfunc-enhance
 (use-package stickyfunc-enhance
