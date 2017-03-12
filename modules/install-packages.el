@@ -39,9 +39,10 @@
                       yasnippet
                       ;; --- org ---
                       org
-                      org-plus-contrib
+                      org-bullets
                       htmlize
                       gnuplot-mode
+                      plantuml-mode
                       ;; --- lisp ---
                       auto-compile
                       lispy
