@@ -10,9 +10,10 @@
   :preface
   (defun zhao/python-mode-defaults ()
     "Defaults for Python programming."
-    (diminish 'subword-mode)
     (subword-mode 1)
-    (eldoc-mode 1))
+    (diminish 'subword-mode)
+    (eldoc-mode 1)
+    (diminish 'eldoc-mode))
   :init
   (add-hook 'python-mode-hook 'zhao/python-mode-defaults)
   :config
@@ -45,12 +46,6 @@
   :config
   (venv-initialize-interactive-shells)
   (venv-initialize-eshell))
-
-(use-package auto-virtualenvwrapper
-  :init
-  (add-hook 'python-mode-hook #'auto-virtualenvwrapper-activate)
-  (add-hook 'projectile-after-switch-project-hook
-            #'auto-virtualenvwrapper-activate))
 
 (provide 'init-python)
 ;;; init-python.el ends here

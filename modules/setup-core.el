@@ -75,8 +75,8 @@
   :init
   (add-hook 'after-init-hook 'global-company-mode)
   :config
-  (setq company-global-modes
-        '(not python-mode pip-requirements-mode))
+  ;; (setq company-global-modes
+  ;;       '(not python-mode pip-requirements-mode))
   (setq company-show-numbers t)
   ;; @github:
   (use-package company-quickhelp
@@ -134,8 +134,6 @@
   :init
   (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
   (semantic-mode 1))
-
-(use-package annotate)
 
 (provide 'setup-core)
 ;;; setup-core.el ends here

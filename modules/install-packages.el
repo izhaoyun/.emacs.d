@@ -24,7 +24,7 @@
                       flycheck-pos-tip
                       ztree
                       stickyfunc-enhance
-                      annotate
+                      diff-hl
                       ;; --- indent ---
                       dtrt-indent
                       aggressive-indent
@@ -64,7 +64,6 @@
                       pyenv-mode
                       pip-requirements
                       virtualenvwrapper
-                      auto-virtualenvwrapper
                       ;; --- erlang ---
                       ivy-erlang-complete
                       company-erlang
