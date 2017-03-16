@@ -4,7 +4,20 @@
 
 ;;; Code:
 
+
+(setq gc-cons-threshold 104857600)
+
 (defalias 'yes-or-no-p 'y-or-n-p)
+
+(setq-default global-linum-mode t)
+(setq-default indent-tabs-mode nil)
+(setq-default make-backup-files nil)
+(setq-default tab-width 4)
+
+(setq inhibit-startup-screen t)
+(menu-bar-mode -1)
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
 
 ;; Sentences end with one space
 (setq sentence-end-double-space nil)
@@ -83,6 +96,7 @@
 
 ;; @github: malabarba/aggressive-indent-mode
 (use-package aggressive-indent
+  :diminish aggressive-indent-mode
   :config
   (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode))
 
@@ -114,6 +128,15 @@
 
 ;; @github: fourier/ztree
 (use-package ztree)
+
+(use-package autorevert
+  :diminish auto-revert-mode
+  :init
+  (global-auto-revert-mode t))
+
+(use-package font-core
+  :init
+  (global-font-lock-mode t))
 
 (provide 'setup-editor)
 ;;; setup-editor.el ends here

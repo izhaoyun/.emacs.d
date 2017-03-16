@@ -15,6 +15,7 @@
 ;; make it easy to navigate and edit lisp code.
 ;; @github: abo-abo/lispy
 (use-package lispy
+  :diminish lispy-mode
   :config
   (dolist (hook '(emacs-lisp-mode-hook
                   scheme-mode-hook))

@@ -24,6 +24,7 @@
                       flycheck-pos-tip
                       ztree
                       stickyfunc-enhance
+                      annotate
                       ;; --- indent ---
                       dtrt-indent
                       aggressive-indent
@@ -57,10 +58,13 @@
                       cmake-mode
                       cmake-font-lock
                       ;; --- python ---
+                      python
                       anaconda-mode
                       company-anaconda
                       pyenv-mode
                       pip-requirements
+                      virtualenvwrapper
+                      auto-virtualenvwrapper
                       ;; --- erlang ---
                       ivy-erlang-complete
                       company-erlang
@@ -72,7 +76,8 @@
                       company-edbi
                       ;; --- web ---
                       web-mode
-                      js2-mode))
+                      js2-mode
+                      yaml-mode))
 
 (setq package-selected-packages my/packages)
 

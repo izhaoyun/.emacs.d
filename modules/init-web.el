@@ -38,5 +38,8 @@
   ;; highlight current html element
   (setq web-mode-enable-current-element-highlight t))
 
+(use-package yaml-mode
+  :mode ("\\.ya?ml\\'" . yaml-mode))
+
 (provide 'init-web)
 ;;; init-web.el ends here
