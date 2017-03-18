@@ -16,11 +16,16 @@
   :init
   (add-hook 'org-mode-hook (lambda () (org-bullets-mode 1))))
 
-
+;; @github: skuro/plantuml-mode
 (use-package plantuml-mode
+  :mode (("\\.plantuml\\'" . plantuml-mode))
   :config
-  (setq plantuml-jar-path "/opt/plantuml/plantuml.jar"))
-
+  (setq plantuml-jar-path "/opt/plantuml/plantuml.jar")
+  ;; @github: alexmurray/flycheck-plantuml
+  (use-package flycheck-plantuml
+    :after flycheck
+    :init
+    (flycheck-plantuml-setup)))
 
 (use-package graphviz-dot-mode
   :mode (("\\.diag\\'"      . graphviz-dot-mode)
