@@ -62,6 +62,7 @@
 ;; command in a popup.
 ;; @github: justbur/emacs-which-key
 (use-package which-key
+  :diminish which-key-mode
   :init
   (which-key-mode)
   :config
@@ -70,9 +71,12 @@
 
 ;; @github: company-mode/company-mode
 (use-package company
+  :diminish company-mode
   :init
   (add-hook 'after-init-hook 'global-company-mode)
   :config
+  ;; (setq company-global-modes
+  ;;       '(not python-mode pip-requirements-mode))
   (setq company-show-numbers t)
   ;; @github:
   (use-package company-quickhelp
@@ -84,6 +88,7 @@
 
 ;; @github: joaotavora/yasnippet
 (use-package yasnippet
+  :diminish yas-minor-mode
   :init
   (yas-global-mode 1))
 
@@ -112,6 +117,7 @@
 
 ;; @github: flycheck/flycheck
 (use-package flycheck
+  :diminish flycheck-mode
   :init
   (add-hook 'after-init-hook #'global-flycheck-mode)
   :config

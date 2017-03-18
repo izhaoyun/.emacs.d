@@ -8,7 +8,8 @@
   (add-hook 'LaTeX-mode-hook #'turn-on-reftex)
   :config
   (setq TeX-auto-save t)
-  (setq TeX-parse-self t))
+  (setq TeX-parse-self t)
+  (setq-default TeX-master nil))
 
 (use-package reftex
   :commands turn-on-reftex
