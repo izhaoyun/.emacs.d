@@ -68,6 +68,9 @@
                       ;; --- erlang ---
                       ivy-erlang-complete
                       company-erlang
+                      ;; --- go ---
+                      go-mode
+                      company-go
                       ;; --- latex ---
                       auctex
                       company-auctex
@@ -79,7 +82,7 @@
                       js2-mode
                       yaml-mode))
 
-(setq package-selected-packages my/packages)
+;; (setq package-selected-packages my/packages)
 
 (eval-when-compile
   (require 'cl))
