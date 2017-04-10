@@ -16,6 +16,7 @@
                       hungry-delete
                       popwin
                       which-key
+                      sr-speedbar
                       ace-pinyin
                       undo-tree
                       ws-butler
@@ -48,12 +49,14 @@
                       auto-compile
                       lispy
                       ;; --- c/c++ ---
+                      cmake-ide
                       ggtags
                       irony
                       company-irony
                       flycheck-irony
                       company-c-headers
                       function-args
+                      google-c-style
                       ;; --- shell ---
                       ;; --- makefile ---
                       cmake-mode

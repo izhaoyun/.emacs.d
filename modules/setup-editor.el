@@ -59,12 +59,12 @@
 (use-package ws-butler
   :defer t
   :diminish ws-butler-mode
-  :config
+  :init
   (ws-butler-global-mode))
 
 (use-package whitespace
   :defer t
-  :config
+  :init
   (add-hook 'before-save-hook 'whitespace-cleanup))
 
 ;; a replacement for the emacs' built-in command `comment-dwim'.
@@ -91,6 +91,7 @@
 ;; @github: m2ym/popwin-el
 (use-package popwin
   :bind-keymap ("C-z" . popwin:keymap)
+  :commands (popwin-mode)
   :config
   (popwin-mode 1))
 
@@ -98,7 +99,8 @@
 (use-package aggressive-indent
   :diminish aggressive-indent-mode
   :config
-  (add-hook 'emacs-lisp-mode-hook #'aggressive-indent-mode))
+  (global-aggressive-indent-mode 1)
+  (add-to-list 'aggressive-indent-excluded-modes 'html-mode))
 
 ;; highlights indentation levels via font-lock.
 ;; @github: DarthFennec/highlight-indent-guides
@@ -117,6 +119,7 @@
   (add-hook 'prog-mode-hook 'clean-aindent-mode))
 
 (use-package dtrt-indent
+  :diminish (dtrt-indent-mode)
   :init
   (dtrt-indent-mode 1)
   :config

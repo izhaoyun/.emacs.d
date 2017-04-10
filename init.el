@@ -20,6 +20,10 @@
 (require 'bind-key)
 (require 'use-package)
 
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(when (file-exists-p custom-file)
+  (load custom-file 'noerror))
+
 (add-to-list 'load-path (expand-file-name "modules" user-emacs-directory))
 (require 'install-packages)
 (require 'setup-editor)

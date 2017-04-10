@@ -18,7 +18,20 @@
        (define-key c-mode-map [(tab)] 'company-complete)
        (define-key c++-mode-map [(tab)] 'company-complete)))
   ;; display function interface in the minibuffer.
-  (global-semantic-idle-summary-mode 1))
+  (global-semantic-idle-summary-mode 1)
+  ;; hs-minor-mode
+  (add-hook 'c-mode-common-hook 'hs-minor-mode)
+  ;; google-c-style
+  (use-package google-c-style
+    :init
+    (add-hook 'c-mode-common-hook 'google-set-c-style)
+    (add-hook 'c-mode-common-hook 'google-make-newline-indent)))
+
+(use-package sr-speedbar
+  :bind
+  ("s-<f3>" . sr-speedbar-toggle)
+  :config
+  (setq speedbar-show-unknown-files t))
 
 ;; @github: abo-abo/function-args
 (use-package function-args
@@ -48,6 +61,7 @@
   ;; ("c" . ggtags-create-tags)
   ;; ("u" . ggtags-update-tags))
   :config
+  (setq-local imenu-create-index-function #'ggtags-build-imenu-index)
   (setq-local eldoc-documentation-function #'ggtags-eldoc-function)
   (setq-local hippie-expand-try-functions-list
               (cons 'ggtags-try-complete-tag hippie-expand-try-functions-list)))
@@ -94,6 +108,13 @@
   (use-package cmake-font-lock
     :init
     (add-hook 'cmake-mode-hook 'cmake-font-lock-activate)))
+
+(use-package cmake-ide
+  :init
+  (add-hook 'c-mode-common-hook 'cmake-ide-setup)
+  ;; create a .dir-locals.el containing the following:
+  ;; ((nil . ((cmake-ide-build-dir . "<PATH_TO_PROJECT_BUILD_DIRECTORY>"))))
+  )
 
 (provide 'init-c++)
 ;;; init-c++.el ends here
