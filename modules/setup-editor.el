@@ -34,11 +34,6 @@
   :init
   (ws-butler-global-mode))
 
-(use-package whitespace
-  :defer t
-  :init
-  (add-hook 'before-save-hook 'whitespace-cleanup))
-
 ;; a replacement for the emacs' built-in command `comment-dwim'.
 ;; @github: remyferre/comment-dwim-2
 (use-package comment-dwim-2
