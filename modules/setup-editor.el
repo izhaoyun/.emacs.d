@@ -5,27 +5,7 @@
 ;;; Code:
 
 
-(setq gc-cons-threshold 104857600)
-
 (defalias 'yes-or-no-p 'y-or-n-p)
-
-(setq-default global-linum-mode t)
-(setq-default indent-tabs-mode nil)
-(setq-default make-backup-files nil)
-(setq-default tab-width 4)
-
-(setq inhibit-startup-screen t)
-(menu-bar-mode -1)
-(scroll-bar-mode -1)
-(tool-bar-mode -1)
-
-;; Sentences end with one space
-(setq sentence-end-double-space nil)
-
-;; os clipboard integration.
-(setq select-enable-clipboard t)
-(setq select-enable-primary t)
-(setq mouse-drag-copy-region t)
 
 (prefer-coding-system 'utf-8)
 (set-language-environment "UTF-8")
@@ -36,14 +16,6 @@
 
 (global-set-key (kbd "C-h C-f") 'find-function)
 (global-set-key (kbd "C-h C-v") 'find-variable)
-
-(use-package paren
-  :init
-  (show-paren-mode 1)
-  :config
-  (setq blink-matching-paren-distance nil)
-  ;; highlight text between parens.
-  (setq show-paren-style 'expression))
 
 ;; automatic and manual symbol highlighting for emacs.
 ;; @github: nschum/highlight-symbol.el
@@ -125,21 +97,13 @@
   :config
   (setq dtrt-indent-verbosity 0))
 
-(use-package winner
-  :init
-  (winner-mode 1))
-
 ;; @github: fourier/ztree
 (use-package ztree)
 
-(use-package autorevert
-  :diminish auto-revert-mode
+;; @github: Fanael/rainbow-delimiters
+(use-package rainbow-delimiters
   :init
-  (global-auto-revert-mode t))
-
-(use-package font-core
-  :init
-  (global-font-lock-mode t))
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
 (provide 'setup-editor)
 ;;; setup-editor.el ends here

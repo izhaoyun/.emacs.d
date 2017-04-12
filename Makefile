@@ -1,17 +1,17 @@
 EMACS=emacs
 
 FILES=init.el \
-	  custom.el \
-	  modules/install-packages.el \
-	  modules/setup-editor.el \
-	  modules/setup-core.el \
-	  modules/init-c++.el \
-	  modules/init-lisp.el \
-	  modules/init-org.el \
-	  modules/init-latex.el \
-	  modules/init-python.el \
-	  modules/init-web.el \
-	  modules/init-go.el
+	custom.el \
+	modules/install-packages.el \
+	modules/setup-editor.el \
+	modules/setup-core.el \
+	modules/init-c++.el \
+	modules/init-lisp.el \
+	modules/init-org.el \
+	modules/init-latex.el \
+	modules/init-python.el \
+	modules/init-web.el \
+	modules/init-go.el
 
 
 all: $(FILES)

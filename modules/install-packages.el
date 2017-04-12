@@ -26,6 +26,9 @@
                       ztree
                       stickyfunc-enhance
                       diff-hl
+                      ;; --- parentheses ---
+                      rainbow-delimiters
+                      smartparens
                       ;; --- indent ---
                       dtrt-indent
                       aggressive-indent
@@ -85,7 +88,7 @@
                       js2-mode
                       yaml-mode))
 
-;; (setq package-selected-packages my/packages)
+(setq package-selected-packages my/packages)
 
 (eval-when-compile
   (require 'cl))
