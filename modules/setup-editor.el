@@ -106,5 +106,11 @@
          ("C->" . mc/mark-next-like-this)
          ("C-<" . mc/mark-previous-like-this)))
 
+;; @github: magit/with-editor
+(use-package with-editor
+  :init
+  (add-hook 'shell-mode-hook 'with-editor-export-editor)
+  (add-hook 'eshell-mode-hook 'with-editor-export-editor))
+
 (provide 'setup-editor)
 ;;; setup-editor.el ends here
