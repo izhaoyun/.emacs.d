@@ -4,9 +4,11 @@
 
 ;;; Code:
 
-;;(require 'cl-lib)
+(eval-when-compile
+  (require 'cl))
 
 (defun my/packages-installed-p ()
+  "Check whether all packages are installed."
   (loop for pkg in package-selected-packages
         when (not (package-installed-p pkg)) do (return nil)
         finally (return t)))

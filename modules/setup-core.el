@@ -27,6 +27,7 @@
          ("C-c j" . counsel-git-grep)
          ("C-c k" . counsel-ag)
          ("C-c h" . counsel-locate)
+         ("C-c m" . counsel-imenu)
          :map help-map
          ("b" . counsel-descbinds)
          ("f" . counsel-describe-function)

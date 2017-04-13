@@ -15,13 +15,10 @@
   (setq-default TeX-master nil))
 
 (use-package reftex
-  :commands turn-on-reftex
   :init
-  (setq reftex-plug-into-AUCTeX t)
-  (add-hook 'LaTeX-mode-hook 'turn-on-reftex))
-
-(use-package preview
-  :commands LaTeX-preview-setup)
+  (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+  :config
+  (setq reftex-plug-into-AUCTeX t))
 
 (provide 'init-latex)
 ;;; init-latex.el ends here
