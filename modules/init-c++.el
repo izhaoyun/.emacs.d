@@ -22,10 +22,8 @@
   ;; hs-minor-mode
   (add-hook 'c-mode-common-hook 'hs-minor-mode)
   ;; google-c-style
-  (use-package google-c-style
-    :init
-    (add-hook 'c-mode-common-hook 'google-set-c-style)
-    (add-hook 'c-mode-common-hook 'google-make-newline-indent)))
+  (add-hook 'c-mode-common-hook 'google-set-c-style)
+  (add-hook 'c-mode-common-hook 'google-make-newline-indent))
 
 (use-package sr-speedbar
   :bind
@@ -99,6 +97,10 @@
   :after company
   :config
   (add-to-list 'company-backends 'company-c-headers))
+
+;; @github: abo-abo/elf-mode
+(use-package elf-mode
+  :mode ("\\.\\(?:a\\|so\\)\\'" . elf-mode))
 
 ;; ----- Makefile Related Packages -----
 (use-package cmake-mode
