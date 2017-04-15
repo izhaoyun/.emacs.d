@@ -31,7 +31,7 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (rtags elf-mode multiple-cursors calfw git-gutter rainbow-delimiters smartparens cmake-ide sr-speedbar ztree yaml-mode ws-butler which-key web-mode virtualenvwrapper use-package undo-tree stickyfunc-enhance python pyenv-mode projectile popwin pip-requirements org-plus-contrib org-bullets org magit lispy js2-mode jinja2-mode hungry-delete htmlize highlight-symbol highlight-indent-guides gnuplot-mode ggtags function-args flycheck-pos-tip flycheck-plantuml flycheck-irony expand-region dtrt-indent diff-hl company-quickhelp company-irony company-go company-erlang company-edbi company-c-headers company-auctex company-anaconda comment-dwim-2 cmake-font-lock clean-aindent-mode auto-compile aggressive-indent ace-pinyin)))
+    (git-timemachine rtags elf-mode multiple-cursors calfw git-gutter rainbow-delimiters smartparens cmake-ide sr-speedbar ztree yaml-mode ws-butler which-key web-mode virtualenvwrapper use-package undo-tree stickyfunc-enhance python pyenv-mode projectile popwin pip-requirements org-plus-contrib org-bullets org magit lispy js2-mode jinja2-mode hungry-delete htmlize highlight-symbol highlight-indent-guides gnuplot-mode ggtags function-args flycheck-pos-tip flycheck-plantuml flycheck-irony expand-region dtrt-indent diff-hl company-quickhelp company-irony company-go company-erlang company-edbi company-c-headers company-auctex company-anaconda comment-dwim-2 cmake-font-lock clean-aindent-mode auto-compile aggressive-indent ace-pinyin)))
  '(prog-mode-hook
    (quote
     (eldoc-mode rainbow-delimiters-mode clean-aindent-mode highlight-indent-guides-mode linum-mode)))

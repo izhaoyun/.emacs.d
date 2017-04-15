@@ -174,6 +174,11 @@
   :bind (("C-x g" . magit-status)
          ("C-x M-g" . magit-dispatch-popup)))
 
+;; @github: pidu/git-timemachine
+(use-package git-timemachine
+  :defer t
+  :bind (("C-x t" . git-timemachine-toggle)))
+
 (use-package projectile
   :init
   (projectile-mode 1)
