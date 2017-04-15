@@ -166,7 +166,20 @@
   (define-key yas-keymap (kbd "C-g") 'abort-company-or-yas))
 
 (use-package hippie-exp
-  :bind  ("M-/" . hippie-expand))
+  :bind  ("M-/" . hippie-expand)
+  :config
+  (setq hippie-expand-try-functions-list
+        '(try-expand-dabbrev
+          try-expand-dabbrev-all-buffers
+          ;; try-expand-dabbrev-from-kill
+          try-complete-lisp-symbol-partially
+          try-complete-lisp-symbol
+          try-complete-file-name-partially
+          try-complete-file-name
+          ;; try-expand-all-abbrevs
+          ;; try-expand-list
+          ;; try-expand-line
+          )))
 
 ;; @github: magit/magit
 (use-package magit

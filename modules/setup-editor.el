@@ -26,7 +26,6 @@
          ("S-<f3>" . highlight-symbol-prev)
          ("M-<f3>" . highlight-symbol-query-replace)))
 
-;; trim spaces from end of line.
 ;; @github: lewang/ws-butler
 (use-package ws-butler
   :defer t
@@ -34,12 +33,11 @@
   :init
   (ws-butler-global-mode))
 
-;; a replacement for the emacs' built-in command `comment-dwim'.
 ;; @github: remyferre/comment-dwim-2
 (use-package comment-dwim-2
   :bind ("M-;" . comment-dwim-2))
 
-;; treat undo history as a tree.
+;; http://www.dr-qubit.org/Emacs_Undo_Tree_package.html
 (use-package undo-tree
   :diminish undo-tree-mode
   :init
@@ -48,19 +46,20 @@
   (setq undo-tree-visualizer-diff t)
   (setq undo-tree-visualizer-timestamps t))
 
-;; expand region increases the selected region by semantic units.
 ;; @github: magnars/expand-region.el
 (use-package expand-region
   :bind (("C-=" . er/expand-region)
          ("C--" . er/contract-region)))
 
-;; a popup window manager.
 ;; @github: m2ym/popwin-el
 (use-package popwin
   :bind-keymap ("C-z" . popwin:keymap)
   :commands (popwin-mode)
+  :init
+  (popwin-mode 1)
   :config
-  (popwin-mode 1))
+  (push '(Man-mode :stick t :height 20) popwin:special-display-config)
+  (push '(" *undo-tree*" :width 0.3 :position right) popwin:special-display-config))
 
 ;; @github: malabarba/aggressive-indent-mode
 (use-package aggressive-indent
@@ -69,7 +68,6 @@
   (global-aggressive-indent-mode 1)
   (add-to-list 'aggressive-indent-excluded-modes 'html-mode))
 
-;; highlights indentation levels via font-lock.
 ;; @github: DarthFennec/highlight-indent-guides
 (use-package highlight-indent-guides
   :init
@@ -98,13 +96,15 @@
 ;; @github: Fanael/rainbow-delimiters
 (use-package rainbow-delimiters
   :init
-  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
+  (add-hook 'org-mode-hook #'rainbow-delimiters-mode))
 
 ;; @github: magnars/multiple-cursors
 (use-package multiple-cursors
   :bind (("C-S-c C-S-c" . mc/edit-lines)
          ("C->" . mc/mark-next-like-this)
-         ("C-<" . mc/mark-previous-like-this)))
+         ("C-<" . mc/mark-previous-like-this)
+         ("C-c C-<" . mc/mark-all-like-this)))
 
 ;; @github: magit/with-editor
 (use-package with-editor

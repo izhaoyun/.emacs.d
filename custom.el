@@ -10,6 +10,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(auto-save-default nil)
+ '(backup-directory-alist (quote (("." . "~/.emacs.d/backups"))))
  '(before-save-hook (quote (whitespace-cleanup)))
  '(column-number-mode t)
  '(gc-cons-threshold 104857600)
@@ -20,8 +21,8 @@
  '(global-linum-mode nil)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
- '(ispell-extra-args (quote ("\"--lang=en_US\"" "\"--sug-mode=ultra\"")))
- '(make-backup-files nil)
+ '(ispell-extra-args (quote ("--lang=en_US" "--sug-mode=ultra")))
+ '(load-prefer-newer t)
  '(menu-bar-mode nil)
  '(package-archives
    (quote
@@ -31,7 +32,7 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (markdown-mode git-timemachine rtags elf-mode multiple-cursors calfw git-gutter rainbow-delimiters smartparens cmake-ide sr-speedbar ztree yaml-mode ws-butler which-key web-mode virtualenvwrapper use-package undo-tree stickyfunc-enhance python pyenv-mode projectile popwin pip-requirements org-plus-contrib org-bullets org magit lispy js2-mode jinja2-mode hungry-delete htmlize highlight-symbol highlight-indent-guides gnuplot-mode ggtags function-args flycheck-pos-tip flycheck-plantuml flycheck-irony expand-region dtrt-indent diff-hl company-quickhelp company-irony company-go company-erlang company-edbi company-c-headers company-auctex company-anaconda comment-dwim-2 cmake-font-lock clean-aindent-mode auto-compile aggressive-indent ace-pinyin)))
+    (markdown-mode git-timemachine rtags elf-mode multiple-cursors calfw git-gutter rainbow-delimiters smartparens cmake-ide sr-speedbar ztree yaml-mode ws-butler which-key web-mode virtualenvwrapper use-package undo-tree stickyfunc-enhance python pyenv-mode projectile popwin pip-requirements org-plus-contrib org magit lispy js2-mode jinja2-mode hungry-delete htmlize highlight-symbol highlight-indent-guides gnuplot-mode ggtags function-args flycheck-pos-tip flycheck-plantuml flycheck-irony expand-region dtrt-indent diff-hl company-quickhelp company-irony company-go company-erlang company-edbi company-c-headers company-auctex company-anaconda comment-dwim-2 cmake-font-lock clean-aindent-mode auto-compile aggressive-indent ace-pinyin)))
  '(prog-mode-hook
    (quote
     (eldoc-mode rainbow-delimiters-mode clean-aindent-mode highlight-indent-guides-mode linum-mode)))
@@ -40,6 +41,7 @@
  '(show-paren-mode t)
  '(tab-width 4)
  '(tool-bar-mode nil)
+ '(tooltip-mode nil)
  '(vc-handled-backends (quote (SVN Git Hg)))
  '(winner-mode t))
 (custom-set-faces

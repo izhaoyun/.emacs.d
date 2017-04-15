@@ -3,22 +3,28 @@
 ;;; Commentary:
 
 ;;; Code:
-(use-package auctex
-  :mode ("\\.tex\\'" . latex-mode)
-  :init
-  (add-hook 'LaTeX-mode-hook #'LaTeX-preview-setup)
-  (add-hook 'LaTeX-mode-hook #'flyspell-mode)
-  (add-hook 'LaTeX-mode-hook #'turn-on-reftex)
-  :config
-  (setq-default TeX-auto-save t)
-  (setq-default TeX-parse-self t)
-  (setq-default TeX-master nil))
 
-(use-package reftex
-  :init
-  (add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+;; TeX
+(use-package tex-mode
+  :commands latex-mode
   :config
-  (setq reftex-plug-into-AUCTeX t))
+  ;; AUCTeX
+  (use-package tex
+    :ensure auctex
+    :commands TeX-PDF-mode
+    :config
+    (setq-default TeX-master nil)
+    (setq-default TeX-auto-save t)
+    (setq-default TeX-parse-self t))
+
+  (TeX-PDF-mode 1)
+  (outline-minor-mode 1))
+
+;; BibTeX
+(use-package bibtex
+  :commands bibtex-mode
+  :config
+  (setq bibtex-maintain-sorted-entries t))
 
 (provide 'init-latex)
 ;;; init-latex.el ends here

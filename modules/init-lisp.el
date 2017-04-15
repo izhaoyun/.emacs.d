@@ -1,10 +1,12 @@
-;;; -*- lexical-binding: t; -*-
+;;; init-lisp.el --- Lisp configuration -*- lexical-binding: t; -*-
 
-;; automatically compile emacs lisp libraries.
+;;; Commentary:
+
+;;; Code:
+
 ;; @github: tarsius/auto-compile
 (use-package auto-compile
   :init
-  (setq load-prefer-newer t)
   (auto-compile-on-load-mode)
   (auto-compile-on-save-mode)
   :config
@@ -27,6 +29,5 @@
       (lispy-mode 1)))
   (add-hook 'minibuffer-setup-hook 'conditionally-enable-lispy))
 
-
-
 (provide 'init-lisp)
+;;; init-lisp.el ends here
