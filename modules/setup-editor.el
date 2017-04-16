@@ -59,14 +59,21 @@
   (popwin-mode 1)
   :config
   (push '(Man-mode :stick t :height 20) popwin:special-display-config)
-  (push '(" *undo-tree*" :width 0.3 :position right) popwin:special-display-config))
+  (push '(" *undo-tree*" :width 0.3 :position right)
+        popwin:special-display-config))
 
 ;; @github: malabarba/aggressive-indent-mode
 (use-package aggressive-indent
   :diminish aggressive-indent-mode
   :config
   (global-aggressive-indent-mode 1)
-  (add-to-list 'aggressive-indent-excluded-modes 'html-mode))
+  (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
+
+  (add-to-list
+   'aggressive-indent-dont-indent-if
+   '(and (derived-mode-p 'c++-mode)
+         (null (string-match "\\([;{}]\\|\\b\\(if\\|for\\|while\\)\\b\\)"
+                             (thing-at-point 'line))))))
 
 ;; @github: DarthFennec/highlight-indent-guides
 (use-package highlight-indent-guides
