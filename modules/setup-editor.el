@@ -103,8 +103,7 @@
 ;; @github: Fanael/rainbow-delimiters
 (use-package rainbow-delimiters
   :init
-  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-  (add-hook 'org-mode-hook #'rainbow-delimiters-mode))
+  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode))
 
 ;; @github: magnars/multiple-cursors
 (use-package multiple-cursors
