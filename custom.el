@@ -32,7 +32,7 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (rainbow-delimiters ob-http markdown-mode git-timemachine rtags elf-mode multiple-cursors calfw git-gutter smartparens cmake-ide sr-speedbar ztree yaml-mode ws-butler which-key web-mode virtualenvwrapper use-package undo-tree stickyfunc-enhance python pyenv-mode projectile popwin pip-requirements org-plus-contrib org magit lispy js2-mode jinja2-mode hungry-delete htmlize highlight-symbol highlight-indent-guides gnuplot-mode ggtags function-args flycheck-pos-tip flycheck-plantuml flycheck-irony expand-region dtrt-indent diff-hl company-quickhelp company-irony company-go company-erlang company-edbi company-c-headers company-auctex company-anaconda comment-dwim-2 cmake-font-lock clean-aindent-mode auto-compile aggressive-indent ace-pinyin)))
+    (ox-gfm rainbow-delimiters ob-http markdown-mode git-timemachine rtags elf-mode multiple-cursors calfw git-gutter smartparens cmake-ide sr-speedbar ztree yaml-mode ws-butler which-key web-mode virtualenvwrapper use-package undo-tree stickyfunc-enhance python pyenv-mode projectile popwin pip-requirements org-plus-contrib org magit lispy js2-mode jinja2-mode hungry-delete htmlize highlight-symbol highlight-indent-guides gnuplot-mode ggtags function-args flycheck-pos-tip flycheck-plantuml flycheck-irony expand-region dtrt-indent diff-hl company-quickhelp company-irony company-go company-erlang company-edbi company-c-headers company-auctex company-anaconda comment-dwim-2 cmake-font-lock clean-aindent-mode auto-compile aggressive-indent ace-pinyin)))
  '(scroll-bar-mode nil)
  '(sentence-end-double-space nil)
  '(show-paren-mode t)
