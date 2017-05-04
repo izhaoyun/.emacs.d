@@ -40,6 +40,10 @@
 
   (use-package ob-plantuml
     :init
+    (use-package plantuml-mode
+      :mode (("\\.plantuml\\'" . plantuml-mode))
+      :config
+      (setq plantuml-jar-path "/opt/plantuml/plantuml.jar"))
     (add-to-list 'org-babel-load-languages '(plantuml . t) t)
     (setq org-plantuml-jar-path "/opt/plantuml/plantuml.jar"))
 
@@ -81,11 +85,6 @@
                                      ("breaklines" "")))
     )
   )
-
-(use-package plantuml-mode
-  :mode (("\\.plantuml\\'" . plantuml-mode))
-  :config
-  (setq plantuml-jar-path "/opt/plantuml/plantuml.jar"))
 
 (use-package graphviz-dot-mode
   :mode (("\\.dot\\'" . graphviz-dot-mode)))
