@@ -20,10 +20,7 @@
   ;; display function interface in the minibuffer.
   (global-semantic-idle-summary-mode 1)
   ;; hs-minor-mode
-  (add-hook 'c-mode-common-hook 'hs-minor-mode)
-  ;; google-c-style
-  (add-hook 'c-mode-common-hook 'google-set-c-style)
-  (add-hook 'c-mode-common-hook 'google-make-newline-indent))
+  (add-hook 'c-mode-common-hook 'hs-minor-mode))
 
 (use-package sr-speedbar
   :bind

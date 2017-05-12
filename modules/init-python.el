@@ -17,8 +17,6 @@
   :init
   (add-hook 'python-mode-hook 'zhao/python-mode-defaults)
   :config
-  ;; (setq python-shell-completion-native-disabled-interpreters
-  ;; '("pypy" "python"))
   )
 
 ;; @github: proofit404/anaconda-mode
