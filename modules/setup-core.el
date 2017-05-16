@@ -39,7 +39,8 @@
          :map read-expression-map
          ("C-r" . counsel-expression-history))
   :config
-  (setq counsel-find-file-at-point t))
+  (setq counsel-find-file-at-point t)
+  (use-package ivy-hydra))
 
 ;; select a window to switch to.
 ;; @github: abo-abo/ace-window
