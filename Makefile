@@ -11,7 +11,8 @@ FILES=init.el \
 	modules/init-latex.el \
 	modules/init-python.el \
 	modules/init-web.el \
-	modules/init-go.el
+	modules/init-go.el \
+	modules/init-ruby.el
 
 
 all: $(FILES)
