@@ -12,19 +12,34 @@
          ("C-c c" . org-capture)
          ("C-c l" . org-store-link))
   :init
-
   ;; Hooks
   (add-hook 'org-mode-hook #'turn-on-auto-fill)
   (add-hook 'org-mode-hook #'turn-on-font-lock)
 
-  ;; Misc
-  (use-package org-bullets
-    :disabled t
-    :ensure org-plus-contrib
-    :init
-    (add-hook 'org-mode-hook 'org-bullets-mode))
+  ;; 必须在Org被加载之前执行
+  ;; 参考地址：https://emacs-china.org/t/org-mode/597/11
+  (setq org-emphasis-regexp-components
+        ;; markup 记号前后允许中文
+        (list (concat " \t('\"{"            "[:nonascii:]")
+              (concat "- \t.,:!?;'\")}\\["  "[:nonascii:]")
+              " \t\r\n,\"'"
+              "."
+              1))
 
   :config
+  (setq org-image-actual-width nil)
+  ;; 隐藏**，~~，++等符号
+  (setq org-hide-emphasis-markers t)
+  (setq org-match-substring-regexp
+        (concat
+         ;; 限制上标和下标的匹配范围，org 中对其的介绍见：(org) Subscripts and superscripts
+         "\\([0-9a-zA-Zα-γΑ-Ω]\\)\\([_^]\\)\\("
+         "\\(?:" (org-create-multibrace-regexp "{" "}" org-match-sexp-depth) "\\)"
+         "\\|"
+         "\\(?:" (org-create-multibrace-regexp "(" ")" org-match-sexp-depth) "\\)"
+         "\\|"
+         "\\(?:\\*\\|[+-]?[[:alnum:].,\\]*[[:alnum:]]\\)\\)"))
+
   ;; Babel
   ;; -----------------------------------------------------------------------
   (setq org-src-preserve-indentation t)
@@ -56,10 +71,29 @@
   ;; -----------------------------------------------------------------------
   (setq org-export-default-language "zh-CN")
 
+  (use-package ox
+    :init
+    (defun clear-single-linebreak-in-cjk-string (string)
+      "clear single line-break between cjk characters that is usually soft line-breaks"
+      (let* ((regexp "\\([\u4E00-\u9FA5]\\)\n\\([\u4E00-\u9FA5]\\)")
+             (start (string-match regexp string)))
+        (while start
+          (setq string (replace-match "\\1\\2" nil nil string)
+                start (string-match regexp string start))))
+      string)
+    :config
+    (defun ox-html-clear-single-linebreak-for-cjk (string backend info)
+      (when (org-export-derived-backend-p backend 'html)
+        (clear-single-linebreak-in-cjk-string string)))
+
+    (add-to-list 'org-export-filter-final-output-functions
+                 'ox-html-clear-single-linebreak-for-cjk)
+    )
+
   (use-package ox-md)
   (use-package ox-gfm)
   (use-package ox-latex
-    :config
+    :init
     (setq org-latex-pdf-process
           '("xelatex -escape -interaction nonstopmode -output-directory %o %f"
             "xelatex -escape -interaction nonstopmode -output-directory %o %f"
