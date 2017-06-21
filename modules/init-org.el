@@ -6,26 +6,26 @@
 
 (defun setup-org-babel ()
   "Set up org babel."
-  (use-package ob-C)
-  (use-package ob-awk)
-  (use-package ob-dot)
-  (use-package ob-sed)
-  (use-package ob-sql)
-  (use-package ob-http)
-  (use-package ob-ruby)
-  (use-package ob-shell)
-  (use-package ob-python)
-  (use-package ob-plantuml
-    :init
-    (setq org-plantuml-jar-path "/opt/plantuml/plantuml.jar"))
-  (use-package ob-ditaa
-    :init
-    (setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_10.jar"))
-  ;; @github: zweifisch/ob-http
-  (use-package ob-http)
-
   (use-package ob
     :init
+    (use-package ob-C)
+    (use-package ob-awk)
+    (use-package ob-dot)
+    (use-package ob-sed)
+    (use-package ob-sql)
+    (use-package ob-http)
+    (use-package ob-ruby)
+    (use-package ob-shell)
+    (use-package ob-python)
+    (use-package ob-plantuml
+      :init
+      (setq org-plantuml-jar-path "/opt/plantuml/plantuml.jar"))
+    (use-package ob-ditaa
+      :init
+      (setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_10.jar"))
+    ;; @github: zweifisch/ob-http
+    (use-package ob-http)
+    :config
     (org-babel-do-load-languages
      'org-babel-load-languages
      '((C          . t)
