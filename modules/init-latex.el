@@ -13,6 +13,7 @@
     :ensure auctex
     :commands TeX-PDF-mode
     :config
+    (setq-default TeX-engine 'xelatex)
     (setq-default TeX-master nil)
     (setq-default TeX-auto-save t)
     (setq-default TeX-parse-self t))

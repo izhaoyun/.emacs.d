@@ -12,12 +12,9 @@
     "Defaults for Python programming."
     (subword-mode 1)
     (diminish 'subword-mode)
-    (eldoc-mode 1)
-    (diminish 'eldoc-mode))
+    (eldoc-mode 1))
   :init
-  (add-hook 'python-mode-hook 'zhao/python-mode-defaults)
-  :config
-  )
+  (add-hook 'python-mode-hook 'zhao/python-mode-defaults))
 
 ;; @github: proofit404/anaconda-mode
 (use-package anaconda-mode
@@ -39,11 +36,6 @@
 
 ;; @github: Wilfred/pip-requirements.el
 (use-package pip-requirements)
-
-(use-package virtualenvwrapper
-  :config
-  (venv-initialize-interactive-shells)
-  (venv-initialize-eshell))
 
 (provide 'init-python)
 ;;; init-python.el ends here
