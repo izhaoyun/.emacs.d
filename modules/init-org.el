@@ -4,6 +4,53 @@
 
 ;;; Code:
 
+(use-package org
+  :mode
+  (("\\.org$" . org-mode)
+   ("\\.txt$" . txt-mode))
+  :bind
+  (("C-c a" . org-agenda)
+   ("C-c b" . org-iswitch)
+   ("C-c c" . org-capture)
+   ("C-c l" . org-store-link))
+  :init
+  (setq org-src-fontify-natively t)
+  (setq org-src-tab-acts-natively t)
+
+  ;; 必须在Org被加载之前执行
+  ;; 参考地址：https://emacs-china.org/t/org-mode/597/11
+  (setq org-emphasis-regexp-components
+        ;; markup 记号前后允许中文
+        (list (concat " \t('\"{"            "[:nonascii:]")
+              (concat "- \t.,:!?;'\")}\\["  "[:nonascii:]")
+              " \t\r\n,\"'"
+              "."
+              1))
+
+  :config
+  (setq org-hide-emphasis-markers t)
+  (setq org-match-substring-regexp
+        (concat
+         ;; 限制上标和下标的匹配范围，org 中对其的介绍见：(org) Subscripts and superscripts
+         "\\([0-9a-zA-Zα-γΑ-Ω]\\)\\([_^]\\)\\("
+         "\\(?:" (org-create-multibrace-regexp "{" "}" org-match-sexp-depth) "\\)"
+         "\\|"
+         "\\(?:" (org-create-multibrace-regexp "(" ")" org-match-sexp-depth) "\\)"
+         "\\|"
+         "\\(?:\\*\\|[+-]?[[:alnum:].,\\]*[[:alnum:]]\\)\\)"))
+
+  (add-to-list 'org-latex-packages-alist '("" "ctex"))
+  (add-to-list 'org-latex-packages-alist '("" "minted"))
+  (add-to-list 'org-latex-packages-alist '("" "color"))
+  (add-to-list 'org-latex-packages-alist '("" "geometry"))
+  (add-to-list 'org-latex-packages-alist '("" "tabularx"))
+  (add-to-list 'org-latex-packages-alist '("" "tabu"))
+  (add-to-list 'org-latex-packages-alist '("" "fancyhdr"))
+  (add-to-list 'org-latex-packages-alist '("" "natbib"))
+  (add-to-list 'org-latex-packages-alist '("" "titlesec"))
+
+  (add-hook 'org-mode-hook 'init-org-export))
+
 (use-package ob-C)
 (use-package ob-awk)
 (use-package ob-dot)
@@ -68,76 +115,31 @@
               "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f")))
     )
 
-  (defun clear-single-linebreak-in-cjk-string (string)
-    "clear single line-break between cjk characters that is
-usually soft line-breaks"
-    (let* ((regexp "\\([\u4E00-\u9FA5]\\)\n\\([\u4E00-\u9FA5]\\)")
-           (start (string-match regexp string)))
-      (while start
-        (setq string (replace-match "\\1\\2" nil nil string)
-              start (string-match regexp string start))))
-    string)
-
-  (defun ox-html-clear-single-linebreak-for-cjk (string backend info)
-    (when (org-export-derived-backend-p backend 'html)
-      (clear-single-linebreak-in-cjk-string string)))
-
   (use-package ox
     :ensure org
+    :preface
+    (defun clear-single-linebreak-in-cjk-string (string)
+      "clear single line-break between cjk characters that is
+usually soft line-breaks"
+      (let* ((regexp "\\([\u4E00-\u9FA5]\\)\n\\([\u4E00-\u9FA5]\\)")
+             (start (string-match regexp string)))
+        (while start
+          (setq string (replace-match "\\1\\2" nil nil string)
+                start (string-match regexp string start))))
+      string)
     :init
     (setq org-export-default-language "zh-CN")
     (setq org-latex-compiler "xelatex")
     :config
+    (defun ox-html-clear-single-linebreak-for-cjk (string backend info)
+      (when (org-export-derived-backend-p backend 'html)
+        (clear-single-linebreak-in-cjk-string string)))
+
     (add-to-list 'org-export-filter-final-output-functions
                  'ox-html-clear-single-linebreak-for-cjk))
   )
 
-(use-package org
-  :mode
-  (("\\.org$" . org-mode)
-   ("\\.txt$" . txt-mode))
-  :bind
-  (("C-c a" . org-agenda)
-   ("C-c b" . org-iswitch)
-   ("C-c c" . org-capture)
-   ("C-c l" . org-store-link))
-  :init
-  (setq org-src-fontify-natively t)
-  (setq org-src-tab-acts-natively t)
 
-  ;; 必须在Org被加载之前执行
-  ;; 参考地址：https://emacs-china.org/t/org-mode/597/11
-  (setq org-emphasis-regexp-components
-        ;; markup 记号前后允许中文
-        (list (concat " \t('\"{"            "[:nonascii:]")
-              (concat "- \t.,:!?;'\")}\\["  "[:nonascii:]")
-              " \t\r\n,\"'"
-              "."
-              1))
-
-  :config
-  (setq org-hide-emphasis-markers t)
-  (setq org-match-substring-regexp
-        (concat
-         ;; 限制上标和下标的匹配范围，org 中对其的介绍见：(org) Subscripts and superscripts
-         "\\([0-9a-zA-Zα-γΑ-Ω]\\)\\([_^]\\)\\("
-         "\\(?:" (org-create-multibrace-regexp "{" "}" org-match-sexp-depth) "\\)"
-         "\\|"
-         "\\(?:" (org-create-multibrace-regexp "(" ")" org-match-sexp-depth) "\\)"
-         "\\|"
-         "\\(?:\\*\\|[+-]?[[:alnum:].,\\]*[[:alnum:]]\\)\\)"))
-
-  (add-to-list 'org-latex-packages-alist '("" "ctex"))
-  (add-to-list 'org-latex-packages-alist '("" "minted"))
-  (add-to-list 'org-latex-packages-alist '("" "color"))
-  (add-to-list 'org-latex-packages-alist '("" "geometry"))
-  (add-to-list 'org-latex-packages-alist '("" "tabularx"))
-  (add-to-list 'org-latex-packages-alist '("" "tabu"))
-  (add-to-list 'org-latex-packages-alist '("" "fancyhdr"))
-  (add-to-list 'org-latex-packages-alist '("" "natbib"))
-  (add-to-list 'org-latex-packages-alist '("" "titlesec"))
-
-  (add-hook 'org-mode-hook 'init-org-export))
 
 (use-package markdown-mode
   :commands (markdown-mode gfm-mode)
