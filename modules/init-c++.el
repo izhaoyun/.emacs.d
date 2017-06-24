@@ -6,9 +6,7 @@
 
 ;; ----- C/C++ Related Packages -----
 (use-package cc-mode
-  :mode (("\\.h\\(h?\\|xx\\|pp\\)\\'" . c++-mode)
-         ("\\.m\\'"                   . c-mode)
-         ("\\.mm\\'"                  . c++-mode))
+  :mode (("\\.h\\(h?\\|xx\\|pp\\)\\'" . c++-mode))
   :config
   (setq-default c-basic-offset 4)
   ;; source code completion using clang
@@ -17,13 +15,16 @@
        (setq company-backends (delete 'company-semantic company-backends))
        (define-key c-mode-map [(tab)] 'company-complete)
        (define-key c++-mode-map [(tab)] 'company-complete)))
+  ;; enable mode line to display current function.
+  (add-hook 'c-mode-common-hook 'which-function-mode)
   ;; display function interface in the minibuffer.
-  (global-semantic-idle-summary-mode 1)
+  (add-hook 'c-mode-common-hook 'semantic-idle-summary-mode)
   ;; hs-minor-mode
   (add-hook 'c-mode-common-hook 'hs-minor-mode))
 
 (use-package sr-speedbar
   :bind
+  ;; NB: 's' is the 'Win' key instead of the 'shift' key.
   ("s-<f3>" . sr-speedbar-toggle)
   :config
   (setq speedbar-show-unknown-files t))
@@ -47,14 +48,6 @@
              ggtags-find-file
              ggtags-create-tags
              ggtags-update-tags)
-  ;; :bind-keymap ("C-c g" . ggtags-mode-map)
-  ;; :bind (:map ggtags-mode-map
-  ;; ("s" . ggtags-find-other-symbol)
-  ;; ("h" . ggtags-view-tag-history)
-  ;; ("r" . ggtags-find-reference)
-  ;; ("f" . ggtags-find-file)
-  ;; ("c" . ggtags-create-tags)
-  ;; ("u" . ggtags-update-tags))
   :config
   (setq-local imenu-create-index-function #'ggtags-build-imenu-index)
   (setq-local eldoc-documentation-function #'ggtags-eldoc-function)
@@ -75,13 +68,18 @@
     (define-key irony-mode-map [remap complete-symbol]
       'irony-completion-at-point-async))
   (add-hook 'irony-mode-hook 'my-irony-mode-hook)
-  (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options))
+  (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
 
-;; @github: Sarcasm/company-irony
-(use-package company-irony
-  :after company
-  :config
-  (add-to-list 'company-backends 'company-irony))
+  ;; @github: hotpxl/company-irony-c-headers
+  (use-package company-irony-c-headers)
+
+  ;; @github: Sarcasm/company-irony
+  (use-package company-irony)
+
+  (eval-after-load 'company
+    '(add-to-list
+      'company-backends '(company-irony-c-headers company-irony))))
+
 
 ;; @github: Sarcasm/flycheck-irony
 (use-package flycheck-irony
@@ -107,13 +105,6 @@
   (use-package cmake-font-lock
     :init
     (add-hook 'cmake-mode-hook 'cmake-font-lock-activate)))
-
-(use-package cmake-ide
-  :init
-  (add-hook 'c-mode-common-hook 'cmake-ide-setup)
-  ;; create a .dir-locals.el containing the following:
-  ;; ((nil . ((cmake-ide-build-dir . "<PATH_TO_PROJECT_BUILD_DIRECTORY>"))))
-  )
 
 (provide 'init-c++)
 ;;; init-c++.el ends here

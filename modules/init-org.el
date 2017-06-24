@@ -47,9 +47,7 @@
   (add-to-list 'org-latex-packages-alist '("" "tabu"))
   (add-to-list 'org-latex-packages-alist '("" "fancyhdr"))
   (add-to-list 'org-latex-packages-alist '("" "natbib"))
-  (add-to-list 'org-latex-packages-alist '("" "titlesec"))
-
-  (add-hook 'org-mode-hook 'init-org-export))
+  (add-to-list 'org-latex-packages-alist '("" "titlesec")))
 
 (use-package ob-C)
 (use-package ob-awk)
@@ -91,53 +89,52 @@
      (plantuml   . t)
      (emacs-lisp . t))))
 
-(defun init-org-export ()
-  "settings for export"
-  (progn
-    (use-package ox-beamer
-      :ensure org)
-    (use-package ox-gfm
-      :ensure org-plus-contrib)
-    (use-package ox-html
-      :ensure org
-      :init
-      (use-package htmlize))
-    (use-package ox-latex
-      :ensure org
-      :init
-      (setq org-latex-listings 'minted)
-      (setq org-latex-minted-options
-            '(("frame"      "single")
-              ("breaklines" "")))
-      (setq org-latex-pdf-process
-            '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-              "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-              "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f")))
-    )
+(use-package ox-beamer :ensure org)
 
-  (use-package ox
-    :ensure org
-    :preface
-    (defun clear-single-linebreak-in-cjk-string (string)
-      "clear single line-break between cjk characters that is
+(use-package ox-gfm :ensure org-plus-contrib)
+
+(use-package ox-html
+  :ensure org
+  :init
+  (use-package htmlize)
+  :config
+  (setq org-html-html5-fancy t)
+  (setq org-html-doctype "html5"))
+
+(use-package ox-latex
+  :ensure org
+  :init
+  (setq org-latex-listings 'minted)
+  (setq org-latex-minted-options
+        '(("frame"      "single")
+          ("breaklines" "")))
+  (setq org-latex-pdf-process
+        '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f")))
+
+(use-package ox
+  :ensure org
+  :preface
+  (defun clear-single-linebreak-in-cjk-string (string)
+    "clear single line-break between cjk characters that is
 usually soft line-breaks"
-      (let* ((regexp "\\([\u4E00-\u9FA5]\\)\n\\([\u4E00-\u9FA5]\\)")
-             (start (string-match regexp string)))
-        (while start
-          (setq string (replace-match "\\1\\2" nil nil string)
-                start (string-match regexp string start))))
-      string)
-    :init
-    (setq org-export-default-language "zh-CN")
-    (setq org-latex-compiler "xelatex")
-    :config
-    (defun ox-html-clear-single-linebreak-for-cjk (string backend info)
-      (when (org-export-derived-backend-p backend 'html)
-        (clear-single-linebreak-in-cjk-string string)))
+    (let* ((regexp "\\([\u4E00-\u9FA5]\\)\n\\([\u4E00-\u9FA5]\\)")
+           (start (string-match regexp string)))
+      (while start
+        (setq string (replace-match "\\1\\2" nil nil string)
+              start (string-match regexp string start))))
+    string)
+  :init
+  (setq org-export-default-language "zh-CN")
+  (setq org-latex-compiler "xelatex")
+  :config
+  (defun ox-html-clear-single-linebreak-for-cjk (string backend info)
+    (when (org-export-derived-backend-p backend 'html)
+      (clear-single-linebreak-in-cjk-string string)))
 
-    (add-to-list 'org-export-filter-final-output-functions
-                 'ox-html-clear-single-linebreak-for-cjk))
-  )
+  (add-to-list 'org-export-filter-final-output-functions
+               'ox-html-clear-single-linebreak-for-cjk))
 
 
 

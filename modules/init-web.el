@@ -26,6 +26,20 @@
         '(("json" . "/some/path/.*\\.api\\'")
           ("xml"  . "/other/path/.*\\.api\\'")
           ("jsx"  . "/some/react/path/.*\\.js[x]?\\'")))
+
+  ;; indentation
+  (setq web-mode-markup-indent-offset 2)
+  (setq web-mode-css-indent-offset 2)
+  (setq web-mode-code-indent-offset 2)
+
+  ;; comments
+  (setq web-mode-comment-style 2)
+
+  ;; left padding
+  (setq web-mode-style-padding 1)
+  (setq web-mode-script-padding 1)
+  (setq web-mode-block-padding 0)
+
   ;; enable css colorization
   (setq web-mode-enable-css-colorization t)
   ;; enable auto-paring
