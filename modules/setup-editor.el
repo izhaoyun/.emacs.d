@@ -118,5 +118,12 @@
   (add-hook 'shell-mode-hook 'with-editor-export-editor)
   (add-hook 'eshell-mode-hook 'with-editor-export-editor))
 
+(use-package sr-speedbar
+  :bind
+  ;; NB: 's' is the 'Win' key instead of the 'shift' key.
+  ("s-<f3>" . sr-speedbar-toggle)
+  :config
+  (setq speedbar-show-unknown-files t))
+
 (provide 'setup-editor)
 ;;; setup-editor.el ends here

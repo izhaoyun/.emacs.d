@@ -6,37 +6,22 @@
 
 ;; ----- C/C++ Related Packages -----
 (use-package cc-mode
-  :mode (("\\.h\\(h?\\|xx\\|pp\\)\\'" . c++-mode))
+  :init
+  (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
   :config
   (setq-default c-basic-offset 4)
-  ;; source code completion using clang
-  (eval-after-load "company"
-    '(progn
-       (setq company-backends (delete 'company-semantic company-backends))
-       (define-key c-mode-map [(tab)] 'company-complete)
-       (define-key c++-mode-map [(tab)] 'company-complete)))
   ;; enable mode line to display current function.
   (add-hook 'c-mode-common-hook 'which-function-mode)
-  ;; display function interface in the minibuffer.
-  (add-hook 'c-mode-common-hook 'semantic-idle-summary-mode)
   ;; hs-minor-mode
-  (add-hook 'c-mode-common-hook 'hs-minor-mode))
+  (add-hook 'c-mode-common-hook 'hs-minor-mode)
+  ;; eldoc-mode
+  (add-hook 'c-mode-common-hook #'eldoc-mode)
 
-(use-package sr-speedbar
-  :bind
-  ;; NB: 's' is the 'Win' key instead of the 'shift' key.
-  ("s-<f3>" . sr-speedbar-toggle)
-  :config
-  (setq speedbar-show-unknown-files t))
-
-;; @github: abo-abo/function-args
-(use-package function-args
-  :init
-  (dolist (hook '(c-mode-hook c++-mode-hook))
-    (add-hook hook #'fa-config-default)))
+  (eval-after-load 'company
+    '(setq company-backends (delete 'company-semantic company-backends))))
 
 ;; @github: leoliu/ggtags
-(use-package gtags
+(use-package ggtags
   :init
   (add-hook 'c-mode-common-hook
             (lambda ()
@@ -49,6 +34,15 @@
              ggtags-create-tags
              ggtags-update-tags)
   :config
+  (define-key ggtags-mode-map (kbd "C-c g s") 'ggtags-find-other-symbol)
+  (define-key ggtags-mode-map (kbd "C-c g h") 'ggtags-view-tag-history)
+  (define-key ggtags-mode-map (kbd "C-c g r") 'ggtags-find-reference)
+  (define-key ggtags-mode-map (kbd "C-c g f") 'ggtags-find-file)
+  (define-key ggtags-mode-map (kbd "C-c g c") 'ggtags-create-tags)
+  (define-key ggtags-mode-map (kbd "C-c g u") 'ggtags-update-tags)
+
+  (define-key ggtags-mode-map (kbd "M-,") 'pop-tag-mark)
+
   (setq-local imenu-create-index-function #'ggtags-build-imenu-index)
   (setq-local eldoc-documentation-function #'ggtags-eldoc-function)
   (setq-local hippie-expand-try-functions-list
@@ -78,14 +72,14 @@
 
   (eval-after-load 'company
     '(add-to-list
-      'company-backends '(company-irony-c-headers company-irony))))
+      'company-backends '(company-irony-c-headers company-irony)))
 
-
-;; @github: Sarcasm/flycheck-irony
-(use-package flycheck-irony
-  :after flycheck
-  :init
-  (add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+  ;; @github: Sarcasm/flycheck-irony
+  (use-package flycheck-irony
+    :after flycheck
+    :init
+    (add-hook 'flycheck-mode-hook #'flycheck-irony-setup))
+  )
 
 ;; @github: randomphrase/company-c-headers
 (use-package company-c-headers

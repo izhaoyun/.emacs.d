@@ -213,24 +213,14 @@
   :init
   (add-hook 'after-init-hook #'global-flycheck-mode)
   :config
-  (setq flycheck-check-syntax-automatically '(mode-enabled save)))
+  (setq flycheck-check-syntax-automatically '(mode-enabled save))
 
-;; @github: flycheck/flycheck-pos-tip
-(use-package flycheck-pos-tip
-  :after flycheck
-  :init
-  (flycheck-pos-tip-mode))
-
-;; @github: tuhdo/semantic-stickyfunc-enhance
-(use-package stickyfunc-enhance
-  :init
-  (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
-  (semantic-mode 1))
-
-(use-package eldoc
-  :diminish eldoc-mode
-  :init
-  (add-hook 'prog-mode-hook #'eldoc-mode))
+  ;; @github: flycheck/flycheck-pos-tip
+  (use-package flycheck-pos-tip
+    :after flycheck
+    :init
+    (flycheck-pos-tip-mode))
+  )
 
 (provide 'setup-core)
 ;;; setup-core.el ends here
