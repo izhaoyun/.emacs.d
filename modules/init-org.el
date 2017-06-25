@@ -14,9 +14,9 @@
    ("C-c c" . org-capture)
    ("C-c l" . org-store-link))
   :init
+  (setq-default org-catch-invisible-edits 'smart)
   (setq org-src-fontify-natively t)
   (setq org-src-tab-acts-natively t)
-
   ;; 必须在Org被加载之前执行
   ;; 参考地址：https://emacs-china.org/t/org-mode/597/11
   (setq org-emphasis-regexp-components
@@ -28,6 +28,7 @@
               1))
 
   :config
+  (setq org-footnote-auto-adjust t)
   (setq org-hide-emphasis-markers t)
   (setq org-match-substring-regexp
         (concat
