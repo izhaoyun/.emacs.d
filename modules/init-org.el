@@ -137,7 +137,8 @@ usually soft line-breaks"
   (add-to-list 'org-export-filter-final-output-functions
                'ox-html-clear-single-linebreak-for-cjk))
 
-
+;; @github: tumashu/chinese-fonts-setup
+(use-package chinese-fonts-setup)
 
 (use-package markdown-mode
   :commands (markdown-mode gfm-mode)
