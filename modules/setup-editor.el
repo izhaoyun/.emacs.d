@@ -120,8 +120,8 @@
 
 (use-package sr-speedbar
   :bind
-  ;; NB: 's' is the 'Win' key instead of the 'shift' key.
-  ("s-<f3>" . sr-speedbar-toggle)
+  ;; NB: the first 's' is the 'Win' key instead of the 'shift' key.
+  ("s-s" . sr-speedbar-toggle)
   :config
   (setq speedbar-show-unknown-files t))
 
