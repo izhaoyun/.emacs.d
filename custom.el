@@ -34,6 +34,7 @@
  '(package-selected-packages
    (quote
     (chinese-fonts-setup company-irony-c-headers org inf-ruby puppet-mode ivy-hydra ox-gfm rainbow-delimiters ob-http markdown-mode git-timemachine rtags elf-mode multiple-cursors git-gutter smartparens sr-speedbar ztree yaml-mode ws-butler which-key web-mode use-package undo-tree python pyenv-mode projectile popwin pip-requirements org-plus-contrib magit lispy js2-mode jinja2-mode hungry-delete htmlize highlight-symbol highlight-indent-guides gnuplot-mode ggtags flycheck-pos-tip flycheck-plantuml flycheck-irony expand-region dtrt-indent diff-hl company-quickhelp company-irony company-go company-erlang company-edbi company-c-headers company-auctex company-anaconda comment-dwim-2 cmake-font-lock clean-aindent-mode auto-compile aggressive-indent ace-pinyin)))
+ '(save-interprogram-paste-before-kill t)
  '(scroll-bar-mode nil)
  '(sentence-end-double-space nil)
  '(show-paren-mode t)
