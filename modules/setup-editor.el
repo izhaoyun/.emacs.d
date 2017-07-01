@@ -16,6 +16,7 @@
 
 (global-set-key (kbd "C-h C-f") 'find-function)
 (global-set-key (kbd "C-h C-v") 'find-variable)
+(global-set-key (kbd "RET") 'newline-and-indent)
 
 ;; automatic and manual symbol highlighting for emacs.
 ;; @github: nschum/highlight-symbol.el
@@ -86,19 +87,20 @@
   (setq highlight-indent-guides-auto-even-face-perc 15)
   (setq highlight-indent-guides-auto-character-face-perc 20))
 
+;; @github: pmarinov/clean-aindent-mode
 (use-package clean-aindent-mode
+  :init
+  (add-hook 'prog-mode-hook 'clean-aindent-mode)
   :config
-  (add-hook 'prog-mode-hook 'clean-aindent-mode))
+  (set 'clean-aindent-is-simple-indent t))
 
+;; @github: jscheid/dtrt-indent
 (use-package dtrt-indent
-  :diminish (dtrt-indent-mode)
+  :diminish dtrt-indent-mode
   :init
   (dtrt-indent-mode 1)
   :config
   (setq dtrt-indent-verbosity 0))
-
-;; @github: fourier/ztree
-(use-package ztree)
 
 ;; @github: Fanael/rainbow-delimiters
 (use-package rainbow-delimiters
@@ -111,12 +113,6 @@
          ("C->" . mc/mark-next-like-this)
          ("C-<" . mc/mark-previous-like-this)
          ("C-c C-<" . mc/mark-all-like-this)))
-
-;; @github: magit/with-editor
-(use-package with-editor
-  :init
-  (add-hook 'shell-mode-hook 'with-editor-export-editor)
-  (add-hook 'eshell-mode-hook 'with-editor-export-editor))
 
 (use-package sr-speedbar
   :bind
