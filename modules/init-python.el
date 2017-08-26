@@ -37,11 +37,5 @@
 ;; @github: Wilfred/pip-requirements.el
 (use-package pip-requirements)
 
-;; @github: anachronic/importmagic.el
-(use-package importmagic
-  :diminish importmagic-mode
-  :config
-  (add-hook 'python-mode-hook 'importmagic-mode))
-
 (provide 'init-python)
 ;;; init-python.el ends here
