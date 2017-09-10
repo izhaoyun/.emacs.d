@@ -17,14 +17,16 @@
 (use-package company
   :diminish company-mode
   :init
-  ;; (add-hook 'after-init-hook 'global-company-mode)
-  (add-hook 'prog-mode-hook #'company-mode)
+  (add-hook 'after-init-hook 'global-company-mode)
+  ;; (add-hook 'prog-mode-hook #'company-mode)
   :config
   ;; (setq company-global-modes
   ;;       '(not python-mode pip-requirements-mode))
   (setq company-show-numbers t)
+  (setq company-backends (delete 'company-semantic company-backends))
   )
 
+;; @github: expez/company-quickhelp
 (use-package company-quickhelp
   :bind (:map company-active-map
               ("M-h" . company-quickhelp-manual-begin))
@@ -33,6 +35,7 @@
   (setq company-quickhelp-delay nil)
   )
 
+;; @github: remyferre/comment-dwim-2
 (use-package comment-dwim-2
   :bind (("M-;" . comment-dwim-2))
   )

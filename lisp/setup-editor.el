@@ -114,7 +114,7 @@
     (add-hook hook #'whitespace-mode))
   (add-hook 'before-save-hook #'whitespace-cleanup)
   :config
-  (setq whitespace-line-column 80) ;; limit line length
+  ;; (setq whitespace-line-column 80) ;; limit line length
   (setq whitespace-style '(face tabs empty trailing lines-tail))
   )
 
@@ -141,13 +141,21 @@
   :init
   (popwin-mode 1)
   :config
-  (push '(Man-mode :stick t :height 20) popwin:special-display-config)
-  ;; M-x undo-tree
-  (push '(" *undo-tree*" :width 0.3 :position right) popwin:special-display-config)
+  ;; M-x man
+  (push '(Man-mode :stick t :height 20)
+        popwin:special-display-config)
+  ;; undo-tree
+  (push '(" *undo-tree*" :width 0.3 :position right)
+        popwin:special-display-config)
   ;; M-x compile
-  (push '(compilation-mode :noselect t) popwin:special-display-config)
+  (push '(compilation-mode :noselect t)
+        popwin:special-display-config)
   ;; M-!
-  (push "*Shell Command Output*" popwin:special-display-config)
+  (push "*Shell Command Output*"
+        popwin:special-display-config)
+  ;; magit
+  (push '("*magit-commit*" :noselect t :height 40 :width 80 :stick t)
+        popwin:special-display-config)
   )
 
 (provide 'setup-editor)

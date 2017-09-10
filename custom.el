@@ -27,14 +27,14 @@
  '(menu-bar-mode nil)
  '(mouse-avoidance-mode (quote jump) nil (avoid))
  '(package-archives
-   (quote
-    (("melpa" . "http://elpa.emacs-china.org/melpa/")
-     ("org" . "http://elpa.emacs-china.org/org/")
-     ("gnu" . "http://elpa.emacs-china.org/gnu/"))))
+ (quote
+  (("melpa" . "http://elpa.emacs-china.org/melpa/")
+   ("org" . "http://elpa.emacs-china.org/org/")
+   ("gnu" . "http://elpa.emacs-china.org/gnu/"))))
  '(package-enable-at-startup nil)
  '(package-selected-packages
-   (quote
-    (haskell-mode helm-make ace-link swiper counsel ivy avy company-irony-c-headers org inf-ruby puppet-mode ivy-hydra ox-gfm rainbow-delimiters ob-http markdown-mode git-timemachine rtags elf-mode multiple-cursors smartparens yaml-mode ws-butler which-key web-mode use-package undo-tree python projectile popwin pip-requirements org-plus-contrib magit lispy js2-mode jinja2-mode hungry-delete htmlize highlight-symbol highlight-indent-guides gnuplot-mode ggtags flycheck-pos-tip flycheck-plantuml flycheck-irony expand-region dtrt-indent diff-hl company-quickhelp company-irony company-go company-erlang company-edbi company-c-headers company-auctex company-anaconda comment-dwim-2 cmake-font-lock clean-aindent-mode auto-compile aggressive-indent ace-pinyin)))
+ (quote
+  (haskell-mode helm-make ace-link swiper counsel ivy avy company-irony-c-headers org inf-ruby puppet-mode ivy-hydra ox-gfm rainbow-delimiters ob-http markdown-mode git-timemachine rtags elf-mode multiple-cursors smartparens yaml-mode ws-butler which-key web-mode use-package undo-tree python projectile popwin pip-requirements org-plus-contrib magit lispy js2-mode jinja2-mode hungry-delete htmlize highlight-symbol highlight-indent-guides gnuplot-mode ggtags flycheck-pos-tip flycheck-plantuml flycheck-irony expand-region dtrt-indent diff-hl company-quickhelp company-irony company-go company-erlang company-edbi company-c-headers company-auctex company-anaconda comment-dwim-2 cmake-font-lock clean-aindent-mode auto-compile aggressive-indent ace-pinyin)))
  '(save-interprogram-paste-before-kill t)
  '(scroll-bar-mode nil)
  '(sentence-end-double-space nil)
