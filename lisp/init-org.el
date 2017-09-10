@@ -104,17 +104,17 @@
   :init
   (use-package htmlize)
   :config
-  (setq org-html-html5-fancy t)
-  (setq org-html-doctype "html5")
+  (setq org-html-html5-fancy t
+        org-html-indent t
+        org-html-doctype "html5")
   )
 
 (use-package ox-latex
   :ensure org
   :init
   (setq org-latex-listings 'minted)
-  (setq org-latex-minted-options
-        '(("frame"      "single")
-          ("breaklines" "")))
+  (setq org-latex-minted-options '(("frame"      "single")
+                                   ("breaklines" "")))
   (setq org-latex-pdf-process
         '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
           "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
