@@ -25,7 +25,8 @@
               (concat "- \t.,:!?;'\")}\\["  "[:nonascii:]")
               " \t\r\n,\"'"
               "."
-              1))
+              1)
+        )
 
   :config
   (setq org-footnote-auto-adjust t)
@@ -48,7 +49,8 @@
   (add-to-list 'org-latex-packages-alist '("" "tabu"))
   (add-to-list 'org-latex-packages-alist '("" "fancyhdr"))
   (add-to-list 'org-latex-packages-alist '("" "natbib"))
-  (add-to-list 'org-latex-packages-alist '("" "titlesec")))
+  (add-to-list 'org-latex-packages-alist '("" "titlesec"))
+  )
 
 (use-package ob-C)
 (use-package ob-awk)
@@ -63,7 +65,8 @@
 (use-package ob-ditaa
   :ensure org
   :init
-  (setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_10.jar"))
+  (setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_10.jar")
+  )
 
 (use-package ob-http)
 
@@ -73,7 +76,8 @@
   (use-package ob-plantuml
     :ensure org
     :init
-    (setq org-plantuml-jar-path "/opt/plantuml/plantuml.jar"))
+    (setq org-plantuml-jar-path "/opt/plantuml/plantuml.jar")
+    )
 
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -88,7 +92,8 @@
      (shell      . t)
      (python     . t)
      (plantuml   . t)
-     (emacs-lisp . t))))
+     (emacs-lisp . t)))
+  )
 
 (use-package ox-beamer :ensure org)
 
@@ -100,7 +105,8 @@
   (use-package htmlize)
   :config
   (setq org-html-html5-fancy t)
-  (setq org-html-doctype "html5"))
+  (setq org-html-doctype "html5")
+  )
 
 (use-package ox-latex
   :ensure org
@@ -112,7 +118,8 @@
   (setq org-latex-pdf-process
         '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
           "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-          "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f")))
+          "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+  )
 
 (use-package ox
   :ensure org
@@ -127,18 +134,16 @@ usually soft line-breaks"
               start (string-match regexp string start))))
     string)
   :init
-  (setq org-export-default-language "zh-CN")
-  (setq org-latex-compiler "xelatex")
+  (setq org-export-default-language "zh-CN"
+        org-latex-compiler "xelatex")
   :config
   (defun ox-html-clear-single-linebreak-for-cjk (string backend info)
     (when (org-export-derived-backend-p backend 'html)
-      (clear-single-linebreak-in-cjk-string string)))
-
+      (clear-single-linebreak-in-cjk-string string))
+    )
   (add-to-list 'org-export-filter-final-output-functions
-               'ox-html-clear-single-linebreak-for-cjk))
-
-;; @github: tumashu/chinese-fonts-setup
-(use-package chinese-fonts-setup)
+               'ox-html-clear-single-linebreak-for-cjk)
+  )
 
 (use-package markdown-mode
   :commands (markdown-mode gfm-mode)
@@ -146,6 +151,7 @@ usually soft line-breaks"
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
   :init
-  (setq markdown-command "markdown"))
+  (setq markdown-command "markdown")
+  )
 
 (provide 'init-org)

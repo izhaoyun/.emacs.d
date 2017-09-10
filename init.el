@@ -10,28 +10,23 @@
 
 (require 'package)
 (package-initialize)
-
-;;; use `use-package' to manage package configuration.
-(unless (package-installed-p 'use-package)
-  (package-refresh-contents)
-  (package-install 'use-package))
+(unless package-archive-contents
+  (package-refresh-contents))
+(package-install-selected-packages)
 
 (require 'diminish)
 (require 'bind-key)
 (require 'use-package)
 
-(add-to-list 'load-path (expand-file-name "modules" user-emacs-directory))
-(require 'install-packages)
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (require 'setup-editor)
-(require 'setup-core)
-
-;; --- language modules ---
+(require 'init-prog)
 (require 'init-lisp)
 (require 'init-c++)
+(require 'init-make)
 (require 'init-org)
 (require 'init-python)
-(require 'init-web)
-(require 'init-ruby)
-(require 'init-latex)
+(require 'init-go)
+(require 'hydra-keys)
 
 ;;; init.el ends here
