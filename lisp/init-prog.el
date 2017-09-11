@@ -1,3 +1,4 @@
+;; @github: bbatsov/projectile
 (use-package projectile
   :diminish projectile-mode
   :config
@@ -76,10 +77,11 @@
   (global-aggressive-indent-mode 1)
   (add-to-list 'aggressive-indent-excluded-modes 'html-mode)
 
-  (add-to-list 'aggressive-indent-dont-indent-if
-               '(and (derived-mode-p 'c++-mode)
-                     (null (string-match "\\([;{}]\\|\\b\\(if\\|for\\|while\\)\\b\\)"
-                                         (thing-at-point 'line)))))
+  (add-to-list
+   'aggressive-indent-dont-indent-if
+   '(and (derived-mode-p 'c++-mode)
+         (null (string-match "\\([;{}]\\|\\b\\(if\\|for\\|while\\)\\b\\)"
+                             (thing-at-point 'line)))))
   )
 
 ;; @github: Fanael/rainbow-delimiters
@@ -93,6 +95,17 @@
   :defer t
   :bind (("C-x g" . magit-status)
          ("C-x M-g" . magit-dispatch-popup))
+  )
+
+;; @github: joaotavora/yasnippet
+(use-package yasnippet
+  :diminish yas-minor-mode
+  :commands (yas-reload-all)
+  :init
+  ;; @github: AndreaCrotti/yasnippet-snippets
+  (use-package yasnippet-sinppets)
+
+  (yas-global-mode 1)
   )
 
 (provide 'init-prog)
