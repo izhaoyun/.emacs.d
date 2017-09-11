@@ -78,5 +78,12 @@
     )
   )
 
+;; @github: https://github.com/google/styleguide/blob/gh-pages/google-c-style.el
+(use-package google-c-style
+  :init
+  (add-hook 'c-mode-common-hook 'google-set-c-style)
+  (add-hook 'c-mode-common-hook 'google-make-newline-indent)
+  )
+
 (provide 'init-c++)
 ;;; init-c++.el ends here
