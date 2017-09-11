@@ -17,4 +17,10 @@
   (push 'company-anaconda company-backends)
   )
 
+;; @github: naiquevin/sphinx-doc.el
+(use-package sphinx-doc
+  :init
+  (add-hook 'python-mode-hook 'sphinx-doc-mode)
+  )
+
 (provide 'init-python)
