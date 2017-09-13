@@ -23,7 +23,6 @@
 (require 'init-prog)
 (require 'init-lisp)
 (require 'init-c++)
-(require 'init-make)
 (require 'init-org)
 (require 'init-python)
 (require 'init-go)

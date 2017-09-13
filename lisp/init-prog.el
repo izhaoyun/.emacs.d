@@ -19,10 +19,7 @@
   :diminish company-mode
   :init
   (add-hook 'after-init-hook 'global-company-mode)
-  ;; (add-hook 'prog-mode-hook #'company-mode)
   :config
-  ;; (setq company-global-modes
-  ;;       '(not python-mode pip-requirements-mode))
   (setq company-show-numbers t)
   (setq company-backends (delete 'company-semantic company-backends))
   )
@@ -102,11 +99,9 @@
   :diminish yas-minor-mode
   :init
   (yas-global-mode 1)
-  )
-
-;; @github: AndreaCrotti/yasnippet-snippets
-(use-package yasnippet-snippets
-  :after (yasnippet)
+  :config
+  ;; @github: AndreaCrotti/yasnippet-snippets
+  (use-package yasnippet-snippets)
   )
 
 ;; @github: flycheck/flycheck
@@ -116,13 +111,12 @@
   (global-flycheck-mode)
   :config
   (setq flycheck-check-syntax-automatically '(mode-enabled save))
-  )
 
-;; @github: flycheck/flycheck-pos-tip
-(use-package flycheck-pos-tip
-  :after (flycheck)
-  :init
-  (flycheck-pos-tip-mode)
+  ;; @github: flycheck/flycheck-pos-tip
+  (use-package flycheck-pos-tip
+    :init
+    (flycheck-pos-tip-mode)
+    )
   )
 
 (provide 'init-prog)

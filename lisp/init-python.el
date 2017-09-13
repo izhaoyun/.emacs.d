@@ -13,8 +13,7 @@
 
 ;; @github: proofit404/company-anaconda
 (use-package company-anaconda
-  :after (company anaconda-mode)
-  :init
+  :config
   (push 'company-anaconda company-backends)
   )
 

@@ -18,6 +18,10 @@
   (add-hook 'c-mode-common-hook #'eldoc-mode)
   :bind (:map c-mode-base-map
               ("C-c t" . ff-find-other-file))
+  :bind (:map c-mode-map
+              ([tab] . company-complete))
+  :bind (:map c++-mode-map
+              ([tab] . company-complete))
   )
 
 ;; @github: leoliu/ggtags
@@ -54,8 +58,7 @@
 
 ;; @github: randomphrase/company-c-headers
 (use-package company-c-headers
-  :after (company)
-  :init
+  :config
   (push 'company-c-headers company-backends)
   )
 
@@ -76,21 +79,18 @@
 
 ;; @github: hotpxl/company-irony-c-headers
 (use-package company-irony-c-headers
-  :after (company irony)
-  :init
+  :config
   (push 'company-irony-c-headers company-backends)
   )
 
 ;; @github: Sarcasm/company-irony
 (use-package company-irony
-  :after (company irony)
-  :init
+  :config
   (push 'company-irony company-backends)
   )
 
 ;; @github: Sarcasm/flycheck-irony
 (use-package flycheck-irony
-  :after (flycheck irony)
   :init
   (add-hook 'flycheck-mode-hook #'flycheck-irony-setup)
   )
@@ -100,6 +100,22 @@
   :init
   (add-hook 'c-mode-common-hook 'google-set-c-style)
   (add-hook 'c-mode-common-hook 'google-make-newline-indent)
+  )
+
+(use-package cmake-mode
+  :mode (("CMakeLists.txt\\'" . cmake-mode)
+         ("\\.cmake\\'"       . cmake-mode))
+  )
+
+(use-package cmake-font-lock
+  :init
+  (add-hook 'cmake-mode-hook 'cmake-font-lock-activate)
+  )
+
+(use-package helm-make
+  :defer t
+  :init
+  (setq helm-make-completion-method 'ivy)
   )
 
 (provide 'init-c++)

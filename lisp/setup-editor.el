@@ -114,7 +114,6 @@
     (add-hook hook #'whitespace-mode))
   (add-hook 'before-save-hook #'whitespace-cleanup)
   :config
-  ;; (setq whitespace-line-column 80) ;; limit line length
   (setq whitespace-style '(face tabs empty trailing lines-tail))
   )
 
@@ -160,7 +159,6 @@
 
 ;; @github: cute-jumper/ace-pinyin
 (use-package ace-pinyin
-  :after (avy)
   :init
   (ace-pinyin-global-mode 1)
   )
