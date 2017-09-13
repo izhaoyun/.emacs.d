@@ -11,7 +11,6 @@
   (add-hook 'c-mode-common-hook 'which-function-mode)
   (add-hook 'c-mode-common-hook 'hs-minor-mode)
   (add-hook 'c-mode-common-hook #'eldoc-mode)
-  (setq company-backends (delete 'company-semantic company-backends))
   )
 
 ;; @github: leoliu/ggtags
