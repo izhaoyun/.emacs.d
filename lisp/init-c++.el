@@ -66,14 +66,20 @@
 
   ;; @github: hotpxl/company-irony-c-headers
   (use-package company-irony-c-headers
-    :config
+    :init
     (push 'company-irony-c-headers company-backends)
     )
 
   ;; @github: Sarcasm/company-irony
   (use-package company-irony
-    :config
+    :init
     (push 'company-irony company-backends)
+    )
+
+  ;; @github: Sarcasm/flycheck-irony
+  (use-package flycheck-irony
+    :init
+    (add-hook 'flycheck-mode-hook #'flycheck-irony-setup)
     )
   )
 

@@ -27,7 +27,7 @@
  '(package-selected-packages
    (quote
     (sphinx-doc google-c-style yasnippet-snippets haskell-mode
-                helm-make ace-link swiper counsel ivy avy
+                helm-make ace-link swiper counsel ivy avy flycheck
                 company-irony-c-headers org inf-ruby puppet-mode ivy-hydra
                 ox-gfm rainbow-delimiters ob-http markdown-mode git-timemachine
                 rtags elf-mode multiple-cursors smartparens yaml-mode ws-butler
