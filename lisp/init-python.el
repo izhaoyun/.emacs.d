@@ -13,6 +13,7 @@
 
 ;; @github: proofit404/company-anaconda
 (use-package company-anaconda
+  :after (company anaconda-mode)
   :init
   (push 'company-anaconda company-backends)
   )

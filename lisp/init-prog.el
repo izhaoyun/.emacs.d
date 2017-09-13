@@ -102,9 +102,11 @@
   :diminish yas-minor-mode
   :init
   (yas-global-mode 1)
-  :config
-  ;; @github: AndreaCrotti/yasnippet-snippets
-  (use-package yasnippet-snippets)
+  )
+
+;; @github: AndreaCrotti/yasnippet-snippets
+(use-package yasnippet-snippets
+  :after (yasnippet)
   )
 
 ;; @github: flycheck/flycheck
@@ -114,12 +116,13 @@
   (global-flycheck-mode)
   :config
   (setq flycheck-check-syntax-automatically '(mode-enabled save))
+  )
 
-  ;; @github: flycheck/flycheck-pos-tip
-  (use-package flycheck-pos-tip
-    :init
-    (flycheck-pos-tip-mode)
-    )
+;; @github: flycheck/flycheck-pos-tip
+(use-package flycheck-pos-tip
+  :after (flycheck)
+  :init
+  (flycheck-pos-tip-mode)
   )
 
 (provide 'init-prog)

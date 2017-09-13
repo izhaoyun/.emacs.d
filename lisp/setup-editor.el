@@ -158,5 +158,12 @@
         popwin:special-display-config)
   )
 
+;; @github: cute-jumper/ace-pinyin
+(use-package ace-pinyin
+  :after (avy)
+  :init
+  (ace-pinyin-global-mode 1)
+  )
+
 (provide 'setup-editor)
 ;; setup-editor.el ends here
