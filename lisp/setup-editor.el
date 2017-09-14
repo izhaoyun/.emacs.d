@@ -108,13 +108,8 @@
   )
 
 (use-package whitespace
-  :diminish whitespace-mode
   :init
-  (dolist (hook '(prog-mode-hook text-mode-hook org-mode-hook))
-    (add-hook hook #'whitespace-mode))
   (add-hook 'before-save-hook #'whitespace-cleanup)
-  :config
-  (setq whitespace-style '(face tabs empty trailing lines-tail))
   )
 
 ;; @github: magnars/expand-region.el
@@ -159,6 +154,7 @@
 
 ;; @github: cute-jumper/ace-pinyin
 (use-package ace-pinyin
+  :diminish ace-pinyin-mode
   :init
   (ace-pinyin-global-mode 1)
   )
