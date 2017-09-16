@@ -1,4 +1,4 @@
-;;; init-org --- Org-mode Configuration -*- lexical-binding: t; -*-
+;;; init-org --- Org-mode Configuration
 
 ;;; Commentary:
 
@@ -8,6 +8,7 @@
   :mode
   (("\\.org$" . org-mode)
    ("\\.txt$" . txt-mode))
+  :commands (org-create-multibrace-regexp)
   :bind
   (("C-c a" . org-agenda)
    ("C-c b" . org-iswitch)
@@ -17,23 +18,20 @@
   (setq-default org-catch-invisible-edits 'smart)
   (setq org-src-fontify-natively t)
   (setq org-src-tab-acts-natively t)
-  ;; 必须在Org被加载之前执行
-  ;; 参考地址：https://emacs-china.org/t/org-mode/597/11
+
+  ;; https://emacs-china.org/t/org-mode/597/11
   (setq org-emphasis-regexp-components
-        ;; markup 记号前后允许中文
         (list (concat " \t('\"{"            "[:nonascii:]")
               (concat "- \t.,:!?;'\")}\\["  "[:nonascii:]")
               " \t\r\n,\"'"
               "."
-              1)
-        )
-
+              1))
   :config
   (setq org-footnote-auto-adjust t)
   (setq org-hide-emphasis-markers t)
   (setq org-match-substring-regexp
         (concat
-         ;; 限制上标和下标的匹配范围，org 中对其的介绍见：(org) Subscripts and superscripts
+         ;; info: (org) Subscripts and superscripts
          "\\([0-9a-zA-Zα-γΑ-Ω]\\)\\([_^]\\)\\("
          "\\(?:" (org-create-multibrace-regexp "{" "}" org-match-sexp-depth) "\\)"
          "\\|"
@@ -52,33 +50,9 @@
   (add-to-list 'org-latex-packages-alist '("" "titlesec"))
   )
 
-(use-package ob-C)
-(use-package ob-awk)
-(use-package ob-dot)
-(use-package ob-sed)
-(use-package ob-sql)
-(use-package ob-ruby)
-(use-package ob-shell)
-(use-package ob-python)
-(use-package ob-emacs-lisp)
-
-(use-package ob-ditaa
-  :ensure org
-  :init
-  (setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_10.jar")
-  )
-
-(use-package ob-http)
-
 (use-package ob
   :ensure org
   :init
-  (use-package ob-plantuml
-    :ensure org
-    :init
-    (setq org-plantuml-jar-path "/opt/plantuml/plantuml.jar")
-    )
-
   (org-babel-do-load-languages
    'org-babel-load-languages
    '((C          . t)
@@ -95,38 +69,35 @@
      (emacs-lisp . t)))
   )
 
-(use-package ox-beamer :ensure org)
+(use-package ob-C          :after ob)
+(use-package ob-awk        :after ob)
+(use-package ob-dot        :after ob)
+(use-package ob-sed        :after ob)
+(use-package ob-sql        :after ob)
+(use-package ob-ruby       :after ob)
+(use-package ob-shell      :after ob)
+(use-package ob-python     :after ob)
+(use-package ob-emacs-lisp :after ob)
+;; @github: zweifisch/ob-http
+(use-package ob-http       :after ob)
 
-(use-package ox-gfm :ensure org-plus-contrib)
-
-(use-package ox-html
-  :ensure org
-  :init
-  (use-package htmlize)
+(use-package ob-ditaa
+  :after ob
   :config
-  (setq org-html-html5-fancy t
-        org-html-indent t
-        org-html-doctype "html5")
+  (setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_10.jar")
   )
 
-(use-package ox-latex
-  :ensure org
-  :init
-  (setq org-latex-listings 'minted)
-  (setq org-latex-minted-options '(("frame"      "single")
-                                   ("breaklines" "")))
-  (setq org-latex-pdf-process
-        '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-          "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-          "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+(use-package ob-plantuml
+  :after ob
+  :config
+  (setq org-plantuml-jar-path "/opt/plantuml/plantuml.jar")
   )
 
 (use-package ox
   :ensure org
+  :commands (org-export-derived-backend-p)
   :preface
   (defun clear-single-linebreak-in-cjk-string (string)
-    "clear single line-break between cjk characters that is
-usually soft line-breaks"
     (let* ((regexp "\\([\u4E00-\u9FA5]\\)\n\\([\u4E00-\u9FA5]\\)")
            (start (string-match regexp string)))
       (while start
@@ -145,13 +116,41 @@ usually soft line-breaks"
                'ox-html-clear-single-linebreak-for-cjk)
   )
 
+(use-package ox-gfm :defer t)
+
+(use-package ox-html
+  :init
+  (use-package htmlize)
+  :config
+  (setq org-html-html5-fancy t)
+  (setq org-html-doctype "html5")
+  (setq org-html-indent t)
+  )
+
+;; @github: marsmining/ox-twbs
+(use-package ox-twbs :ensure ox-twbs :defer t)
+
+;; @github: masayuko/ox-rst
+(use-package ox-rst :ensure ox-rst :defer t)
+
+(use-package ox-latex
+  :init
+  (setq org-latex-listings 'minted)
+  (setq org-latex-minted-options '(("frame"      "single")
+                                   ("breaklines" "")))
+  (setq org-latex-pdf-process
+        '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+          "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+  )
+
+(use-package ox-beamer :defer t)
+
 (use-package markdown-mode
-  :commands (markdown-mode gfm-mode)
   :mode (("README\\.md\\'" . gfm-mode)
          ("\\.md\\'" . markdown-mode)
          ("\\.markdown\\'" . markdown-mode))
-  :init
-  (setq markdown-command "markdown")
   )
 
 (provide 'init-org)
+;;; init-org.el ends here

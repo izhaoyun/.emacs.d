@@ -1,4 +1,4 @@
-;;; init-lisp.el --- Lisp configuration -*- lexical-binding: t; -*-
+;;; init-elisp.el --- Lisp configuration -*- lexical-binding: t; -*-
 
 ;;; Commentary:
 
@@ -27,17 +27,5 @@
   (add-hook 'minibuffer-setup-hook 'conditionally-enable-lispy)
   )
 
-;; @github: haskell/haskell-mode
-(use-package haskell-mode-autoloads
-  :ensure haskell-mode
-  :mode (("\\.hs\\'" . haskell-mode)
-         ("\\.lhs\\'" . haskell-mode)
-         ("\\.hsc\\'" . haskell-mode)
-         ("\\.cpphs\\'" . haskell-mode)
-         ("\\.c2hs\\'" . haskell-mode))
-  :bind (:map haskell-mode-map
-              ("C-c C-," . haskell-mode-format-imports))
-  )
-
-(provide 'init-lisp)
-;;; init-lisp.el ends here
+(provide 'init-elisp)
+;;; init-elisp.el ends here

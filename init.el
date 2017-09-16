@@ -21,11 +21,13 @@
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (require 'setup-editor)
 (require 'init-prog)
-(require 'init-lisp)
+(require 'init-elisp)
 (require 'init-c++)
 (require 'init-org)
 (require 'init-python)
 (require 'init-go)
+(require 'init-erlang)
+(require 'init-haskell)
 (require 'hydra-keys)
 
 ;;; init.el ends here
