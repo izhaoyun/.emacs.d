@@ -124,7 +124,6 @@
   :config
   (setq org-html-html5-fancy t)
   (setq org-html-doctype "html5")
-  (setq org-html-indent t)
   )
 
 ;; @github: marsmining/ox-twbs
