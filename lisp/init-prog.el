@@ -20,7 +20,12 @@
   :init
   (add-hook 'after-init-hook 'global-company-mode)
   :config
+  (setq company-tooltip-limit 20)
+  (setq company-idle-delay .3)
+  (setq company-echo-delay 0)
   (setq company-show-numbers t)
+  ;; start autocompletion only after typing
+  (setq company-begin-commands '(self-insert-command))
   (setq company-backends (delete 'company-semantic company-backends))
   )
 
