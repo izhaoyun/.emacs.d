@@ -23,7 +23,8 @@
           ivy-count-format "(%d/%d) "
           ivy-display-style 'fancy
           ivy-wrap t)
-    :bind (("C-c r" . ivy-resume))
+    :bind (("C-c C-r" . ivy-resume)
+           ("<f6>" . ivy-resume))
     :bind (:map ivy-minibuffer-map
                 ("C-c o" . ivy-occur))
     )
@@ -47,7 +48,9 @@
               ("s" . counsel-info-lookup-symbol)
               ("u" . counsel-unicode-char))
   :bind (:map ivy-minibuffer-map
-              ("C-r" . counsel-expression-history))
+              ("C-r" . counsel-minibuf-history))
+  :bind (:map minibuffer-local-map
+              ("C-r" . counsel-minibuf-history))
   :config
   (setq counsel-find-file-at-point t)
   )
