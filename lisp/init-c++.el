@@ -16,12 +16,21 @@
   (add-hook 'c-mode-common-hook 'which-function-mode)
   (add-hook 'c-mode-common-hook 'hs-minor-mode)
   (add-hook 'c-mode-common-hook #'eldoc-mode)
+  ;; @github: https://github.com/google/styleguide/blob/gh-pages/google-c-style.el
+  (add-hook 'c-mode-common-hook 'google-set-c-style)
+  (add-hook 'c-mode-common-hook 'google-make-newline-indent)
+
+  ;; @github: randomphrase/company-c-headers
+  (push 'company-c-headers company-backends)
+
   :bind (:map c-mode-base-map
-              ("C-c t" . ff-find-other-file))
-  :bind (:map c-mode-map
-              ([tab] . company-complete))
-  :bind (:map c++-mode-map
-              ([tab] . company-complete))
+              ("C-c t" . ff-find-other-file)
+              ("C-c h c" . hs-toggle-hiding)
+              ("C-c h b" . hs-hide-block)
+              ("C-c h s" . hs-show-block)
+              ("C-c h a" . hs-hide-all)
+              ("C-c h d" . hs-show-all)
+              ("C-c h l" . hs-hide-level))
   )
 
 ;; @github: leoliu/ggtags
@@ -53,12 +62,6 @@
               (cons 'ggtags-try-complete-tag hippie-expand-try-functions-list))
   )
 
-;; @github: randomphrase/company-c-headers
-(use-package company-c-headers
-  :config
-  (push 'company-c-headers company-backends)
-  )
-
 ;; @github: Sarcasm/irony-mode
 (use-package irony
   :diminish irony-mode
@@ -66,46 +69,26 @@
   (dolist (hook '(c++-mode-hook c-mode-hook objc-mode-hook))
     (add-hook hook (lambda () (irony-mode 1))))
   :config
+;;;###autoload
   (defun my-irony-mode-hook ()
     (define-key irony-mode-map [remap completion-at-point] 'counsel-irony)
     (define-key irony-mode-map [remap complete-symbol] 'counsel-irony)
     )
   (add-hook 'irony-mode-hook 'my-irony-mode-hook)
   (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-  )
-
-;; @github: hotpxl/company-irony-c-headers
-(use-package company-irony-c-headers
-  :config
+  ;; @github: hotpxl/company-irony-c-headers
   (push 'company-irony-c-headers company-backends)
-  )
-
-;; @github: Sarcasm/company-irony
-(use-package company-irony
-  :config
+  ;; @github: Sarcasm/company-irony
   (push 'company-irony company-backends)
-  )
-
-;; @github: Sarcasm/flycheck-irony
-(use-package flycheck-irony
-  :init
+  ;; @github: Sarcasm/flycheck-irony
   (add-hook 'flycheck-mode-hook #'flycheck-irony-setup)
-  )
-
-;; @github: https://github.com/google/styleguide/blob/gh-pages/google-c-style.el
-(use-package google-c-style
-  :init
-  (add-hook 'c-mode-common-hook 'google-set-c-style)
-  (add-hook 'c-mode-common-hook 'google-make-newline-indent)
   )
 
 (use-package cmake-mode
   :mode (("CMakeLists.txt\\'" . cmake-mode)
          ("\\.cmake\\'"       . cmake-mode))
-  )
-
-(use-package cmake-font-lock
-  :init
+  :config
+  ;; cmake-font-lock
   (add-hook 'cmake-mode-hook 'cmake-font-lock-activate)
   )
 

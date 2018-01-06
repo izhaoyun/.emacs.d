@@ -23,7 +23,7 @@
 (require 'init-prog)
 (require 'init-elisp)
 (require 'init-c++)
-;; (require 'init-org)
+(require 'init-org)
 ;; (require 'init-python)
 (require 'init-go)
 ;; (require 'init-erlang)
