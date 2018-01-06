@@ -21,7 +21,8 @@
   (add-hook 'c-mode-common-hook 'google-make-newline-indent)
 
   ;; @github: randomphrase/company-c-headers
-  (push 'company-c-headers company-backends)
+  (with-eval-after-load 'company
+    (push 'company-c-headers company-backends))
 
   :bind (:map c-mode-base-map
               ("C-c t" . ff-find-other-file)
@@ -56,6 +57,8 @@
               ("C-c >" . ggtags-next-mark)
               ("M-,"   . pop-tag-mark))
   :config
+  (with-eval-after-load 'company
+    (push 'company-gtags company-backends))
   (setq-local imenu-create-index-function #'ggtags-build-imenu-index)
   (setq-local eldoc-documentation-function #'ggtags-eldoc-function)
   (setq-local hippie-expand-try-functions-list
@@ -76,19 +79,23 @@
     )
   (add-hook 'irony-mode-hook 'my-irony-mode-hook)
   (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
-  ;; @github: hotpxl/company-irony-c-headers
-  (push 'company-irony-c-headers company-backends)
-  ;; @github: Sarcasm/company-irony
-  (push 'company-irony company-backends)
+
+  (with-eval-after-load 'company
+    ;; @github: hotpxl/company-irony-c-headers
+    (push 'company-irony-c-headers company-backends)
+    ;; @github: Sarcasm/company-irony
+    (push 'company-irony company-backends))
+
   ;; @github: Sarcasm/flycheck-irony
   (add-hook 'flycheck-mode-hook #'flycheck-irony-setup)
   )
 
+;; https://github.com/Kitware/CMake/blob/master/Auxiliary/cmake-mode.el
 (use-package cmake-mode
   :mode (("CMakeLists.txt\\'" . cmake-mode)
          ("\\.cmake\\'"       . cmake-mode))
   :config
-  ;; cmake-font-lock
+  ;; @github: Lindydancer/cmake-font-lock
   (add-hook 'cmake-mode-hook 'cmake-font-lock-activate)
   )
 
