@@ -1,6 +1,8 @@
-;;; setup-editor --- basic settings -*- lexical-binding: t; -*-
+;;; setup-editor.el --- basic settings for the editor. -*- lexical-binding: t; -*-
 
 ;;; Commentary:
+
+;; This file provides basic settings for the editor.
 
 ;;; Code:
 
@@ -14,21 +16,15 @@
 ;; github: abo-abo/swiper
 (use-package counsel
   :init
-  (use-package ivy
-    :diminish ivy-mode
-    :init
-    (ivy-mode 1)
-    :config
-    (setq ivy-use-virtual-buffers t
-          ivy-count-format "(%d/%d) "
-          ivy-display-style 'fancy
-          ivy-wrap t)
-    :bind (("C-c C-r" . ivy-resume)
-           ("<f6>" . ivy-resume))
-    :bind (:map ivy-minibuffer-map
-                ("C-c o" . ivy-occur))
-    )
-  :bind (("C-s" . counsel-grep-or-swiper)
+  (ivy-mode 1)
+  (setq ivy-use-virtual-buffers t)
+  (setq ivy-count-format "(%d/%d) ")
+  (setq ivy-display-style 'fancy)
+  (setq ivy-wrap t)
+
+  :bind (("C-c C-r" . ivy-resume)
+         ("<f6>" . ivy-resume)
+         ("C-s" . counsel-grep-or-swiper)
          ("M-x" . counsel-M-x)
          ("C-x C-f" . counsel-find-file)
          ("C-x C-r" . counsel-recentf)
@@ -48,7 +44,8 @@
               ("s" . counsel-info-lookup-symbol)
               ("u" . counsel-unicode-char))
   :bind (:map ivy-minibuffer-map
-              ("C-r" . counsel-minibuf-history))
+              ("C-r" . counsel-minibuf-history)
+              ("C-c o" . ivy-occur))
   :bind (:map minibuffer-local-map
               ("C-r" . counsel-minibuf-history))
   :config
@@ -70,9 +67,6 @@
 (use-package ace-link
   :init
   (ace-link-setup-default)
-  :config
-  (eval-after-load "org"
-    '(progn (define-key org-mode-map (kbd "M-o") 'ace-link-org)))
   )
 
 ;; @github: abo-abo/ace-window
@@ -162,5 +156,15 @@
   (ace-pinyin-global-mode 1)
   )
 
+(use-package dired
+  :init
+  (setq dired-recursive-copies 'always)
+  (setq dired-recursive-deletes 'always)
+  )
+
+(use-package hippie-exp
+  :bind ("M-/" . hippie-expand)
+  )
+
 (provide 'setup-editor)
-;; setup-editor.el ends here
+;;; setup-editor.el ends here

@@ -9,11 +9,12 @@
   (("\\.org$" . org-mode)
    ("\\.txt$" . txt-mode))
   :commands (org-create-multibrace-regexp)
-  :bind
-  (("C-c a" . org-agenda)
-   ("C-c b" . org-iswitch)
-   ("C-c c" . org-capture)
-   ("C-c l" . org-store-link))
+  :bind (("C-c a" . org-agenda)
+         ("C-c b" . org-iswitch)
+         ("C-c c" . org-capture)
+         ("C-c l" . org-store-link))
+  :bind (:map org-mode-map
+              ("M-o" . ace-link-org))
   :init
   (setq-default org-catch-invisible-edits 'smart)
   (setq org-src-fontify-natively t)

@@ -26,6 +26,7 @@
 
 ;; @github: leoliu/ggtags
 (use-package ggtags
+  :commands (ggtags-eldoc-function)
   :init
   (dolist (hook '(c++-mode-hook c-mode-hook))
     (add-hook hook (lambda () (ggtags-mode 1))))
@@ -35,7 +36,6 @@
              ggtags-find-file
              ggtags-create-tags
              ggtags-update-tags)
-  ;; :bind-keymap (("C-c g" . ggtags-mode-map))
   :bind (:map ggtags-mode-map
               ("C-c g s" . ggtags-find-other-symbol)
               ("C-c g h" . ggtags-view-tag-history)
@@ -44,10 +44,9 @@
               ("C-c g c" . ggtags-create-tags)
               ("C-c g u" . ggtags-update-tags)
               ("C-c <" . ggtags-prev-mark)
-              ("C-c >" . ggtags-next-mark))
+              ("C-c >" . ggtags-next-mark)
+              ("M-,"   . pop-tag-mark))
   :config
-  (define-key ggtags-mode-map (kbd "M-,") 'pop-tag-mark)
-
   (setq-local imenu-create-index-function #'ggtags-build-imenu-index)
   (setq-local eldoc-documentation-function #'ggtags-eldoc-function)
   (setq-local hippie-expand-try-functions-list
