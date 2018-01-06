@@ -1,14 +1,16 @@
 (defhydra hydra-zoom (global-map "<f2>")
   "zoom"
   ("g" text-scale-increase "in")
-  ("l" text-scale-decrease "out"))
+  ("l" text-scale-decrease "out")
+  )
 
 (defhydra hydra-splitter (global-map "C-M-s")
-    "splitter"
-    ("h" hydra-move-splitter-left)
-    ("j" hydra-move-splitter-down)
-    ("k" hydra-move-splitter-up)
-    ("l" hydra-move-splitter-right))
+  "splitter"
+  ("h" hydra-move-splitter-left)
+  ("j" hydra-move-splitter-down)
+  ("k" hydra-move-splitter-up)
+  ("l" hydra-move-splitter-right)
+  )
 
 (defhydra hydra-buffer-menu (:color pink :hint nil)
   "
@@ -37,8 +39,20 @@ _~_: modified
   ("c" nil "cancel")
   ("v" Buffer-menu-select "select" :color blue)
   ("o" Buffer-menu-other-window "other-window" :color blue)
-  ("q" quit-window "quit" :color blue))
+  ("q" quit-window "quit" :color blue)
+  )
 
 (define-key Buffer-menu-mode-map "." 'hydra-buffer-menu/body)
+
+(defhydra hydra-dumb-jump (:color blue :columns 3)
+  "Dumb Jump"
+  ("j" dumb-jump-go "Go")
+  ("o" dumb-jump-go-other-window "Other window")
+  ("e" dumb-jump-go-prefer-external "Go external")
+  ("x" dumb-jump-go-prefer-external-other-window "Go external other window")
+  ("i" dumb-jump-go-prompt "Prompt")
+  ("l" dumb-jump-quick-look "Quick look")
+  ("b" dumb-jump-back "Back")
+  )
 
 (provide 'hydra-keys)
