@@ -23,11 +23,11 @@
 (require 'init-prog)
 (require 'init-elisp)
 (require 'init-c++)
-(require 'init-org)
-(require 'init-python)
+;; (require 'init-org)
+;; (require 'init-python)
 (require 'init-go)
-(require 'init-erlang)
-(require 'init-haskell)
-(require 'hydra-keys)
+;; (require 'init-erlang)
+;; (require 'init-haskell)
+;; (require 'hydra-keys)
 
 ;;; init.el ends here

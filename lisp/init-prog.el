@@ -45,6 +45,7 @@
 
 ;; @github: DarthFennec/highlight-indent-guides
 (use-package highlight-indent-guides
+  :if window-system
   :init
   (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
   :config
@@ -88,7 +89,7 @@
 
 ;; @github: Fanael/rainbow-delimiters
 (use-package rainbow-delimiters
-  :init
+  :config
   (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
   )
 
@@ -103,7 +104,7 @@
 (use-package yasnippet
   :diminish yas-minor-mode
   :init
-  (yas-global-mode 1)
+  (add-hook 'prog-mode-hook #'yas-minor-mode)
   :config
   ;; @github: AndreaCrotti/yasnippet-snippets
   (use-package yasnippet-snippets)
@@ -112,8 +113,6 @@
 ;; @github: flycheck/flycheck
 (use-package flycheck
   :diminish flycheck-mode
-  :init
-  (global-flycheck-mode)
   :config
   (setq flycheck-check-syntax-automatically '(mode-enabled save))
 

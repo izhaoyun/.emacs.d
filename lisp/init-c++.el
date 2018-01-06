@@ -27,10 +27,8 @@
 ;; @github: leoliu/ggtags
 (use-package ggtags
   :init
-  (add-hook 'c-mode-common-hook
-            (lambda ()
-              (when (derived-mode-p 'c-mode 'c++-mode 'java-mode 'asm-mode)
-                (ggtags-mode 1))))
+  (dolist (hook '(c++-mode-hook c-mode-hook))
+    (add-hook hook (lambda () (ggtags-mode 1))))
   :commands (ggtags-find-other-symbol
              ggtags-view-tag-history
              ggtags-find-reference
@@ -110,12 +108,6 @@
 (use-package cmake-font-lock
   :init
   (add-hook 'cmake-mode-hook 'cmake-font-lock-activate)
-  )
-
-(use-package helm-make
-  :defer t
-  :init
-  (setq helm-make-completion-method 'ivy)
   )
 
 (provide 'init-c++)
