@@ -4,14 +4,42 @@
 
 ;;; Code:
 
-(use-package find-file
-  :init
-  (setq-default ff-always-in-other-window t)
+;;;###autoload
+(defun init-c-c++/find-file ()
+  (use-package find-file
+    :init
+    (setq-default ff-always-in-other-window t)
+    )
+  )
+
+;;;###autoload
+(defun init-c-c++/setup-gdb ()
+  (use-package gdb-mi
+    :init
+    (setq gdb-many-windows t)
+    (setq gdb-show-main t)
+    )
+  )
+
+;;;###autoload
+(defun init-c-c++/setup-rtags ()
+  ;; @github: Andersbakken/rtags
+  (use-package rtags
+    :ensure ivy-rtags
+    :commands (rtags-start-process-unless-running
+               rtags-enable-standard-keybindings)
+    :init
+    (rtags-start-process-unless-running)
+    (setq rtags-display-result-backend 'ivy)
+    (rtags-enable-standard-keybindings c-mode-base-map)
+    )
   )
 
 (use-package cc-mode
   :mode (("\\.h\\'" . c++-mode))
   :commands (eldoc-mode)
+  :init
+  (add-hook 'c-mode-common-hook 'init-c-c++/find-file)
   :config
   (add-hook 'c-mode-common-hook 'which-function-mode)
   (add-hook 'c-mode-common-hook 'hs-minor-mode)
@@ -19,10 +47,12 @@
   ;; @github: https://github.com/google/styleguide/blob/gh-pages/google-c-style.el
   (add-hook 'c-mode-common-hook 'google-set-c-style)
   (add-hook 'c-mode-common-hook 'google-make-newline-indent)
-
   ;; @github: randomphrase/company-c-headers
   (with-eval-after-load 'company
     (push 'company-c-headers company-backends))
+
+  (add-hook 'c-mode-common-hook 'init-c-c++/setup-gdb)
+  (add-hook 'c-mode-common-hook 'init-c-c++/setup-rtags)
 
   :bind (:map c-mode-base-map
               ("C-c t" . ff-find-other-file)
@@ -92,12 +122,17 @@
 
 ;; https://github.com/Kitware/CMake/blob/master/Auxiliary/cmake-mode.el
 (use-package cmake-mode
-  :mode (("CMakeLists.txt\\'" . cmake-mode)
-         ("\\.cmake\\'"       . cmake-mode))
+  :mode (("CMakeLists\\.txt\\'" . cmake-mode)
+         ("\\.cmake\\'" . cmake-mode))
+  :init
+  (with-eval-after-load 'company
+    (push 'company-cmake company-backends))
   :config
   ;; @github: Lindydancer/cmake-font-lock
   (add-hook 'cmake-mode-hook 'cmake-font-lock-activate)
   )
+
+
 
 (provide 'init-c++)
 ;;; init-c++.el ends here
