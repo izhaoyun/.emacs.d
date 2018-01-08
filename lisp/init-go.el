@@ -13,11 +13,15 @@
   (add-hook 'before-save-hook 'gofmt-before-save)
   )
 
-;; https://github.com/nsf/gocode/tree/master/emacs-company
-(use-package company-go
-  :config
-  (push 'company-go company-backends)
+;;;###autoload
+(defun init-go/setup-company-go ()
+  ;; https://github.com/nsf/gocode/tree/master/emacs-company
+  (use-package company-go
+    :config
+    (push 'company-go company-backends)
+    )
   )
+(add-hook 'go-mode-hook 'init-go/setup-company-go)
 
 ;; @github: syohex/emacs-go-eldoc
 (use-package go-eldoc

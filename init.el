@@ -24,7 +24,7 @@
 (require 'init-elisp)
 (require 'init-c++)
 (require 'init-org)
-;; (require 'init-python)
+(require 'init-python)
 (require 'init-go)
 ;; (require 'init-erlang)
 ;; (require 'init-haskell)
