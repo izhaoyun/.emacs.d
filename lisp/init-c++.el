@@ -25,13 +25,16 @@
 (defun init-c-c++/setup-rtags ()
   ;; @github: Andersbakken/rtags
   (use-package rtags
-    :ensure ivy-rtags
     :commands (rtags-start-process-unless-running
                rtags-enable-standard-keybindings)
     :init
     (rtags-start-process-unless-running)
-    (setq rtags-display-result-backend 'ivy)
     (rtags-enable-standard-keybindings c-mode-base-map)
+    )
+  ;; @github: Andersbakken/rtags
+  (use-package ivy-rtags
+    :init
+    (setq rtags-display-result-backend 'ivy)
     )
   )
 
@@ -131,8 +134,6 @@
   ;; @github: Lindydancer/cmake-font-lock
   (add-hook 'cmake-mode-hook 'cmake-font-lock-activate)
   )
-
-
 
 (provide 'init-c++)
 ;;; init-c++.el ends here
