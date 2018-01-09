@@ -54,6 +54,8 @@
 
 ;; @github: abo-abo/avy
 (use-package avy
+  :defer 5
+  :commands (avy-setup-default)
   :init
   (avy-setup-default)
   :bind (("C-:" . avy-goto-char)
@@ -65,15 +67,17 @@
 
 ;; @github: abo-abo/ace-link
 (use-package ace-link
-  :init
+  :defer 10
+  :config
   (ace-link-setup-default)
   )
 
-;; @github: abo-abo/ace-window
-(use-package ace-window
-  :bind (("M-p" . ace-window))
-  :config
-  (setq aw-dispatch-always t)
+;; @github: nschum/window-numbering.el
+(use-package window-numbering
+  :defer 8
+  :commands (window-numbering-mode)
+  :init
+  (window-numbering-mode)
   )
 
 ;; @github: nschum/highlight-symbol.el
@@ -87,26 +91,26 @@
 
 ;; @github: justbur/emacs-which-key
 (use-package which-key
+  :defer t
   :diminish which-key-mode
+  :commands (which-key-setup-side-window-right-bottom
+             which-key-mode)
   :init
-  (which-key-setup-side-window-right-bottom)
-  (which-key-mode)
+  (progn
+    (which-key-mode)
+    (which-key-setup-side-window-right-bottom)
+    )
   :config
   (setq which-key-idle-delay 0.8)
   )
 
 ;; @github: lewang/ws-butler
 (use-package ws-butler
+  :defer 8
   :diminish ws-butler-mode
+  :commands (ws-butler-mode)
   :init
   (add-hook 'prog-mode-hook 'ws-butler-mode)
-  (add-hook 'text-mode 'ws-butler-mode)
-  (add-hook 'fundamental-mode 'ws-butler-mode)
-  )
-
-(use-package whitespace
-  :init
-  (add-hook 'before-save-hook #'whitespace-cleanup)
   )
 
 ;; @github: magnars/expand-region.el
@@ -118,20 +122,20 @@
 ;; http://www.dr-qubit.org/Emacs_Undo_Tree_package.html
 (use-package undo-tree
   :diminish undo-tree-mode
+  :commands (global-undo-tree-mode)
   :init
   (global-undo-tree-mode)
   :config
-  (setq undo-tree-visualizer-diff t)
-  (setq undo-tree-visualizer-timestamps t)
+  (setq undo-tree-visualizer-diff t
+        undo-tree-visualizer-timestamps t)
   )
 
 ;; @github: m2ym/popwin-el
 (use-package popwin
+  :defer t
   :bind-keymap ("C-z" . popwin:keymap)
-  :commands (popwin-mode)
-  :init
-  (popwin-mode 1)
   :config
+  (popwin-mode 1)
   ;; M-x man
   (push '(Man-mode :stick t :height 20)
         popwin:special-display-config)
@@ -149,20 +153,15 @@
         popwin:special-display-config)
   )
 
-;; @github: cute-jumper/ace-pinyin
-(use-package ace-pinyin
-  :diminish ace-pinyin-mode
-  :init
-  (ace-pinyin-global-mode 1)
-  )
-
 (use-package dired
-  :init
+  :defer t
+  :config
   (setq dired-recursive-copies 'always)
   (setq dired-recursive-deletes 'always)
   )
 
 (use-package hippie-exp
+  :commands (hippie-expand)
   :bind ("M-/" . hippie-expand)
   )
 

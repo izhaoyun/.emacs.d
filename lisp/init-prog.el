@@ -200,25 +200,11 @@
 ;; @github: flycheck/flycheck
 (use-package flycheck
   :diminish flycheck-mode
-  :config
+  :init
   (setq flycheck-check-syntax-automatically '(mode-enabled save))
-
-  ;; @github: flycheck/flycheck-pos-tip
-  (use-package flycheck-pos-tip
-    :init
-    (flycheck-pos-tip-mode)
-    )
-  )
-
-;; jacktasia/dumb-jump
-(use-package dumb-jump
-  :bind (("M-g o" . dumb-jump-go-other-window)
-         ("M-g j" . dumb-jump-go)
-         ("M-g i" . dumb-jump-go-prompt)
-         ("M-g x" . dumb-jump-go-prefer-external)
-         ("M-g z" . dumb-jump-go-prefer-external-other-window))
   :config
-  (setq dumb-jump-selector 'ivy)
+  ;; @github: flycheck/flycheck-pos-tip
+  (add-hook 'flycheck-mode-hook 'flycheck-pos-tip-mode)
   )
 
 (provide 'init-prog)
