@@ -28,32 +28,30 @@
           ("jsx"  . "/some/react/path/.*\\.js[x]?\\'")))
 
   ;; indentation
-  (setq web-mode-markup-indent-offset 2)
-  (setq web-mode-css-indent-offset 2)
-  (setq web-mode-code-indent-offset 2)
+  (setq web-mode-markup-indent-offset 2
+        web-mode-css-indent-offset 2
+        web-mode-code-indent-offset 2)
 
   ;; comments
   (setq web-mode-comment-style 2)
 
   ;; left padding
-  (setq web-mode-style-padding 1)
-  (setq web-mode-script-padding 1)
-  (setq web-mode-block-padding 0)
-
-  ;; enable css colorization
-  (setq web-mode-enable-css-colorization t)
-  ;; enable auto-paring
-  (setq web-mode-enable-auto-pairing t)
-
-  (setq web-mode-enable-block-face t)
-  (setq web-mode-enable-part-face t)
-  (setq web-mode-enable-comment-keywords t)
-  (setq web-mode-enable-heredoc-fontification t)
-  ;; highlight current html element
-  (setq web-mode-enable-current-element-highlight t))
+  (setq web-mode-style-padding 1
+        web-mode-script-padding 1
+        web-mode-block-padding 0)
+  
+  (setq web-mode-enable-auto-pairing t
+        web-mode-enable-css-colorization t
+        web-mode-enable-block-face t
+        web-mode-enable-part-face t
+        web-mode-enable-comment-keywords t
+        web-mode-enable-heredoc-fontification t
+        web-mode-enable-current-element-highlight t)
+  )
 
 (use-package yaml-mode
-  :mode ("\\.ya?ml\\'" . yaml-mode))
+  :mode ("\\.ya?ml\\'" . yaml-mode)
+  )
 
 (use-package markdown-mode)
 
