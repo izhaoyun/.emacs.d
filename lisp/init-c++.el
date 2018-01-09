@@ -103,6 +103,7 @@
                 (cons 'ggtags-try-complete-tag hippie-expand-try-functions-list))
     (use-package company-gtags
       :after company
+      :init
       (push 'company-gtags company-backends)
       )
     )
@@ -145,9 +146,9 @@
   :init
   ;; @github: Lindydancer/cmake-font-lock
   (add-hook 'cmake-mode-hook 'cmake-font-lock-activate)
-  :config
   (use-package company-cmake
     :after company
+    :init
     (push 'company-cmake company-backends)
     )
   )
