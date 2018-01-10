@@ -8,7 +8,6 @@ FILES=init.el \
 	lisp/init-org.el \
 	lisp/init-python.el \
 	lisp/init-go.el \
-	lisp/hydra-keys.el \
 	lisp/init-web.el
 
 

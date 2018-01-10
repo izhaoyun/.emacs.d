@@ -28,6 +28,5 @@
 (require 'init-go)
 (require 'init-web)
 ;; (require 'init-erlang)
-(require 'hydra-keys)
 
 ;;; init.el ends here
