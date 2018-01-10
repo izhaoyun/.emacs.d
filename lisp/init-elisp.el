@@ -15,10 +15,11 @@
 
 ;; @github: abo-abo/lispy
 (use-package lispy
+  :defer t
   :diminish lispy-mode
   :commands (lispy-mode)
   :init
-  (add-hook 'emacs-lisp-mode-hook 'lispy-mode)
+  (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
   )
 
 (provide 'init-elisp)

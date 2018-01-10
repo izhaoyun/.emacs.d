@@ -53,15 +53,14 @@
 
 (use-package ob
   :ensure org
+  :commands (org-babel-do-load-languages)
   :init
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((C          . t)
-     (awk        . t)
+   '((awk        . t)
      (dot        . t)
      (sed        . t)
      (sql        . t)
-     (ruby       . t)
      (http       . t)
      (ditaa      . t)
      (shell      . t)
@@ -70,28 +69,21 @@
      (emacs-lisp . t)))
   )
 
-(use-package ob-C          :after ob)
-(use-package ob-awk        :after ob)
-(use-package ob-dot        :after ob)
-(use-package ob-sed        :after ob)
-(use-package ob-sql        :after ob)
-(use-package ob-ruby       :after ob)
-(use-package ob-shell      :after ob)
-(use-package ob-python     :after ob)
-(use-package ob-emacs-lisp :after ob)
+(use-package ob-awk        :after ob :defer t)
+(use-package ob-dot        :after ob :defer t)
+(use-package ob-sed        :after ob :defer t)
+(use-package ob-sql        :after ob :defer t)
+(use-package ob-shell      :after ob :defer t)
+(use-package ob-python     :after ob :defer t)
+(use-package ob-emacs-lisp :after ob :defer t)
 ;; @github: zweifisch/ob-http
-(use-package ob-http       :after ob)
-
-(use-package ob-ditaa
-  :after ob
-  :config
-  (setq org-ditaa-jar-path "/usr/share/java/ditaa/ditaa-0_10.jar")
-  )
-
-(use-package ob-plantuml
-  :after ob
-  :config
-  (setq org-plantuml-jar-path "/opt/plantuml/plantuml.jar")
+(use-package ob-http       :after ob :defer t)
+(use-package ob-ditaa      :after ob :defer t
+  :init
+  (setq org-ditaa-jar-path "/usr/share/ditaa/ditaa.jar"))
+(use-package ob-plantuml   :after ob :defer t
+  :init
+  (setq org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
   )
 
 (use-package ox
@@ -122,9 +114,8 @@
 (use-package ox-html
   :init
   (use-package htmlize)
-  :config
-  (setq org-html-html5-fancy t)
-  (setq org-html-doctype "html5")
+  (setq org-html-html5-fancy t
+        org-html-doctype "html5")
   )
 
 ;; @github: marsmining/ox-twbs

@@ -6,22 +6,22 @@
 
 ;;; Code:
 
-(prefer-coding-system 'utf-8)
-(set-language-environment "UTF-8")
-(set-default-coding-systems 'utf-8)
-(set-terminal-coding-system 'utf-8)
-(set-keyboard-coding-system 'utf-8)
-(setq buffer-file-coding-system 'utf-8)
+;; (prefer-coding-system 'utf-8)
+;; (set-language-environment "UTF-8")
+;; (set-default-coding-systems 'utf-8)
+;; (set-terminal-coding-system 'utf-8)
+;; (set-keyboard-coding-system 'utf-8)
+;; (setq buffer-file-coding-system 'utf-8)
 
 ;; github: abo-abo/swiper
 (use-package counsel
+  :diminish ivy-mode
   :init
+  (setq ivy-use-virtual-buffers t
+        ivy-count-format "(%d/%d) "
+        ivy-display-style 'fancy
+        ivy-wrap t)
   (ivy-mode 1)
-  (setq ivy-use-virtual-buffers t)
-  (setq ivy-count-format "(%d/%d) ")
-  (setq ivy-display-style 'fancy)
-  (setq ivy-wrap t)
-
   :bind (("C-c C-r" . ivy-resume)
          ("<f6>" . ivy-resume)
          ("C-s" . counsel-grep-or-swiper)
@@ -54,7 +54,7 @@
 
 ;; @github: abo-abo/avy
 (use-package avy
-  :defer 5
+  :defer 7
   :commands (avy-setup-default)
   :init
   (avy-setup-default)
@@ -97,11 +97,10 @@
              which-key-mode)
   :init
   (progn
+    (setq which-key-idle-delay 0.8)
     (which-key-mode)
     (which-key-setup-side-window-right-bottom)
     )
-  :config
-  (setq which-key-idle-delay 0.8)
   )
 
 ;; @github: lewang/ws-butler
