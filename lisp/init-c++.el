@@ -45,24 +45,6 @@
   )
 
 ;;;###autoload
-(defun init-c-c++/setup-rtags ()
-  ;; @github: Andersbakken/rtags
-  (use-package rtags
-    :commands (rtags-start-process-unless-running
-               rtags-enable-standard-keybindings)
-    :init
-    (rtags-start-process-unless-running)
-    (rtags-enable-standard-keybindings c-mode-base-map)
-    )
-  ;; @github: Andersbakken/rtags
-  (use-package ivy-rtags
-    :init
-    (setq rtags-display-result-backend 'ivy)
-    )
-  )
-(add-hook 'c-mode-common-hook 'init-c-c++/setup-rtags)
-
-;;;###autoload
 (defun init-c-c++/setup-company-c-headers ()
   ;; @github: randomphrase/company-c-headers
   (use-package company-c-headers
@@ -73,42 +55,57 @@
   )
 (add-hook 'c-mode-common-hook 'init-c-c++/setup-company-c-headers)
 
-;;;###autoload
-(defun init-c-c++/setup-ggtags ()
-  ;; @github: leoliu/ggtags
-  (use-package ggtags
-    :commands (ggtags-eldoc-function
-               ggtags-find-other-symbol
-               ggtags-view-tag-history
-               ggtags-find-reference
-               ggtags-find-file
-               ggtags-create-tags
-               ggtags-update-tags)
-    :bind (:map ggtags-mode-map
-                ("C-c g s" . ggtags-find-other-symbol)
-                ("C-c g h" . ggtags-view-tag-history)
-                ("C-c g r" . ggtags-find-reference)
-                ("C-c g f" . ggtags-find-file)
-                ("C-c g c" . ggtags-create-tags)
-                ("C-c g u" . ggtags-update-tags)
-                ("C-c <" . ggtags-prev-mark)
-                ("C-c >" . ggtags-next-mark)
-                ("M-,"   . pop-tag-mark))
-    :init
-    (ggtags-mode t)
-    :config
-    (setq-local imenu-create-index-function #'ggtags-build-imenu-index)
-    (setq-local eldoc-documentation-function #'ggtags-eldoc-function)
-    (setq-local hippie-expand-try-functions-list
-                (cons 'ggtags-try-complete-tag hippie-expand-try-functions-list))
+;; @github: leoliu/ggtags
+(use-package ggtags
+  :commands (ggtags-eldoc-function
+             ggtags-find-other-symbol
+             ggtags-view-tag-history
+             ggtags-find-reference
+             ggtags-find-file
+             ggtags-create-tags
+             ggtags-update-tags)
+  :bind (:map ggtags-mode-map
+              ("C-c g s" . ggtags-find-other-symbol)
+              ("C-c g h" . ggtags-view-tag-history)
+              ("C-c g r" . ggtags-find-reference)
+              ("C-c g f" . ggtags-find-file)
+              ("C-c g c" . ggtags-create-tags)
+              ("C-c g u" . ggtags-update-tags)
+              ("C-c <" . ggtags-prev-mark)
+              ("C-c >" . ggtags-next-mark)
+              ("M-,"   . pop-tag-mark))
+  :preface
+  (defun init-c-c++/setup-company-gtags ()
     (use-package company-gtags
-      :after company
+      :commands (company-gtags)
       :init
       (push 'company-gtags company-backends)
       )
     )
+  :init
+  (add-hook 'c-mode-common-hook 'ggtags-mode)
+  (add-hook 'ggtags-mode-hook 'init-c-c++/setup-company-gtags)
+
+  :config
+  (setq-local imenu-create-index-function #'ggtags-build-imenu-index)
+  (setq-local eldoc-documentation-function #'ggtags-eldoc-function)
+  (setq-local hippie-expand-try-functions-list
+              (cons 'ggtags-try-complete-tag hippie-expand-try-functions-list))
   )
-(add-hook 'c-mode-common-hook 'init-c-c++/setup-ggtags)
+
+;; @github: syohex/emacs-counsel-gtags
+(use-package counsel-gtags
+  :defer t
+  :commands (counsel-gtags-mode)
+  :init
+  (add-hook 'c-mode-hook 'counsel-gtags-mode)
+  (add-hook 'c++-mode-hook 'counsel-gtags-mode)
+  :config
+  ;; (define-key counsel-gtags-mode-map (kbd "M-t") 'counsel-gtags-find-definition)
+  ;; (define-key counsel-gtags-mode-map (kbd "M-r") 'counsel-gtags-find-reference)
+  ;; (define-key counsel-gtags-mode-map (kbd "M-s") 'counsel-gtags-find-symbol)
+  ;; (define-key counsel-gtags-mode-map (kbd "M-,") 'counsel-gtags-go-backward)
+  )
 
 ;;;###autoload
 (defun init-c-c++/setup-irony ()
@@ -143,14 +140,18 @@
 (use-package cmake-mode
   :mode (("CMakeLists\\.txt\\'" . cmake-mode)
          ("\\.cmake\\'" . cmake-mode))
+  :preface
+  (defun init-c-c++/setup-company-cmake ()
+    (use-package company-cmake
+      :commands (company-cmake)
+      :init
+      (push 'company-cmake company-backends)
+      )
+    )
   :init
   ;; @github: Lindydancer/cmake-font-lock
   (add-hook 'cmake-mode-hook 'cmake-font-lock-activate)
-  (use-package company-cmake
-    :after company
-    :init
-    (push 'company-cmake company-backends)
-    )
+  (add-hook 'cmake-mode-hook 'init-c-c++/setup-company-cmake)
   )
 
 (provide 'init-c++)
