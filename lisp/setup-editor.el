@@ -67,8 +67,8 @@
 
 ;; @github: abo-abo/ace-link
 (use-package ace-link
-  :defer 10
-  :config
+  :defer t
+  :init
   (ace-link-setup-default)
   )
 

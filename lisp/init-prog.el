@@ -124,6 +124,7 @@
     )
   :init
   (add-hook 'prog-mode-hook #'yas-minor-mode)
+  (add-hook 'cmake-mode-hook #'yas-minor-mode)
 
   (defun do-yas-expand ()
     (let ((yas-fallback-behavior 'return-nil))

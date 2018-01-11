@@ -53,7 +53,5 @@
   :mode ("\\.ya?ml\\'" . yaml-mode)
   )
 
-(use-package markdown-mode)
-
 (provide 'init-web)
 ;;; init-web.el ends here
