@@ -105,15 +105,14 @@
 
 ;; @github: lewang/ws-butler
 (use-package ws-butler
-  :defer 8
+  :defer t
   :diminish ws-butler-mode
-  :commands (ws-butler-mode)
-  :init
-  (add-hook 'prog-mode-hook 'ws-butler-mode)
+  :hook (prog-mode . ws-butler-mode)
   )
 
 ;; @github: magnars/expand-region.el
 (use-package expand-region
+  :defer t
   :bind (("C-=" . er/expand-region)
          ("C--" . er/contract-region))
   )
@@ -121,16 +120,15 @@
 ;; http://www.dr-qubit.org/Emacs_Undo_Tree_package.html
 (use-package undo-tree
   :diminish undo-tree-mode
-  :commands (global-undo-tree-mode)
+  :hook ((prog-mode cmake-mode org-mode) . undo-tree-mode)
   :init
-  (global-undo-tree-mode)
-  :config
   (setq undo-tree-visualizer-diff t
         undo-tree-visualizer-timestamps t)
   )
 
 ;; @github: m2ym/popwin-el
 (use-package popwin
+  :disabled
   :defer t
   :bind-keymap ("C-z" . popwin:keymap)
   :config
@@ -154,13 +152,12 @@
 
 (use-package dired
   :defer t
-  :config
-  (setq dired-recursive-copies 'always)
-  (setq dired-recursive-deletes 'always)
+  :init
+  (setq dired-recursive-copies 'always
+        dired-recursive-deletes 'always)
   )
 
 (use-package hippie-exp
-  :commands (hippie-expand)
   :bind ("M-/" . hippie-expand)
   )
 

@@ -40,5 +40,7 @@
   :commands (live-py-mode)
   )
 
+(use-package ansible)
+
 (provide 'init-python)
 ;;; init-python.el ends here

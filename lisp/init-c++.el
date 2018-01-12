@@ -6,17 +6,12 @@
 
 (use-package cc-mode
   :mode (("\\.h\\'" . c++-mode))
-  :commands (eldoc-mode)
   :init
   (add-hook 'c-mode-common-hook 'init-c-c++/find-file)
   (add-hook 'c-mode-common-hook 'which-function-mode)
-  (add-hook 'c-mode-common-hook 'hs-minor-mode)
-  ;; @github: https://github.com/google/styleguide/blob/gh-pages/google-c-style.el
-  (add-hook 'c-mode-common-hook 'google-set-c-style)
+
   (add-hook 'c-mode-common-hook 'google-make-newline-indent)
   (add-hook 'c-mode-common-hook 'init-c-c++/setup-gdb)
-  :config
-  (add-hook 'c-mode-common-hook #'eldoc-mode)
   :bind (:map c-mode-base-map
               ("C-c t" . ff-find-other-file)
               ("C-c h c" . hs-toggle-hiding)
@@ -25,6 +20,12 @@
               ("C-c h a" . hs-hide-all)
               ("C-c h d" . hs-show-all)
               ("C-c h l" . hs-hide-level))
+  )
+
+;; @github: https://github.com/google/styleguide/blob/gh-pages/google-c-style.el
+(use-package google-c-style
+  :defer t
+  :hook ((c-mode c++-mode) . google-set-c-style)
   )
 
 ;;;###autoload

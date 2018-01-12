@@ -71,6 +71,8 @@
      (python     . t)
      (plantuml   . t)
      (emacs-lisp . t)))
+  :config
+  (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
   )
 
 (use-package ox
@@ -98,15 +100,22 @@
         '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
           "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
           "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-
+  :config
   (defun ox-html-clear-single-linebreak-for-cjk (string backend info)
     (when (org-export-derived-backend-p backend 'html)
       (clear-single-linebreak-in-cjk-string string))
     )
-  :config
   (add-to-list 'org-export-filter-final-output-functions
                'ox-html-clear-single-linebreak-for-cjk)
   )
+
+;; @github: snosov1/toc-org
+(use-package toc-org
+  :defer t
+  :config
+  (add-hook 'org-mode-hook 'toc-org-enable)
+  )
+
 
 (provide 'init-org)
 ;;; init-org.el ends here

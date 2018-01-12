@@ -13,15 +13,14 @@
 
 ;; @github: company-mode/company-mode
 (use-package company
-  :defer t
-  :commands (global-company-mode)
   :diminish company-mode
+  :hook ((prog-mode cmake-mode) . company-mode)
   :init
   (setq company-tooltip-limit 20
         company-idle-delay .3
         company-echo-delay 0
         company-show-numbers t)
-  (global-company-mode)
+
   :config
   (setq company-backends (delete 'company-semantic company-backends)
         company-begin-commands '(self-insert-command))
@@ -37,76 +36,9 @@
   (setq company-quickhelp-delay nil)
   )
 
-;; @github: remyferre/comment-dwim-2
-(use-package comment-dwim-2
-  :bind (("M-;" . comment-dwim-2))
-  )
-
-;; @github: DarthFennec/highlight-indent-guides
-(use-package highlight-indent-guides
-  :defer t
-  :if window-system
-  :commands (highlight-indent-guides-mode)
-  :init
-  (setq highlight-indent-guides-method 'character
-        highlight-indent-guides-character ?\|
-        highlight-indent-guides-auto-odd-face-perc 15
-        highlight-indent-guides-auto-even-face-perc 15
-        highlight-indent-guides-auto-character-face-perc 20)
-  (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
-  )
-
-;; @github: pmarinov/clean-aindent-mode
-(use-package clean-aindent-mode
-  :defer t
-  :commands (clean-aindent-mode)
-  :init
-  (setq clean-aindent-is-simple-indent t)
-  (add-hook 'prog-mode-hook #'clean-aindent-mode)
-  )
-
-;; @github: jscheid/dtrt-indent
-(use-package dtrt-indent
-  :defer t
-  :diminish dtrt-indent-mode
-  :commands (dtrt-indent-mode)
-  :init
-  (setq dtrt-indent-verbosity 0)
-  (dtrt-indent-mode 1)
-  )
-
-;; @github: Malabarba/aggressive-indent-mode
-(use-package aggressive-indent
-  :defer 5
-  :diminish aggressive-indent-mode
-  :commands (aggressive-indent-mode)
-  :init
-  (add-hook 'prog-mode-hook #'aggressive-indent-mode)
-  :config
-  (add-to-list
-   'aggressive-indent-dont-indent-if
-   '(and (derived-mode-p 'c++-mode)
-         (null (string-match "\\([;{}]\\|\\b\\(if\\|for\\|while\\)\\b\\)"
-                             (thing-at-point 'line)))))
-  )
-
-;; @github: Fanael/rainbow-delimiters
-(use-package rainbow-delimiters
-  :defer t
-  :commands (rainbow-delimiters-mode)
-  :init
-  (add-hook 'prog-mode-hook #'rainbow-delimiters-mode)
-  )
-
-;; @github: magit/magit
-(use-package magit
-  :defer t
-  :bind (("C-x g" . magit-status)
-         ("C-x M-g" . magit-dispatch-popup))
-  )
-
 ;; @github: joaotavora/yasnippet
 (use-package yasnippet
+  :disabled
   :diminish yas-minor-mode
   :commands (yas-minor-mode
              yas-expand-from-trigger-key
@@ -199,14 +131,85 @@
   (define-key yas-keymap (kbd "C-g") 'abort-company-or-yas)
   )
 
+;; @github: remyferre/comment-dwim-2
+(use-package comment-dwim-2
+  :defer t
+  :bind (("M-;" . comment-dwim-2))
+  )
+
+;; @github: DarthFennec/highlight-indent-guides
+(use-package highlight-indent-guides
+  :defer t
+  :if window-system
+  :hook (prog-mode . highlight-indent-guides-mode)
+  :init
+  (setq highlight-indent-guides-method 'character
+        highlight-indent-guides-character ?\|
+        highlight-indent-guides-auto-odd-face-perc 15
+        highlight-indent-guides-auto-even-face-perc 15
+        highlight-indent-guides-auto-character-face-perc 20)
+  )
+
+;; @github: pmarinov/clean-aindent-mode
+(use-package clean-aindent-mode
+  :defer t
+  :hook prog-mode
+  :init
+  (setq clean-aindent-is-simple-indent t)
+  )
+
+;; @github: jscheid/dtrt-indent
+(use-package dtrt-indent
+  :defer t
+  :diminish dtrt-indent-mode
+  :hook (prog-mode . dtrt-indent-mode)
+  :init
+  (setq dtrt-indent-verbosity 0)
+  )
+
+;; @github: Malabarba/aggressive-indent-mode
+(use-package aggressive-indent
+  :diminish aggressive-indent-mode
+  :hook ((prog-mode cmake-mode) . aggressive-indent-mode)
+  :config
+  (add-to-list
+   'aggressive-indent-dont-indent-if
+   '(and (derived-mode-p 'c++-mode)
+         (null (string-match "\\([;{}]\\|\\b\\(if\\|for\\|while\\)\\b\\)"
+                             (thing-at-point 'line)))))
+  )
+
+;; @github: Fanael/rainbow-delimiters
+(use-package rainbow-delimiters
+  :defer t
+  :hook (prog-mode . rainbow-delimiters-mode)
+  )
+
+;; @github: magit/magit
+(use-package magit
+  :defer t
+  :bind (("C-x g" . magit-status)
+         ("C-x M-g" . magit-dispatch-popup))
+  )
+
 ;; @github: flycheck/flycheck
 (use-package flycheck
   :defer t
   :diminish flycheck-mode
   :config
   (setq flycheck-check-syntax-automatically '(mode-enabled save))
-  ;; @github: flycheck/flycheck-pos-tip
-  (add-hook 'flycheck-mode-hook 'flycheck-pos-tip-mode)
+  )
+
+(use-package eldoc
+  :defer t
+  :diminish eldoc-mode
+  :hook ((prog-mode cmake-mode) . eldoc-mode)
+  )
+
+(use-package hideshow
+  :defer t
+  :diminish hs-minor-mode
+  :hook ((prog-mode) . hs-minor-mode)
   )
 
 (provide 'init-prog)

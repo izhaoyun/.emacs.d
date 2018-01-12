@@ -14,9 +14,9 @@
   (package-refresh-contents))
 (package-install-selected-packages)
 
-(require 'diminish)
 (require 'bind-key)
 (require 'use-package)
+(use-package diminish)
 
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (require 'setup-editor)
@@ -25,7 +25,7 @@
 (require 'init-c++)
 (require 'init-org)
 (require 'init-python)
-(require 'init-go)
+;; (require 'init-go)
 (require 'init-web)
 ;; (require 'init-erlang)
 
