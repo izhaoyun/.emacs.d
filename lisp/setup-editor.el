@@ -6,12 +6,7 @@
 
 ;;; Code:
 
-;; (prefer-coding-system 'utf-8)
-;; (set-language-environment "UTF-8")
-;; (set-default-coding-systems 'utf-8)
-;; (set-terminal-coding-system 'utf-8)
-;; (set-keyboard-coding-system 'utf-8)
-;; (setq buffer-file-coding-system 'utf-8)
+(fset 'yes-or-no-p 'y-or-n-p)
 
 ;; github: abo-abo/swiper
 (use-package counsel
@@ -54,15 +49,24 @@
 
 ;; @github: abo-abo/avy
 (use-package avy
-  :defer 7
+  :defer t
   :commands (avy-setup-default)
   :init
   (avy-setup-default)
   :bind (("C-:" . avy-goto-char)
          ("C-'" . avy-goto-char-2)
+         ("M-g c" . avy-goto-char)
          ("M-g f" . avy-goto-line)
          ("M-g w" . avy-goto-word-1)
          ("M-g e" . avy-goto-word-0))
+  )
+
+;; @github: cute-jumper/avy-zap
+(use-package avy-zap
+  ;; :after avy
+  :defer t
+  :bind (("M-z" . avy-zap-to-char-dwim)
+         ("M-Z" . avy-zap-up-to-char-dwim))
   )
 
 ;; @github: abo-abo/ace-link
@@ -158,7 +162,13 @@
   )
 
 (use-package hippie-exp
+  :defer t
   :bind ("M-/" . hippie-expand)
+  )
+
+;; @github: darksmile/cheatsheet
+(use-package cheatsheet
+  :defer t
   )
 
 (provide 'setup-editor)

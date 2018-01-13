@@ -10,7 +10,6 @@
   (add-hook 'c-mode-common-hook 'init-c-c++/find-file)
   (add-hook 'c-mode-common-hook 'which-function-mode)
 
-  (add-hook 'c-mode-common-hook 'google-make-newline-indent)
   (add-hook 'c-mode-common-hook 'init-c-c++/setup-gdb)
   :bind (:map c-mode-base-map
               ("C-c t" . ff-find-other-file)
@@ -26,6 +25,7 @@
 (use-package google-c-style
   :defer t
   :hook ((c-mode c++-mode) . google-set-c-style)
+  :hook ((c-mode c++-mode) . google-make-newline-indent)
   )
 
 ;;;###autoload
@@ -75,18 +75,7 @@
               ("C-c <" . ggtags-prev-mark)
               ("C-c >" . ggtags-next-mark)
               ("M-,"   . pop-tag-mark))
-  :preface
-  (defun init-c-c++/setup-company-gtags ()
-    (use-package company-gtags
-      :commands (company-gtags)
-      :init
-      (push 'company-gtags company-backends)
-      )
-    )
-  :init
-  (add-hook 'c-mode-common-hook 'ggtags-mode)
-  (add-hook 'ggtags-mode-hook 'init-c-c++/setup-company-gtags)
-
+  :hook ((c-mode c++-mode) . ggtags-mode)
   :config
   (setq-local imenu-create-index-function #'ggtags-build-imenu-index)
   (setq-local eldoc-documentation-function #'ggtags-eldoc-function)
@@ -94,18 +83,11 @@
               (cons 'ggtags-try-complete-tag hippie-expand-try-functions-list))
   )
 
-;; @github: syohex/emacs-counsel-gtags
-(use-package counsel-gtags
+(use-package company-gtags
   :defer t
-  :commands (counsel-gtags-mode)
+  :after company
   :init
-  (add-hook 'c-mode-hook 'counsel-gtags-mode)
-  (add-hook 'c++-mode-hook 'counsel-gtags-mode)
-  :config
-  ;; (define-key counsel-gtags-mode-map (kbd "M-t") 'counsel-gtags-find-definition)
-  ;; (define-key counsel-gtags-mode-map (kbd "M-r") 'counsel-gtags-find-reference)
-  ;; (define-key counsel-gtags-mode-map (kbd "M-s") 'counsel-gtags-find-symbol)
-  ;; (define-key counsel-gtags-mode-map (kbd "M-,") 'counsel-gtags-go-backward)
+  (push 'company-gtags company-backends)
   )
 
 ;;;###autoload
