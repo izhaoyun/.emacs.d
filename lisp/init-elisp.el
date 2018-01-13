@@ -7,8 +7,8 @@
 ;; @github: tarsius/auto-compile
 (use-package auto-compile
   :defer t
-  :hook (emacs-lisp-mode . auto-compile-on-load-mode)
-  :hook (emacs-lisp-mode . auto-compile-on-save-mode)
+  :hook ((emacs-lisp-mode . auto-compile-on-load-mode)
+         (emacs-lisp-mode . auto-compile-on-save-mode))
   :init
   (setq auto-compile-display-buffer nil
         auto-compile-mode-line-counter t)

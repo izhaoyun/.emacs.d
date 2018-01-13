@@ -24,8 +24,8 @@
 ;; @github: https://github.com/google/styleguide/blob/gh-pages/google-c-style.el
 (use-package google-c-style
   :defer t
-  :hook ((c-mode c++-mode) . google-set-c-style)
-  :hook ((c-mode c++-mode) . google-make-newline-indent)
+  :hook (((c-mode c++-mode) . google-set-c-style)
+         ((c-mode c++-mode) . google-make-newline-indent))
   )
 
 ;;;###autoload

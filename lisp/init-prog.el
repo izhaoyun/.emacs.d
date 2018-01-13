@@ -10,7 +10,6 @@
   :init
   (setq projectile-completion-system 'ivy
         projectile-enable-caching t
-        projectile-enable-idle-timer t
         projectile-find-dir-includes-top-level t
         projectile-switch-project-action #'projectile-dired)
   )
