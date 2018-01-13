@@ -25,7 +25,7 @@
 (require 'init-c++)
 (require 'init-org)
 (require 'init-python)
-;; (require 'init-go)
+(require 'init-go)
 (require 'init-web)
 ;; (require 'init-erlang)
 
