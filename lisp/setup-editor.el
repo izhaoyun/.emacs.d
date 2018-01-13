@@ -78,7 +78,7 @@
 
 ;; @github: nschum/window-numbering.el
 (use-package window-numbering
-  :defer 8
+  :defer t
   :commands (window-numbering-mode)
   :init
   (window-numbering-mode)
@@ -116,6 +116,7 @@
 
 ;; @github: magnars/expand-region.el
 (use-package expand-region
+  :if window-system
   :defer t
   :bind (("C-=" . er/expand-region)
          ("C--" . er/contract-region))
@@ -168,6 +169,7 @@
 
 ;; @github: darksmile/cheatsheet
 (use-package cheatsheet
+  :disabled
   :defer t
   )
 

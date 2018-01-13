@@ -6,20 +6,19 @@
 
 ;; @github: tarsius/auto-compile
 (use-package auto-compile
+  :defer t
+  :hook (emacs-lisp-mode . auto-compile-on-load-mode)
+  :hook (emacs-lisp-mode . auto-compile-on-save-mode)
   :init
   (setq auto-compile-display-buffer nil
         auto-compile-mode-line-counter t)
-  (auto-compile-on-load-mode)
-  (auto-compile-on-save-mode)
   )
 
 ;; @github: abo-abo/lispy
 (use-package lispy
   :defer t
   :diminish lispy-mode
-  :commands (lispy-mode)
-  :init
-  (add-hook 'emacs-lisp-mode-hook (lambda () (lispy-mode 1)))
+  :hook (emacs-lisp-mode . lispy-mode)
   )
 
 (provide 'init-elisp)

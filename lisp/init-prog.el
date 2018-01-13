@@ -4,9 +4,19 @@
 
 ;;; Code:
 
+;; @github: bbatsov/projectile
+(use-package projectile
+  :diminish (projectile-mode)
+  :init
+  (setq projectile-completion-system 'ivy
+        projectile-enable-caching t
+        projectile-enable-idle-timer t
+        projectile-find-dir-includes-top-level t
+        projectile-switch-project-action #'projectile-dired)
+  )
+
 ;; @github: ericdanan/counsel-projectile
 (use-package counsel-projectile
-  :diminish (projectile-mode)
   :init
   (counsel-projectile-mode)
   )
@@ -20,7 +30,6 @@
         company-idle-delay .3
         company-echo-delay 0
         company-show-numbers t)
-
   :config
   (setq company-backends (delete 'company-semantic company-backends)
         company-begin-commands '(self-insert-command))
@@ -28,11 +37,12 @@
 
 ;; @github: expez/company-quickhelp
 (use-package company-quickhelp
+  :if window-system
   :defer t
   :bind (:map company-active-map
               ("M-h" . company-quickhelp-manual-begin))
-  :config
-  (company-quickhelp-mode 1)
+  :hook (company-mode . company-quickhelp-mode)
+  :init
   (setq company-quickhelp-delay nil)
   )
 
