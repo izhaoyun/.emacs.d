@@ -21,6 +21,7 @@
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (require 'setup-editor)
 (require 'init-prog)
+(require 'init-makefile)
 (require 'init-elisp)
 (require 'init-c++)
 (require 'init-org)

@@ -119,23 +119,5 @@
   )
 (add-hook 'c-mode-common-hook 'init-c-c++/setup-irony)
 
-;; https://github.com/Kitware/CMake/blob/master/Auxiliary/cmake-mode.el
-(use-package cmake-mode
-  :mode (("CMakeLists\\.txt\\'" . cmake-mode)
-         ("\\.cmake\\'" . cmake-mode))
-  :preface
-  (defun init-c-c++/setup-company-cmake ()
-    (use-package company-cmake
-      :commands (company-cmake)
-      :init
-      (push 'company-cmake company-backends)
-      )
-    )
-  :init
-  ;; @github: Lindydancer/cmake-font-lock
-  (add-hook 'cmake-mode-hook 'cmake-font-lock-activate)
-  (add-hook 'cmake-mode-hook 'init-c-c++/setup-company-cmake)
-  )
-
 (provide 'init-c++)
 ;;; init-c++.el ends here
