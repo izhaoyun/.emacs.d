@@ -23,7 +23,7 @@
 ;; @github: company-mode/company-mode
 (use-package company
   :diminish company-mode
-  :hook ((prog-mode cmake-mode) . company-mode)
+  :hook (prog-mode . company-mode)
   :init
   (setq company-tooltip-limit 20
         company-idle-delay .3

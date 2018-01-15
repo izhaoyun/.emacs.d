@@ -9,15 +9,12 @@
   :mode (("CMakeLists\\.txt\\'" . cmake-mode)
          ("\\.cmake\\'" . cmake-mode))
   :preface
-  (defun init-c-c++/setup-company-cmake ()
-    (use-package company-cmake
-      :commands (company-cmake)
-      :init
-      (push 'company-cmake company-backends)
-      )
+  (defun init-cmake-hook ()
+    (setq-local company-backends '(company-dabbrev-code company-keywords company-cmake))
+    (company-mode 1)
     )
   :init
-  (add-hook 'cmake-mode-hook 'init-c-c++/setup-company-cmake)
+  (add-hook 'cmake-mode-hook 'init-cmake-hook)
   )
 
 ;; @github: Lindydancer/cmake-font-lock
