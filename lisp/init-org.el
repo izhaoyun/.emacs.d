@@ -1,8 +1,4 @@
-;;; init-org --- Org-mode Configuration
-
-;;; Commentary:
-
-;;; Code:
+;;; -*- lexical-binding: t -*-
 
 (use-package org
   :mode (("\\.org\'" . org-mode))
@@ -63,7 +59,6 @@
      (dot        . t)
      (sed        . t)
      (sql        . t)
-     ;; @github: zweifisch/ob-http
      (http       . t)
      (ditaa      . t)
      (shell      . t)
@@ -109,7 +104,7 @@
                'ox-html-clear-single-linebreak-for-cjk)
   )
 
-;; @github: snosov1/toc-org
+
 (use-package toc-org
   :defer t
   :config

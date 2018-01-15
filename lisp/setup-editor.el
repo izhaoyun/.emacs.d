@@ -1,14 +1,7 @@
-;;; setup-editor.el --- basic settings for the editor. -*- lexical-binding: t; -*-
-
-;;; Commentary:
-
-;; This file provides basic settings for the editor.
-
-;;; Code:
+;;; -*- lexical-binding: t -*-
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
-;; github: abo-abo/swiper
 (use-package counsel
   :diminish ivy-mode
   :init
@@ -47,7 +40,6 @@
   (setq counsel-find-file-at-point t)
   )
 
-;; @github: abo-abo/avy
 (use-package avy
   :defer t
   :commands (avy-setup-default)
@@ -61,7 +53,6 @@
          ("M-g e" . avy-goto-word-0))
   )
 
-;; @github: cute-jumper/avy-zap
 (use-package avy-zap
   ;; :after avy
   :defer t
@@ -69,14 +60,12 @@
          ("M-Z" . avy-zap-up-to-char-dwim))
   )
 
-;; @github: abo-abo/ace-link
 (use-package ace-link
   :defer t
   :init
   (ace-link-setup-default)
   )
 
-;; @github: nschum/window-numbering.el
 (use-package window-numbering
   :defer t
   :commands (window-numbering-mode)
@@ -84,7 +73,6 @@
   (window-numbering-mode)
   )
 
-;; @github: nschum/highlight-symbol.el
 (use-package highlight-symbol
   :defer t
   :bind (("C-<f3>" . highlight-symbol)
@@ -93,7 +81,6 @@
          ("M-<f3>" . highlight-symbol-query-replace))
   )
 
-;; @github: justbur/emacs-which-key
 (use-package which-key
   :defer t
   :diminish which-key-mode
@@ -107,14 +94,12 @@
     )
   )
 
-;; @github: lewang/ws-butler
 (use-package ws-butler
   :defer t
   :diminish ws-butler-mode
   :hook (prog-mode . ws-butler-mode)
   )
 
-;; @github: magnars/expand-region.el
 (use-package expand-region
   :if window-system
   :defer t
@@ -122,7 +107,6 @@
          ("C--" . er/contract-region))
   )
 
-;; http://www.dr-qubit.org/Emacs_Undo_Tree_package.html
 (use-package undo-tree
   :diminish undo-tree-mode
   :hook ((prog-mode cmake-mode org-mode) . undo-tree-mode)
@@ -131,7 +115,6 @@
         undo-tree-visualizer-timestamps t)
   )
 
-;; @github: m2ym/popwin-el
 (use-package popwin
   :disabled
   :defer t
@@ -167,7 +150,6 @@
   :bind ("M-/" . hippie-expand)
   )
 
-;; @github: darksmile/cheatsheet
 (use-package cheatsheet
   :disabled
   :defer t

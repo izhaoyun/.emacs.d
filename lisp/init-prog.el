@@ -1,10 +1,5 @@
-;;; init-prog.el --- Programming Configuration -*- lexical-binding: t; -*-
+;;; -*- lexical-binding: t -*-
 
-;;; Commentary:
-
-;;; Code:
-
-;; @github: bbatsov/projectile
 (use-package projectile
   :diminish (projectile-mode)
   :init
@@ -14,13 +9,11 @@
         projectile-switch-project-action #'projectile-dired)
   )
 
-;; @github: ericdanan/counsel-projectile
 (use-package counsel-projectile
   :init
   (counsel-projectile-mode)
   )
 
-;; @github: company-mode/company-mode
 (use-package company
   :diminish company-mode
   :hook (prog-mode . company-mode)
@@ -34,7 +27,6 @@
         company-begin-commands '(self-insert-command))
   )
 
-;; @github: expez/company-quickhelp
 (use-package company-quickhelp
   :if window-system
   :defer t
@@ -45,7 +37,6 @@
   (setq company-quickhelp-delay nil)
   )
 
-;; @github: joaotavora/yasnippet
 (use-package yasnippet
   :disabled
   :diminish yas-minor-mode
@@ -140,13 +131,11 @@
   (define-key yas-keymap (kbd "C-g") 'abort-company-or-yas)
   )
 
-;; @github: remyferre/comment-dwim-2
 (use-package comment-dwim-2
   :defer t
   :bind (("M-;" . comment-dwim-2))
   )
 
-;; @github: DarthFennec/highlight-indent-guides
 (use-package highlight-indent-guides
   :defer t
   :if window-system
@@ -159,7 +148,6 @@
         highlight-indent-guides-auto-character-face-perc 20)
   )
 
-;; @github: pmarinov/clean-aindent-mode
 (use-package clean-aindent-mode
   :defer t
   :hook prog-mode
@@ -167,7 +155,6 @@
   (setq clean-aindent-is-simple-indent t)
   )
 
-;; @github: jscheid/dtrt-indent
 (use-package dtrt-indent
   :defer t
   :diminish dtrt-indent-mode
@@ -176,7 +163,6 @@
   (setq dtrt-indent-verbosity 0)
   )
 
-;; @github: Malabarba/aggressive-indent-mode
 (use-package aggressive-indent
   :diminish aggressive-indent-mode
   :hook ((prog-mode cmake-mode) . aggressive-indent-mode)
@@ -188,20 +174,17 @@
                              (thing-at-point 'line)))))
   )
 
-;; @github: Fanael/rainbow-delimiters
 (use-package rainbow-delimiters
   :defer t
   :hook (prog-mode . rainbow-delimiters-mode)
   )
 
-;; @github: magit/magit
 (use-package magit
   :defer t
   :bind (("C-x g" . magit-status)
          ("C-x M-g" . magit-dispatch-popup))
   )
 
-;; @github: flycheck/flycheck
 (use-package flycheck
   :defer t
   :diminish flycheck-mode

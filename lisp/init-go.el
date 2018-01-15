@@ -1,29 +1,30 @@
-;;; init-go --- Go Configuration -*- lexical-binding: t; -*-
+;;; -*- lexical-binding: t -*-
 
-;;; Commentary:
-
-;;; Code:
-
-;; @github: dominikh/go-mode.el
 (use-package go-mode-autoloads
-  :ensure go-mode
   :mode ("\\.go\\'" . go-mode)
+  :preface
+  (defun init-go-mode-hook ()
+    (use-package company-go
+      :init
+      (setq-local company-backends
+                  '(company-dabbrev-code company-keywords company-go))
+      (company-mode 1)
+      )
+    )
   :init
   (add-hook 'before-save-hook 'gofmt-before-save)
+  (add-hook 'go-mode-hook 'init-go-mode-hook)
   )
 
-;; https://github.com/nsf/gocode/tree/master/emacs-company
+
 (use-package company-go
   :after company
   :init
   (push 'company-go company-backends)
   )
 
-;; @github: syohex/emacs-go-eldoc
 (use-package go-eldoc
-  :commands (go-eldoc-setup)
-  :init
-  (add-hook 'go-mode-hook 'go-eldoc-setup)
+  :hook (go-mode . go-eldoc-setup)
   )
 
 (provide 'init-go)

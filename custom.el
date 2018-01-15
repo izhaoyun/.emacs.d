@@ -1,8 +1,4 @@
-;;; custom.el --- Customization -*- lexical-binding: t; -*-
-
-;;; Commentary:
-
-;;; Code:
+;;; -*- lexical-binding: t -*-
 
 (custom-set-variables
  ;; custom-set-variables was added by Custom.
@@ -26,7 +22,7 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (graphviz-dot-mode avy-zap cheatsheet ansible ag toc-org lispy counsel-projectile window-numbering diminish go-eldoc sphinx-doc google-c-style yasnippet-snippets ace-link swiper counsel ivy avy flycheck company-irony-c-headers rainbow-delimiters ob-http git-timemachine elf-mode smartparens yaml-mode ws-butler which-key web-mode use-package undo-tree python projectile popwin pip-requirements org org-plus-contrib plantuml-mode auctex magit js2-mode jinja2-mode hungry-delete htmlize highlight-symbol highlight-indent-guides gnuplot-mode ggtags flycheck-irony expand-region dtrt-indent diff-hl company-quickhelp company-irony company-go company-erlang company-edbi company-c-headers company-auctex company-anaconda comment-dwim-2 cmake-font-lock clean-aindent-mode auto-compile aggressive-indent)))
+    (wgrep graphviz-dot-mode avy-zap cheatsheet ansible ag toc-org lispy counsel-projectile window-numbering diminish go-eldoc sphinx-doc google-c-style yasnippet-snippets ace-link swiper counsel ivy avy flycheck company-irony-c-headers rainbow-delimiters ob-http git-timemachine elf-mode smartparens yaml-mode ws-butler which-key web-mode use-package undo-tree python projectile popwin pip-requirements org org-plus-contrib plantuml-mode auctex magit js2-mode jinja2-mode hungry-delete htmlize highlight-symbol highlight-indent-guides gnuplot-mode ggtags flycheck-irony expand-region dtrt-indent diff-hl company-quickhelp company-irony company-go company-erlang company-c-headers company-auctex company-anaconda comment-dwim-2 cmake-font-lock clean-aindent-mode auto-compile aggressive-indent)))
  '(save-interprogram-paste-before-kill t)
  '(scroll-bar-mode nil)
  '(sentence-end-double-space nil)

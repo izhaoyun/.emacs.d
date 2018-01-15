@@ -1,16 +1,13 @@
-;;; init-c++ --- C++ Configuration -*- lexical-binding: t; -*-
-
-;;; Commentary:
-
-;;; Code:
+;;; -*- lexical-binding: t -*-
 
 (use-package cc-mode
   :mode (("\\.h\\'" . c++-mode))
-  :init
-  (add-hook 'c-mode-common-hook 'init-c-c++/find-file)
-  (add-hook 'c-mode-common-hook 'which-function-mode)
-
-  (add-hook 'c-mode-common-hook 'init-c-c++/setup-gdb)
+  :preface
+  (defun init-cc-hook ()
+    ;; setup gdb
+    (setq gdb-show-main t
+          gdb-many-windows t)
+    )
   :bind (:map c-mode-base-map
               ("C-c t" . ff-find-other-file)
               ("C-c h c" . hs-toggle-hiding)
@@ -19,9 +16,10 @@
               ("C-c h a" . hs-hide-all)
               ("C-c h d" . hs-show-all)
               ("C-c h l" . hs-hide-level))
+  :init
+  (add-hook 'c-mode-common-hook 'which-function-mode)
   )
 
-;; @github: https://github.com/google/styleguide/blob/gh-pages/google-c-style.el
 (use-package google-c-style
   :defer t
   :hook (((c-mode c++-mode) . google-set-c-style)
@@ -29,25 +27,7 @@
   )
 
 ;;;###autoload
-(defun init-c-c++/find-file ()
-  (use-package find-file
-    :init
-    (setq-default ff-always-in-other-window t)
-    )
-  )
-
-;;;###autoload
-(defun init-c-c++/setup-gdb ()
-  (use-package gdb-mi
-    :init
-    (setq gdb-many-windows t)
-    (setq gdb-show-main t)
-    )
-  )
-
-;;;###autoload
 (defun init-c-c++/setup-company-c-headers ()
-  ;; @github: randomphrase/company-c-headers
   (use-package company-c-headers
     :after company
     :init
@@ -56,7 +36,6 @@
   )
 (add-hook 'c-mode-common-hook 'init-c-c++/setup-company-c-headers)
 
-;; @github: leoliu/ggtags
 (use-package ggtags
   :commands (ggtags-eldoc-function
              ggtags-find-other-symbol
@@ -92,7 +71,6 @@
 
 ;;;###autoload
 (defun init-c-c++/setup-irony ()
-  ;; @github: Sarcasm/irony-mode
   (use-package irony
     :init
     (irony-mode t)
@@ -104,13 +82,13 @@
     (add-hook 'irony-mode-hook 'my-irony-mode-hook)
     (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
     )
-  ;; @github: hotpxl/company-irony-c-headers
+
   (use-package company-irony-c-headers
     :after company
     :init
     (push 'company-irony-c-headers company-backends)
     )
-  ;; @github: Sarcasm/company-irony
+
   (use-package company-irony
     :after company
     :init
