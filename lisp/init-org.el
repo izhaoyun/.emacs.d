@@ -116,6 +116,15 @@
   (add-hook 'org-mode-hook 'toc-org-enable)
   )
 
+(use-package plantuml-mode
+  :defer t
+  :mode ("\\.plantuml\\'")
+  )
+
+(use-package graphviz-dot-mode
+  :defer t
+  :mode ("\\.dot\\'" "\\.gv\\'")
+  )
 
 (provide 'init-org)
 ;;; init-org.el ends here
