@@ -12,7 +12,6 @@
  '(global-auto-revert-mode t)
  '(indent-tabs-mode nil)
  '(inhibit-startup-screen t)
- '(load-prefer-newer t)
  '(menu-bar-mode nil)
  '(package-archives
    (quote
@@ -22,7 +21,7 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (wgrep graphviz-dot-mode avy-zap cheatsheet ansible ag toc-org lispy counsel-projectile window-numbering diminish go-eldoc sphinx-doc google-c-style yasnippet-snippets ace-link swiper counsel ivy avy flycheck company-irony-c-headers rainbow-delimiters ob-http git-timemachine elf-mode smartparens yaml-mode ws-butler which-key web-mode use-package undo-tree python projectile popwin pip-requirements org org-plus-contrib plantuml-mode auctex magit js2-mode jinja2-mode hungry-delete htmlize highlight-symbol highlight-indent-guides gnuplot-mode ggtags flycheck-irony expand-region dtrt-indent diff-hl company-quickhelp company-irony company-go company-erlang company-c-headers company-auctex company-anaconda comment-dwim-2 cmake-font-lock clean-aindent-mode auto-compile aggressive-indent)))
+    (yaml-mode web-mode graphviz-dot-mode plantuml-mode toc-org org go-mode company-c-headers ansible sphinx-doc company-anaconda anaconda-mode go-eldoc company-go go-mode-autoloads org-plus-contrib irony ggtags google-c-style cmake-font-lock cmake-mode lispy auto-compile flycheck magit rainbow-delimiters aggressive-indent dtrt-indent clean-aindent-mode highlight-indent-guides comment-dwim-2 company-quickhelp company counsel-projectile projectile undo-tree expand-region ivy swiper ws-butler which-key highlight-symbol window-numbering ace-link avy-zap avy counsel diminish use-package)))
  '(save-interprogram-paste-before-kill t)
  '(scroll-bar-mode nil)
  '(sentence-end-double-space nil)

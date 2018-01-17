@@ -10,6 +10,8 @@
   )
 
 (use-package counsel-projectile
+  :ensure t
+  :commands (counsel-projectile-mode)
   :init
   (counsel-projectile-mode)
   )
@@ -23,8 +25,7 @@
         company-echo-delay 0
         company-show-numbers t)
   :config
-  (setq company-backends (delete 'company-semantic company-backends)
-        company-begin-commands '(self-insert-command))
+  (setq company-begin-commands '(self-insert-command))
   )
 
 (use-package company-quickhelp
@@ -37,108 +38,14 @@
   (setq company-quickhelp-delay nil)
   )
 
-(use-package yasnippet
-  :disabled
-  :diminish yas-minor-mode
-  :commands (yas-minor-mode
-             yas-expand-from-trigger-key
-             yas-expand
-             yas-next-field
-             yas-abort-snippet)
-  :preface
-  (defun check-expansion ()
-    (save-excursion
-      (if (looking-at "\\_>") t
-        (backward-char 1)
-        (if (looking-at "\\.") t
-          (backward-char 1)
-          (if (looking-at "->") t nil))))
-    )
-  :init
-  (add-hook 'prog-mode-hook #'yas-minor-mode)
-  (add-hook 'cmake-mode-hook #'yas-minor-mode)
-
-  (defun do-yas-expand ()
-    (let ((yas-fallback-behavior 'return-nil))
-      (yas-expand))
-    )
-
-  (defun tab-indent-or-complete ()
-    (interactive)
-    (cond ((minibufferp)
-           (minibuffer-complete))
-          (t
-           (indent-for-tab-command)
-           (if (or (not yas-minor-mode)
-                   (null (do-yas-expand)))
-               (if (check-expansion)
-                   (progn
-                     (company-manual-begin)
-                     (if (null company-candidates)
-                         (progn
-                           (company-abort)
-                           (indent-for-tab-command))
-                       ))
-                 ))
-           ))
-    )
-
-  (defun tab-complete-or-next-field ()
-    (interactive)
-    (if (or (not yas-minor-mode)
-            (null (do-yas-expand)))
-        (if company-candidates
-            (company-complete-selection)
-          (if (check-expansion)
-              (progn
-                (company-manual-begin)
-                (if (null company-candidates)
-                    (progn
-                      (company-abort)
-                      (yas-next-field))))
-            (yas-next-field))))
-    )
-
-  (defun expand-snippet-or-complete-selection ()
-    (interactive)
-    (if (or (not yas-minor-mode)
-            (null (do-yas-expand))
-            (company-abort))
-        (company-complete-selection))
-    )
-
-  (defun abort-company-or-yas ()
-    (interactive)
-    (if (null company-candidates)
-        (yas-abort-snippet)
-      (company-abort))
-    )
-
-  (global-set-key [tab] 'tab-indent-or-complete)
-  (global-set-key (kbd "TAB") 'tab-indent-or-complete)
-  (global-set-key [(control return)] 'company-complete-common)
-
-  (define-key company-active-map [tab] 'expand-snippet-or-complete-selection)
-  (define-key company-active-map (kbd "TAB") 'expand-snippet-or-complete-selection)
-
-  :config
-  (define-key yas-minor-mode-map [tab] nil)
-  (define-key yas-minor-mode-map (kbd "TAB") nil)
-
-  (define-key yas-keymap [tab] 'tab-complete-or-next-field)
-  (define-key yas-keymap (kbd "TAB") 'tab-complete-or-next-field)
-  (define-key yas-keymap [(control tab)] 'yas-next-field)
-  (define-key yas-keymap (kbd "C-g") 'abort-company-or-yas)
-  )
-
 (use-package comment-dwim-2
   :defer t
   :bind (("M-;" . comment-dwim-2))
   )
 
 (use-package highlight-indent-guides
-  :defer t
   :if window-system
+  :defer t
   :hook (prog-mode . highlight-indent-guides-mode)
   :init
   (setq highlight-indent-guides-method 'character
@@ -165,7 +72,7 @@
 
 (use-package aggressive-indent
   :diminish aggressive-indent-mode
-  :hook ((prog-mode cmake-mode) . aggressive-indent-mode)
+  :hook ((emacs-lisp-mode cmake-mode) . aggressive-indent-mode)
   :config
   (add-to-list
    'aggressive-indent-dont-indent-if
@@ -176,7 +83,7 @@
 
 (use-package rainbow-delimiters
   :defer t
-  :hook (prog-mode . rainbow-delimiters-mode)
+  :hook ((prog-mode cmake-mode) . rainbow-delimiters-mode)
   )
 
 (use-package magit

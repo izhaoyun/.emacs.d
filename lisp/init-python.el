@@ -3,6 +3,15 @@
 (use-package python
   :mode ("\\.py\\'" . python-mode)
   :interpreter ("python" . python-mode)
+  :preface
+  (defun my-python-hook ()
+    (use-package company-anaconda
+      :after company
+      :init
+      (push 'company-anaconda company-backends)
+      )
+    )
+  :hook (python-mode . my-python-hook)
   )
 
 (use-package anaconda-mode
@@ -10,17 +19,9 @@
          (python-mode . anaconda-eldoc-mode))
   )
 
-(use-package company-anaconda
-  :after company
-  :init
-  (push 'company-anaconda company-backends)
-  )
-
 (use-package sphinx-doc
   :hook (python-mode . sphinx-doc-mode)
   )
-
-(use-package ansible)
 
 (provide 'init-python)
 ;;; init-python.el ends here

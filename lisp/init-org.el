@@ -1,6 +1,7 @@
 ;;; -*- lexical-binding: t -*-
 
 (use-package org
+  :defer t
   :mode (("\\.org\'" . org-mode))
   :bind (("C-c l" . org-store-link)
          ("C-c a" . org-agenda)
@@ -47,6 +48,8 @@
   )
 
 (use-package ob
+  :defer t
+  :ensure org-plus-contrib
   :commands (org-babel-do-load-languages)
   :init
   (setq org-ditaa-jar-path "/usr/share/ditaa/ditaa.jar"
@@ -59,7 +62,7 @@
      (dot        . t)
      (sed        . t)
      (sql        . t)
-     (http       . t)
+     ;; (http       . t)
      (ditaa      . t)
      (shell      . t)
      (gnuplot    . t)
@@ -71,6 +74,8 @@
   )
 
 (use-package ox
+  :defer t
+  :ensure org
   :preface
   (defun clear-single-linebreak-in-cjk-string (string)
     (let* ((regexp "\\([\u4E00-\u9FA5]\\)\n\\([\u4E00-\u9FA5]\\)")
@@ -80,18 +85,15 @@
               start (string-match regexp string start))))
     string)
   :init
-  ;; ox
   (setq org-export-with-toc nil
-        org-export-default-language "zh-CN")
-  ;; ox-html
-  (setq org-html-doctype "html5"
-        org-html-html5-fancy t)
-  ;; ox-latex
-  (setq org-latex-compiler "xelatex"
+        org-export-default-language "zh-CN"
+        org-html-doctype "html5"
+        org-html-html5-fancy t
+        org-latex-compiler "xelatex"
         org-latex-listings 'minted
         org-latex-minted-options '(("breaklines" "")
-                                   ("frame" "single"))
-        org-latex-pdf-process
+                                   ("frame" "single")))
+  (setq org-latex-pdf-process
         '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
           "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
           "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
@@ -104,20 +106,16 @@
                'ox-html-clear-single-linebreak-for-cjk)
   )
 
-
 (use-package toc-org
   :defer t
-  :config
-  (add-hook 'org-mode-hook 'toc-org-enable)
+  :hook (org-mode . toc-org-enable)
   )
 
 (use-package plantuml-mode
-  :defer t
   :mode ("\\.plantuml\\'")
   )
 
 (use-package graphviz-dot-mode
-  :defer t
   :mode ("\\.dot\\'" "\\.gv\\'")
   )
 

@@ -1,26 +1,18 @@
 ;;; -*- lexical-binding: t -*-
 
 (use-package go-mode-autoloads
+  :ensure go-mode
   :mode ("\\.go\\'" . go-mode)
   :preface
-  (defun init-go-mode-hook ()
+  (defun my-go-mode-hook ()
     (use-package company-go
       :init
-      (setq-local company-backends
-                  '(company-dabbrev-code company-keywords company-go))
+      (push 'company-go company-backends)
       (company-mode 1)
       )
+    (add-hook 'before-save-hook 'gofmt-before-save)
     )
-  :init
-  (add-hook 'before-save-hook 'gofmt-before-save)
-  (add-hook 'go-mode-hook 'init-go-mode-hook)
-  )
-
-
-(use-package company-go
-  :after company
-  :init
-  (push 'company-go company-backends)
+  :hook (go-mode . my-go-mode-hook)
   )
 
 (use-package go-eldoc
