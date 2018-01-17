@@ -6,10 +6,10 @@
   :preface
   (defun my-python-hook ()
     (use-package company-anaconda
-      :after company
       :init
       (push 'company-anaconda company-backends)
       )
+    (use-package virtualenvwrapper)
     )
   :hook (python-mode . my-python-hook)
   )

@@ -14,14 +14,14 @@
  '(inhibit-startup-screen t)
  '(menu-bar-mode nil)
  '(package-archives
-   (quote
-    (("melpa" . "http://elpa.emacs-china.org/melpa/")
-     ("org" . "http://elpa.emacs-china.org/org/")
-     ("gnu" . "http://elpa.emacs-china.org/gnu/"))))
+ (quote
+  (("melpa" . "http://elpa.emacs-china.org/melpa/")
+   ("org" . "http://elpa.emacs-china.org/org/")
+   ("gnu" . "http://elpa.emacs-china.org/gnu/"))))
  '(package-enable-at-startup nil)
  '(package-selected-packages
-   (quote
-    (yaml-mode web-mode graphviz-dot-mode plantuml-mode toc-org org go-mode company-c-headers ansible sphinx-doc company-anaconda anaconda-mode go-eldoc company-go go-mode-autoloads org-plus-contrib irony ggtags google-c-style cmake-font-lock cmake-mode lispy auto-compile flycheck magit rainbow-delimiters aggressive-indent dtrt-indent clean-aindent-mode highlight-indent-guides comment-dwim-2 company-quickhelp company counsel-projectile projectile undo-tree expand-region ivy swiper ws-butler which-key highlight-symbol window-numbering ace-link avy-zap avy counsel diminish use-package)))
+ (quote
+  (virtualenvwrapper yaml-mode web-mode graphviz-dot-mode plantuml-mode toc-org org go-mode company-c-headers ansible sphinx-doc company-anaconda anaconda-mode go-eldoc company-go go-mode-autoloads org-plus-contrib irony ggtags google-c-style cmake-font-lock cmake-mode lispy auto-compile flycheck magit rainbow-delimiters aggressive-indent dtrt-indent clean-aindent-mode highlight-indent-guides comment-dwim-2 company-quickhelp company counsel-projectile projectile undo-tree expand-region ivy swiper ws-butler which-key highlight-symbol window-numbering ace-link avy-zap avy counsel diminish use-package)))
  '(save-interprogram-paste-before-kill t)
  '(scroll-bar-mode nil)
  '(sentence-end-double-space nil)
