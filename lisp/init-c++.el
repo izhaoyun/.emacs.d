@@ -15,11 +15,6 @@
       :init
       (push 'company-c-headers company-backends)
       )
-
-    (use-package company-irony-c-headers
-      :init
-      (push 'company-irony-c-headers company-backends)
-      )
     )
   :bind (:map c-mode-base-map
               ("C-c h c" . hs-toggle-hiding)
@@ -63,10 +58,20 @@
 (use-package irony
   :defer t
   :hook (c-mode-common . irony-mode)
-  :init
+  :config
   (defun my-irony-mode-hook ()
     (define-key irony-mode-map [remap completion-at-point] 'counsel-irony)
     (define-key irony-mode-map [remap complete-symbol] 'counsel-irony)
+    (use-package company-irony
+      :defer t
+      :init
+      (push 'company-irony company-backends)
+      )
+    (use-package company-irony-c-headers
+      :defer t
+      :init
+      (push 'company-irony-c-headers company-backends)
+      )
     )
   (add-hook 'irony-mode-hook 'my-irony-mode-hook)
   (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
