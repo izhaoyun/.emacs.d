@@ -28,6 +28,6 @@
 (require 'init-python)
 (require 'init-go)
 (require 'init-web)
-;; (require 'init-erlang)
+(require 'init-erlang)
 
 ;;; init.el ends here

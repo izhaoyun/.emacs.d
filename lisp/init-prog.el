@@ -1,7 +1,9 @@
 ;;; -*- lexical-binding: t -*-
 
 (use-package projectile
+  :defer t
   :diminish (projectile-mode)
+  :hook (projectile-mode . recentf-mode)
   :init
   (setq projectile-completion-system 'ivy
         projectile-enable-caching t
@@ -10,7 +12,7 @@
   )
 
 (use-package counsel-projectile
-  :ensure t
+  :defer t
   :commands (counsel-projectile-mode)
   :init
   (counsel-projectile-mode)

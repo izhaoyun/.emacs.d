@@ -77,5 +77,18 @@
   (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
   )
 
+(use-package rtags
+  :defer t
+  :hook (((c-mode c++-mode) . rtags-start-process-unless-running)
+         ((c-mode c++-mode) . rtags-enable-standard-keybindings))
+  :init
+  (setq rtags-display-result-backend 'ivy)
+  )
+
+(use-package cmake-ide
+  :defer t
+  :hook ((c-mode c++-mode) . cmake-ide-setup)
+  )
+
 (provide 'init-c++)
 ;;; init-c++.el ends here
