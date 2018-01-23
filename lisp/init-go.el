@@ -19,5 +19,9 @@
   :hook (go-mode . go-eldoc-setup)
   )
 
+(use-package dockerfile-mode
+  :mode ("Dockerfile\\'" . dockerfile-mode)
+  )
+
 (provide 'init-go)
 ;;; init-go.el ends here
