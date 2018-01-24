@@ -90,5 +90,12 @@
   :hook ((c-mode c++-mode) . cmake-ide-setup)
   )
 
+(use-package stickyfunc-enhance
+  :defer 12
+  :hook ((c-mode c++-mode) . semantic-mode)
+  :init
+  (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
+  )
+
 (provide 'init-c++)
 ;;; init-c++.el ends here
