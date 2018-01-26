@@ -110,7 +110,7 @@
 (use-package hideshow
   :defer t
   :diminish hs-minor-mode
-  :hook ((prog-mode) . hs-minor-mode)
+  :hook ((prog-mode cmake-mode) . hs-minor-mode)
   )
 
 (provide 'init-prog)

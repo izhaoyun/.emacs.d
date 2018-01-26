@@ -5,7 +5,6 @@
 (use-package cl-lib)
 
 (use-package counsel
-  :ensure t
   :diminish ivy-mode
   :init
   (setq ivy-use-virtual-buffers t
@@ -137,7 +136,6 @@
   )
 
 (use-package dired
-  :ensure nil
   :defer t
   :init
   (setq dired-recursive-copies 'always
@@ -152,6 +150,18 @@
 (use-package cheatsheet
   :disabled
   :defer t
+  )
+
+(use-package paren
+  :defer 8
+  :hook (prog-mode . show-paren-mode)
+  )
+
+(use-package winner
+  :defer 10
+  :commands (winner-mode)
+  :init
+  (winner-mode 1)
   )
 
 (provide 'setup-editor)
