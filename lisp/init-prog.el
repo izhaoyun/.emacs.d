@@ -113,4 +113,16 @@
   :hook ((prog-mode cmake-mode) . hs-minor-mode)
   )
 
+(use-package yasnippet
+  :disabled
+  :defer t
+  :init
+  (yas-global-mode 1)
+  )
+
+(use-package yasnippet-snippets
+  :disabled
+  :defer t
+  :hook (yas-global-mode . yasnippet-snippets-initialize))
+
 (provide 'init-prog)

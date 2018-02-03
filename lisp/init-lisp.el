@@ -1,6 +1,14 @@
 ;;; -*- lexical-binding: t -*-
 
+(use-package async-bytecomp
+  :defer t
+  :ensure async
+  :init
+  (async-bytecomp-package-mode 1)
+  )
+
 (use-package auto-compile
+  :defer t
   :hook ((emacs-lisp-mode . auto-compile-on-load-mode)
          (emacs-lisp-mode . auto-compile-on-save-mode))
   :init
@@ -9,7 +17,7 @@
   )
 
 (use-package lispy
-  :ensure lispy
+  :defer t
   :diminish lispy-mode
   :hook (emacs-lisp-mode . lispy-mode)
   )

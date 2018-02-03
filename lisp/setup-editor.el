@@ -142,6 +142,13 @@
         dired-recursive-deletes 'always)
   )
 
+(use-package dired-async
+  :ensure async
+  :defer t
+  :init
+  (dired-async-mode 1)
+  )
+
 (use-package hippie-exp
   :defer t
   :bind ("M-/" . hippie-expand)
@@ -162,6 +169,10 @@
   :commands (winner-mode)
   :init
   (winner-mode 1)
+  )
+
+(use-package tramp
+  :defer t
   )
 
 (provide 'setup-editor)
