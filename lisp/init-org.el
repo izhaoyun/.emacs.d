@@ -2,6 +2,7 @@
 
 (use-package org
   :defer t
+  :ensure org-plus-contrib
   :mode (("\\.org\'" . org-mode))
   :bind (("C-c l" . org-store-link)
          ("C-c a" . org-agenda)
@@ -75,7 +76,7 @@
 
 (use-package ox
   :defer t
-  :ensure org
+  :ensure org-plus-contrib
   :preface
   (defun clear-single-linebreak-in-cjk-string (string)
     (let* ((regexp "\\([\u4E00-\u9FA5]\\)\n\\([\u4E00-\u9FA5]\\)")
@@ -84,6 +85,7 @@
         (setq string (replace-match "\\1\\2" nil nil string)
               start (string-match regexp string start))))
     string)
+  (use-package htmlize :ensure t)
   :init
   (setq org-export-with-toc nil
         org-export-default-language "zh-CN"

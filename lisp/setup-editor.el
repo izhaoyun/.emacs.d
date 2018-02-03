@@ -4,8 +4,14 @@
 
 (use-package cl-lib)
 
+(use-package hydra
+  :defer t
+  )
+
 (use-package counsel
+  :ensure counsel
   :diminish ivy-mode
+  :defer t
   :init
   (setq ivy-use-virtual-buffers t
         ivy-count-format "(%d/%d) "
@@ -108,6 +114,8 @@
          ("C--" . er/contract-region))
   )
 
+(use-package multiple-cursors)
+
 (use-package undo-tree
   :diminish undo-tree-mode
   :hook ((prog-mode cmake-mode org-mode) . undo-tree-mode)
@@ -117,9 +125,9 @@
   )
 
 (use-package popwin
-  :disabled
   :defer t
   :bind-keymap ("C-z" . popwin:keymap)
+  :commands (popwin-mode)
   :init
   (popwin-mode 1)
   :config
@@ -136,6 +144,7 @@
   )
 
 (use-package dired
+  :ensure nil
   :defer t
   :init
   (setq dired-recursive-copies 'always
@@ -149,6 +158,7 @@
   )
 
 (use-package hippie-exp
+  :ensure nil
   :defer t
   :bind ("M-/" . hippie-expand)
   )
@@ -159,11 +169,13 @@
   )
 
 (use-package paren
+  :ensure nil
   :defer 8
   :hook (prog-mode . show-paren-mode)
   )
 
 (use-package winner
+  :ensure nil
   :defer 10
   :commands (winner-mode)
   :init
@@ -171,6 +183,7 @@
   )
 
 (use-package tramp
+  :ensure nil
   :defer t
   )
 

@@ -13,13 +13,13 @@
  '(inhibit-startup-screen t)
  '(menu-bar-mode nil)
  '(package-archives
-   (quote
-    (("melpa" . "http://elpa.emacs-china.org/melpa/")
-     ("org" . "http://elpa.emacs-china.org/org/")
-     ("gnu" . "http://elpa.emacs-china.org/gnu/"))))
+ (quote
+  (("melpa" . "http://elpa.emacs-china.org/melpa/")
+   ("org" . "http://elpa.emacs-china.org/org/")
+   ("gnu" . "http://elpa.emacs-china.org/gnu/"))))
  '(package-selected-packages
-   (quote
-    (htmlize yasnippet company-erlang stickyfunc-enhance dockerfile-mode erlang virtualenvwrapper yaml-mode web-mode graphviz-dot-mode plantuml-mode toc-org org go-mode company-c-headers ansible sphinx-doc company-anaconda anaconda-mode go-eldoc company-go go-mode-autoloads org-plus-contrib irony company-irony company-irony-c-headers ggtags google-c-style cmake-font-lock cmake-mode lispy auto-compile flycheck magit rainbow-delimiters aggressive-indent dtrt-indent clean-aindent-mode highlight-indent-guides comment-dwim-2 company-quickhelp company counsel-projectile projectile undo-tree expand-region ivy swiper ws-butler which-key highlight-symbol window-numbering ace-link avy-zap avy counsel diminish use-package)))
+ (quote
+  (irony-eldoc multiple-cursors hydra popwin elpy elisp--witness--lisp async dired go-guru go-dlv htmlize yasnippet company-erlang stickyfunc-enhance dockerfile-mode erlang yaml-mode web-mode graphviz-dot-mode plantuml-mode toc-org org go-mode company-c-headers ansible sphinx-doc go-eldoc company-go go-mode-autoloads org-plus-contrib irony company-irony company-irony-c-headers ggtags google-c-style cmake-font-lock cmake-mode lispy auto-compile flycheck magit rainbow-delimiters aggressive-indent dtrt-indent clean-aindent-mode highlight-indent-guides comment-dwim-2 company-quickhelp company counsel-projectile projectile undo-tree expand-region ws-butler which-key highlight-symbol window-numbering ace-link avy-zap avy counsel swiper ivy diminish use-package)))
  '(save-interprogram-paste-before-kill t)
  '(scroll-bar-mode nil)
  '(sentence-end-double-space nil)

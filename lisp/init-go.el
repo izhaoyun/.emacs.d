@@ -16,7 +16,17 @@
   )
 
 (use-package go-eldoc
+  :defer t
   :hook (go-mode . go-eldoc-setup)
+  )
+
+(use-package go-dlv
+  :disabled
+  )
+
+(use-package go-guru
+  :defer t
+  :hook (go-mode . go-guru-hl-identifier-mode)
   )
 
 (use-package dockerfile-mode

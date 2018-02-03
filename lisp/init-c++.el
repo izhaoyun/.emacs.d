@@ -4,14 +4,15 @@
   :mode (("\\.h\\'" . c++-mode))
   :preface
   (defun my-cc-hook ()
-    ;; setup gdb
     (setq gdb-show-main t
           gdb-many-windows t)
-    ;; setup company-mode
-    (setq-local company-backends (delete 'company-semantic company-backends))
+
     (company-mode 1)
+    (setq-local company-backends
+                '(company-clang company-gtags company-etags company-capf))
 
     (use-package company-c-headers
+      :defer t
       :init
       (push 'company-c-headers company-backends)
       )
@@ -24,7 +25,8 @@
               ("C-c h d" . hs-show-all)
               ("C-c h l" . hs-hide-level))
   :hook ((c-mode-common . my-cc-hook)
-         (c-mode-common . which-function-mode))
+         (c-mode-common . which-function-mode)
+         (c-mode-common . eldoc-mode))
   )
 
 (use-package google-c-style
@@ -34,7 +36,7 @@
   )
 
 (use-package ggtags
-  ;; :diminish ggtags-mode
+  :defer t
   :bind (:map ggtags-mode-map
               ("C-c g s" . ggtags-find-other-symbol)
               ("C-c g h" . ggtags-view-tag-history)
@@ -57,8 +59,8 @@
 
 (use-package irony
   :defer t
-  :hook (c-mode-common . irony-mode)
-  :config
+  :hook ((c++-mode c-mode) . irony-mode)
+  :preface
   (defun my-irony-mode-hook ()
     (define-key irony-mode-map [remap completion-at-point] 'counsel-irony)
     (define-key irony-mode-map [remap complete-symbol] 'counsel-irony)
@@ -73,8 +75,13 @@
       (push 'company-irony-c-headers company-backends)
       )
     )
-  (add-hook 'irony-mode-hook 'my-irony-mode-hook)
-  (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+  :hook ((irony-mode . my-irony-mode-hook)
+         (irony-mode . irony-cdb-autosetup-compile-options))
+  )
+
+(use-package irony-eldoc
+  :defer t
+  :hook (irony-mode . irony-eldoc)
   )
 
 (use-package stickyfunc-enhance

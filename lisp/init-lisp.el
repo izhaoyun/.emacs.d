@@ -3,8 +3,7 @@
 (use-package async-bytecomp
   :defer t
   :ensure async
-  :init
-  (async-bytecomp-package-mode 1)
+  :hook (emacs-lisp-mode . async-bytecomp-package-mode)
   )
 
 (use-package auto-compile
@@ -18,7 +17,6 @@
 
 (use-package lispy
   :defer t
-  :diminish lispy-mode
   :hook (emacs-lisp-mode . lispy-mode)
   )
 

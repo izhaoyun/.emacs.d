@@ -24,8 +24,8 @@
   )
 
 (use-package company
-  :diminish company-mode
-  :hook (prog-mode . company-mode)
+  ;; :diminish company-mode
+  :hook ((elisp-mode erlang-mode) . company-mode)
   :init
   (setq company-tooltip-limit 20
         company-idle-delay .3
@@ -90,6 +90,7 @@
   )
 
 (use-package rainbow-delimiters
+  :ensure rainbow-delimiters
   :defer t
   :hook ((prog-mode cmake-mode) . rainbow-delimiters-mode)
   )

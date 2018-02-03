@@ -1,8 +1,4 @@
-;;; init-web --- html/css/javascript related stuff -*- lexical-binding: t -*-
-
-;;; Commentary:
-
-;;; Code:
+;;; -*- lexical-binding: t -*-
 
 (use-package web-mode
   :mode (("\\.html?\\'" . web-mode)
@@ -16,7 +12,7 @@
          ;; associate a content type
          ("\\.api\\'" . web-mode)
          ("/some/react/path/.*\\.js[x]?\\'" . web-mode))
-  :config
+  :init
   ;; associate an engine
   (setq web-mode-engines-alist
         '(("php"    . "\\.phtml\\'")
