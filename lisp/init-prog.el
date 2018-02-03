@@ -107,12 +107,6 @@
   (setq flycheck-check-syntax-automatically '(mode-enabled save))
   )
 
-(use-package eldoc
-  :defer t
-  :diminish eldoc-mode
-  :hook ((prog-mode cmake-mode) . eldoc-mode)
-  )
-
 (use-package hideshow
   :defer t
   :diminish hs-minor-mode
