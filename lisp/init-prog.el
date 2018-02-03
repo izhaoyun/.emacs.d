@@ -18,6 +18,11 @@
   (counsel-projectile-mode)
   )
 
+(use-package yasnippet
+  :defer t
+  :hook (prog-mode . yas-minor-mode)
+  )
+
 (use-package company
   :diminish company-mode
   :hook (prog-mode . company-mode)
@@ -26,6 +31,7 @@
         company-idle-delay .3
         company-echo-delay 0
         company-show-numbers t)
+  :bind ("C-c y" . company-yasnippet)
   :config
   (setq company-begin-commands '(self-insert-command))
   )
@@ -112,17 +118,5 @@
   :diminish hs-minor-mode
   :hook ((prog-mode cmake-mode) . hs-minor-mode)
   )
-
-(use-package yasnippet
-  :disabled
-  :defer t
-  :init
-  (yas-global-mode 1)
-  )
-
-(use-package yasnippet-snippets
-  :disabled
-  :defer t
-  :hook (yas-global-mode . yasnippet-snippets-initialize))
 
 (provide 'init-prog)

@@ -145,8 +145,7 @@
 (use-package dired-async
   :ensure async
   :defer t
-  :init
-  (dired-async-mode 1)
+  :hook (dired-mode . dired-async-mode)
   )
 
 (use-package hippie-exp
