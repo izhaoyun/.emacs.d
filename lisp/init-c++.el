@@ -6,15 +6,35 @@
   (defun my-cc-hook ()
     (setq gdb-show-main t
           gdb-many-windows t)
+    )
 
-    (company-mode 1)
-    (setq-local company-backends
-                '(company-clang company-gtags company-etags company-capf company-yasnippet))
+  (defun cc/init-company ()
+    (company-mode t)
+    (set (make-local-variable 'company-backends)
+         '(company-clang company-gtags company-etags company-capf company-yasnippet))
+    )
 
+  (defun cc/init-company-c-headers ()
     (use-package company-c-headers
       :defer t
       :init
       (push 'company-c-headers company-backends)
+      )
+    )
+
+  (defun cc/init-company-irony ()
+    (use-package company-irony
+      :defer t
+      :init
+      (push 'company-irony company-backends)
+      )
+    )
+
+  (defun cc/init-company-irony-c-headers ()
+    (use-package company-irony-c-headers
+      :defer t
+      :init
+      (push 'company-irony-c-headers company-backends)
       )
     )
   :bind (:map c-mode-base-map
@@ -24,7 +44,11 @@
               ("C-c h a" . hs-hide-all)
               ("C-c h d" . hs-show-all)
               ("C-c h l" . hs-hide-level))
-  :hook (((c-mode c++-mode) . my-cc-hook)
+  :hook (((c-mode c++-mode) . cc/init-company-irony-c-headers)
+         ((c-mode c++-mode) . cc/init-company-irony)
+         ((c-mode c++-mode) . cc/init-company-c-headers)
+         ((c-mode c++-mode) . cc/init-company)
+         ((c-mode c++-mode) . my-cc-hook)
          ((c-mode c++-mode) . which-function-mode)
          ((c-mode c++-mode) . eldoc-mode))
   )
@@ -61,22 +85,17 @@
   :defer t
   :hook ((c++-mode c-mode) . irony-mode)
   :preface
-  (defun my-irony-mode-hook ()
+  (defun cc/my-irony-mode-hook ()
     (define-key irony-mode-map [remap completion-at-point] 'counsel-irony)
     (define-key irony-mode-map [remap complete-symbol] 'counsel-irony)
-    (use-package company-irony
-      :defer t
-      :init
-      (push 'company-irony company-backends)
-      )
-    (use-package company-irony-c-headers
-      :defer t
-      :init
-      (push 'company-irony-c-headers company-backends)
-      )
     )
-  :hook ((irony-mode . my-irony-mode-hook)
+  :hook ((irony-mode . cc/my-irony-mode-hook)
          (irony-mode . irony-cdb-autosetup-compile-options))
+  )
+
+(use-package flycheck-irony
+  :defer t
+  :hook (irony-mode . flycheck-irony-setup)
   )
 
 (use-package irony-eldoc
@@ -92,4 +111,3 @@
   )
 
 (provide 'init-c++)
-;;; init-c++.el ends here
