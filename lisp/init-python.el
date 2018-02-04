@@ -1,5 +1,5 @@
 ;;; -*- lexical-binding: t -*-
-
+n
 (use-package python
   :mode ("\\.py\\'" . python-mode)
   :interpreter ("python" . python-mode)
