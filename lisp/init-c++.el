@@ -24,15 +24,15 @@
               ("C-c h a" . hs-hide-all)
               ("C-c h d" . hs-show-all)
               ("C-c h l" . hs-hide-level))
-  :hook ((c-mode-common . my-cc-hook)
-         (c-mode-common . which-function-mode)
-         (c-mode-common . eldoc-mode))
+  :hook (((c-mode c++-mode) . my-cc-hook)
+         ((c-mode c++-mode) . which-function-mode)
+         ((c-mode c++-mode) . eldoc-mode))
   )
 
 (use-package google-c-style
   :defer t
-  :hook ((c-mode-common . google-set-c-style)
-         (c-mode-common . google-make-newline-indent))
+  :hook (((c++-mode c-mode) . google-set-c-style)
+         ((c++-mode c-mode) . google-make-newline-indent))
   )
 
 (use-package ggtags
@@ -49,7 +49,7 @@
               ("C-c >" . ggtags-next-mark)
               ("C-c M-j" . ggtags-visit-project-root)
               ("M-,"   . pop-tag-mark))
-  :hook (c-mode-common . ggtags-mode)
+  :hook ((c-mode c++-mode) . ggtags-mode)
   :config
   (setq-local imenu-create-index-function #'ggtags-build-imenu-index)
   (setq-local eldoc-documentation-function #'ggtags-eldoc-function)

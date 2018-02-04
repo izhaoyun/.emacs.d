@@ -20,12 +20,13 @@
 
 (use-package yasnippet
   :defer t
-  :hook (prog-mode . yas-minor-mode)
+  :commands (yas-global-mode)
+  :init
+  (yas-global-mode 1)
   )
 
 (use-package company
-  ;; :diminish company-mode
-  :hook ((elisp-mode erlang-mode) . company-mode)
+  :hook ((elisp-mode) . company-mode)
   :init
   (setq company-tooltip-limit 20
         company-idle-delay .3
