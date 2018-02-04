@@ -105,6 +105,8 @@
   :defer t
   :diminish ws-butler-mode
   :hook (prog-mode . ws-butler-mode)
+  :config
+  (add-hook 'before-save-hook 'delete-trailing-whitespace)
   )
 
 (use-package expand-region

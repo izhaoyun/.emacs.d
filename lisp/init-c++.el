@@ -9,7 +9,7 @@
 
     (company-mode 1)
     (setq-local company-backends
-                '(company-clang company-gtags company-etags company-capf))
+                '(company-clang company-gtags company-etags company-capf company-yasnippet))
 
     (use-package company-c-headers
       :defer t
