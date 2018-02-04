@@ -35,7 +35,7 @@
   (setq web-mode-style-padding 1
         web-mode-script-padding 1
         web-mode-block-padding 0)
-  
+
   (setq web-mode-enable-auto-pairing t
         web-mode-enable-css-colorization t
         web-mode-enable-block-face t
@@ -47,6 +47,11 @@
 
 (use-package yaml-mode
   :mode ("\\.ya?ml\\'" . yaml-mode)
+  )
+
+(use-package js2-mode
+  :mode ("\\.js\\'" . js2-mode)
+  :interpreter ("node" . js2-mode)
   )
 
 (provide 'init-web)
