@@ -30,5 +30,7 @@
 (require 'init-go)
 (require 'init-web)
 (require 'init-erlang)
+;; (require 'init-latex)
+;; (require 'init-java)
 
 ;;; init.el ends here
