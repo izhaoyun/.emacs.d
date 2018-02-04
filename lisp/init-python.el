@@ -13,6 +13,8 @@
       :init
       (push 'company-anaconda company-backends)
       )
+
+    (flycheck-mode t)
     )
   :hook ((python-mode . my-python-hook))
   )

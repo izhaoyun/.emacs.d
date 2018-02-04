@@ -32,5 +32,6 @@
 (require 'init-erlang)
 ;; (require 'init-latex)
 ;; (require 'init-java)
+(require 'init-devops)
 
 ;;; init.el ends here

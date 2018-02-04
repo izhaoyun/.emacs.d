@@ -29,9 +29,4 @@
   :hook (go-mode . go-guru-hl-identifier-mode)
   )
 
-(use-package dockerfile-mode
-  :mode ("Dockerfile\\'" . dockerfile-mode)
-  )
-
 (provide 'init-go)
-;;; init-go.el ends here
