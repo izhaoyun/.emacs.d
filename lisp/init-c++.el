@@ -1,6 +1,7 @@
 ;;; -*- lexical-binding: t -*-
 
 (use-package cc-mode
+  :defer t
   :mode (("\\.h\\'" . c++-mode))
   :preface
   (defun my-cc-hook ()

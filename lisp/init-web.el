@@ -1,6 +1,7 @@
 ;;; -*- lexical-binding: t -*-
 
 (use-package web-mode
+  :defer t
   :mode (("\\.html?\\'" . web-mode)
          ("\\.phtml\\'" . web-mode)
          ("\\.tpl\\.php\\'" . web-mode)
@@ -46,12 +47,23 @@
   )
 
 (use-package yaml-mode
-  :mode ("\\.ya?ml\\'" . yaml-mode)
+  :defer t
+  :mode ("\\.\\(yml\\|yaml\\)\\'" . yaml-mode)
+  :bind (:map yaml-mode-map
+              ("C-m" . newline-and-indent))
   )
 
 (use-package js2-mode
+  :defer t
   :mode ("\\.js\\'" . js2-mode)
   :interpreter ("node" . js2-mode)
+  )
+
+(use-package css-mode
+  :disabled
+  :defer t
+  :init
+  (push 'company-css company-backends)
   )
 
 (provide 'init-web)

@@ -1,6 +1,7 @@
 ;;; -*- lexical-binding: t -*-
 
 (use-package go-mode-autoloads
+  :defer t
   :ensure go-mode
   :mode ("\\.go\\'" . go-mode)
   :preface
@@ -30,6 +31,7 @@
 
 (use-package go-dlv
   :disabled
+  :defer t
   )
 
 (use-package go-guru

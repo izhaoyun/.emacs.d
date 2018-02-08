@@ -1,6 +1,7 @@
 ;;; -*- lexical-binding: t -*-
-n
+
 (use-package python
+  :defer t
   :mode ("\\.py\\'" . python-mode)
   :interpreter ("python" . python-mode)
   :preface
