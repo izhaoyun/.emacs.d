@@ -3,6 +3,7 @@
 (use-package projectile
   :defer t
   :diminish (projectile-mode)
+  :commands (projectile-mode)
   :hook (projectile-mode . recentf-mode)
   :init
   (setq projectile-completion-system 'ivy
@@ -13,7 +14,6 @@
 
 (use-package counsel-projectile
   :defer t
-  :commands (counsel-projectile-mode)
   :init
   (counsel-projectile-mode)
   )
@@ -26,6 +26,7 @@
   )
 
 (use-package company
+  :defer t
   :hook ((elisp-mode) . company-mode)
   :init
   (setq company-tooltip-limit 20
@@ -80,6 +81,7 @@
   )
 
 (use-package aggressive-indent
+  :defer t
   :diminish aggressive-indent-mode
   :hook ((emacs-lisp-mode cmake-mode) . aggressive-indent-mode)
   :config
@@ -100,6 +102,8 @@
   :defer t
   :bind (("C-x g" . magit-status)
          ("C-x M-g" . magit-dispatch-popup))
+  :init
+  (setq magit-completing-read-function 'ivy-completing-read)
   )
 
 (use-package flycheck

@@ -20,5 +20,21 @@
   :hook (emacs-lisp-mode . lispy-mode)
   )
 
+(use-package haskell-mode-autoloads
+  :ensure haskell-mode
+  :defer t
+  :preface
+  (defun my-haskell-hook ()
+    (company-mode t)
+    (set (make-local-variable 'company-backends)
+         '(company-capf company-dabbrev-code company-yasnippet))
+    )
+  :hook ((haskell-mode . my-haskell-hook)
+         (haskell-mode . subword-mode))
+  :bind (:map haskell-mode-map
+              ("C-c C-," . haskell-mode-format-imports)
+              ("C-c C-n" . haskell-navigate-imports))
+  )
+
 (provide 'init-lisp)
 ;;; init-lisp.el ends here

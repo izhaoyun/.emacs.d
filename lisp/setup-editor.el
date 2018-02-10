@@ -2,36 +2,66 @@
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
-(use-package cl-lib)
-
 (use-package hydra
   :defer t
   )
 
-(use-package counsel
-  :ensure counsel
-  :diminish ivy-mode
+(use-package ivy
   :defer t
+  :diminish ivy-mode
+  :bind (("C-x b" . ivy-switch-buffer)
+         ("C-x B" . ivy-switch-buffer-other-window)
+         ("C-c C-r" . ivy-resume))
+  :bind (:map ivy-minibuffer-map
+              ("C-c o" . ivy-occur)
+              ("<tab>" . ivy-alt-done)
+              ("C-i"   . ivy-partial-or-done)
+              ("C-r"   . ivy-previous-line-or-history)
+              ("M-r"   . ivy-reverse-i-search)
+              ("<return>" . ivy-alt-done))
+  :bind (:map ivy-switch-buffer-map
+              ("C-k" . ivy-switch-buffer-kill))
   :init
   (setq ivy-use-virtual-buffers t
         ivy-count-format "(%d/%d) "
         ivy-display-style 'fancy
+        ivy-use-selectable-prompt t
         ivy-wrap t)
+  :config
   (ivy-mode 1)
-  :bind (("C-c C-r" . ivy-resume)
-         ("<f6>" . ivy-resume)
-         ("C-s" . counsel-grep-or-swiper)
+  (ivy-set-occur 'swiper 'swiper-occur)
+  (ivy-set-occur 'ivy-switch-buffer 'ivy-switch-buffer-occur)
+  )
+
+(use-package swiper
+  :defer t
+  :bind (("C-c u" . swiper-all)
+         ("C-r" . swiper))
+  :bind (:map swiper-map
+              ("M-%" . swiper-query-replace)
+              ("C-." . swiper-avy)
+              ("M-c" . swiper-mc))
+  )
+
+(use-package counsel
+  :defer t
+  :bind (("C-s" . counsel-grep-or-swiper)
          ("M-x" . counsel-M-x)
          ("C-x C-f" . counsel-find-file)
          ("C-x C-r" . counsel-recentf)
          ("C-x C-b" . counsel-bookmark)
+         ("C-c c" . counsel-org-capture)
          ("C-c m" . counsel-imenu)
          ("C-c g" . counsel-git)
          ("C-c j" . counsel-git-grep)
          ("C-c k" . counsel-ag)
+         ("C-c r" . counsel-rg)
          ("C-x l" . counsel-locate)
+         ("C-x p" . counsel-mark-ring)
          ("M-y" . counsel-yank-pop)
-         ("C-c f" . counsel-git-log))
+         ("C-c f" . counsel-git-log)
+         ("M-s d" . counsel-dired-jump)
+         ("M-s f" . counsel-file-jump))
   :bind (:map help-map
               ("b" . counsel-descbinds)
               ("f" . counsel-describe-function)
@@ -39,13 +69,12 @@
               ("v" . counsel-describe-variable)
               ("s" . counsel-info-lookup-symbol)
               ("u" . counsel-unicode-char))
-  :bind (:map ivy-minibuffer-map
-              ("C-r" . counsel-minibuf-history)
-              ("C-c o" . ivy-occur))
   :bind (:map minibuffer-local-map
               ("C-r" . counsel-minibuf-history))
-  :config
+  :init
   (setq counsel-find-file-at-point t)
+  (setq counsel-grep-base-command
+        "rg -i -M 120 --no-heading --line-number --color never '%s' %s")
   )
 
 (use-package avy
@@ -58,17 +87,19 @@
          ("M-g c" . avy-goto-char)
          ("M-g f" . avy-goto-line)
          ("M-g w" . avy-goto-word-1)
-         ("M-g e" . avy-goto-word-0))
+         ("M-g e" . avy-goto-word-0)
+         ("C-c C-j" . avy-resume))
   )
 
 (use-package avy-zap
-  :defer t
+  :defer 6
   :bind (("M-z" . avy-zap-to-char-dwim)
          ("M-Z" . avy-zap-up-to-char-dwim))
   )
 
 (use-package ace-link
-  :defer t
+  :defer 6
+  :commands (ace-link-setup-default)
   :init
   (ace-link-setup-default)
   )
@@ -81,7 +112,7 @@
   )
 
 (use-package highlight-symbol
-  :defer t
+  :defer 7
   :bind (("C-<f3>" . highlight-symbol)
          ("<f3>" . highlight-symbol-next)
          ("S-<f3>" . highlight-symbol-prev)
@@ -102,7 +133,7 @@
   )
 
 (use-package ws-butler
-  :defer t
+  :defer 8
   :diminish ws-butler-mode
   :hook (prog-mode . ws-butler-mode)
   :config
@@ -124,6 +155,7 @@
   )
 
 (use-package undo-tree
+  :defer 8
   :diminish undo-tree-mode
   :hook ((prog-mode cmake-mode org-mode) . undo-tree-mode)
   :init
@@ -192,6 +224,14 @@
 (use-package tramp
   :ensure nil
   :defer t
+  )
+
+(use-package show-marks
+  :disabled
+  :defer t
+  :bind (("C-s-<right>" . forward-mark)
+         ("C-s-<left>" . backward-mark)
+         ("C-s-<up>" . show-marks))
   )
 
 (provide 'setup-editor)

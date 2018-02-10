@@ -7,7 +7,8 @@
   :preface
   (defun my-python-hook ()
     (company-mode t)
-    (set (make-local-variable 'company-backends) '(company-capf company-yasnippet))
+    (set (make-local-variable 'company-backends)
+         '(company-capf company-yasnippet))
     (flycheck-mode t)
     )
 

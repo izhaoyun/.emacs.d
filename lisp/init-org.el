@@ -6,7 +6,6 @@
   :mode (("\\.org\'" . org-mode))
   :bind (("C-c l" . org-store-link)
          ("C-c a" . org-agenda)
-         ("C-c c" . org-capture)
          ("C-c b" . org-iswitchb))
   :bind (:map org-mode-map
               ("M-o" . ace-link-org))
