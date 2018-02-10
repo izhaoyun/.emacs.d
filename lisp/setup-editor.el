@@ -9,6 +9,14 @@
 (use-package ivy
   :defer t
   :diminish ivy-mode
+  :preface
+  (defun update-exec-path ()
+    (setq my-paths
+          (shell-command-to-string "$SHELL -l -c 'echo -n $PATH'"))
+    (setenv "PATH" my-paths)
+    (setq exec-path (split-string my-paths path-separator))
+    )
+  :hook (ivy-mode . update-exec-path)
   :bind (("C-x b" . ivy-switch-buffer)
          ("C-x B" . ivy-switch-buffer-other-window)
          ("C-c C-r" . ivy-resume))
