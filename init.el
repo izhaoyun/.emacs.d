@@ -1,6 +1,7 @@
 ;;; -*- lexical-binding: t -*-
 
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(setq custom-file
+      (expand-file-name "custom.el" user-emacs-directory))
 (when (file-exists-p custom-file)
   (load custom-file 'noerror))
 
@@ -13,13 +14,14 @@
   (package-install 'use-package)
   (package-install 'diminish)
   )
-;;(package-install-selected-packages)
-(setq use-package-always-ensure t)
+;; (package-install-selected-packages)
+;; (setq use-package-always-ensure t)
 (require 'use-package)
 (require 'diminish)
 (require 'bind-key)
 
-(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+(add-to-list 'load-path
+             (expand-file-name "lisp" user-emacs-directory))
 (require 'setup-editor)
 (require 'init-prog)
 (require 'init-lisp)

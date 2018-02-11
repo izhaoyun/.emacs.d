@@ -2,7 +2,7 @@
 
 (use-package org
   :defer t
-  :ensure org-plus-contrib
+  :load-path "site-lisp/org-9.1.6/lisp"
   :mode (("\\.org\'" . org-mode))
   :bind (("C-c l" . org-store-link)
          ("C-c a" . org-agenda)
@@ -49,8 +49,7 @@
 
 (use-package ob
   :defer t
-  :ensure org-plus-contrib
-  :commands (org-babel-do-load-languages)
+  :load-path "site-lisp/org-9.1.6/lisp"
   :init
   (setq org-ditaa-jar-path "/usr/share/ditaa/ditaa.jar"
         org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
@@ -75,7 +74,7 @@
 
 (use-package ox
   :defer t
-  :ensure org-plus-contrib
+  :load-path "site-lisp/org-9.1.6/lisp"
   :preface
   (defun clear-single-linebreak-in-cjk-string (string)
     (let* ((regexp "\\([\u4E00-\u9FA5]\\)\n\\([\u4E00-\u9FA5]\\)")

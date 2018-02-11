@@ -3,7 +3,6 @@
 (use-package projectile
   :defer t
   :diminish (projectile-mode)
-  :commands (projectile-mode)
   :hook (projectile-mode . recentf-mode)
   :init
   (setq projectile-completion-system 'ivy
@@ -20,7 +19,6 @@
 
 (use-package yasnippet
   :defer t
-  :commands (yas-global-mode)
   :init
   (yas-global-mode 1)
   )

@@ -9,14 +9,6 @@
 (use-package ivy
   :defer t
   :diminish ivy-mode
-  :preface
-  (defun update-exec-path ()
-    (setq my-paths
-          (shell-command-to-string "$SHELL -l -c 'echo -n $PATH'"))
-    (setenv "PATH" my-paths)
-    (setq exec-path (split-string my-paths path-separator))
-    )
-  :hook (ivy-mode . update-exec-path)
   :bind (("C-x b" . ivy-switch-buffer)
          ("C-x B" . ivy-switch-buffer-other-window)
          ("C-c C-r" . ivy-resume))
@@ -81,15 +73,12 @@
               ("C-r" . counsel-minibuf-history))
   :init
   (setq counsel-find-file-at-point t)
-  (setq counsel-grep-base-command
-        "rg -i -M 120 --no-heading --line-number --color never '%s' %s")
+  ;; (setq counsel-grep-base-command
+  ;;       "rg -i -M 120 --no-heading --line-number --color never '%s' %s")
   )
 
 (use-package avy
   :defer t
-  :commands (avy-setup-default)
-  :init
-  (avy-setup-default)
   :bind (("C-:" . avy-goto-char)
          ("C-'" . avy-goto-char-2)
          ("M-g c" . avy-goto-char)
@@ -97,6 +86,8 @@
          ("M-g w" . avy-goto-word-1)
          ("M-g e" . avy-goto-word-0)
          ("C-c C-j" . avy-resume))
+  :init
+  (avy-setup-default)
   )
 
 (use-package avy-zap
@@ -107,14 +98,12 @@
 
 (use-package ace-link
   :defer 6
-  :commands (ace-link-setup-default)
   :init
   (ace-link-setup-default)
   )
 
 (use-package window-numbering
   :defer t
-  :commands (window-numbering-mode)
   :init
   (window-numbering-mode)
   )
@@ -130,14 +119,10 @@
 (use-package which-key
   :defer t
   :diminish which-key-mode
-  :commands (which-key-setup-side-window-right-bottom
-             which-key-mode)
   :init
-  (progn
-    (setq which-key-idle-delay 0.8)
-    (which-key-mode)
-    (which-key-setup-side-window-right-bottom)
-    )
+  (setq which-key-idle-delay 0.8)
+  (which-key-mode)
+  (which-key-setup-side-window-right-bottom)
   )
 
 (use-package ws-butler
@@ -169,11 +154,11 @@
   :init
   (setq undo-tree-visualizer-diff t
         undo-tree-visualizer-timestamps t)
-  )
+  ) `
 
 (use-package popwin
   :defer t
-  :bind-keymap ("C-z" . popwin:keymap)
+  :bind ("C-z" . popwin:keymap)
   :commands (popwin-mode)
   :init
   (popwin-mode 1)
