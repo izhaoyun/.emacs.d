@@ -32,7 +32,7 @@
 (require 'init-go)
 (require 'init-web)
 (require 'init-erlang)
-(require 'init-latex)
+(require 'init-tex)
 ;; (require 'init-java)
 (require 'init-devops)
 

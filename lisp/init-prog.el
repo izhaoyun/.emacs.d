@@ -25,7 +25,7 @@
 
 (use-package company
   :defer t
-  :hook ((elisp-mode) . company-mode)
+  :hook ((emacs-lisp-mode) . company-mode)
   :init
   (setq company-tooltip-limit 20
         company-idle-delay .3
