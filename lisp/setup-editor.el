@@ -2,10 +2,6 @@
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
-(use-package hydra
-  :defer t
-  )
-
 (use-package ivy
   :defer t
   :diminish ivy-mode
@@ -75,6 +71,14 @@
   (setq counsel-find-file-at-point t)
   ;; (setq counsel-grep-base-command
   ;;       "rg -i -M 120 --no-heading --line-number --color never '%s' %s")
+  )
+
+(use-package hydra
+  :defer t
+  )
+
+(use-package ivy-hydra
+  :defer t
   )
 
 (use-package avy
@@ -225,6 +229,26 @@
   :bind (("C-s-<right>" . forward-mark)
          ("C-s-<left>" . backward-mark)
          ("C-s-<up>" . show-marks))
+  )
+
+(use-package server
+  :ensure nil
+  :defer t
+  :commands (server-running-p)
+  :init
+  (unless (server-running-p)
+    (server-start))
+  )
+
+(use-package shell-pop
+  :defer t
+  :bind (("<f8>" . shell-pop))
+  :config
+  (setq shell-pop-shell-type
+        (quote ("ansi-term" "*ansi-term*" (lambda nil (ansi-term shell-pop-term-shell)))))
+  (setq shell-pop-term-shell "/bin/zsh")
+  ;; need to do this manually or not picked up by `shell-pop'
+  (shell-pop--set-shell-type 'shell-pop-shell-type shell-pop-shell-type)
   )
 
 (provide 'setup-editor)

@@ -30,7 +30,7 @@
 (require 'init-org)
 (require 'init-python)
 (require 'init-go)
-(require 'init-web)
+;; (require 'init-web)
 (require 'init-erlang)
 (require 'init-tex)
 ;; (require 'init-java)

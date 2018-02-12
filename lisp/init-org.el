@@ -24,6 +24,7 @@
               " \t\r\n,\"'"
               "."
               1))
+  (setq org-highlight-latex-and-related '(latex script entities))
   :config
   ;; https://emacs-china.org/t/org-mode/597/6
   (setq org-match-substring-regexp
