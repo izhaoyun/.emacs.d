@@ -36,3 +36,6 @@ site-lisp/auctex*/Makefile
 site-lisp/auctex*/*/Makefile
 *ins
 local.mk
+GRTAGS
+GTAGS
+GPATH
