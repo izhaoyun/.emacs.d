@@ -15,7 +15,7 @@
   (package-install 'diminish)
   )
 ;; (package-install-selected-packages)
-;; (setq use-package-always-ensure t)
+(setq use-package-always-ensure t)
 (require 'use-package)
 (require 'diminish)
 (require 'bind-key)
@@ -30,10 +30,10 @@
 (require 'init-org)
 (require 'init-python)
 (require 'init-go)
-;; (require 'init-web)
+(require 'init-web)
 (require 'init-erlang)
 (require 'init-tex)
-;; (require 'init-java)
 (require 'init-devops)
+(require 'init-shell)
 
 ;;; init.el ends here

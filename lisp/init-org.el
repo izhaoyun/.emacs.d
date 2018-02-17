@@ -15,7 +15,8 @@
         org-src-fontify-natively t
         org-src-tab-acts-natively t
         org-hide-emphasis-markers t
-        org-url-hexify-p nil)
+        org-url-hexify-p nil
+        org-startup-with-inline-images t)
   (setq org-footnote-auto-adjust t)
   ;; https://emacs-china.org/t/org-mode/597/11
   (setq org-emphasis-regexp-components
@@ -53,7 +54,8 @@
   :load-path "site-lisp/org-9.1.6/lisp"
   :init
   (setq org-ditaa-jar-path "/usr/share/ditaa/ditaa.jar"
-        org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
+        org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar"
+        org-babel-uppercase-example-markers t)
 
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -84,7 +86,7 @@
         (setq string (replace-match "\\1\\2" nil nil string)
               start (string-match regexp string start))))
     string)
-  (use-package htmlize :ensure t)
+  (use-package htmlize)
   :init
   (setq org-export-with-toc nil
         org-export-default-language "zh-CN"
