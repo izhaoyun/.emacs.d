@@ -9,18 +9,17 @@
     (company-mode t)
     (set (make-local-variable 'company-backends)
          '(company-capf company-yasnippet))
-    (flycheck-mode t)
-    )
 
-  (defun python/init-company-anaconda ()
     (use-package company-anaconda
       :defer t
       :init
       (push 'company-anaconda company-backends)
       )
+
+    (flycheck-mode t)
     )
-  :hook ((python-mode . python/init-company-anaconda)
-         (python-mode . my-python-hook))
+
+  :hook ((python-mode . my-python-hook))
   :init
   (setq python-shell-interpreter "ipython"
         python-shell-interpreter-args "--simple-prompt -i")
@@ -53,6 +52,11 @@
 
 (use-package pip-requirements
   :defer t
+  )
+
+(use-package py-autopep8
+  :defer t
+  :hook (python-mode . py-autopep8-enable-on-save)
   )
 
 (provide 'init-python)
