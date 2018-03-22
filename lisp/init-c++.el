@@ -13,31 +13,42 @@
     (company-mode t)
     (set (make-local-variable 'company-backends)
          '(company-clang company-gtags company-etags company-capf company-yasnippet))
-    )
 
-  (defun cc/init-company-c-headers ()
     (use-package company-c-headers
       :defer t
       :init
       (push 'company-c-headers company-backends)
       )
-    )
 
-  (defun cc/init-company-irony ()
     (use-package company-irony
       :defer t
       :init
       (push 'company-irony company-backends)
       )
-    )
 
-  (defun cc/init-company-irony-c-headers ()
     (use-package company-irony-c-headers
       :defer t
       :init
       (push 'company-irony-c-headers company-backends)
       )
     )
+
+  (defun cc/init-counsel ()
+    (use-package counsel-etags
+      :defer t
+      :init
+      (setq tags-revert-without-query t
+            large-file-warning-threshold nil)
+      :config
+      ;; counsel-etags-ignore-directories does NOT support wildcast
+      (add-to-list 'counsel-etags-ignore-directories "build_clang")
+      (add-to-list 'counsel-etags-ignore-directories "build_clang")
+      ;; counsel-etags-ignore-filenames supports wildcast
+      (add-to-list 'counsel-etags-ignore-filenames "TAGS")
+      (add-to-list 'counsel-etags-ignore-filenames "*.json")
+      )
+    )
+
   :bind (:map c-mode-base-map
               ("C-c h c" . hs-toggle-hiding)
               ("C-c h b" . hs-hide-block)
@@ -45,9 +56,7 @@
               ("C-c h a" . hs-hide-all)
               ("C-c h d" . hs-show-all)
               ("C-c h l" . hs-hide-level))
-  :hook (((c-mode c++-mode) . cc/init-company-irony-c-headers)
-         ((c-mode c++-mode) . cc/init-company-irony)
-         ((c-mode c++-mode) . cc/init-company-c-headers)
+  :hook (((c-mode c++-mode) . cc/init-counsel)
          ((c-mode c++-mode) . cc/init-company)
          ((c-mode c++-mode) . my-cc-hook)
          ((c-mode c++-mode) . which-function-mode)
@@ -73,7 +82,13 @@
               ("C-c <" . ggtags-prev-mark)
               ("C-c >" . ggtags-next-mark)
               ("C-c M-j" . ggtags-visit-project-root)
-              ("M-,"   . pop-tag-mark))
+              ("M-,"   . pop-tag-mark)
+              ;; counsel-etags
+              ("C-c g g" . counsel-etags-grep)
+              ("C-c g p" . counsel-etags-grep-symbol-at-point)
+              ;; call-graph
+              ("C-c g l" . call-graph)
+              )
   :hook ((c-mode c++-mode) . ggtags-mode)
   :config
   (setq-local imenu-create-index-function #'ggtags-build-imenu-index)
@@ -109,6 +124,18 @@
   :hook ((c-mode c++-mode) . semantic-mode)
   :init
   (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
+  )
+
+(use-package demangle-mode
+  :disabled
+  )
+
+(use-package elf-mode
+  :disabled
+  )
+
+(use-package call-graph
+  :defer t
   )
 
 (provide 'init-c++)
