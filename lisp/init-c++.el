@@ -133,6 +133,11 @@
   (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
   )
 
+(use-package function-args
+  :defer 12
+  :hook ((c-mode c++-mode) . fa-config-default)
+  )
+
 (use-package demangle-mode
   :disabled
   )
