@@ -1,7 +1,7 @@
 ;;; -*- lexical-binding: t -*-
 
 (use-package tex
-  :load-path "site-lisp/auctex-12.1"
+  :load-path "site-lisp/auctex"
   :defer t
   :preface
   (defun my-latex-hook ()
@@ -27,7 +27,7 @@
   )
 
 (use-package latex
-  :load-path "site-lisp/auctex-12.1"
+  :load-path "site-lisp/auctex"
   :defer t
   :init
   (setq LaTeX-section-hook
@@ -39,7 +39,7 @@
   )
 
 (use-package preview-latex
-  :load-path "site-lisp/auctex-12.1"
+  :load-path "site-lisp/auctex"
   :defer t
   )
 
