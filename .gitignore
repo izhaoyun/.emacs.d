@@ -40,4 +40,5 @@ GRTAGS
 GTAGS
 GPATH
 site-lisp/auctex-12.1/autom4te.cache/
-site-lisp/auctex-12.1/auto-loads.el
+srecode-map.el
+srecode-map.elc

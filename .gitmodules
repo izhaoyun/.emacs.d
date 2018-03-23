@@ -1,3 +1,6 @@
 [submodule "site-lisp/org-mode"]
 	path = site-lisp/org-mode
 	url = https://code.orgmode.org/bzg/org-mode.git
+[submodule "site-lisp/cedet"]
+	path = site-lisp/cedet
+	url = http://git.code.sf.net/p/cedet/git

@@ -25,7 +25,6 @@
 (require 'setup-editor)
 (require 'init-prog)
 (require 'init-lisp)
-(require 'init-makefile)
 (require 'init-c++)
 (require 'init-org)
 (require 'init-python)

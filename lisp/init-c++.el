@@ -33,22 +33,6 @@
       )
     )
 
-  (defun cc/init-counsel ()
-    (use-package counsel-etags
-      :defer t
-      :init
-      (setq tags-revert-without-query t
-            large-file-warning-threshold nil)
-      :config
-      ;; counsel-etags-ignore-directories does NOT support wildcast
-      (add-to-list 'counsel-etags-ignore-directories "build_clang")
-      (add-to-list 'counsel-etags-ignore-directories "build_clang")
-      ;; counsel-etags-ignore-filenames supports wildcast
-      (add-to-list 'counsel-etags-ignore-filenames "TAGS")
-      (add-to-list 'counsel-etags-ignore-filenames "*.json")
-      )
-    )
-
   :bind (:map c-mode-base-map
               ("C-c h c" . hs-toggle-hiding)
               ("C-c h b" . hs-hide-block)
@@ -56,8 +40,7 @@
               ("C-c h a" . hs-hide-all)
               ("C-c h d" . hs-show-all)
               ("C-c h l" . hs-hide-level))
-  :hook (((c-mode c++-mode) . cc/init-counsel)
-         ((c-mode c++-mode) . cc/init-company)
+  :hook (((c-mode c++-mode) . cc/init-company)
          ((c-mode c++-mode) . my-cc-hook)
          ((c-mode c++-mode) . which-function-mode)
          ((c-mode c++-mode) . eldoc-mode))
@@ -83,9 +66,6 @@
               ("C-c >" . ggtags-next-mark)
               ("C-c M-j" . ggtags-visit-project-root)
               ("M-,"   . pop-tag-mark)
-              ;; counsel-etags
-              ("C-c g g" . counsel-etags-grep)
-              ("C-c g p" . counsel-etags-grep-symbol-at-point)
               ;; call-graph
               ("C-c g l" . call-graph)
               )
@@ -98,7 +78,7 @@
   )
 
 (use-package xcscope
-  :defer 15
+  :defer 14
   :hook ((c-mode c++-mode) . cscope-setup)
   :init
   (setq cscope-program "gtags-cscope")
@@ -117,37 +97,57 @@
   )
 
 (use-package flycheck-irony
-  :defer t
+  :defer 12
   :hook (irony-mode . flycheck-irony-setup)
   )
 
 (use-package irony-eldoc
-  :defer t
+  :defer 14
   :hook (irony-mode . irony-eldoc)
   )
 
-(use-package stickyfunc-enhance
-  :defer 12
+;; don't set `use-package/:defer' to true.
+(use-package cedet-devel-load
+  :load-path "site-lisp/cedet"
   :hook ((c-mode c++-mode) . semantic-mode)
   :init
+  ;; stickyfunc-enhance
   (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
   )
 
 (use-package function-args
-  :defer 12
+  :defer 11
   :hook ((c-mode c++-mode) . fa-config-default)
   )
 
 (use-package demangle-mode
-  :disabled
+  :defer t
   )
 
 (use-package elf-mode
-  :disabled
+  :defer t
   )
 
 (use-package call-graph
-  :disabled
+  :defer 15
+  )
+
+(use-package cmake-mode
+  :defer t
+  :mode (("CMakeLists\\.txt\\'" . cmake-mode)
+         ("\\.cmake\\'" . cmake-mode))
+  :preface
+  (defun init-cmake-hook ()
+    (setq-local company-backends
+                '(company-dabbrev-code company-keywords company-cmake))
+    (company-mode 1)
+    )
+  :hook (cmake-mode . init-cmake-hook)
+  )
+
+(use-package cmake-font-lock
+  :defer t
+  :hook (cmake-mode . cmake-font-lock-activate)
   )
 
 (provide 'init-c++)
