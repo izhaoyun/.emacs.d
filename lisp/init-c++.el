@@ -39,7 +39,9 @@
               ("C-c h s" . hs-show-block)
               ("C-c h a" . hs-hide-all)
               ("C-c h d" . hs-show-all)
-              ("C-c h l" . hs-hide-level))
+              ("C-c h l" . hs-hide-level)
+              ("C-c g l" . call-graph)
+              ("C-c d" . disaster))
   :hook (((c-mode c++-mode) . cc/init-company)
          ((c-mode c++-mode) . my-cc-hook)
          ((c-mode c++-mode) . which-function-mode)
@@ -66,10 +68,7 @@
               ("C-c <" . ggtags-prev-mark)
               ("C-c >" . ggtags-next-mark)
               ("C-c M-j" . ggtags-visit-project-root)
-              ("M-,"   . pop-tag-mark)
-              ;; call-graph
-              ("C-c g l" . call-graph)
-              )
+              ("M-,"   . pop-tag-mark))
   :hook ((c-mode c++-mode) . ggtags-mode)
   :config
   (setq-local imenu-create-index-function #'ggtags-build-imenu-index)
@@ -124,6 +123,10 @@
 (use-package modern-cpp-font-lock
   :defer t
   :hook (c++-mode . modern-c++-font-lock-mode)
+  )
+
+(use-package disaster
+  :defer t
   )
 
 (use-package demangle-mode
