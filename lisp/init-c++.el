@@ -43,7 +43,8 @@
   :hook (((c-mode c++-mode) . cc/init-company)
          ((c-mode c++-mode) . my-cc-hook)
          ((c-mode c++-mode) . which-function-mode)
-         ((c-mode c++-mode) . eldoc-mode))
+         ((c-mode c++-mode) . eldoc-mode)
+         ((c-mode c++-mode) . cwarn-mode))
   )
 
 (use-package google-c-style
@@ -118,6 +119,11 @@
 (use-package function-args
   :defer 11
   :hook ((c-mode c++-mode) . fa-config-default)
+  )
+
+(use-package modern-cpp-font-lock
+  :defer t
+  :hook (c++-mode . modern-c++-font-lock-mode)
   )
 
 (use-package demangle-mode
