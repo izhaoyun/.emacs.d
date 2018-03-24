@@ -23,8 +23,9 @@
         ivy-display-style 'fancy
         ivy-use-selectable-prompt t
         ivy-wrap t)
-  :config
+  :init
   (ivy-mode 1)
+  :config
   (ivy-set-occur 'swiper 'swiper-occur)
   (ivy-set-occur 'ivy-switch-buffer 'ivy-switch-buffer-occur)
   )
@@ -69,13 +70,12 @@
               ("C-r" . counsel-minibuf-history))
   :init
   (setq counsel-find-file-at-point t)
-  ;; (setq counsel-grep-base-command
-  ;;       "rg -i -M 120 --no-heading --line-number --color never '%s' %s")
+  ;; use `rg' instead of `grep'
+  (setq counsel-grep-base-command
+        "rg -i -M 120 --no-heading --line-number --color never '%s' %s")
   )
 
-(use-package hydra
-  :defer t
-  )
+(use-package hydra)
 
 (use-package ivy-hydra
   :defer t

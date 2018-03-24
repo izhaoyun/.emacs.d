@@ -159,4 +159,10 @@
   :hook (cmake-mode . cmake-font-lock-activate)
   )
 
+(use-package helm-make
+  :defer t
+  :init
+  (setq helm-make-completion-method 'ivy)
+  )
+
 (provide 'init-c++)
