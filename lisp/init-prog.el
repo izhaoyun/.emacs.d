@@ -117,4 +117,48 @@
   :hook ((prog-mode cmake-mode) . hs-minor-mode)
   )
 
+(use-package smartparens-config
+  :disabled
+  :ensure smartparens
+  :defer t
+  ;; :hook (minibuffer-setup . turn-on-smartparens-strict-mode)
+  :preface
+  (defhydra smartparens-hydra ()
+    "Smartparens"
+    ("d" sp-down-sexp "Down")
+    ("e" sp-up-sexp "Up")
+    ("u" sp-backward-up-sexp "Up")
+    ("a" sp-backward-down-sexp "Down")
+    ("f" sp-forward-sexp "Forward")
+    ("b" sp-backward-sexp "Backward")
+    ("k" sp-kill-sexp "Kill" :color blue)
+    ("q" nil "Quit" :color blue)
+    )
+  :bind (:map smartparens-mode-map
+              ("C-M-f" . sp-forward-sexp)
+              ("C-M-b" . sp-backward-sexp)
+              ("C-M-d" . sp-down-sexp)
+              ("C-M-a" . sp-backward-down-sexp)
+              ("C-S-d" . sp-beginning-of-sexp)
+              ("C-S-a" . sp-end-of-sexp)
+              ("C-M-e" . sp-up-sexp)
+              ("C-M-u" . sp-backward-up-sexp)
+              ("C-M-t" . sp-transpose-sexp)
+              ("C-M-n" . sp-forward-hybrid-sexp)
+              ("C-M-p" . sp-backward-hybrid-sexp)
+              ("C-M-k" . sp-kill-sexp)
+              ("C-M-w" . sp-copy-sexp)
+              ("M-<delete>" . sp-unwrap-sexp)
+              ("M-<backspace>" . sp-backward-unwrap-sexp)
+              ("M-F" . sp-forward-symbol)
+              ("M-B" . sp-backward-symbol)
+              ("C-M-s" . smartparens-hydra/body)
+              )
+  :init
+  )
+
+(use-package realgud
+  :disabled
+  )
+
 (provide 'init-prog)

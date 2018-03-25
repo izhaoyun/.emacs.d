@@ -4,9 +4,22 @@
   :defer t
   :mode (("\\.h\\'" . c++-mode))
   :preface
-  (defun my-cc-hook ()
-    (setq gdb-show-main t
-          gdb-many-windows t)
+  (defun cc/init-gdb ()
+    (use-package gdb-mi
+      :defer t
+      :init
+      (setq gdb-show-main t
+            gdb-many-windows t)
+      )
+
+    (use-package gud
+      :defer t
+      )
+    )
+
+  (defun cc/init-misc ()
+    (diminish 'cwarn-mode)
+    (diminish 'eldoc-mode)
     )
 
   (defun cc/init-company ()
@@ -43,10 +56,13 @@
               ("C-c g l" . call-graph)
               ("C-c d" . disaster))
   :hook (((c-mode c++-mode) . cc/init-company)
-         ((c-mode c++-mode) . my-cc-hook)
+         ((c-mode c++-mode) . cc/init-gdb)
+         ((c-mode c++-mode) . cc/init-misc)
          ((c-mode c++-mode) . which-function-mode)
+         ;; ((c-mode c++-mode) . smartparens-mode)
          ((c-mode c++-mode) . eldoc-mode)
-         ((c-mode c++-mode) . cwarn-mode))
+         ((c-mode c++-mode) . cwarn-mode)
+         )
   )
 
 (use-package google-c-style
@@ -118,10 +134,13 @@
 (use-package function-args
   :defer 11
   :hook ((c-mode c++-mode) . fa-config-default)
+  :init
+  (setq fa-insert-method 'name-space-parens)
   )
 
 (use-package modern-cpp-font-lock
   :defer t
+  :diminish modern-c++-font-lock-mode
   :hook (c++-mode . modern-c++-font-lock-mode)
   )
 
