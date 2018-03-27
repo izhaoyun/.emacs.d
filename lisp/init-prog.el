@@ -117,6 +117,11 @@
   :hook ((prog-mode cmake-mode) . hs-minor-mode)
   )
 
+(use-package diff-hl
+  :defer t
+  :hook ((prog-mode vc-dir-mode) . turn-on-diff-hl-mode)
+  )
+
 (use-package smartparens-config
   :disabled
   :ensure smartparens
