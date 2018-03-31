@@ -66,5 +66,16 @@
   (push 'company-css company-backends)
   )
 
+(use-package json-mode
+  :defer t
+  )
+
+(use-package json-snatcher
+  :defer t
+  )
+
+(use-package json-reformat
+  :defer t
+  )
+
 (provide 'init-web)
-;;; init-web.el ends here

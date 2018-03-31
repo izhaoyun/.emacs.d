@@ -7,3 +7,6 @@
 [submodule "site-lisp/auctex"]
 	path = site-lisp/auctex
 	url = https://git.savannah.gnu.org/git/auctex.git
+[submodule "site-lisp/ansible"]
+	path = site-lisp/ansible
+	url = https://github.com/k1LoW/emacs-ansible
