@@ -86,6 +86,9 @@
               ("C-c M-j" . ggtags-visit-project-root)
               ("M-,"   . pop-tag-mark))
   :hook ((c-mode c++-mode) . ggtags-mode)
+  :init
+  (setq tags-revert-without-query t
+        large-file-warning-threshold nil)
   :config
   (setq-local imenu-create-index-function #'ggtags-build-imenu-index)
   (setq-local eldoc-documentation-function #'ggtags-eldoc-function)
@@ -94,6 +97,7 @@
   )
 
 (use-package xcscope
+  :disabled
   :defer 14
   :hook ((c-mode c++-mode) . cscope-setup)
   :init
