@@ -96,14 +96,6 @@
               (cons 'ggtags-try-complete-tag hippie-expand-try-functions-list))
   )
 
-(use-package xcscope
-  :disabled
-  :defer 14
-  :hook ((c-mode c++-mode) . cscope-setup)
-  :init
-  (setq cscope-program "gtags-cscope")
-  )
-
 (use-package irony
   :defer t
   :hook ((c++-mode c-mode) . irony-mode)

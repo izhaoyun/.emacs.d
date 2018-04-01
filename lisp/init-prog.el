@@ -162,8 +162,4 @@
   :init
   )
 
-(use-package realgud
-  :disabled
-  )
-
 (provide 'init-prog)
