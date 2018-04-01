@@ -59,5 +59,9 @@
   :hook (python-mode . py-autopep8-enable-on-save)
   )
 
+(use-package cython-mode
+  :defer t
+  )
+
 (provide 'init-python)
 ;;; init-python.el ends here
