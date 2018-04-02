@@ -180,4 +180,9 @@
   (setq helm-make-completion-method 'ivy)
   )
 
+(use-package lua-mode
+  :defer t
+  :mode ("\\.lua$" . lua-mode)
+  )
+
 (provide 'init-c++)
