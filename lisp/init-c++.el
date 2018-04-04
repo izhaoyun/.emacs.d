@@ -183,6 +183,19 @@
 (use-package lua-mode
   :defer t
   :mode ("\\.lua$" . lua-mode)
+  :preface
+  (defun my-lua-mode-hook ()
+    (set (make-local-variable 'company-backends)
+         '(company-etags company-capf company-yasnippet company-dabbrev-code company-keywords))
+    (company-mode 1)
+
+    (use-package company-lua
+      :defer t
+      :init
+      (push 'company-lua company-backends)
+      )
+    )
+  :hook (lua-mode . my-lua-mode-hook)
   )
 
 (provide 'init-c++)
