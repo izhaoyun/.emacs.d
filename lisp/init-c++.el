@@ -20,6 +20,10 @@
   (defun cc/init-misc ()
     (diminish 'cwarn-mode)
     (diminish 'eldoc-mode)
+
+    (use-package basic-c-compile
+      :disabled
+      )
     )
 
   (defun cc/init-company ()
@@ -197,5 +201,6 @@
     )
   :hook (lua-mode . my-lua-mode-hook)
   )
+
 
 (provide 'init-c++)
