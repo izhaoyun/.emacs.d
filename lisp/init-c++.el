@@ -18,12 +18,8 @@
     )
 
   (defun cc/init-misc ()
-    (diminish 'cwarn-mode)
     (diminish 'eldoc-mode)
-
-    (use-package basic-c-compile
-      :disabled
-      )
+    (setq-local large-file-warning-threshold nil)
     )
 
   (defun cc/init-company ()
@@ -65,7 +61,6 @@
          ((c-mode c++-mode) . which-function-mode)
          ;; ((c-mode c++-mode) . smartparens-mode)
          ((c-mode c++-mode) . eldoc-mode)
-         ((c-mode c++-mode) . cwarn-mode)
          )
   )
 
@@ -90,9 +85,6 @@
               ("C-c M-j" . ggtags-visit-project-root)
               ("M-,"   . pop-tag-mark))
   :hook ((c-mode c++-mode) . ggtags-mode)
-  :init
-  (setq tags-revert-without-query t
-        large-file-warning-threshold nil)
   :config
   (setq-local imenu-create-index-function #'ggtags-build-imenu-index)
   (setq-local eldoc-documentation-function #'ggtags-eldoc-function)
@@ -156,10 +148,6 @@
   :defer t
   )
 
-(use-package call-graph
-  :defer 15
-  )
-
 (use-package cmake-mode
   :defer t
   :mode (("CMakeLists\\.txt\\'" . cmake-mode)
@@ -201,6 +189,5 @@
     )
   :hook (lua-mode . my-lua-mode-hook)
   )
-
 
 (provide 'init-c++)

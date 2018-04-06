@@ -98,15 +98,14 @@
 
 (use-package magit
   :defer t
-  :bind (("C-x g" . magit-status)
-         ("C-x M-g" . magit-dispatch-popup))
+  :bind (("C-x g" . magit-status))
   :init
   (setq magit-completing-read-function 'ivy-completing-read)
   )
 
 (use-package flycheck
   :defer t
-  ;; :diminish flycheck-mode
+  :diminish flycheck-mode
   :config
   (setq flycheck-check-syntax-automatically '(mode-enabled save))
   )

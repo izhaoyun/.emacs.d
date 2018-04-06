@@ -2,10 +2,6 @@
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
-(if (fboundp 'menu-bar-mode) (menu-bar-mode -1))
-(if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
-(if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
-
 (use-package ivy
   :defer t
   :diminish ivy-mode
@@ -29,9 +25,6 @@
         ivy-wrap t)
   :init
   (ivy-mode 1)
-  :config
-  (ivy-set-occur 'swiper 'swiper-occur)
-  (ivy-set-occur 'ivy-switch-buffer 'ivy-switch-buffer-occur)
   )
 
 (use-package swiper
@@ -79,7 +72,9 @@
         "rg -i -M 120 --no-heading --line-number --color never '%s' %s")
   )
 
-(use-package hydra)
+(use-package hydra
+  :defer t
+  )
 
 (use-package ivy-hydra
   :defer t
@@ -162,7 +157,7 @@
   :init
   (setq undo-tree-visualizer-diff t
         undo-tree-visualizer-timestamps t)
-  ) `
+  )
 
 (use-package popwin
   :defer t
@@ -256,4 +251,3 @@
   )
 
 (provide 'setup-editor)
-;;; setup-editor.el ends here
