@@ -19,6 +19,9 @@
 
 (use-package yasnippet
   :defer t
+  :bind (:map yas-minor-mode-map
+              ("<f2>" . yas-expand)
+              ("C-<f2>" . yas-insert-snippet))
   :init
   (yas-global-mode 1)
   )

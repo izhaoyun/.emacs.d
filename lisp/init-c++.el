@@ -114,16 +114,18 @@
   :hook (irony-mode . irony-eldoc)
   )
 
-;; don't set `use-package/:defer' to true.
+
 (use-package cedet-devel-load
+  :disabled
   :load-path "site-lisp/cedet"
   :hook ((c-mode c++-mode) . semantic-mode)
-  :init
+  :config
   ;; stickyfunc-enhance
   (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
   )
 
 (use-package function-args
+  :disabled
   :defer 11
   :hook ((c-mode c++-mode) . fa-config-default)
   :init
