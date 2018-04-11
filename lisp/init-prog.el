@@ -116,7 +116,7 @@
 (use-package hideshow
   :defer t
   :diminish hs-minor-mode
-  :hook ((prog-mode cmake-mode) . hs-minor-mode)
+  :hook ((c-mode c++-mode cmake-mode) . hs-minor-mode)
   )
 
 (use-package diff-hl

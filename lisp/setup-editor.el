@@ -250,4 +250,14 @@
   (shell-pop--set-shell-type 'shell-pop-shell-type shell-pop-shell-type)
   )
 
+(use-package flyspell
+  :diminish flyspell-mode
+  :defer t
+  :hook ((text-mode . flyspell-mode)
+         (prog-mode . flyspell-prog-mode))
+  :init
+  ;; settings for ispell
+  (setq ispell-dictionary "en_US")
+  )
+
 (provide 'setup-editor)
