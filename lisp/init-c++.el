@@ -46,6 +46,12 @@
       )
     )
 
+  (defun cc/init-clang-format ()
+    (use-package clang-format
+      :defer t
+      )
+    )
+
   :bind (:map c-mode-base-map
               ("C-c h c" . hs-toggle-hiding)
               ("C-c h b" . hs-hide-block)
@@ -58,6 +64,7 @@
   :hook (((c-mode c++-mode) . cc/init-company)
          ((c-mode c++-mode) . cc/init-gdb)
          ((c-mode c++-mode) . cc/init-misc)
+         ((c-mode c++-mode) . cc/init-clang-format)
          ((c-mode c++-mode) . which-function-mode)
          ;; ((c-mode c++-mode) . smartparens-mode)
          ((c-mode c++-mode) . eldoc-mode)
@@ -112,24 +119,6 @@
 (use-package irony-eldoc
   :defer 14
   :hook (irony-mode . irony-eldoc)
-  )
-
-
-(use-package cedet-devel-load
-  :disabled
-  :load-path "site-lisp/cedet"
-  :hook ((c-mode c++-mode) . semantic-mode)
-  :config
-  ;; stickyfunc-enhance
-  (add-to-list 'semantic-default-submodes 'global-semantic-stickyfunc-mode)
-  )
-
-(use-package function-args
-  :disabled
-  :defer 11
-  :hook ((c-mode c++-mode) . fa-config-default)
-  :init
-  (setq fa-insert-method 'name-space-parens)
   )
 
 (use-package modern-cpp-font-lock
