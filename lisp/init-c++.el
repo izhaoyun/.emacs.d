@@ -59,7 +59,6 @@
               ("C-c h a" . hs-hide-all)
               ("C-c h d" . hs-show-all)
               ("C-c h l" . hs-hide-level)
-              ("C-c g l" . call-graph)
               ("C-c d" . disaster))
   :hook (((c-mode c++-mode) . cc/init-company)
          ((c-mode c++-mode) . cc/init-gdb)
