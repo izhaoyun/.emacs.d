@@ -4,9 +4,9 @@ FILES=init.el \
 	custom.el \
 	lisp/setup-editor.el \
 	lisp/init-prog.el \
-	lisp/init-elisp.el \
 	lisp/init-c++.el \
 	lisp/init-org.el \
+	lisp/init-go.el \
 	lisp/init-python.el \
 	lisp/init-web.el
 

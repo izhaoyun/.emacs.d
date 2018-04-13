@@ -53,8 +53,8 @@
   :defer t
   :load-path "site-lisp/org-mode/lisp"
   :init
-  (setq org-ditaa-jar-path "/usr/share/ditaa/ditaa.jar"
-        org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar"
+  (setq org-ditaa-jar-path "~/.emacs.d/site-lisp/org-mode/contrib/scripts/ditaa.jar"
+        org-plantuml-jar-path "/opt/plantuml/plantuml.jar"
         org-babel-uppercase-example-markers t)
 
   (org-babel-do-load-languages
@@ -117,6 +117,8 @@
 (use-package plantuml-mode
   :defer t
   :mode ("\\.plantuml\\'")
+  :init
+  (setq plantuml-jar-path "/opt/plantuml/plantuml.jar")
   )
 
 (use-package graphviz-dot-mode
