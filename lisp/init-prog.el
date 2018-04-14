@@ -1,6 +1,6 @@
 ;;; -*- lexical-binding: t -*-
 
-(use-package projectile
+(use-package counsel-projectile
   :defer t
   :diminish (projectile-mode)
   :hook (projectile-mode . recentf-mode)
@@ -9,16 +9,11 @@
         projectile-enable-caching t
         projectile-find-dir-includes-top-level t
         projectile-switch-project-action #'projectile-dired)
-  )
-
-(use-package counsel-projectile
-  :defer t
-  :init
   (counsel-projectile-mode)
   )
 
 (use-package yasnippet
-  :defer t
+  :defer 20
   :bind (:map yas-minor-mode-map
               ("<f2>" . yas-expand)
               ("C-<f2>" . yas-insert-snippet))

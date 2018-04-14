@@ -144,52 +144,33 @@
   )
 
 (use-package multiple-cursors
+  :disabled
   :defer t
   :bind (("C-S-c C-S-c" . mc/edit-lines)
          ("C->" . mc/mark-next-like-this)
-         ("C-<" . mc/mark-previous-like-this))
+         ("C-<" . mc/mark-previous-like-this)
+         ("C-<" . mc/mark-all-like-this))
   )
 
 (use-package undo-tree
   :defer 8
   :diminish undo-tree-mode
   :hook ((prog-mode cmake-mode org-mode) . undo-tree-mode)
+  :bind (("C-z" . undo)
+         ("C-S-z" . redo))
   :init
+  (defalias 'redo 'undo-tree-redo)
   (setq undo-tree-visualizer-diff t
         undo-tree-visualizer-timestamps t)
-  )
-
-(use-package popwin
-  :defer t
-  :bind ("C-z" . popwin:keymap)
-  :commands (popwin-mode)
-  :init
-  (popwin-mode 1)
-  :config
-  (push '(Man-mode :stick t :height 20)
-        popwin:special-display-config)
-  (push '(" *undo-tree*" :width 0.3 :position right)
-        popwin:special-display-config)
-  (push '(compilation-mode :noselect t)
-        popwin:special-display-config)
-  (push "*Shell Command Output*"
-        popwin:special-display-config)
-  (push '("*magit-commit*" :noselect t :height 40 :width 80 :stick t)
-        popwin:special-display-config)
-  )
-
-(use-package dired
-  :ensure nil
-  :defer t
-  :init
-  (setq dired-recursive-copies 'always
-        dired-recursive-deletes 'always)
   )
 
 (use-package dired-async
   :ensure async
   :defer t
   :hook (dired-mode . dired-async-mode)
+  :init
+  (setq dired-recursive-copies 'always
+        dired-recursive-deletes 'always)
   )
 
 (use-package hippie-exp
@@ -223,7 +204,7 @@
   )
 
 (use-package show-marks
-  :disabled
+  ;; :disabled
   :defer t
   :bind (("C-s-<right>" . forward-mark)
          ("C-s-<left>" . backward-mark)
@@ -252,7 +233,7 @@
 
 (use-package flyspell
   :diminish flyspell-mode
-  :defer t
+  :defer 18
   :hook ((text-mode . flyspell-mode)
          (prog-mode . flyspell-prog-mode))
   :init

@@ -14,11 +14,13 @@
  '(menu-bar-mode nil)
  '(package-archives
    (quote
-    (("melpa" . "http://elpa.emacs-china.org/melpa/")
-     ("gnu" . "http://elpa.emacs-china.org/gnu/"))))
+    (("melpa" . "https://melpa.org/packages/")
+     ("marmalade" . "https://marmalade-repo.org/packages/")
+     ("gnu" . "https://elpa.gnu.org/packages/")
+     )))
  '(package-selected-packages
    (quote
-    (clang-format company-lua lua-mode cython-mode json-mode diff-hl smartparens helm-make disaster modern-cpp-font-lock elf-mode demangle-mode py-autopep8 shell-pop ivy-hydra wgrep show-marks haskell-mode pyvenv company-auctex js2-mode flycheck-irony flycheck-gometalinter pip-requirements importmagic company-anaconda anaconda-mode irony-eldoc multiple-cursors hydra popwin async dired go-guru go-dlv htmlize yasnippet company-erlang dockerfile-mode erlang yaml-mode web-mode graphviz-dot-mode plantuml-mode toc-org go-mode company-c-headers sphinx-doc go-eldoc company-go go-mode-autoloads irony company-irony company-irony-c-headers ggtags google-c-style cmake-font-lock cmake-mode lispy auto-compile flycheck magit rainbow-delimiters aggressive-indent dtrt-indent clean-aindent-mode highlight-indent-guides comment-dwim-2 company-quickhelp company counsel-projectile projectile undo-tree expand-region ws-butler which-key highlight-symbol window-numbering ace-link avy-zap avy counsel swiper ivy diminish use-package)))
+    (clang-format company-lua lua-mode cython-mode json-mode diff-hl smartparens helm-make disaster modern-cpp-font-lock elf-mode demangle-mode py-autopep8 shell-pop ivy-hydra wgrep show-marks haskell-mode pyvenv company-auctex js2-mode flycheck-irony flycheck-gometalinter pip-requirements importmagic company-anaconda anaconda-mode irony-eldoc multiple-cursors hydra async dired go-guru go-dlv htmlize yasnippet company-erlang dockerfile-mode erlang yaml-mode web-mode graphviz-dot-mode plantuml-mode toc-org go-mode company-c-headers sphinx-doc go-eldoc company-go go-mode-autoloads irony company-irony company-irony-c-headers ggtags google-c-style cmake-font-lock cmake-mode lispy auto-compile flycheck magit rainbow-delimiters aggressive-indent dtrt-indent clean-aindent-mode highlight-indent-guides comment-dwim-2 company-quickhelp company counsel-projectile undo-tree expand-region ws-butler which-key highlight-symbol window-numbering ace-link avy-zap avy counsel swiper ivy diminish use-package)))
  '(save-interprogram-paste-before-kill t)
  '(scroll-bar-mode nil)
  '(sentence-end-double-space nil)
