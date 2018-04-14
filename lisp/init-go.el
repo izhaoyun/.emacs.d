@@ -6,8 +6,8 @@
   :mode ("\\.go\\'" . go-mode)
   :preface
   (defun my-go-mode-hook ()
-    (setq my_gopath_bin (concat (getenv "HOME") "/go/bin:"))
-    (setenv "PATH" (concat my_gopath_bin (getenv "PATH")))
+    ;; (setq my_gopath_bin (concat (getenv "HOME") "/go/bin:"))
+    ;; (setenv "PATH" (concat my_gopath_bin (getenv "PATH")))
 
     (company-mode t)
     (set (make-local-variable 'company-backends) '(company-capf company-yasnippet))
@@ -21,11 +21,13 @@
   :hook ((go-mode . my-go-mode-hook)
          (go-mode . flycheck-mode))
   :init
+  (setenv "GOPATH" "~/go")
+  (setenv "PATH" (concat "~/go/bin" ":" (getenv "PATH")))
   (add-hook 'before-save-hook 'gofmt-before-save)
   )
 
 (use-package go-eldoc
-  :defer t
+  :defer 15
   :hook (go-mode . go-eldoc-setup)
   )
 
