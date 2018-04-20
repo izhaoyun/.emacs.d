@@ -115,7 +115,7 @@
   )
 
 (use-package diff-hl
-  :defer t
+  :defer 15
   :hook ((prog-mode vc-dir-mode) . turn-on-diff-hl-mode)
   )
 

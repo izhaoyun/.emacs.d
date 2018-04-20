@@ -143,15 +143,6 @@
          ("C--" . er/contract-region))
   )
 
-(use-package multiple-cursors
-  :disabled
-  :defer t
-  :bind (("C-S-c C-S-c" . mc/edit-lines)
-         ("C->" . mc/mark-next-like-this)
-         ("C-<" . mc/mark-previous-like-this)
-         ("C-<" . mc/mark-all-like-this))
-  )
-
 (use-package undo-tree
   :defer 8
   :diminish undo-tree-mode
@@ -177,11 +168,6 @@
   :ensure nil
   :defer t
   :bind ("M-/" . hippie-expand)
-  )
-
-(use-package cheatsheet
-  :disabled
-  :defer t
   )
 
 (use-package paren
@@ -220,18 +206,8 @@
     (server-start))
   )
 
-(use-package shell-pop
-  :defer t
-  :bind (("<f8>" . shell-pop))
-  :config
-  (setq shell-pop-shell-type
-        (quote ("ansi-term" "*ansi-term*" (lambda nil (ansi-term shell-pop-term-shell)))))
-  (setq shell-pop-term-shell "/bin/zsh")
-  ;; need to do this manually or not picked up by `shell-pop'
-  (shell-pop--set-shell-type 'shell-pop-shell-type shell-pop-shell-type)
-  )
-
 (use-package flyspell
+  :disabled
   :diminish flyspell-mode
   :defer 18
   :hook ((text-mode . flyspell-mode)
