@@ -5,21 +5,16 @@
   :mode (("\\.h\\'" . c++-mode))
   :preface
   (defun cc/init-gdb ()
-    (use-package gdb-mi
-      :defer t
-      :init
-      (setq gdb-show-main t
-            gdb-many-windows t)
-      )
-
-    (use-package gud
-      :defer t
-      )
+    (setq gdb-show-main t
+          gdb-many-windows t)
     )
 
   (defun cc/init-misc ()
     (diminish 'eldoc-mode)
-    (setq-local large-file-warning-threshold nil)
+    (diminish 'modern-c++-font-lock-mode)
+
+    (use-package clang-format :defer t)
+    (use-package disaster :defer t)
     )
 
   (defun cc/init-company ()
@@ -27,11 +22,7 @@
     (set (make-local-variable 'company-backends)
          '(company-clang company-gtags company-etags company-capf company-yasnippet))
 
-    (use-package company-c-headers
-      :defer t
-      :init
-      (push 'company-c-headers company-backends)
-      )
+    (push 'company-c-headers company-backends)
 
     (use-package company-irony
       :defer t
@@ -46,8 +37,9 @@
       )
     )
 
-  (defun cc/init-clang-format ()
-    (use-package clang-format
+  (defun cc/init-flycheck ()
+    (flycheck-mode t)
+    (use-package flycheck-pkg-config
       :defer t
       )
     )
@@ -63,9 +55,9 @@
   :hook (((c-mode c++-mode) . cc/init-company)
          ((c-mode c++-mode) . cc/init-gdb)
          ((c-mode c++-mode) . cc/init-misc)
-         ((c-mode c++-mode) . cc/init-clang-format)
+         ((c-mode c++-mode) . cc/init-flycheck)
          ((c-mode c++-mode) . which-function-mode)
-         ;; ((c-mode c++-mode) . smartparens-mode)
+         ((c-mode c++-mode) . modern-c++-font-lock-mode)
          ((c-mode c++-mode) . eldoc-mode)
          )
   )
@@ -91,6 +83,8 @@
               ("C-c M-j" . ggtags-visit-project-root)
               ("M-,"   . pop-tag-mark))
   :hook ((c-mode c++-mode) . ggtags-mode)
+  :init
+  (setq-local large-file-warning-threshold nil)
   :config
   (setq-local imenu-create-index-function #'ggtags-build-imenu-index)
   (setq-local eldoc-documentation-function #'ggtags-eldoc-function)
@@ -102,41 +96,19 @@
   :defer t
   :hook ((c++-mode c-mode) . irony-mode)
   :preface
-  (defun cc/my-irony-mode-hook ()
+  (defun my-irony-mode-hook ()
     (define-key irony-mode-map [remap completion-at-point] 'counsel-irony)
     (define-key irony-mode-map [remap complete-symbol] 'counsel-irony)
     )
-  :hook ((irony-mode . cc/my-irony-mode-hook)
-         (irony-mode . irony-cdb-autosetup-compile-options))
+  :hook ((irony-mode . my-irony-mode-hook)
+         (irony-mode . irony-cdb-autosetup-compile-options)
+         (irony-mode . irony-eldoc)
+         (irony-mode . flycheck-irony-setup))
   )
 
-(use-package flycheck-irony
-  :defer 12
-  :hook (irony-mode . flycheck-irony-setup)
-  )
+(use-package demangle-mode :defer t)
 
-(use-package irony-eldoc
-  :defer 14
-  :hook (irony-mode . irony-eldoc)
-  )
-
-(use-package modern-cpp-font-lock
-  :defer t
-  :diminish modern-c++-font-lock-mode
-  :hook (c++-mode . modern-c++-font-lock-mode)
-  )
-
-(use-package disaster
-  :defer t
-  )
-
-(use-package demangle-mode
-  :defer t
-  )
-
-(use-package elf-mode
-  :defer t
-  )
+(use-package elf-mode :defer t)
 
 (use-package cmake-mode
   :defer t
@@ -148,12 +120,8 @@
                 '(company-dabbrev-code company-keywords company-cmake))
     (company-mode 1)
     )
-  :hook (cmake-mode . init-cmake-hook)
-  )
-
-(use-package cmake-font-lock
-  :defer t
-  :hook (cmake-mode . cmake-font-lock-activate)
+  :hook ((cmake-mode . init-cmake-hook)
+         (cmake-mode . cmake-font-lock-activate))
   )
 
 (use-package helm-make

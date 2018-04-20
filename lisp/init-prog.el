@@ -104,6 +104,7 @@
 (use-package flycheck
   :defer t
   :diminish flycheck-mode
+  :hook (flycheck-mode . flycheck-title-mode)
   :config
   (setq flycheck-check-syntax-automatically '(mode-enabled save))
   )

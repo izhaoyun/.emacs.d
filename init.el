@@ -32,7 +32,6 @@
 (require 'init-web)
 (require 'init-erlang)
 (require 'init-tex)
-(require 'init-devops)
 (require 'init-shell)
 
 ;;; init.el ends here
