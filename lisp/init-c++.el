@@ -37,10 +37,27 @@
       )
     )
 
+  (defun cc/init-irony ()
+    (use-package irony
+      :defer t
+      :hook ((irony-mode . irony-cdb-autosetup-compile-options)
+             (irony-mode . irony-eldoc))
+      :commands (counsel-irony)
+      :init
+      (irony-mode t)
+      (define-key irony-mode-map [remap completion-at-point] 'counsel-irony)
+      (define-key irony-mode-map [remap complete-symbol] 'counsel-irony)
+      )
+    )
+
   (defun cc/init-flycheck ()
     (flycheck-mode t)
     (use-package flycheck-pkg-config
       :defer t
+      )
+    (use-package flycheck-irony
+      :defer t
+      :hook (flycheck-mode . flycheck-irony-setup)
       )
     )
 
@@ -51,11 +68,14 @@
               ("C-c h a" . hs-hide-all)
               ("C-c h d" . hs-show-all)
               ("C-c h l" . hs-hide-level)
+              ("C-c u i" . clang-format-region)
+              ("C-c u b" . clang-format-buffer)
               ("C-c d" . disaster))
   :hook (((c-mode c++-mode) . cc/init-company)
          ((c-mode c++-mode) . cc/init-gdb)
          ((c-mode c++-mode) . cc/init-misc)
          ((c-mode c++-mode) . cc/init-flycheck)
+         ((c-mode c++-mode) . cc/init-irony)
          ((c-mode c++-mode) . which-function-mode)
          ((c-mode c++-mode) . modern-c++-font-lock-mode)
          ((c-mode c++-mode) . eldoc-mode)
@@ -84,7 +104,7 @@
               ("M-,"   . pop-tag-mark))
   :hook ((c-mode c++-mode) . ggtags-mode)
   :init
-  (setq-local large-file-warning-threshold nil)
+  (setq large-file-warning-threshold nil)
   :config
   (setq-local imenu-create-index-function #'ggtags-build-imenu-index)
   (setq-local eldoc-documentation-function #'ggtags-eldoc-function)
@@ -92,18 +112,23 @@
               (cons 'ggtags-try-complete-tag hippie-expand-try-functions-list))
   )
 
-(use-package irony
+(use-package cquery
+  :disabled
   :defer t
-  :hook ((c++-mode c-mode) . irony-mode)
   :preface
-  (defun my-irony-mode-hook ()
-    (define-key irony-mode-map [remap completion-at-point] 'counsel-irony)
-    (define-key irony-mode-map [remap complete-symbol] 'counsel-irony)
-    )
-  :hook ((irony-mode . my-irony-mode-hook)
-         (irony-mode . irony-cdb-autosetup-compile-options)
-         (irony-mode . irony-eldoc)
-         (irony-mode . flycheck-irony-setup))
+  (defun cc/cquery-enable ()
+    (condition-case nil
+        (lsp-cquery-enable)
+      (user-error nil)))
+  :hook ((c++-mode c-mode) . cc/cquery-enable)
+  :init
+  (setq cquery-executable "/usr/bin/cquery")
+  ;; Log file
+  (setq cquery-extra-args '("--log-file=/tmp/cq.log"))
+  ;; Cache directory, both relative and absolute paths are supported
+  (setq cquery-cache-dir ".cquery_cached_index")
+  ;; Initialization options
+  (setq cquery-extra-init-params '(:cacheFormat "msgpack"))
   )
 
 (use-package demangle-mode :defer t)

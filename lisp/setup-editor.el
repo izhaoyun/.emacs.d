@@ -29,7 +29,7 @@
 
 (use-package swiper
   :defer t
-  :bind (("C-c u" . swiper-all)
+  :bind (("C-c u a" . swiper-all)
          ("C-r" . swiper))
   :bind (:map swiper-map
               ("M-%" . swiper-query-replace)
