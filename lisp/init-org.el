@@ -47,6 +47,7 @@
   (add-to-list 'org-latex-packages-alist '("" "fancyhdr"))
   (add-to-list 'org-latex-packages-alist '("" "natbib"))
   (add-to-list 'org-latex-packages-alist '("" "titlesec"))
+  (add-to-list 'org-latex-packages-alist '("" "tikz"))
   )
 
 (use-package ob
@@ -55,6 +56,7 @@
   :init
   (setq org-ditaa-jar-path "~/.emacs.d/site-lisp/org-mode/contrib/scripts/ditaa.jar"
         org-plantuml-jar-path "/opt/plantuml/plantuml.jar"
+        org-latex-create-formula-image-program 'imagemagick
         org-babel-uppercase-example-markers t)
 
   (org-babel-do-load-languages
@@ -66,6 +68,7 @@
      (sql        . t)
      ;; (http       . t)
      (ditaa      . t)
+     (latex      . t)
      (shell      . t)
      (gnuplot    . t)
      (python     . t)
@@ -73,6 +76,11 @@
      (emacs-lisp . t)))
   :config
   (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
+  )
+
+(use-package ob-latex
+  :defer t
+  :load-path "site-lisp/org-mode/lisp"
   )
 
 (use-package ox
@@ -110,6 +118,7 @@
   )
 
 (use-package toc-org
+  :disabled
   :defer t
   :hook (org-mode . toc-org-enable)
   )
