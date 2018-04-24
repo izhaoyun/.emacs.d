@@ -54,10 +54,9 @@
   :defer t
   :load-path "site-lisp/org-mode/lisp"
   :init
-  (setq org-ditaa-jar-path "~/.emacs.d/site-lisp/org-mode/contrib/scripts/ditaa.jar"
-        org-plantuml-jar-path "/opt/plantuml/plantuml.jar"
-        org-latex-create-formula-image-program 'imagemagick
-        org-babel-uppercase-example-markers t)
+  (setq
+   org-latex-create-formula-image-program 'imagemagick
+   org-babel-uppercase-example-markers t)
 
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -66,7 +65,7 @@
      (dot        . t)
      (sed        . t)
      (sql        . t)
-     ;; (http       . t)
+     (http       . t)
      (ditaa      . t)
      (latex      . t)
      (shell      . t)
@@ -78,9 +77,27 @@
   (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
   )
 
+(use-package ob-ditaa
+  :defer t
+  :load-path "site-lisp/org-mode/lisp"
+  :init
+  (setq org-ditaa-jar-path "~/.emacs.d/site-lisp/org-mode/contrib/scripts/ditaa.jar")
+  )
+
+(use-package ob-plantuml
+  :defer t
+  :load-path "site-lisp/org-mode/lisp"
+  :init
+  (setq org-plantuml-jar-path "/opt/plantuml/plantuml.jar")
+  )
+
 (use-package ob-latex
   :defer t
   :load-path "site-lisp/org-mode/lisp"
+  )
+
+(use-package ob-http
+  :defer t
   )
 
 (use-package ox

@@ -22,7 +22,11 @@
     (set (make-local-variable 'company-backends)
          '(company-clang company-gtags company-etags company-capf company-yasnippet))
 
-    (push 'company-c-headers company-backends)
+    (use-package company-c-headers
+      :defer t
+      :init
+      (push 'company-c-headers company-backends)
+      )
 
     (use-package company-irony
       :defer t

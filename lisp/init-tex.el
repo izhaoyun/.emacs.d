@@ -46,7 +46,7 @@
 (use-package reftex
   :ensure nil
   :defer t
-  :hook (LaTeX-mode . reftex-mode)
+  :hook (LaTeX-mode . turn-on-reftex)
   )
 
 (provide 'init-tex)
