@@ -15,7 +15,8 @@
       )
     )
   :hook ((LaTeX-mode . my-latex-hook)
-         (LaTeX-mode . TeX-PDF-mode))
+         (LaTeX-mode . TeX-PDF-mode)
+         (LaTeX-mode . auto-fill-mode))
   :init
   (setq TeX-auto-save t
         TeX-parse-self t)
