@@ -32,7 +32,7 @@
 (require 'init-web)
 (require 'init-erlang)
 (require 'init-tex)
-(require 'init-sql)
+;; (require 'init-sql)
 (require 'init-shell)
 
 ;;; init.el ends here

@@ -15,6 +15,7 @@
 
     (use-package clang-format :defer t)
     (use-package disaster :defer t)
+    (use-package flycheck-pkg-config :defer t)
     )
 
   (defun cc/init-company ()
@@ -52,13 +53,7 @@
       (define-key irony-mode-map [remap completion-at-point] 'counsel-irony)
       (define-key irony-mode-map [remap complete-symbol] 'counsel-irony)
       )
-    )
 
-  (defun cc/init-flycheck ()
-    (flycheck-mode t)
-    (use-package flycheck-pkg-config
-      :defer t
-      )
     (use-package flycheck-irony
       :defer t
       :hook (flycheck-mode . flycheck-irony-setup)
@@ -78,7 +73,6 @@
   :hook (((c-mode c++-mode) . cc/init-company)
          ((c-mode c++-mode) . cc/init-gdb)
          ((c-mode c++-mode) . cc/init-misc)
-         ((c-mode c++-mode) . cc/init-flycheck)
          ((c-mode c++-mode) . cc/init-irony)
          ((c-mode c++-mode) . which-function-mode)
          ((c-mode c++-mode) . modern-c++-font-lock-mode)
