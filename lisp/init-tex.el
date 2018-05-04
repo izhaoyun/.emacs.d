@@ -8,11 +8,7 @@
     (company-mode t)
     (set (make-local-variable 'company-backends)
          '(company-capf company-yasnippet))
-    (use-package company-auctex
-      :defer t
-      :init
-      (push 'company-auctex company-backends)
-      )
+    (push 'company-auctex company-backends)
     )
   :hook ((LaTeX-mode . my-latex-hook)
          (LaTeX-mode . TeX-PDF-mode)

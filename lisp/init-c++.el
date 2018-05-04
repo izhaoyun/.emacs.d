@@ -9,55 +9,14 @@
           gdb-many-windows t)
     )
 
-  (defun cc/init-misc ()
-    (diminish 'eldoc-mode)
-    (diminish 'modern-c++-font-lock-mode)
-
-    (use-package clang-format :defer t)
-    (use-package disaster :defer t)
-    (use-package flycheck-pkg-config :defer t)
-    )
-
   (defun cc/init-company ()
     (company-mode t)
     (set (make-local-variable 'company-backends)
          '(company-clang company-gtags company-etags company-capf company-yasnippet))
 
-    (use-package company-c-headers
-      :defer t
-      :init
-      (push 'company-c-headers company-backends)
-      )
-
-    (use-package company-irony
-      :defer t
-      :init
-      (push 'company-irony company-backends)
-      )
-
-    (use-package company-irony-c-headers
-      :defer t
-      :init
-      (push 'company-irony-c-headers company-backends)
-      )
-    )
-
-  (defun cc/init-irony ()
-    (use-package irony
-      :defer t
-      :hook ((irony-mode . irony-cdb-autosetup-compile-options)
-             (irony-mode . irony-eldoc))
-      :commands (counsel-irony)
-      :init
-      (irony-mode t)
-      (define-key irony-mode-map [remap completion-at-point] 'counsel-irony)
-      (define-key irony-mode-map [remap complete-symbol] 'counsel-irony)
-      )
-
-    (use-package flycheck-irony
-      :defer t
-      :hook (flycheck-mode . flycheck-irony-setup)
-      )
+    (push 'company-c-headers company-backends)
+    (push 'company-irony company-backends)
+    (push 'company-irony-c-headers company-backends)
     )
 
   :bind (:map c-mode-base-map
@@ -72,10 +31,7 @@
               ("C-c d" . disaster))
   :hook (((c-mode c++-mode) . cc/init-company)
          ((c-mode c++-mode) . cc/init-gdb)
-         ((c-mode c++-mode) . cc/init-misc)
-         ((c-mode c++-mode) . cc/init-irony)
          ((c-mode c++-mode) . which-function-mode)
-         ((c-mode c++-mode) . modern-c++-font-lock-mode)
          ((c-mode c++-mode) . eldoc-mode)
          )
   )
@@ -84,6 +40,12 @@
   :defer t
   :hook (((c++-mode c-mode) . google-set-c-style)
          ((c++-mode c-mode) . google-make-newline-indent))
+  )
+
+(use-package modern-cpp-font-lock
+  :defer t
+  :diminish modern-c++-font-lock-mode
+  :hook ((c-mode c++-mode) . modern-c++-font-lock-mode)
   )
 
 (use-package ggtags
@@ -108,6 +70,29 @@
   (setq-local eldoc-documentation-function #'ggtags-eldoc-function)
   (setq-local hippie-expand-try-functions-list
               (cons 'ggtags-try-complete-tag hippie-expand-try-functions-list))
+  )
+
+(use-package irony
+  :defer t
+  :hook (irony-mode . irony-cdb-autosetup-compile-options)
+  :commands (counsel-irony)
+  :hook ((c-mode c++-mode) . irony-mode)
+  :config
+  (define-key irony-mode-map [remap completion-at-point] 'counsel-irony)
+  (define-key irony-mode-map [remap complete-symbol] 'counsel-irony)
+  )
+
+(use-package irony-eldoc
+  :defer t
+  :diminish eldoc-mode
+  :hook (irony-mode . irony-eldoc)
+  )
+
+(use-package flycheck-irony
+  :disabled
+  :after irony
+  :defer t
+  :hook (flycheck-mode . flycheck-irony-setup)
   )
 
 (use-package cquery
