@@ -1,7 +1,6 @@
 ;;; -*- lexical-binding: t -*-
 
 (use-package go-mode-autoloads
-  :defer t
   :ensure go-mode
   :mode ("\\.go\\'" . go-mode)
   :preface
@@ -21,7 +20,8 @@
   )
 
 (use-package go-eldoc
-  :defer 15
+  :defer t
+  :diminish eldoc-mode
   :hook (go-mode . go-eldoc-setup)
   )
 
@@ -38,6 +38,10 @@
 (use-package flycheck-gometalinter
   :defer t
   :hook (go-mode . flycheck-gometalinter-setup)
+  )
+
+(use-package dockerfile-mode
+  :mode ("Dockerfile\\'" . dockerfile-mode)
   )
 
 (provide 'init-go)

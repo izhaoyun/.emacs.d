@@ -1,7 +1,6 @@
 ;;; -*- lexical-binding: t -*-
 
 (use-package python
-  :defer t
   :mode ("\\.py\\'" . python-mode)
   :interpreter ("python" . python-mode)
   :preface
@@ -26,24 +25,38 @@
   )
 
 (use-package anaconda-mode
-  :defer 4
+  :defer t
   :hook ((python-mode . anaconda-mode)
          (python-mode . anaconda-eldoc-mode))
   )
 
 (use-package pyvenv
-  :defer 5
+  :defer t
   :hook (python-mode . pyvenv-mode)
   )
 
+(use-package pyenv-mode
+  :hook (python-mode . pyenv-mode)
+  :commands (pyenv-mode-set pyenv-mode-unset pyenv-mode-versions)
+  :init
+  (defun projectile-pyenv-mode-set ()
+    "Set pyenv version matching project name."
+    (let ((project (projectile-project-name)))
+      (if (member project (pyenv-mode-versions))
+          (pyenv-mode-set project)
+        (pyenv-mode-unset))))
+
+  (add-hook 'projectile-after-switch-project-hook 'projectile-pyenv-mode-set)
+  )
+
 (use-package sphinx-doc
-  :defer 6
+  :defer t
   :diminish sphinx-doc-mode
   :hook (python-mode . sphinx-doc-mode)
   )
 
 (use-package importmagic
-  :defer 7
+  :defer t
   :diminish importmagic-mode
   :hook (python-mode . importmagic-mode)
   :init

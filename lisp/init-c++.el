@@ -1,7 +1,6 @@
 ;;; -*- lexical-binding: t -*-
 
 (use-package cc-mode
-  :defer t
   :mode (("\\.h\\'" . c++-mode))
   :preface
   (defun cc/init-gdb ()
@@ -139,7 +138,6 @@
   )
 
 (use-package lua-mode
-  :defer t
   :mode ("\\.lua$" . lua-mode)
   :preface
   (defun my-lua-mode-hook ()
