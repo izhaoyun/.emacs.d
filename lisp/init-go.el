@@ -14,8 +14,8 @@
   :hook ((go-mode . my-go-mode-hook)
          (go-mode . flycheck-mode))
   :init
-  (setenv "GOPATH" "~/go")
-  (setenv "PATH" (concat "~/go/bin" ":" (getenv "PATH")))
+  (setenv "GOPATH" (concat (getenv "HOME") "/go"))
+  (setenv "PATH" (concat (concat (getenv "GOPATH") "/bin") ":" (getenv "PATH")))
   (add-hook 'before-save-hook 'gofmt-before-save)
   )
 
