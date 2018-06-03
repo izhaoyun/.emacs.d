@@ -7,16 +7,22 @@
   (defun my-go-mode-hook ()
     (company-mode t)
     (set (make-local-variable 'company-backends)
-         '(company-capf company-yasnippet))
+         '(company-capf
+           company-yasnippet))
 
-    (push 'company-go company-backends)
+    (use-package company-go
+      :after company
+      :init
+      (push 'company-go company-backends)
+      )
     )
   :hook ((go-mode . my-go-mode-hook)
-         (go-mode . flycheck-mode))
+         (go-mode . flycheck-mode)
+         (before-save . gofmt-before-save))
   :init
   (setenv "GOPATH" (concat (getenv "HOME") "/go"))
   (setenv "PATH" (concat (concat (getenv "GOPATH") "/bin") ":" (getenv "PATH")))
-  (add-hook 'before-save-hook 'gofmt-before-save)
+  ;; (add-hook 'before-save-hook 'gofmt-before-save)
   )
 
 (use-package go-eldoc
@@ -25,17 +31,13 @@
   :hook (go-mode . go-eldoc-setup)
   )
 
-(use-package go-dlv
-  :disabled
-  :defer t
-  )
-
 (use-package go-guru
   :defer t
   :hook (go-mode . go-guru-hl-identifier-mode)
   )
 
 (use-package flycheck-gometalinter
+  :after flycheck
   :defer t
   :hook (go-mode . flycheck-gometalinter-setup)
   )

@@ -8,14 +8,7 @@
     (company-mode t)
     (set (make-local-variable 'company-backends)
          '(company-capf company-yasnippet))
-
-    (use-package company-anaconda
-      :defer t
-      :init
-      (push 'company-anaconda company-backends)
-      )
-
-    (flycheck-mode t)
+    ;; (flycheck-mode t)
     )
 
   :hook ((python-mode . my-python-hook))
@@ -28,6 +21,13 @@
   :defer t
   :hook ((python-mode . anaconda-mode)
          (python-mode . anaconda-eldoc-mode))
+  )
+
+(use-package company-anaconda
+  :defer t
+  :after (company anaconda-mode)
+  :init
+  (push 'company-anaconda company-backends)
   )
 
 (use-package pyvenv

@@ -23,7 +23,7 @@
 
 (use-package company
   :defer t
-  :hook ((emacs-lisp-mode) . company-mode)
+  :hook (after-init . global-company-mode)
   :init
   (setq company-tooltip-limit 20
         company-idle-delay .3
@@ -37,6 +37,7 @@
 (use-package company-quickhelp
   :if window-system
   :defer t
+  :after company
   :bind (:map company-active-map
               ("M-h" . company-quickhelp-manual-begin))
   :hook (company-mode . company-quickhelp-mode)
@@ -50,7 +51,7 @@
   )
 
 (use-package highlight-indent-guides
-  :if window-system
+  ;; :if window-system
   :defer t
   :hook (prog-mode . highlight-indent-guides-mode)
   :init
@@ -111,7 +112,6 @@
 (use-package hideshow
   :defer t
   :diminish hs-minor-mode
-  :hook ((c-mode c++-mode cmake-mode) . hs-minor-mode)
   )
 
 (use-package diff-hl
