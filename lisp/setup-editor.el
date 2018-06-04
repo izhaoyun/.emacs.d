@@ -77,6 +77,12 @@
   )
 
 (use-package ivy-hydra
+  :after (ivy hydra)
+  :defer t
+  )
+
+(use-package counsel-tramp
+  :disabled
   :defer t
   )
 

@@ -27,12 +27,12 @@
 (require 'init-lisp)
 (require 'init-cc)
 (require 'init-org)
-;; (require 'init-python)
+(require 'init-python)
 (require 'init-go)
-;; (require 'init-web)
-;; (require 'init-erlang)
-;; (require 'init-tex)
+(require 'init-web)
+(require 'init-erlang)
+(require 'init-tex)
 ;; (require 'init-sql)
-;; (require 'init-shell)
+(require 'init-shell)
 
 ;;; init.el ends here
