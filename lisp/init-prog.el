@@ -30,8 +30,8 @@
         company-echo-delay 0
         company-show-numbers t)
   :bind ("C-c y" . company-yasnippet)
-  :config
-  (setq company-begin-commands '(self-insert-command))
+  ;; :config
+  ;; (setq company-begin-commands '(self-insert-command))
   )
 
 (use-package company-quickhelp
@@ -51,7 +51,6 @@
   )
 
 (use-package highlight-indent-guides
-  ;; :if window-system
   :defer t
   :hook (prog-mode . highlight-indent-guides-mode)
   :init
@@ -117,6 +116,28 @@
 (use-package diff-hl
   :defer 15
   :hook ((prog-mode vc-dir-mode) . turn-on-diff-hl-mode)
+  )
+
+(use-package counsel-etags
+  :defer t
+  :init
+  ;; Don't ask before rereading the TAGS files if they have changed
+  (setq tags-revert-without-query t)
+  ;; Don't warn when TAGS files are large
+  (setq large-file-warning-threshold nil)
+  :config
+  (progn
+    ;; counsel-etags-ignore-directories does NOT support wildcast
+    (add-to-list 'counsel-etags-ignore-directories "build_clang")
+    (add-to-list 'counsel-etags-ignore-directories "build_clang")
+    ;; counsel-etags-ignore-filenames supports wildcast
+    (add-to-list 'counsel-etags-ignore-filenames "TAGS")
+    (add-to-list 'counsel-etags-ignore-filenames "*.json"))
+  ;; Setup auto update now
+  (add-hook 'prog-mode-hook
+            (lambda ()
+              (add-hook 'after-save-hook
+                        'counsel-etags-virtual-update-tags 'append 'local)))
   )
 
 (use-package smartparens-config

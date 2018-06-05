@@ -18,12 +18,10 @@
       )
     )
   :hook ((go-mode . my-go-mode-hook)
-         (go-mode . flycheck-mode))
+         (go-mode . flycheck-mode)
+         (before-save . gofmt-before-save))
   :init
-  (setenv "GOPATH" (concat (getenv "HOME") "/go"))
-  (setenv "PATH" (concat (concat (getenv "GOPATH") "/bin") ":" (getenv "PATH")))
-  :config
-  (add-hook 'before-save-hook 'gofmt-before-save)
+  ;; (add-hook 'before-save-hook 'gofmt-before-save)
   )
 
 (use-package go-eldoc

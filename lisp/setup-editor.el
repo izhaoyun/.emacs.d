@@ -111,6 +111,17 @@
   (ace-link-setup-default)
   )
 
+(use-package exec-path-from-shell
+  :if (memq window-system '(mac ns x))
+  :defer t
+  :commands (exec-path-from-shell-copy-env
+             exec-path-from-shell-initialize)
+  :init
+  (progn
+    (exec-path-from-shell-copy-env "GOPATH")
+    (exec-path-from-shell-initialize))
+  )
+
 (use-package window-numbering
   :defer t
   :init
@@ -135,11 +146,10 @@
   )
 
 (use-package ws-butler
-  :defer 8
+  :defer t
   :diminish ws-butler-mode
-  :hook (prog-mode . ws-butler-mode)
-  :config
-  (add-hook 'before-save-hook 'delete-trailing-whitespace)
+  :hook ((prog-mode . ws-butler-mode)
+         (before-save . delete-trailing-whitespace))
   )
 
 (use-package expand-region
@@ -150,7 +160,7 @@
   )
 
 (use-package undo-tree
-  :defer 8
+  :defer t
   :diminish undo-tree-mode
   :hook ((prog-mode cmake-mode org-mode) . undo-tree-mode)
   :bind (("C-z" . undo)
@@ -196,7 +206,6 @@
   )
 
 (use-package show-marks
-  ;; :disabled
   :defer t
   :bind (("C-s-<right>" . forward-mark)
          ("C-s-<left>" . backward-mark)
