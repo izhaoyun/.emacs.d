@@ -23,14 +23,14 @@
 (use-package erlang-start
   :ensure erlang
   :preface
-  (defun erl/init-company ()
+  (defun erlang/init-company ()
     (set (make-local-variable 'company-backends)
          '(company-etags
            company-capf
            company-yasnippet))
-    (company-mode t)
+    ;; (company-mode t)
     )
-  :hook (erlang-mode . erl/init-company)
+  :hook (erlang-mode . erlang/init-company)
   )
 
 (use-package company-erlang
@@ -50,12 +50,14 @@
   :ensure haskell-mode
   :defer t
   :preface
-  (defun my-haskell-hook ()
-    (company-mode t)
+  (defun haskell/init-company ()
     (set (make-local-variable 'company-backends)
-         '(company-capf company-dabbrev-code company-yasnippet))
+         '(company-capf
+           company-dabbrev-code
+           company-yasnippet))
+    ;; (company-mode t)
     )
-  :hook ((haskell-mode . my-haskell-hook)
+  :hook ((haskell-mode . haskell/init-company)
          (haskell-mode . subword-mode))
   :bind (:map haskell-mode-map
               ("C-c C-," . haskell-mode-format-imports)

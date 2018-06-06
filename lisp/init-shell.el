@@ -4,4 +4,6 @@
   :hook (eshell-mode . eshell-bookmark-setup)
   )
 
+
+
 (provide 'init-shell)

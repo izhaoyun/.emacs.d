@@ -60,10 +60,17 @@
   )
 
 (use-package css-mode
-  :disabled
   :defer t
-  :init
-  (push 'company-css company-backends)
+  :preface
+  (defun css/init-company ()
+    (set (make-local-variable 'company-backends)
+         '(company-css
+           company-etags
+           company-capf
+           company-yasnippet))
+    ;; (company-mode t)
+    )
+  :hook (css-mode . css/init-company)
   )
 
 (use-package json-mode
@@ -76,6 +83,21 @@
 
 (use-package json-reformat
   :defer t
+  )
+
+(use-package http
+  :after (json-mode json-reformat)
+  :defer t
+  :preface
+  (defun my/pretty-json-buffer ()
+    (json-reformat-region (point-min) (point-max)))
+  :init
+  ;; fontify response
+  (add-to-list 'http-content-type-mode-alist
+               '("application/json" . json-mode))
+  ;; prettify response
+  (add-to-list 'http-pretty-callback-alist
+               '("application/json" . my/pretty-json-buffer))
   )
 
 (provide 'init-web)

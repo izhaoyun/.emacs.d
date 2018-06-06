@@ -4,13 +4,21 @@
   :load-path "site-lisp/auctex"
   :defer t
   :preface
-  (defun my-latex-hook ()
-    (company-mode t)
+  (defun latex/init-company ()
     (set (make-local-variable 'company-backends)
-         '(company-capf company-yasnippet))
-    (push 'company-auctex company-backends)
+         '(company-capf
+           company-yasnippet))
+    ;; (company-mode t)
+
+    (use-package company-auctex
+      :after company
+      :defer t
+      :commands (company-auctex-init)
+      :init
+      (company-auctex-init)
+      )
     )
-  :hook ((LaTeX-mode . my-latex-hook)
+  :hook ((LaTeX-mode . latex/init-company)
          (LaTeX-mode . TeX-PDF-mode)
          (LaTeX-mode . auto-fill-mode))
   :init

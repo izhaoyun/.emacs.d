@@ -13,12 +13,16 @@
   )
 
 (use-package yasnippet
-  :defer 20
+  :defer t
   :bind (:map yas-minor-mode-map
               ("<f2>" . yas-expand)
               ("C-<f2>" . yas-insert-snippet))
-  :init
-  (yas-global-mode 1)
+  :hook (after-init . yas-global-mode)
+  )
+
+(use-package yasnippet-snippets
+  :after yasnippet
+  :defer t
   )
 
 (use-package company

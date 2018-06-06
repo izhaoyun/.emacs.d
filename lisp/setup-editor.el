@@ -1,5 +1,7 @@
 ;;; -*- lexical-binding: t -*-
 
+(eval-when-compile (require 'cl))
+
 (fset 'yes-or-no-p 'y-or-n-p)
 
 (use-package ivy

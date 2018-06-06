@@ -10,7 +10,7 @@
            company-etags
            company-capf
            company-yasnippet))
-    (company-mode t)
+    ;; (company-mode t)
 
     (use-package company-c-headers
       :after company

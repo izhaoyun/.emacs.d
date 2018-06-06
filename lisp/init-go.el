@@ -9,7 +9,7 @@
     (set (make-local-variable 'company-backends)
          '(company-capf
            company-yasnippet))
-    (company-mode t)
+    ;; (company-mode t)
 
     (use-package company-go
       :after company

@@ -7,7 +7,7 @@
   (defun py/init-company ()
     (set (make-local-variable 'company-backends)
          '(company-capf company-yasnippet))
-    (company-mode t)
+    ;; (company-mode t)
     )
 
   :hook ((python-mode . py/init-company))
