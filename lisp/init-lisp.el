@@ -20,6 +20,32 @@
   :hook (emacs-lisp-mode . lispy-mode)
   )
 
+(use-package erlang-start
+  :ensure erlang
+  :preface
+  (defun erl/init-company ()
+    (set (make-local-variable 'company-backends)
+         '(company-etags
+           company-capf
+           company-yasnippet))
+    (company-mode t)
+    )
+  :hook (erlang-mode . erl/init-company)
+  )
+
+(use-package company-erlang
+  :after (company erlang-start)
+  :defer t
+  :hook (erlang-mode . company-erlang-init)
+  )
+
+(use-package ivy-erlang-complete
+  :after (ivy company-erlang)
+  :defer t
+  :hook ((erlang-mode . ivy-erlang-complete-init)
+         (after-save . ivy-erlang-complete-reparse))
+  )
+
 (use-package haskell-mode-autoloads
   :ensure haskell-mode
   :defer t

@@ -4,14 +4,13 @@
   :mode ("\\.py\\'" . python-mode)
   :interpreter ("python" . python-mode)
   :preface
-  (defun my-python-hook ()
-    (company-mode t)
+  (defun py/init-company ()
     (set (make-local-variable 'company-backends)
          '(company-capf company-yasnippet))
-    ;; (flycheck-mode t)
+    (company-mode t)
     )
 
-  :hook ((python-mode . my-python-hook))
+  :hook ((python-mode . py/init-company))
   :init
   (setq python-shell-interpreter "ipython"
         python-shell-interpreter-args "--simple-prompt -i")

@@ -14,7 +14,7 @@
   (package-install 'use-package)
   (package-install 'diminish)
   )
-;; (package-install-selected-packages)
+(package-install-selected-packages)
 (setq use-package-always-ensure t)
 (require 'use-package)
 (require 'diminish)
@@ -30,9 +30,7 @@
 (require 'init-python)
 (require 'init-go)
 (require 'init-web)
-(require 'init-erlang)
 (require 'init-tex)
-;; (require 'init-sql)
 (require 'init-shell)
 
 ;;; init.el ends here
