@@ -49,8 +49,15 @@
 (use-package yaml-mode
   :defer t
   :mode ("\\.\\(yml\\|yaml\\)\\'" . yaml-mode)
-  :bind (:map yaml-mode-map
-              ("C-m" . newline-and-indent))
+  :bind
+  (:map yaml-mode-map
+        ("C-m" . newline-and-indent))
+  )
+
+(use-package flycheck-yamllint
+  :after (flycheck yaml-mode)
+  :defer t
+  :hook (yaml-mode . flycheck-yamllint-setup)
   )
 
 (use-package js2-mode
@@ -68,7 +75,7 @@
            company-etags
            company-capf
            company-yasnippet))
-    ;; (company-mode t)
+    (company-mode)
     )
   :hook (css-mode . css/init-company)
   )

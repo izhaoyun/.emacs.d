@@ -8,7 +8,7 @@
     (set (make-local-variable 'company-backends)
          '(company-capf
            company-yasnippet))
-    ;; (company-mode t)
+    (company-mode)
 
     (use-package company-auctex
       :after company

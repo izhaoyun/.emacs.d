@@ -10,7 +10,7 @@
            company-etags
            company-capf
            company-yasnippet))
-    ;; (company-mode t)
+    (company-mode)
 
     (use-package company-c-headers
       :after company
@@ -44,8 +44,7 @@
   :hook (((c-mode c++-mode) . cc/init-company)
          ((c-mode c++-mode) . which-function-mode)
          ((c-mode c++-mode) . eldoc-mode)
-         ((c-mode c++-mode) . hs-minor-mode)
-         )
+         ((c-mode c++-mode) . hs-minor-mode))
   :init
   (setq gdb-show-main t
         gdb-many-windows t)
@@ -88,6 +87,18 @@
               (cons 'ggtags-try-complete-tag hippie-expand-try-functions-list))
   )
 
+(use-package counsel-gtags
+  :after (counsel)
+  :defer t
+  :hook ((c-mode c++-mode) . counsel-gtags-mode)
+  :bind
+  (:map counsel-gtags-mode-map
+        ("M-s g" . counsel-gtags-find-definition)
+        ("M-s r" . counsel-gtags-find-reference)
+        ("M-s s" . counsel-gtags-find-symbol)
+        ("M-s b" . counsel-gtags-go-backward))
+  )
+
 (use-package irony
   :defer t
   :hook (((c-mode c++-mode) . irony-mode)
@@ -111,6 +122,12 @@
   :hook (flycheck-mode . flycheck-irony-setup)
   )
 
+(use-package flycheck-clang-analyzer
+  :after (flycheck)
+  :defer t
+  :hook ((c-mode c++-mode) . flycheck-clang-analyzer-setup)
+  )
+
 (use-package clang-format
   :defer t
   :bind
@@ -126,42 +143,28 @@
         ("C-c d" . disaster))
   )
 
-(use-package cquery
-  :disabled
+(use-package demangle-mode
+  :after cc-mode
   :defer t
-  :preface
-  (defun cc/cquery-enable ()
-    (condition-case nil
-        (lsp-cquery-enable)
-      (user-error nil)))
-  :hook ((c++-mode c-mode) . cc/cquery-enable)
-  :init
-  (setq cquery-executable "/usr/bin/cquery")
-  ;; Log file
-  (setq cquery-extra-args '("--log-file=/tmp/cq.log"))
-  ;; Cache directory, both relative and absolute paths are supported
-  (setq cquery-cache-dir ".cquery_cached_index")
-  ;; Initialization options
-  (setq cquery-extra-init-params '(:cacheFormat "msgpack"))
   )
 
-(use-package demangle-mode :defer t)
-
-(use-package elf-mode :defer t)
+(use-package elf-mode
+  :defer t
+  )
 
 (use-package cmake-mode
   :defer t
   :mode (("CMakeLists\\.txt\\'" . cmake-mode)
          ("\\.cmake\\'" . cmake-mode))
   :preface
-  (defun init-cmake-hook ()
+  (defun cmake/init-company ()
     (setq-local company-backends
                 '(company-dabbrev-code
                   company-keywords
                   company-cmake))
-    (company-mode 1)
+    (company-mode)
     )
-  :hook ((cmake-mode . init-cmake-hook)
+  :hook ((cmake-mode . cmake/init-company)
          (cmake-mode . cmake-font-lock-activate))
   )
 
@@ -174,22 +177,23 @@
 (use-package lua-mode
   :mode ("\\.lua$" . lua-mode)
   :preface
-  (defun my-lua-mode-hook ()
+  (defun lua/init-company ()
     (set (make-local-variable 'company-backends)
          '(company-etags
            company-capf
            company-yasnippet
            company-dabbrev-code
            company-keywords))
-    (company-mode 1)
+    (company-mode)
 
     (use-package company-lua
+      :after company
       :defer t
       :init
       (push 'company-lua company-backends)
       )
     )
-  :hook (lua-mode . my-lua-mode-hook)
+  :hook (lua-mode . lua/init-company)
   )
 
 (provide 'init-cc)

@@ -5,11 +5,11 @@
   :defer t
   :mode ("\\.go\\'" . go-mode)
   :preface
-  (defun my-go-mode-hook ()
+  (defun go/init-company ()
     (set (make-local-variable 'company-backends)
          '(company-capf
            company-yasnippet))
-    ;; (company-mode t)
+    (company-mode)
 
     (use-package company-go
       :after company
@@ -17,11 +17,11 @@
       (push 'company-go company-backends)
       )
     )
-  :hook ((go-mode . my-go-mode-hook)
+  :commands (gofmt-before-save)
+  :hook ((go-mode . go/init-company)
          (go-mode . flycheck-mode)
-         (before-save . gofmt-before-save))
-  :init
-  ;; (add-hook 'before-save-hook 'gofmt-before-save)
+         (go-mode . (lambda ()
+                      (add-hook 'before-save-hook 'gofmt-before-save))))
   )
 
 (use-package go-eldoc

@@ -28,7 +28,7 @@
          '(company-etags
            company-capf
            company-yasnippet))
-    ;; (company-mode t)
+    (company-mode)
     )
   :hook (erlang-mode . erlang/init-company)
   )
@@ -55,13 +55,14 @@
          '(company-capf
            company-dabbrev-code
            company-yasnippet))
-    ;; (company-mode t)
+    (company-mode)
     )
   :hook ((haskell-mode . haskell/init-company)
          (haskell-mode . subword-mode))
-  :bind (:map haskell-mode-map
-              ("C-c C-," . haskell-mode-format-imports)
-              ("C-c C-n" . haskell-navigate-imports))
+  :bind
+  (:map haskell-mode-map
+        ("C-c C-," . haskell-mode-format-imports)
+        ("C-c C-n" . haskell-navigate-imports))
   )
 
 (provide 'init-lisp)
