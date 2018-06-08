@@ -1,15 +1,16 @@
 ;;; -*- lexical-binding: t -*-
 
-(use-package counsel-projectile
+(use-package projectile
   :defer t
   :diminish (projectile-mode)
   :hook (projectile-mode . recentf-mode)
   :init
   (setq projectile-completion-system 'ivy
         projectile-enable-caching t
+        projectile-file-exists-remote-cache-expire nil
         projectile-find-dir-includes-top-level t
         projectile-switch-project-action #'projectile-dired)
-  (counsel-projectile-mode)
+  (projectile-mode)
   )
 
 (use-package yasnippet
