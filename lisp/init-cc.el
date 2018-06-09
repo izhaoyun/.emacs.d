@@ -43,7 +43,7 @@
         ("C-c h l" . hs-hide-level))
   :hook (((c-mode c++-mode) . cc/init-company)
          ((c-mode c++-mode) . which-function-mode)
-         ((c-mode c++-mode) . eldoc-mode)
+         ((c-mode c++-mode) . turn-on-eldoc-mode)
          ((c-mode c++-mode) . hs-minor-mode))
   :init
   (setq gdb-show-main t

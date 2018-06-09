@@ -1,16 +1,9 @@
 ;;; -*- lexical-binding: t -*-
 
-(use-package projectile
+(use-package counsel-projectile
   :defer t
-  :diminish (projectile-mode)
-  :hook (projectile-mode . recentf-mode)
   :init
-  (setq projectile-completion-system 'ivy
-        projectile-enable-caching t
-        projectile-file-exists-remote-cache-expire nil
-        projectile-find-dir-includes-top-level t
-        projectile-switch-project-action #'projectile-dired)
-  (projectile-mode)
+  (counsel-projectile-mode)
   )
 
 (use-package yasnippet
@@ -28,6 +21,7 @@
 
 (use-package company
   :defer t
+  :diminish company-mode
   :hook (after-init . global-company-mode)
   :init
   (setq company-tooltip-limit 20
@@ -182,7 +176,6 @@
               ("M-B" . sp-backward-symbol)
               ("C-M-s" . smartparens-hydra/body)
               )
-  :init
   )
 
 (provide 'init-prog)
