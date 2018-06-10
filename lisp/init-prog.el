@@ -97,7 +97,7 @@
 (use-package magit
   :defer t
   :bind (("C-x g" . magit-status))
-  :init
+  :config
   (setq magit-completing-read-function 'ivy-completing-read)
   )
 

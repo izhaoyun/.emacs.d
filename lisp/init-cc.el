@@ -104,9 +104,10 @@
   :hook (((c-mode c++-mode) . irony-mode)
          (irony-mode . irony-cdb-autosetup-compile-options))
   ;; :commands (counsel-irony)
-  :bind (:map irony-mode-map
-              ([remap completion-at-point] . counsel-irony)
-              ([remap complete-symbol] . counsel-irony))
+  :bind
+  (:map irony-mode-map
+        ([remap completion-at-point] . counsel-irony)
+        ([remap complete-symbol] . counsel-irony))
   )
 
 (use-package irony-eldoc
