@@ -234,4 +234,10 @@
   (setq ispell-dictionary "en_US")
   )
 
+(use-package easy-kill
+  :defer t
+  :bind (([remap kill-ring-save] . easy-kill)
+         ([remap mark-sexp] . easy-mark))
+  )
+
 (provide 'setup-editor)
