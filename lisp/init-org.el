@@ -17,8 +17,9 @@
         org-src-tab-acts-natively t
         org-hide-emphasis-markers t
         org-url-hexify-p nil
-        org-startup-with-inline-images t)
-  (setq org-footnote-auto-adjust t)
+        org-startup-with-inline-images t
+        org-footnote-auto-adjust t)
+
   ;; https://emacs-china.org/t/org-mode/597/11
   (setq org-emphasis-regexp-components
         (list (concat " \t('\"{"            "[:nonascii:]")
@@ -57,7 +58,7 @@
   :defer t
   :load-path "site-lisp/org-mode/lisp"
   :init
-  (setq org-latex-create-formula-image-program 'imagemagick
+  (setq org-preview-latex-default-process 'imagemagick
         org-babel-uppercase-example-markers t)
 
   (org-babel-do-load-languages
@@ -88,12 +89,19 @@
   :defer t
   :load-path "site-lisp/org-mode/lisp"
   :init
-  (setq org-plantuml-jar-path "/opt/plantuml/plantuml.jar")
+  (setq org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
   )
 
 (use-package ob-latex
   :defer t
   :load-path "site-lisp/org-mode/lisp"
+  :init
+  (add-to-list 'org-babel-default-header-args:latex
+               '(:imagemagick . "yes"))
+  (add-to-list 'org-babel-default-header-args:latex
+               '(:iminoptions . "-density 600"))
+  (add-to-list 'org-babel-default-header-args:latex
+               '(:imoutoptions . "-geometry 400"))
   )
 
 (use-package ob-http
@@ -146,7 +154,7 @@
   :defer t
   :mode ("\\.plantuml\\'")
   :init
-  (setq plantuml-jar-path "/opt/plantuml/plantuml.jar")
+  (setq plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
   )
 
 (use-package graphviz-dot-mode
