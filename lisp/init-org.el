@@ -4,11 +4,12 @@
   :defer t
   :load-path "site-lisp/org-mode/lisp"
   :mode (("\\.org\'" . org-mode))
-  :bind (("C-c l" . org-store-link)
-         ("C-c a" . org-agenda)
-         ("C-c b" . org-iswitchb))
-  :bind (:map org-mode-map
-              ("M-o" . ace-link-org))
+  :bind
+  (("C-c l" . org-store-link)
+   ("C-c a" . org-agenda)
+   ("C-c b" . org-iswitchb)
+   :map org-mode-map
+   ("M-o" . ace-link-org))
   :init
   (setq org-image-actual-width nil
         org-catch-invisible-edits 'smart
@@ -25,7 +26,8 @@
               " \t\r\n,\"'"
               "."
               1))
-  (setq org-highlight-latex-and-related '(latex script entities))
+  (setq org-highlight-latex-and-related
+        '(latex script entities))
   :config
   ;; https://emacs-china.org/t/org-mode/597/6
   (setq org-match-substring-regexp
@@ -36,7 +38,8 @@
          "\\|"
          "\\(?:" (org-create-multibrace-regexp "(" ")" org-match-sexp-depth) "\\)"
          "\\|"
-         "\\(?:\\*\\|[+-]?[[:alnum:].,\\]*[[:alnum:]]\\)\\)"))
+         "\\(?:\\*\\|[+-]?[[:alnum:].,\\]*[[:alnum:]]\\)\\)")
+        )
 
   (add-to-list 'org-latex-packages-alist '("" "ctex"))
   (add-to-list 'org-latex-packages-alist '("" "minted"))
@@ -54,9 +57,8 @@
   :defer t
   :load-path "site-lisp/org-mode/lisp"
   :init
-  (setq
-   org-latex-create-formula-image-program 'imagemagick
-   org-babel-uppercase-example-markers t)
+  (setq org-latex-create-formula-image-program 'imagemagick
+        org-babel-uppercase-example-markers t)
 
   (org-babel-do-load-languages
    'org-babel-load-languages
@@ -80,8 +82,6 @@
 (use-package ob-ditaa
   :defer t
   :load-path "site-lisp/org-mode/lisp"
-  :init
-  (setq org-ditaa-jar-path "~/.emacs.d/site-lisp/org-mode/contrib/scripts/ditaa.jar")
   )
 
 (use-package ob-plantuml
@@ -111,8 +111,9 @@
         (setq string (replace-match "\\1\\2" nil nil string)
               start (string-match regexp string start))))
     string)
-  (use-package htmlize)
   :init
+  (use-package htmlize :defer t)
+
   (setq org-export-with-toc nil
         org-export-default-language "zh-CN"
         org-html-doctype "html5"
@@ -120,7 +121,8 @@
         org-latex-compiler "xelatex"
         org-latex-listings 'minted
         org-latex-minted-options '(("breaklines" "")
-                                   ("frame" "single")))
+                                   ("frame" "single"))
+        )
   (setq org-latex-pdf-process
         '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
           "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
