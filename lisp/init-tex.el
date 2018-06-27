@@ -1,10 +1,10 @@
 ;;; -*- lexical-binding: t -*-
 
-(use-package tex
+(use-package auctex
   :load-path "site-lisp/auctex"
   :defer t
   :preface
-  (defun latex/init-company ()
+  (defun tex/init-company ()
     (set (make-local-variable 'company-backends)
          '(company-capf
            company-yasnippet))
@@ -13,17 +13,21 @@
     (use-package company-auctex
       :after company
       :defer t
-      :commands (company-auctex-init)
-      :init
-      (company-auctex-init)
+      :hook (company-mode . company-auctex-init)
       )
     )
-  :hook ((LaTeX-mode . latex/init-company)
+  :hook ((LaTeX-mode . tex/init-company)
          (LaTeX-mode . TeX-PDF-mode)
          (LaTeX-mode . auto-fill-mode))
   :init
   (setq TeX-auto-save t
         TeX-parse-self t)
+  (setq LaTeX-section-hook
+        '(LaTeX-section-heading
+          LaTeX-section-title
+          LaTeX-section-toc
+          LaTeX-section-section
+          LaTeX-section-label))
   (setq-default TeX-master nil
                 TeX-engine 'xetex
                 TeX-command-extra-options "-shell-escape")
@@ -31,18 +35,6 @@
         '(("" "%(PDF)%(latex) -shell-escape %(file-line-error) %(extraopts) %S%(PDFout)")))
   :config
   (add-hook 'TeX-after-compilation-finished-functions #'TeX-revert-document-buffer)
-  )
-
-(use-package latex
-  :load-path "site-lisp/auctex"
-  :defer t
-  :init
-  (setq LaTeX-section-hook
-        '(LaTeX-section-heading
-          LaTeX-section-title
-          LaTeX-section-toc
-          LaTeX-section-section
-          LaTeX-section-label))
   )
 
 (use-package preview-latex

@@ -62,6 +62,11 @@
   :defer t
   )
 
+(use-package go-dlv
+  :after go-mode
+  :defer t
+  )
+
 (use-package gorepl-mode
   :defer t
   :hook (go-mode . gorepl-mode)

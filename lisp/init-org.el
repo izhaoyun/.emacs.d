@@ -63,19 +63,20 @@
 
   (org-babel-do-load-languages
    'org-babel-load-languages
-   '((C          . t)
-     (awk        . t)
-     (dot        . t)
-     (sed        . t)
-     (sql        . t)
-     (http       . t)
+   '((awk        . t)
+     (C          . t)
      (ditaa      . t)
-     (latex      . t)
-     (shell      . t)
+     (dot        . t)
+     (emacs-lisp . t)
      (gnuplot    . t)
-     (python     . t)
+     (go         . t)
+     (http       . t)
+     (latex      . t)
      (plantuml   . t)
-     (emacs-lisp . t)))
+     (python     . t)
+     (sed        . t)
+     (shell      . t)
+     (sql        . t)))
   :config
   (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
   )
@@ -105,6 +106,10 @@
   )
 
 (use-package ob-http
+  :defer t
+  )
+
+(use-package ob-go
   :defer t
   )
 
