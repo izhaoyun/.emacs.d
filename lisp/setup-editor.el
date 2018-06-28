@@ -69,7 +69,8 @@
          ("l" . counsel-find-library)
          ("v" . counsel-describe-variable)
          ("s" . counsel-info-lookup-symbol)
-         ("u" . counsel-unicode-char))
+         ("u" . counsel-unicode-char)
+         ("n" . woman))
    (:map minibuffer-local-map
          ("C-r" . counsel-minibuf-history)))
   :init
@@ -157,6 +158,7 @@
   :defer t
   :diminish which-key-mode
   :init
+  (unbind-key "C-h C-h")
   (setq which-key-idle-delay 0.8)
   (which-key-mode)
   (which-key-setup-side-window-right-bottom)
@@ -241,6 +243,50 @@
   :init
   (unless (server-running-p)
     (server-start))
+  )
+
+(use-package multiple-cursors
+  :defer t
+  :bind
+  (("C-S-c C-S-c" . mc/edit-lines)
+   ;; ("C->" . mc/mark-next-like-this)
+   ;; ("s-<f2> w" . mc/mark-next-like-this-word)
+   ;; ("s-<f2> s" . mc/mark-next-like-this-symbol)
+   ;; ("" . mc/mark-next-word-like-this)
+   ;; ("" . mc/mark-next-symbol-like-this)
+   ;; ("C-<" . mc/mark-previous-like-this)
+   ;; ("" . mc/mark-previous-like-this-word)
+   ;; ("" . mc/mark-previous-like-this-symbol)
+   ;; ("" . mc/mark-previous-word-like-this)
+   ;; ("" . mc/mark-previous-symbol-like-this)
+   ;; ("" . mc/mark-more-like-this-extended)
+   ;; ("" . mc/mark-pop)
+   ;; ("" . mc/unmark-next-like-this)
+   ;; ("" . mc/unmark-previous-like-this)
+   ;; ("" . mc/skip-to-next-like-this)
+   ;; ("" . mc/skip-to-previous-like-this)
+   ;; ("" . mc/edit-lines)
+   ;; ("" . mc/edit-beginnings-of-lines)
+   ;; ("" . mc/edit-ends-of-lines)
+   ;; ("" . mc/mark-all-like-this)
+   ;; ("" . mc/mark-all-words-like-this)
+   ;; ("" . mc/mark-all-symbols-like-this)
+   ;; ("" . mc/mark-all-in-region)
+   ;; ("" . mc/mark-all-like-this-in-defun)
+   ;; ("" . mc/mark-all-words-like-this-in-defun)
+   ;; ("" . mc/mark-all-symbols-like-this-in-defun)
+   ;; ("" . mc/mark-all-dwim)
+   ;; ("" . set-rectangular-region-anchor)
+   ;; ("" . mc/mark-sgml-tag-pair)
+   ;; ("" . mc/insert-numbers)
+   ;; ("" . mc/insert-letters)
+   ;; ("" . mc/sort-regions)
+   ;; ("" . mc/reverse-regions)
+   ("M-<mouse-1>" . mc/add-cursor-on-click)
+   )
+  :init
+  (define-key mc/keymap (kbd "<return>") nil)
+  (global-unset-key (kbd "M-<down-mouse-1>"))
   )
 
 (use-package flyspell
