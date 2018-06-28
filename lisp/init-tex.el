@@ -48,19 +48,4 @@
   :hook (LaTeX-mode . turn-on-reftex)
   )
 
-(use-package pdf-tools
-  :defer t
-  :hook (pdf-view-mode . (lambda () (cua-mode 0)))
-  :bind
-  (:map pdf-view-mode-map
-        ("C-s" . isearch-forward)
-        ("D" . pdf-annot-delete))
-  :init
-  (pdf-tools-install)
-  (setq-default pdf-view-display-size 'fit-page)
-  (setq pdf-view-resize-factor 1.1)
-  :config
-  (setq pdf-annot-activate-created-annotations t)
-  )
-
 (provide 'init-tex)
