@@ -7,7 +7,7 @@
   (defun py/init-company ()
     (set (make-local-variable 'company-backends)
          '(company-capf company-yasnippet))
-    ;; (company-mode t)
+    (company-mode t)
     )
 
   :hook ((python-mode . py/init-company))
@@ -17,14 +17,15 @@
   )
 
 (use-package anaconda-mode
+  :after python
   :defer t
   :hook ((python-mode . anaconda-mode)
          (python-mode . anaconda-eldoc-mode))
   )
 
 (use-package company-anaconda
-  :defer t
   :after (company anaconda-mode)
+  :defer t
   :init
   (push 'company-anaconda company-backends)
   )
@@ -49,12 +50,14 @@
   )
 
 (use-package sphinx-doc
+  :after python
   :defer t
   :diminish sphinx-doc-mode
   :hook (python-mode . sphinx-doc-mode)
   )
 
 (use-package importmagic
+  :after python
   :defer t
   :diminish importmagic-mode
   :hook (python-mode . importmagic-mode)
@@ -67,6 +70,7 @@
   )
 
 (use-package py-autopep8
+  :after python
   :defer t
   :hook (python-mode . py-autopep8-enable-on-save)
   )

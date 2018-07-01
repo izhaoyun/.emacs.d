@@ -32,5 +32,6 @@
 (require 'init-web)
 (require 'init-tex)
 (require 'init-shell)
+(require 'init-devops)
 
 ;;; init.el ends here

@@ -78,25 +78,5 @@
   :hook (go-mode . flycheck-gometalinter-setup)
   )
 
-(use-package dockerfile-mode
-  :defer t
-  :mode ("Dockerfile\\'" . dockerfile-mode)
-  )
-
-(use-package docker-tramp
-  :defer t
-  )
-
-(use-package docker-compose-mode
-  :defer t
-  :mode ("docker-compose[^/]*\\.yml\\'" . docker-compose-mode)
-  )
-
-(use-package docker
-  :defer t
-  :diminish docker-mode
-  :init
-  (docker-global-mode)
-  )
-
 (provide 'init-go)
+;;; init-go.el ends here

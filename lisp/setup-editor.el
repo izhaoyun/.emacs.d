@@ -89,11 +89,6 @@
   :defer t
   )
 
-(use-package counsel-tramp
-  :disabled
-  :defer t
-  )
-
 (use-package avy
   :defer t
   :bind
@@ -284,7 +279,7 @@
    ;; ("" . mc/reverse-regions)
    ("M-<mouse-1>" . mc/add-cursor-on-click)
    )
-  :init
+  :config
   (define-key mc/keymap (kbd "<return>") nil)
   (global-unset-key (kbd "M-<down-mouse-1>"))
   )

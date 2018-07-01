@@ -197,4 +197,8 @@
   :hook (lua-mode . lua/init-company)
   )
 
+(use-package protobuf-mode
+  :defer t
+  )
+
 (provide 'init-cc)
