@@ -124,14 +124,10 @@
   (exec-path-from-shell-copy-env
    exec-path-from-shell-initialize)
   :init
-  (setq exec-path-from-shell-arguments '("-l"))
+  (setq exec-path-from-shell-check-startup-files nil)
+  (setq exec-path-from-shell-variables
+        '("PATH" "GOPATH" "PYTHONPATH"))
   (exec-path-from-shell-initialize)
-  (exec-path-from-shell-copy-env "GOROOT")
-  (exec-path-from-shell-copy-env "GOPATH")
-  (exec-path-from-shell-copy-env "PYTHONPATH")
-  (exec-path-from-shell-copy-env "LC_ALL")
-  (exec-path-from-shell-copy-env "LANG")
-  (exec-path-from-shell-copy-env "LC_TYPE")
   )
 
 (use-package window-numbering
@@ -307,3 +303,10 @@
   )
 
 (provide 'setup-editor)
+
+;; Local Variables:
+;; coding: utf-8
+;; indent-tabs-mode: nil
+;; End:
+
+;;; setup-editor.el ends here

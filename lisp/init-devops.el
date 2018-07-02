@@ -21,9 +21,6 @@
 
 (use-package docker
   :defer t
-  :diminish docker-mode
-  :init
-  (docker-global-mode)
   )
 
 (use-package ansible

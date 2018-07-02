@@ -89,7 +89,7 @@
   )
 
 (use-package json-reformat
-  :defer t
+  :defer tmar
   )
 
 (use-package http
@@ -98,13 +98,27 @@
   :preface
   (defun my/pretty-json-buffer ()
     (json-reformat-region (point-min) (point-max)))
-  :init
+  :config
   ;; fontify response
   (add-to-list 'http-content-type-mode-alist
                '("application/json" . json-mode))
   ;; prettify response
   (add-to-list 'http-pretty-callback-alist
                '("application/json" . my/pretty-json-buffer))
+  )
+
+(use-package markdown-mode
+  :defer t
+  :commands (markdown-mode gfm-mode)
+  :mode
+  (("README\\.md\\'" . gfm-mode)
+   ("\\.md\\'" . markdown-mode)
+   ("\\.markdown\\'" . markdown-mode))
+  )
+
+(use-package vmd-mode
+  :defer t
+  :hook (markdown-mode . vmd-mode)
   )
 
 (provide 'init-web)
