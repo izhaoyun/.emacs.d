@@ -89,7 +89,7 @@
   )
 
 (use-package json-reformat
-  :defer tmar
+  :defer t
   )
 
 (use-package http
@@ -97,7 +97,8 @@
   :defer t
   :preface
   (defun my/pretty-json-buffer ()
-    (json-reformat-region (point-min) (point-max)))
+    (json-reformat-region (point-min) (point-max))
+    )
   :config
   ;; fontify response
   (add-to-list 'http-content-type-mode-alist
