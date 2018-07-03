@@ -122,4 +122,9 @@
   :hook (markdown-mode . vmd-mode)
   )
 
+(use-package npm-mode
+  :defer t
+  :load-path "site-lisp/npm-mode"
+  )
+
 (provide 'init-web)
