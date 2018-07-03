@@ -10,7 +10,8 @@
   :bind
   ((("C-x b" . ivy-switch-buffer)
     ("C-x B" . ivy-switch-buffer-other-window)
-    ("C-c C-r" . ivy-resume))
+    ("C-c C-r" . ivy-resume)
+    ("<f6>" . ivy-resume))
    (:map ivy-minibuffer-map
          ("C-c o" . ivy-occur)
          ("<tab>" . ivy-alt-done)
@@ -101,6 +102,14 @@
    ("C-c C-j" . avy-resume))
   :init
   (avy-setup-default)
+  )
+
+(use-package ace-pinyin
+  :after avy
+  :defer t
+  :diminish ace-pinyin-mode
+  :init
+  (ace-pinyin-mode)
   )
 
 (use-package avy-zap

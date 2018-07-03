@@ -125,13 +125,36 @@
               start (string-match regexp string start))))
     string)
   :init
-  (use-package htmlize :defer t)
-
   (setq org-export-with-toc nil
         org-export-default-language "zh-CN"
+        org-export-time-stamp-file nil)
+  )
+
+(use-package ox-html
+  :defer t
+  :load-path "site-lisp/org-mode/lisp"
+  :init
+  (use-package htmlize
+    :defer t
+    )
+
+  (setq org-html-validation-link nil
         org-html-doctype "html5"
-        org-html-html5-fancy t
-        org-latex-compiler "xelatex"
+        org-html-html5-fancy t)
+  :config
+  (defun ox-html-clear-single-linebreak-for-cjk (string backend info)
+    (when (org-export-derived-backend-p backend 'html)
+      (clear-single-linebreak-in-cjk-string string))
+    )
+  (add-to-list 'org-export-filter-final-output-functions
+               'ox-html-clear-single-linebreak-for-cjk)
+  )
+
+(use-package ox-latex
+  :defer t
+  :load-path "site-lisp/org-mode/lisp"
+  :init
+  (setq org-latex-compiler "xelatex"
         org-latex-listings 'minted
         org-latex-minted-options '(("breaklines" "")
                                    ("frame" "single"))
@@ -140,13 +163,6 @@
         '("xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
           "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"
           "xelatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-  :config
-  (defun ox-html-clear-single-linebreak-for-cjk (string backend info)
-    (when (org-export-derived-backend-p backend 'html)
-      (clear-single-linebreak-in-cjk-string string))
-    )
-  (add-to-list 'org-export-filter-final-output-functions
-               'ox-html-clear-single-linebreak-for-cjk)
   )
 
 (use-package org-pdfview
