@@ -144,6 +144,14 @@
   (window-numbering-mode)
   )
 
+(use-package show-marks
+  :defer t
+  :bind
+  (("C-s-<right>" . forward-mark)
+   ("C-s-<left>" . backward-mark)
+   ("C-s-<up>" . show-marks))
+  )
+
 (use-package highlight-symbol
   :defer t
   :bind
@@ -227,22 +235,13 @@
   :defer t
   )
 
-(use-package show-marks
-  :defer t
-  :bind
-  (("C-s-<right>" . forward-mark)
-   ("C-s-<left>" . backward-mark)
-   ("C-s-<up>" . show-marks))
-  )
-
 (use-package server
   :ensure nil
   :defer t
   :commands (server-running-p)
   :init
   (unless (server-running-p)
-    (server-start))
-  )
+    (server-start)))
 
 (use-package multiple-cursors
   :defer t

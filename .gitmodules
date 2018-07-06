@@ -4,15 +4,9 @@
 [submodule "site-lisp/auctex"]
 	path = site-lisp/auctex
 	url = https://git.savannah.gnu.org/git/auctex.git
-[submodule "site-lisp/ansible"]
-	path = site-lisp/ansible
-	url = https://github.com/k1LoW/emacs-ansible
 [submodule "site-lisp/npm-mode"]
 	path = site-lisp/npm-mode
 	url = https://github.com/mojochao/npm-mode
 [submodule "site-lisp/help-fns-plus"]
 	path = site-lisp/help-fns-plus
 	url = https://github.com/emacsmirror/help-fns-plus
-[submodule "site-lisp/copyright-both-ends"]
-	path = site-lisp/copyright-both-ends
-	url = https://github.com/emacsmirror/copyright-both-ends
