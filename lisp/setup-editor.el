@@ -152,6 +152,12 @@
    ("C-s-<up>" . show-marks))
   )
 
+(use-package volatile-highlights
+  :defer t
+  :init
+  (volatile-highlights-mode)
+  )
+
 (use-package highlight-symbol
   :defer t
   :bind
