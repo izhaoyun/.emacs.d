@@ -9,8 +9,8 @@
 (use-package yasnippet
   :defer t
   :bind (:map yas-minor-mode-map
-              ("<f2>" . yas-expand)
-              ("C-<f2>" . yas-insert-snippet))
+              ("<f2> x" . yas-expand)
+              ("<f2> i" . yas-insert-snippet))
   :hook (after-init . yas-global-mode)
   )
 
@@ -181,3 +181,10 @@
   )
 
 (provide 'init-prog)
+
+;; Local Variables:
+;; coding: utf-8
+;; indent-tabs-mode: nil
+;; End:
+
+;;;  init-prog.el ends here

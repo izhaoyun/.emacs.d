@@ -34,4 +34,9 @@
 (require 'init-shell)
 (require 'init-devops)
 
+;; Local Variables:
+;; coding: utf-8
+;; indent-tabs-mode: nil
+;; End:
+
 ;;; init.el ends here

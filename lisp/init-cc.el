@@ -202,3 +202,10 @@
   )
 
 (provide 'init-cc)
+
+;; Local Variables:
+;; coding: utf-8
+;; indent-tabs-mode: nil
+;; End:
+
+;;; init-cc.el ends here

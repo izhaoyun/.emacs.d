@@ -20,7 +20,8 @@
          ("M-r"   . ivy-reverse-i-search)
          ("<return>" . ivy-alt-done))
    (:map ivy-switch-buffer-map
-         ("C-k" . ivy-switch-buffer-kill)))
+         ("C-k" . ivy-switch-buffer-kill)
+         ))
   :init
   (setq ivy-use-virtual-buffers t
         ivy-count-format "(%d/%d) "
@@ -59,26 +60,24 @@
     ("C-c k" . counsel-ag)
     ("C-c r" . counsel-rg)
     ("C-x l" . counsel-locate)
-    ("C-x p" . counsel-mark-ring)
+    ("C-x m" . counsel-mark-ring)
     ("M-y" . counsel-yank-pop)
     ("C-c f" . counsel-git-log)
     ("M-s d" . counsel-dired-jump)
-    ("M-s f" . counsel-file-jump))
-   (:map help-map
-         ("b" . counsel-descbinds)
-         ("f" . counsel-describe-function)
-         ("l" . counsel-find-library)
-         ("v" . counsel-describe-variable)
-         ("s" . counsel-info-lookup-symbol)
-         ("u" . counsel-unicode-char)
-         ("n" . woman))
+    ("M-s f" . counsel-file-jump)
+    ("C-h g" . counsel-info-lookup-symbol)
+    ("C-h u" . counsel-unicode-char)
+    ("C-h l" . counsel-find-library)
+    ("C-h b" . counsel-descbinds)
+    ("C-h h" . woman)
+    )
    (:map minibuffer-local-map
          ("C-r" . counsel-minibuf-history)))
   :init
   (setq counsel-find-file-at-point t)
   ;; use `rg' instead of `grep'
-  ;; (setq counsel-grep-base-command
-  ;;       "rg -i -M 120 --no-heading --line-number --color never '%s' %s")
+  (setq counsel-grep-base-command
+        "rg -i -M 120 --no-heading --line-number --color never '%s' %s")
   )
 
 (use-package hydra
@@ -308,6 +307,11 @@
   )
 
 (use-package wgrep
+  :defer t
+  )
+
+(use-package help-fns+
+  :load-path "site-lisp/help-fns-plus"
   :defer t
   )
 

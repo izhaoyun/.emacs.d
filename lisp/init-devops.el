@@ -42,6 +42,10 @@
   :hook (ansible . ansible/init-company)
   )
 
+(use-package ansible-vault
+  :defer t
+  )
+
 (use-package vagrant
   :defer t
   )

@@ -79,4 +79,10 @@
   )
 
 (provide 'init-go)
+
+;; Local Variables:
+;; coding: utf-8
+;; indent-tabs-mode: nil
+;; End:
+
 ;;; init-go.el ends here
