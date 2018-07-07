@@ -141,7 +141,6 @@
   )
 
 (use-package smartparens-config
-  :disabled
   :ensure smartparens
   :defer t
   ;; :hook (minibuffer-setup . turn-on-smartparens-strict-mode)

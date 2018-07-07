@@ -1,7 +1,5 @@
 ;;; -*- lexical-binding: t -*-
 
-(eval-when-compile (require 'cl))
-
 (fset 'yes-or-no-p 'y-or-n-p)
 
 (use-package ivy
@@ -10,8 +8,8 @@
   :bind
   ((("C-x b" . ivy-switch-buffer)
     ("C-x B" . ivy-switch-buffer-other-window)
-    ("C-c C-r" . ivy-resume)
-    ("<f6>" . ivy-resume))
+    ("<f6>"  . ivy-resume)
+    ("C-c C-r" . ivy-resume))
    (:map ivy-minibuffer-map
          ("C-c o" . ivy-occur)
          ("<tab>" . ivy-alt-done)
@@ -20,8 +18,7 @@
          ("M-r"   . ivy-reverse-i-search)
          ("<return>" . ivy-alt-done))
    (:map ivy-switch-buffer-map
-         ("C-k" . ivy-switch-buffer-kill)
-         ))
+         ("C-k" . ivy-switch-buffer-kill)))
   :init
   (setq ivy-use-virtual-buffers t
         ivy-count-format "(%d/%d) "
@@ -35,17 +32,20 @@
   )
 
 (use-package swiper
+  :after ivy
   :defer t
   :bind
   ((("C-c u a" . swiper-all)
     ("C-r" . swiper))
    (:map swiper-map
-         ("M-%" . swiper-query-replace)
-         ("C-." . swiper-avy)
+         ("M-q" . swiper-query-replace)
+         ("C-l" . swiper-recenter-top-bottom)
+         ("C-'" . swiper-avy)
          ("M-c" . swiper-mc)))
   )
 
 (use-package counsel
+  :after swiper
   :defer t
   :bind
   ((("C-s" . counsel-grep-or-swiper)
@@ -55,9 +55,13 @@
     ("C-x C-b" . counsel-bookmark)
     ("C-c c" . counsel-org-capture)
     ("C-c m" . counsel-imenu)
-    ("C-c g" . counsel-git)
-    ("C-c j" . counsel-git-grep)
+    ("<f2> f" . counsel-git)
+    ("<f2> g" . counsel-git-grep)
+    ("<f2> s" . counsel-stash)
+    ("<f2> b" . counsel-switch-to-shell-buffer)
+    ("<f2> a" . counsel-ag)
     ("C-c k" . counsel-ag)
+    ("<f2> r" . counsel-rg)
     ("C-c r" . counsel-rg)
     ("C-x l" . counsel-locate)
     ("C-x m" . counsel-mark-ring)
@@ -65,9 +69,12 @@
     ("C-c f" . counsel-git-log)
     ("M-s d" . counsel-dired-jump)
     ("M-s f" . counsel-file-jump)
+    ("C-h a" . counsel-apropos)
     ("C-h g" . counsel-info-lookup-symbol)
     ("C-h u" . counsel-unicode-char)
     ("C-h l" . counsel-find-library)
+    ("C-h L" . counsel-load-library)
+    ("C-h t" . counsel-load-theme)
     ("C-h b" . counsel-descbinds)
     ("C-h h" . woman)
     )
@@ -125,19 +132,6 @@
   (ace-link-setup-default)
   )
 
-(use-package exec-path-from-shell
-  :if (memq window-system '(mac ns x))
-  :defer t
-  :commands
-  (exec-path-from-shell-copy-env
-   exec-path-from-shell-initialize)
-  :init
-  (setq exec-path-from-shell-check-startup-files nil)
-  (setq exec-path-from-shell-variables
-        '("PATH" "GOPATH" "PYTHONPATH"))
-  (exec-path-from-shell-initialize)
-  )
-
 (use-package window-numbering
   :defer t
   :init
@@ -154,6 +148,7 @@
 
 (use-package volatile-highlights
   :defer t
+  :diminish volatile-highlights-mode
   :init
   (volatile-highlights-mode)
   )
@@ -318,6 +313,19 @@
 (use-package help-fns+
   :load-path "site-lisp/help-fns-plus"
   :defer t
+  )
+
+(use-package exec-path-from-shell
+  :if (memq window-system '(mac ns x))
+  :defer t
+  :commands
+  (exec-path-from-shell-copy-env
+   exec-path-from-shell-initialize)
+  :init
+  (setq exec-path-from-shell-check-startup-files nil)
+  (setq exec-path-from-shell-variables
+        '("PATH" "GOPATH" "PYTHONPATH"))
+  (exec-path-from-shell-initialize)
   )
 
 (provide 'setup-editor)

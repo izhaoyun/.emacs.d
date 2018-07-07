@@ -46,6 +46,10 @@
         web-mode-enable-current-element-highlight t)
   )
 
+(use-package htmlize
+  :defer t
+  )
+
 (use-package yaml-mode
   :defer t
   :mode ("\\.\\(yml\\|yaml\\)\\'" . yaml-mode)
@@ -118,6 +122,7 @@
   )
 
 (use-package vmd-mode
+  :after (markdown-mode)
   :defer t
   :hook (markdown-mode . vmd-mode)
   )

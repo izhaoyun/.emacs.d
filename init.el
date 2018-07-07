@@ -5,20 +5,29 @@
 (when (file-exists-p custom-file)
   (load custom-file 'noerror))
 
-(require 'package)
 (setq load-prefer-newer t
       package-enable-at-startup nil)
+(autoload 'package-initialize "package")
+
 (package-initialize)
 (unless package-archive-contents
   (package-refresh-contents)
   (package-install 'use-package)
-  (package-install 'diminish)
   )
-(package-install-selected-packages)
-(setq use-package-always-ensure t)
-(require 'use-package)
-(require 'diminish)
-(require 'bind-key)
+
+(use-package use-package
+  :init
+  (setq use-package-always-ensure t)
+  ;; (setq use-package-verbose t)
+  )
+
+(use-package diminish
+  :defer t
+  )
+
+(use-package bind-key
+  :defer t
+  )
 
 (add-to-list 'load-path
              (expand-file-name "lisp" user-emacs-directory))

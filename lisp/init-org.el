@@ -19,6 +19,7 @@
         org-url-hexify-p nil
         org-startup-with-inline-images t
         org-footnote-auto-adjust t)
+  (setq org-highlight-latex-and-related '(latex script entities))
 
   ;; https://emacs-china.org/t/org-mode/597/11
   (setq org-emphasis-regexp-components
@@ -27,8 +28,7 @@
               " \t\r\n,\"'"
               "."
               1))
-  (setq org-highlight-latex-and-related
-        '(latex script entities))
+
   :config
   ;; https://emacs-china.org/t/org-mode/597/6
   (setq org-match-substring-regexp
@@ -82,20 +82,23 @@
   )
 
 (use-package ob-ditaa
-  :defer t
+  :after ob
   :load-path "site-lisp/org-mode/lisp"
+  :defer t
   )
 
 (use-package ob-plantuml
-  :defer t
+  :after ob
   :load-path "site-lisp/org-mode/lisp"
+  :defer t
   :init
   (setq org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
   )
 
 (use-package ob-latex
-  :defer t
+  :after ob
   :load-path "site-lisp/org-mode/lisp"
+  :defer t
   :init
   (add-to-list 'org-babel-default-header-args:latex
                '(:imagemagick . "yes"))
@@ -106,10 +109,12 @@
   )
 
 (use-package ob-http
+  :after ob
   :defer t
   )
 
 (use-package ob-go
+  :after ob
   :defer t
   )
 
@@ -134,10 +139,6 @@
   :defer t
   :load-path "site-lisp/org-mode/lisp"
   :init
-  (use-package htmlize
-    :defer t
-    )
-
   (setq org-html-validation-link nil
         org-html-doctype "html5"
         org-html-html5-fancy t)
@@ -166,6 +167,7 @@
   )
 
 (use-package org-pdfview
+  :load-path "site-lisp/org-mode/lisp"
   :after (org  pdf-tools)
   :defer t
   )
@@ -254,6 +256,7 @@
   )
 
 (use-package toc-org
+  :load-path "site-lisp/org-mode/lisp"
   :defer t
   :hook (org-mode . toc-org-enable)
   )
