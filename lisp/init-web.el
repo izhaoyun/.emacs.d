@@ -124,7 +124,7 @@
 (use-package vmd-mode
   :after (markdown-mode)
   :defer t
-  :hook (markdown-mode . vmd-mode)
+  ;; :hook (markdown-mode . vmd-mode)
   )
 
 (use-package npm-mode

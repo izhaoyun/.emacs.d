@@ -179,6 +179,25 @@
         )
   )
 
+(use-package lsp-mode
+  :defer t
+  )
+
+(use-package lsp-imenu
+  :ensure lsp-mode
+  :defer t
+  :hook (lsp-after-open . lsp-enable-imenu)
+  )
+
+(use-package lsp-ui
+  :defer t
+  :hook (lsp-mode . lsp-ui-mode)
+  :bind
+  (:map lsp-ui-mode-map
+        ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
+        ([remap xref-find-references] . lsp-ui-peek-find-references))
+  )
+
 (provide 'init-prog)
 
 ;; Local Variables:
