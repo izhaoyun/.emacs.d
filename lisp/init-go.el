@@ -19,7 +19,7 @@
     )
   :bind
   (:map go-mode-map
-        ("C-c C-a" . go-import-add)
+        ;; ("C-c C-a" . go-import-add)
         ("C-c C-d" . godef-describe)
         ("C-c C-j" . godef-jump)
         ("C-x 4 C-c C-j" . godef-jump-other-window)
@@ -40,7 +40,7 @@
   )
 
 (use-package lsp-go
-  ;; :disabled
+  :disabled
   :defer t
   :hook (go-mode . lsp-go-enable)
   )

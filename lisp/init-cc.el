@@ -154,6 +154,7 @@
   )
 
 (use-package cquery
+  :disabled
   :defer t
   )
 

@@ -180,16 +180,19 @@
   )
 
 (use-package lsp-mode
+  :disabled
   :defer t
   )
 
 (use-package lsp-imenu
+  :disabled
   :ensure lsp-mode
   :defer t
   :hook (lsp-after-open . lsp-enable-imenu)
   )
 
 (use-package lsp-ui
+  :disabled
   :defer t
   :hook (lsp-mode . lsp-ui-mode)
   :bind
