@@ -2,6 +2,7 @@ EMACS=emacs
 
 FILES=init.el \
 	custom.el \
+	lisp/setup-packages.el \
 	lisp/setup-editor.el \
 	lisp/init-prog.el \
 	lisp/init-cc.el \

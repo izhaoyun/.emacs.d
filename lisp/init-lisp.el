@@ -17,6 +17,7 @@
 
 (use-package lispy
   :defer t
+  :diminish lispy-mode
   :hook (emacs-lisp-mode . lispy-mode)
   )
 
@@ -66,4 +67,10 @@
   )
 
 (provide 'init-lisp)
+
+;; Local Variables:
+;; coding: utf-8
+;; indent-tabs-mode: nil
+;; End:
+
 ;;; init-lisp.el ends here

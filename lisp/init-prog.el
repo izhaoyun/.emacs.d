@@ -2,16 +2,20 @@
 
 (use-package counsel-projectile
   :defer t
+  :bind-keymap
+  ("C-c p" . projectile-command-map)
   :init
   (counsel-projectile-mode)
   )
 
 (use-package yasnippet
   :defer t
-  :bind (:map yas-minor-mode-map
-              ("<f2> x" . yas-expand)
-              ("<f2> i" . yas-insert-snippet))
-  :hook (after-init . yas-global-mode)
+  :bind
+  (:map yas-minor-mode-map
+        ("<f2> x" . yas-expand)
+        ("<f2> i" . yas-insert-snippet))
+  :hook
+  (after-init . yas-global-mode)
   )
 
 (use-package yasnippet-snippets
@@ -141,6 +145,7 @@
   )
 
 (use-package smartparens-config
+  :disabled
   :ensure smartparens
   :defer t
   ;; :hook (minibuffer-setup . turn-on-smartparens-strict-mode)
@@ -199,6 +204,21 @@
   (:map lsp-ui-mode-map
         ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
         ([remap xref-find-references] . lsp-ui-peek-find-references))
+  )
+
+(use-package eldoc-overlay
+  :defer t
+  :bind
+  ("<f1> j" . eldoc-overlay-toggle)
+  :init
+  (diminish 'eldoc-mode)
+  )
+
+(use-package inline-docs
+  :disabled
+  :defer t
+  :init
+  (setq eldoc-message-function #'inline-docs)
   )
 
 (provide 'init-prog)

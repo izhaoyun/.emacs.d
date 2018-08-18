@@ -9,16 +9,18 @@
   ((("C-x b" . ivy-switch-buffer)
     ("C-x B" . ivy-switch-buffer-other-window)
     ("<f6>"  . ivy-resume)
-    ("C-c C-r" . ivy-resume))
-   (:map ivy-minibuffer-map
-         ("C-c o" . ivy-occur)
-         ("<tab>" . ivy-alt-done)
-         ("C-i"   . ivy-partial-or-done)
-         ("C-r"   . ivy-previous-line-or-history)
-         ("M-r"   . ivy-reverse-i-search)
-         ("<return>" . ivy-alt-done))
-   (:map ivy-switch-buffer-map
-         ("C-k" . ivy-switch-buffer-kill)))
+    ("C-c C-r" . ivy-resume)))
+  :bind
+  (:map ivy-minibuffer-map
+        ("C-c o" . ivy-occur)
+        ("<tab>" . ivy-alt-done)
+        ("C-i"   . ivy-partial-or-done)
+        ("C-r"   . ivy-previous-line-or-history)
+        ("M-r"   . ivy-reverse-i-search)
+        ("<return>" . ivy-alt-done))
+  :bind
+  (:map ivy-switch-buffer-map
+        ("C-k" . ivy-switch-buffer-kill))
   :init
   (setq ivy-use-virtual-buffers t
         ivy-count-format "(%d/%d) "
@@ -36,12 +38,13 @@
   :defer t
   :bind
   ((("C-c u a" . swiper-all)
-    ("C-r" . swiper))
-   (:map swiper-map
-         ("M-q" . swiper-query-replace)
-         ("C-l" . swiper-recenter-top-bottom)
-         ("C-'" . swiper-avy)
-         ("M-c" . swiper-mc)))
+    ("C-r" . swiper)))
+  :bind
+  (:map swiper-map
+        ("M-q" . swiper-query-replace)
+        ("C-l" . swiper-recenter-top-bottom)
+        ("C-'" . swiper-avy)
+        ("M-c" . swiper-mc))
   )
 
 (use-package counsel
@@ -77,14 +80,28 @@
     ("C-h t" . counsel-load-theme)
     ("C-h b" . counsel-descbinds)
     ("C-h h" . woman)
-    )
-   (:map minibuffer-local-map
-         ("C-r" . counsel-minibuf-history)))
+    ))
+  :bind
+  (:map minibuffer-local-map
+        ("C-r" . counsel-minibuf-history))
   :init
   (setq counsel-find-file-at-point t)
   ;; use `rg' instead of `grep'
   (setq counsel-grep-base-command
         "rg -i -M 120 --no-heading --line-number --color never '%s' %s")
+  )
+
+(use-package rg
+  :defer t
+  ;; :ensure-system-package (rg . ripgrep)
+  :hook
+  (rg-mode . wgrep-ag-setup)
+  :init
+  (rg-enable-default-bindings (kbd "M-s r"))
+  )
+
+(use-package wgrep-ag
+  :defer t
   )
 
 (use-package hydra
@@ -157,7 +174,7 @@
   :defer t
   :bind
   (("C-<f3>" . highlight-symbol)
-   ("<f3>" . highlight-symbol-next)
+   ("<f3>"   . highlight-symbol-next)
    ("S-<f3>" . highlight-symbol-prev)
    ("M-<f3>" . highlight-symbol-query-replace))
   )
@@ -242,7 +259,8 @@
   :commands (server-running-p)
   :init
   (unless (server-running-p)
-    (server-start)))
+    (server-start))
+  )
 
 (use-package multiple-cursors
   :defer t
@@ -306,16 +324,13 @@
    ([remap mark-sexp] . easy-mark))
   )
 
-(use-package wgrep
-  :defer t
-  )
-
 (use-package help-fns+
   :load-path "site-lisp/help-fns-plus"
   :defer t
   )
 
 (use-package exec-path-from-shell
+  :disabled
   :if (memq window-system '(mac ns x))
   :defer t
   :commands

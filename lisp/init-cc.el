@@ -41,10 +41,11 @@
         ("C-c h a" . hs-hide-all)
         ("C-c h d" . hs-show-all)
         ("C-c h l" . hs-hide-level))
-  :hook (((c-mode c++-mode) . cc/init-company)
-         ((c-mode c++-mode) . which-function-mode)
-         ((c-mode c++-mode) . turn-on-eldoc-mode)
-         ((c-mode c++-mode) . hs-minor-mode))
+  :hook
+  (((c-mode c++-mode) . cc/init-company)
+   ((c-mode c++-mode) . which-function-mode)
+   ((c-mode c++-mode) . turn-on-eldoc-mode)
+   ((c-mode c++-mode) . hs-minor-mode))
   :init
   (setq gdb-show-main t
         gdb-many-windows t)
@@ -52,14 +53,16 @@
 
 (use-package google-c-style
   :defer t
-  :hook (((c++-mode c-mode) . google-set-c-style)
-         ((c++-mode c-mode) . google-make-newline-indent))
+  :hook
+  (((c++-mode c-mode) . google-set-c-style)
+   ((c++-mode c-mode) . google-make-newline-indent))
   )
 
 (use-package modern-cpp-font-lock
   :defer t
   :diminish modern-c++-font-lock-mode
-  :hook ((c-mode c++-mode) . modern-c++-font-lock-mode)
+  :hook
+  ((c-mode c++-mode) . modern-c++-font-lock-mode)
   )
 
 (use-package ggtags
@@ -77,7 +80,8 @@
         ("C-c >"   . ggtags-next-mark)
         ("C-c M-j" . ggtags-visit-project-root)
         ("M-,"     . pop-tag-mark))
-  :hook ((c-mode c++-mode) . ggtags-mode)
+  :hook
+  ((c-mode c++-mode) . ggtags-mode)
   :init
   (setq large-file-warning-threshold nil)
   :config
@@ -90,7 +94,8 @@
 (use-package counsel-gtags
   :after (counsel)
   :defer t
-  :hook ((c-mode c++-mode) . counsel-gtags-mode)
+  :hook
+  ((c-mode c++-mode) . counsel-gtags-mode)
   :bind
   (:map counsel-gtags-mode-map
         ("M-s g" . counsel-gtags-find-definition)
@@ -153,25 +158,22 @@
   :defer t
   )
 
-(use-package cquery
-  :disabled
-  :defer t
-  )
-
 (use-package cmake-mode
   :defer t
-  :mode (("CMakeLists\\.txt\\'" . cmake-mode)
-         ("\\.cmake\\'" . cmake-mode))
+  :mode
+  (("CMakeLists\\.txt\\'" . cmake-mode)
+   ("\\.cmake\\'" . cmake-mode))
   :preface
   (defun cmake/init-company ()
     (setq-local company-backends
                 '(company-dabbrev-code
                   company-keywords
                   company-cmake))
-    (company-mode)
+    (company-mode 1)
     )
-  :hook ((cmake-mode . cmake/init-company)
-         (cmake-mode . cmake-font-lock-activate))
+  :hook
+  ((cmake-mode . cmake/init-company)
+   (cmake-mode . cmake-font-lock-activate))
   )
 
 (use-package helm-make

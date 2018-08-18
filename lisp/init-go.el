@@ -17,6 +17,14 @@
       (push 'company-go company-backends)
       )
     )
+
+  (defun go/setup-env-var (&optional gopath)
+    (unless gopath (setq gopath (concat (getenv "HOME") "/go")))
+    (setenv "GOPATH" gopath)
+    (setenv "PATH" (concat (getenv "PATH") ":" (concat gopath "/bin")))
+    (setq exec-path (append exec-path (list (concat gopath "/bin"))))
+    )
+  :commands (gofmt-before-save)
   :bind
   (:map go-mode-map
         ;; ("C-c C-a" . go-import-add)
@@ -31,18 +39,13 @@
         ("C-c C-f n" . go-goto-function-name)
         ("C-c C-f r" . go-goto-return-values)
         )
-  :commands (gofmt-before-save)
   :hook
   ((go-mode . go/init-company)
-   (go-mode . flycheck-mode)
+   ;; (go-mode . flycheck-mode)
    (go-mode . (lambda ()
                 (add-hook 'before-save-hook 'gofmt-before-save))))
-  )
-
-(use-package lsp-go
-  :disabled
-  :defer t
-  :hook (go-mode . lsp-go-enable)
+  :init
+  (go/setup-env-var)
   )
 
 (use-package go-eldoc
@@ -79,6 +82,7 @@
   )
 
 (use-package flycheck-gometalinter
+  :disabled
   :after flycheck
   :defer t
   :hook (go-mode . flycheck-gometalinter-setup)
