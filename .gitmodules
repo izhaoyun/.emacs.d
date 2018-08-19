@@ -1,9 +1,6 @@
 [submodule "site-lisp/org-mode"]
 	path = site-lisp/org-mode
 	url = https://code.orgmode.org/bzg/org-mode.git
-[submodule "site-lisp/auctex"]
-	path = site-lisp/auctex
-	url = https://git.savannah.gnu.org/git/auctex.git
 [submodule "site-lisp/npm-mode"]
 	path = site-lisp/npm-mode
 	url = https://github.com/mojochao/npm-mode

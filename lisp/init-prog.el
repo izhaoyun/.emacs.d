@@ -16,6 +16,8 @@
         ("<f2> i" . yas-insert-snippet))
   :hook
   (after-init . yas-global-mode)
+  :config
+
   )
 
 (use-package yasnippet-snippets

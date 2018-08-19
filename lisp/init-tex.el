@@ -1,7 +1,6 @@
 ;;; -*- lexical-binding: t -*-
 
 (use-package auctex
-  :load-path "site-lisp/auctex"
   :defer t
   :preface
   (defun tex/init-company ()
@@ -38,7 +37,7 @@
   )
 
 (use-package preview-latex
-  :load-path "site-lisp/auctex"
+  :ensure auctex
   :defer t
   )
 

@@ -2,17 +2,18 @@
 
 (use-package web-mode
   :defer t
-  :mode (("\\.html?\\'" . web-mode)
-         ("\\.phtml\\'" . web-mode)
-         ("\\.tpl\\.php\\'" . web-mode)
-         ("\\.[agj]sp\\'" . web-mode)
-         ("\\.as[cp]x\\'" . web-mode)
-         ("\\.erb\\'" . web-mode)
-         ("\\.mustache\\'" . web-mode)
-         ("\\.djhtml\\'" . web-mode)
-         ;; associate a content type
-         ("\\.api\\'" . web-mode)
-         ("/some/react/path/.*\\.js[x]?\\'" . web-mode))
+  :mode
+  (("\\.html?\\'" . web-mode)
+   ("\\.phtml\\'" . web-mode)
+   ("\\.tpl\\.php\\'" . web-mode)
+   ("\\.[agj]sp\\'" . web-mode)
+   ("\\.as[cp]x\\'" . web-mode)
+   ("\\.erb\\'" . web-mode)
+   ("\\.mustache\\'" . web-mode)
+   ("\\.djhtml\\'" . web-mode)
+   ;; associate a content type
+   ("\\.api\\'" . web-mode)
+   ("/some/react/path/.*\\.js[x]?\\'" . web-mode))
   :init
   ;; associate an engine
   (setq web-mode-engines-alist
@@ -133,3 +134,8 @@
   )
 
 (provide 'init-web)
+
+;; Local Variables:
+;; coding: utf-8
+;; indent-tabs-mode: nil
+;; End:
