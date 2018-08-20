@@ -5,8 +5,9 @@
 (when (file-exists-p custom-file)
   (load custom-file 'noerror))
 
-(add-to-list 'load-path
-             (expand-file-name "lisp" user-emacs-directory))
+(add-to-list
+ 'load-path
+ (expand-file-name "lisp" user-emacs-directory))
 
 (require 'setup-packages)
 (require 'setup-editor)

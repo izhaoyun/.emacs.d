@@ -1,12 +1,14 @@
 ;;; -*- lexical-binding: t -*-
 
-(setq load-prefer-newer t
-      package-enable-at-startup nil)
+(setq package-enable-at-startup nil)
 (autoload 'package-initialize "package")
-
 (package-initialize)
+
 (unless package-archive-contents
   (package-refresh-contents)
+  )
+
+(unless (package-installed-p 'use-package)
   (package-install 'use-package)
   )
 
