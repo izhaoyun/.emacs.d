@@ -77,10 +77,8 @@
     ("C-h u" . counsel-unicode-char)
     ("C-h l" . counsel-find-library)
     ("C-h L" . counsel-load-library)
-    ("C-h t" . counsel-load-theme)
     ("C-h b" . counsel-descbinds)
-    ("C-h h" . woman)
-    ))
+    ("C-h h" . woman)))
   :bind
   (:map minibuffer-local-map
         ("C-r" . counsel-minibuf-history))
@@ -329,18 +327,18 @@
   :defer t
   )
 
-(use-package exec-path-from-shell
-  :disabled
-  :if (memq window-system '(mac ns x))
+(use-package shell-pop
   :defer t
-  :commands
-  (exec-path-from-shell-copy-env
-   exec-path-from-shell-initialize)
+  :bind
+  ("C-h t" . shell-pop)
   :init
-  (setq exec-path-from-shell-check-startup-files nil)
-  (setq exec-path-from-shell-variables
-        '("PATH" "GOPATH" "PYTHONPATH"))
-  (exec-path-from-shell-initialize)
+  (setq shell-pop-full-span t
+        shell-pop-term-shell "/bin/bash"
+        shell-pop-window-size 35
+        shell-pop-window-position "bottom")
+  (setq shell-pop-shell-type
+        '("ansi-term" "*ansi-term*"
+          (lambda nil (ansi-term shell-pop-term-shell))))
   )
 
 (provide 'setup-editor)

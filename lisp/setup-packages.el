@@ -6,6 +6,9 @@
 
 (unless package-archive-contents
   (package-refresh-contents)
+  (when (boundp 'package-selected-packages)
+    (package-install-selected-packages)
+    )
   )
 
 (unless (package-installed-p 'use-package)

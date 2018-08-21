@@ -52,13 +52,15 @@
   :after go-mode
   :defer t
   :diminish eldoc-mode
-  :hook (go-mode . go-eldoc-setup)
+  :hook
+  (go-mode . go-eldoc-setup)
   )
 
 (use-package go-guru
   :after go-mode
   :defer t
-  :hook (go-mode . go-guru-hl-identifier-mode)
+  :hook
+  (go-mode . go-guru-hl-identifier-mode)
   )
 
 (use-package go-rename
@@ -78,14 +80,16 @@
 
 (use-package gorepl-mode
   :defer t
-  :hook (go-mode . gorepl-mode)
+  :hook
+  (go-mode . gorepl-mode)
   )
 
 (use-package flycheck-gometalinter
   :disabled
-  :after flycheck
+  :after (go-mode flycheck)
   :defer t
-  :hook (go-mode . flycheck-gometalinter-setup)
+  :hook
+  (go-mode . flycheck-gometalinter-setup)
   )
 
 (provide 'init-go)
