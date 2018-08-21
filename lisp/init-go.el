@@ -92,6 +92,10 @@
   (go-mode . flycheck-gometalinter-setup)
   )
 
+(use-package protobuf-mode
+  :mode ("\\.proto\\'" . protobuf-mode)
+  )
+
 (provide 'init-go)
 
 ;; Local Variables:

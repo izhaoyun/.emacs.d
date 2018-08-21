@@ -133,9 +133,23 @@
   :load-path "site-lisp/npm-mode"
   )
 
+
+(use-package restclient
+  :defer t
+  )
+
+(use-package company-restclient
+  :after (restclient company)
+  :defer t
+  :init
+  (add-to-list 'company-backends 'company-restclient)
+  )
+
 (provide 'init-web)
 
 ;; Local Variables:
 ;; coding: utf-8
 ;; indent-tabs-mode: nil
 ;; End:
+
+;;; init-web.el ends here

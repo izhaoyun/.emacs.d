@@ -156,9 +156,9 @@
 (use-package show-marks
   :defer t
   :bind
-  (("C-s-<right>" . forward-mark)
-   ("C-s-<left>" . backward-mark)
-   ("C-s-<up>" . show-marks))
+  (("<f2> <right>" . forward-mark)
+   ("<f2> <left>" . backward-mark)
+   ("<f2> <up>" . show-marks))
   )
 
 (use-package volatile-highlights
