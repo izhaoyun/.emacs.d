@@ -97,7 +97,7 @@
   :bind
   (:map counsel-gtags-mode-map
         ("M-s g" . counsel-gtags-find-definition)
-        ("M-s r" . counsel-gtags-find-reference)
+        ("M-s x" . counsel-gtags-find-reference)
         ("M-s s" . counsel-gtags-find-symbol)
         ("M-s b" . counsel-gtags-go-backward))
   )
