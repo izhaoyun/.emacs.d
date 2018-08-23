@@ -3,13 +3,15 @@
 (use-package async-bytecomp
   :defer t
   :ensure async
-  :hook (emacs-lisp-mode . async-bytecomp-package-mode)
+  :hook
+  (emacs-lisp-mode . async-bytecomp-package-mode)
   )
 
 (use-package auto-compile
   :defer t
-  :hook ((emacs-lisp-mode . auto-compile-on-load-mode)
-         (emacs-lisp-mode . auto-compile-on-save-mode))
+  :hook
+  ((emacs-lisp-mode . auto-compile-on-load-mode)
+   (emacs-lisp-mode . auto-compile-on-save-mode))
   :init
   (setq auto-compile-display-buffer nil
         auto-compile-mode-line-counter t)
@@ -18,7 +20,8 @@
 (use-package lispy
   :defer t
   :diminish lispy-mode
-  :hook (emacs-lisp-mode . lispy-mode)
+  :hook
+  (emacs-lisp-mode . lispy-mode)
   )
 
 (use-package erlang-start
@@ -31,20 +34,23 @@
            company-yasnippet))
     (company-mode)
     )
-  :hook (erlang-mode . erlang/init-company)
+  :hook
+  (erlang-mode . erlang/init-company)
   )
 
 (use-package company-erlang
   :after (company erlang-start)
   :defer t
-  :hook (erlang-mode . company-erlang-init)
+  :hook
+  (erlang-mode . company-erlang-init)
   )
 
 (use-package ivy-erlang-complete
   :after (ivy company-erlang)
   :defer t
-  :hook ((erlang-mode . ivy-erlang-complete-init)
-         (after-save . ivy-erlang-complete-reparse))
+  :hook
+  ((erlang-mode . ivy-erlang-complete-init)
+   (after-save . ivy-erlang-complete-reparse))
   )
 
 (use-package haskell-mode-autoloads
@@ -58,8 +64,9 @@
            company-yasnippet))
     (company-mode)
     )
-  :hook ((haskell-mode . haskell/init-company)
-         (haskell-mode . subword-mode))
+  :hook
+  ((haskell-mode . haskell/init-company)
+   (haskell-mode . subword-mode))
   :bind
   (:map haskell-mode-map
         ("C-c C-," . haskell-mode-format-imports)

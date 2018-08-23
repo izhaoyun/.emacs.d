@@ -18,6 +18,12 @@
       )
     )
 
+  (defun go/init-snippets ()
+    (use-package go-snippets
+      :after yasnippet
+      )
+    )
+
   (defun go/setup-env-var (&optional gopath)
     (unless gopath (setq gopath (concat (getenv "HOME") "/go")))
     (setenv "GOPATH" gopath)
@@ -26,7 +32,8 @@
     )
   :commands (gofmt-before-save)
   :hook
-  ((go-mode . go/init-company)
+  ((go-mode . go/init-snippets)
+   (go-mode . go/init-company)
    (go-mode . go/setup-env-var)
    (go-mode . (lambda ()
                 (add-hook 'before-save-hook 'gofmt-before-save))))
@@ -35,7 +42,6 @@
 (use-package go-eldoc
   :after go-mode
   :defer t
-  :diminish eldoc-mode
   :hook
   (go-mode . go-eldoc-setup)
   )
@@ -50,6 +56,15 @@
 (use-package go-rename
   :after go-mode
   :defer t
+  )
+
+(use-package go-direx
+  :after go-mode
+  :defer t
+  :bind
+  (:map go-mode-map
+        ("C-c d p" . go-direx-pop-to-buffer)
+        ("C-c d s" . go-direx-switch-to-buffer))
   )
 
 (use-package go-playground

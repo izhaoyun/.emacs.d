@@ -29,8 +29,10 @@
         ivy-wrap t)
   (ivy-mode 1)
   :config
-  (ivy-set-occur 'swiper 'swiper-occur)
-  (ivy-set-occur 'ivy-switch-buffer 'ivy-switch-buffer-occur)
+  (ivy-set-occur 'swiper
+                 'swiper-occur)
+  (ivy-set-occur 'ivy-switch-buffer
+                 'ivy-switch-buffer-occur)
   )
 
 (use-package swiper
@@ -154,9 +156,8 @@
   )
 
 (use-package popwin
-  :defer t
   :bind-keymap
-  ("C-z" . popwin:keymap)
+  ("C-<f2>" . popwin:keymap)
   :config
   ;; M-x anything
   (setq anything-samewindow nil)
@@ -216,19 +217,16 @@
 (use-package which-key
   :defer t
   :diminish which-key-mode
-  :init
-  (unbind-key "C-h C-h")
-  (setq which-key-idle-delay 0.8)
-  (which-key-mode)
-  (which-key-setup-side-window-right-bottom)
+  :hook
+  ((after-init . which-key-mode)
+   (which-key-mode-hook . which-key-setup-side-window-right-bottom))
   )
 
 (use-package ws-butler
   :defer t
   :diminish ws-butler-mode
   :hook
-  ((prog-mode . ws-butler-mode)
-   (before-save . delete-trailing-whitespace))
+  (prog-mode . ws-butler-mode)
   )
 
 (use-package expand-region
@@ -256,96 +254,37 @@
 (use-package dired-async
   :ensure async
   :defer t
-  :hook (dired-mode . dired-async-mode)
-  :init
-  (setq dired-recursive-copies 'always
-        dired-recursive-deletes 'always)
+  :hook
+  (dired-mode . dired-async-mode)
   )
 
 (use-package hippie-exp
   :ensure nil
   :defer t
-  :bind ("M-/" . hippie-expand)
+  :bind
+  ("M-/" . hippie-expand)
   )
 
 (use-package paren
   :ensure nil
-  :defer 8
-  :hook (prog-mode . show-paren-mode)
+  :defer t
+  :hook
+  (prog-mode . show-paren-mode)
   )
 
 (use-package winner
   :ensure nil
-  :defer 10
-  :commands (winner-mode)
-  :init
-  (winner-mode 1)
-  )
-
-(use-package tramp
-  :ensure nil
-  :defer t
-  )
-
-(use-package server
-  :ensure nil
-  :defer t
-  :commands (server-running-p)
-  :init
-  (unless (server-running-p)
-    (server-start))
-  )
-
-(use-package multiple-cursors
-  :defer t
-  :bind
-  (("C-S-c C-S-c" . mc/edit-lines)
-   ;; ("C->" . mc/mark-next-like-this)
-   ;; ("s-<f2> w" . mc/mark-next-like-this-word)
-   ;; ("s-<f2> s" . mc/mark-next-like-this-symbol)
-   ;; ("" . mc/mark-next-word-like-this)
-   ;; ("" . mc/mark-next-symbol-like-this)
-   ;; ("C-<" . mc/mark-previous-like-this)
-   ;; ("" . mc/mark-previous-like-this-word)
-   ;; ("" . mc/mark-previous-like-this-symbol)
-   ;; ("" . mc/mark-previous-word-like-this)
-   ;; ("" . mc/mark-previous-symbol-like-this)
-   ;; ("" . mc/mark-more-like-this-extended)
-   ;; ("" . mc/mark-pop)
-   ;; ("" . mc/unmark-next-like-this)
-   ;; ("" . mc/unmark-previous-like-this)
-   ;; ("" . mc/skip-to-next-like-this)
-   ;; ("" . mc/skip-to-previous-like-this)
-   ;; ("" . mc/edit-lines)
-   ;; ("" . mc/edit-beginnings-of-lines)
-   ;; ("" . mc/edit-ends-of-lines)
-   ;; ("" . mc/mark-all-like-this)
-   ;; ("" . mc/mark-all-words-like-this)
-   ;; ("" . mc/mark-all-symbols-like-this)
-   ;; ("" . mc/mark-all-in-region)
-   ;; ("" . mc/mark-all-like-this-in-defun)
-   ;; ("" . mc/mark-all-words-like-this-in-defun)
-   ;; ("" . mc/mark-all-symbols-like-this-in-defun)
-   ;; ("" . mc/mark-all-dwim)
-   ;; ("" . set-rectangular-region-anchor)
-   ;; ("" . mc/mark-sgml-tag-pair)
-   ;; ("" . mc/insert-numbers)
-   ;; ("" . mc/insert-letters)
-   ;; ("" . mc/sort-regions)
-   ;; ("" . mc/reverse-regions)
-   ("M-<mouse-1>" . mc/add-cursor-on-click)
-   )
-  :config
-  (define-key mc/keymap (kbd "<return>") nil)
-  (global-unset-key (kbd "M-<down-mouse-1>"))
+  :hook
+  (after-init . winner-mode)
   )
 
 (use-package flyspell
   :disabled
   :diminish flyspell-mode
   :defer 18
-  :hook ((text-mode . flyspell-mode)
-         (prog-mode . flyspell-prog-mode))
+  :hook
+  ((text-mode . flyspell-mode)
+   (prog-mode . flyspell-prog-mode))
   :init
   ;; settings for ispell
   (setq ispell-dictionary "en_US")
@@ -366,7 +305,7 @@
 (use-package shell-pop
   :defer t
   :bind
-  ("C-h t" . shell-pop)
+  ("<f2> t" . shell-pop)
   :init
   (setq shell-pop-full-span t
         shell-pop-term-shell "/bin/bash"

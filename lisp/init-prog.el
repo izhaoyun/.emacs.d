@@ -16,8 +16,6 @@
         ("<f2> i" . yas-insert-snippet))
   :hook
   (after-init . yas-global-mode)
-  :config
-
   )
 
 (use-package yasnippet-snippets
@@ -28,13 +26,13 @@
 (use-package company
   :defer t
   :diminish company-mode
-  :hook (after-init . global-company-mode)
+  :bind
+  ("C-c y" . company-yasnippet)
   :init
   (setq company-tooltip-limit 20
         company-idle-delay .3
         company-echo-delay 0
         company-show-numbers t)
-  :bind ("C-c y" . company-yasnippet)
   ;; :config
   ;; (setq company-begin-commands '(self-insert-command))
   )
@@ -46,19 +44,22 @@
   :bind
   (:map company-active-map
         ("M-h" . company-quickhelp-manual-begin))
-  :hook (company-mode . company-quickhelp-mode)
+  :hook
+  (company-mode . company-quickhelp-mode)
   :init
   (setq company-quickhelp-delay nil)
   )
 
 (use-package comment-dwim-2
   :defer t
-  :bind (("M-;" . comment-dwim-2))
+  :bind
+  ("M-;" . comment-dwim-2)
   )
 
 (use-package highlight-indent-guides
   :defer t
-  :hook (prog-mode . highlight-indent-guides-mode)
+  :hook
+  (prog-mode . highlight-indent-guides-mode)
   :init
   (setq highlight-indent-guides-method 'character
         highlight-indent-guides-character ?\|
@@ -77,7 +78,8 @@
 (use-package dtrt-indent
   :defer t
   :diminish dtrt-indent-mode
-  :hook (prog-mode . dtrt-indent-mode)
+  :hook
+  (prog-mode . dtrt-indent-mode)
   :init
   (setq dtrt-indent-verbosity 0)
   )
@@ -85,7 +87,8 @@
 (use-package aggressive-indent
   :defer t
   :diminish aggressive-indent-mode
-  :hook ((emacs-lisp-mode cmake-mode) . aggressive-indent-mode)
+  :hook
+  ((emacs-lisp-mode cmake-mode) . aggressive-indent-mode)
   :config
   (add-to-list
    'aggressive-indent-dont-indent-if
@@ -95,14 +98,15 @@
   )
 
 (use-package rainbow-delimiters
-  :ensure rainbow-delimiters
   :defer t
-  :hook ((prog-mode cmake-mode) . rainbow-delimiters-mode)
+  :hook
+  ((prog-mode cmake-mode) . rainbow-delimiters-mode)
   )
 
 (use-package magit
   :defer t
-  :bind (("C-x g" . magit-status))
+  :bind
+  (("C-x g" . magit-status))
   :config
   (setq magit-completing-read-function 'ivy-completing-read)
   )
@@ -121,7 +125,8 @@
 
 (use-package diff-hl
   :defer 15
-  :hook ((prog-mode vc-dir-mode) . turn-on-diff-hl-mode)
+  :hook
+  ((prog-mode vc-dir-mode) . turn-on-diff-hl-mode)
   )
 
 (use-package counsel-etags
@@ -144,68 +149,6 @@
             (lambda ()
               (add-hook 'after-save-hook
                         'counsel-etags-virtual-update-tags 'append 'local)))
-  )
-
-(use-package smartparens-config
-  :disabled
-  :ensure smartparens
-  :defer t
-  ;; :hook (minibuffer-setup . turn-on-smartparens-strict-mode)
-  :preface
-  (defhydra smartparens-hydra ()
-    "Smartparens"
-    ("d" sp-down-sexp "Down")
-    ("e" sp-up-sexp "Up")
-    ("u" sp-backward-up-sexp "Up")
-    ("a" sp-backward-down-sexp "Down")
-    ("f" sp-forward-sexp "Forward")
-    ("b" sp-backward-sexp "Backward")
-    ("k" sp-kill-sexp "Kill" :color blue)
-    ("q" nil "Quit" :color blue)
-    )
-  :bind
-  (:map smartparens-mode-map
-        ("C-M-f" . sp-forward-sexp)
-        ("C-M-b" . sp-backward-sexp)
-        ("C-M-d" . sp-down-sexp)
-        ("C-M-a" . sp-backward-down-sexp)
-        ("C-S-d" . sp-beginning-of-sexp)
-        ("C-S-a" . sp-end-of-sexp)
-        ("C-M-e" . sp-up-sexp)
-        ("C-M-u" . sp-backward-up-sexp)
-        ("C-M-t" . sp-transpose-sexp)
-        ("C-M-n" . sp-forward-hybrid-sexp)
-        ("C-M-p" . sp-backward-hybrid-sexp)
-        ("C-M-k" . sp-kill-sexp)
-        ("C-M-w" . sp-copy-sexp)
-        ("M-<delete>" . sp-unwrap-sexp)
-        ("M-<backspace>" . sp-backward-unwrap-sexp)
-        ("M-F" . sp-forward-symbol)
-        ("M-B" . sp-backward-symbol)
-        ("C-M-s" . smartparens-hydra/body)
-        )
-  )
-
-(use-package lsp-mode
-  :disabled
-  :defer t
-  )
-
-(use-package lsp-imenu
-  :disabled
-  :ensure lsp-mode
-  :defer t
-  :hook (lsp-after-open . lsp-enable-imenu)
-  )
-
-(use-package lsp-ui
-  :disabled
-  :defer t
-  :hook (lsp-mode . lsp-ui-mode)
-  :bind
-  (:map lsp-ui-mode-map
-        ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
-        ([remap xref-find-references] . lsp-ui-peek-find-references))
   )
 
 (use-package eldoc-overlay
