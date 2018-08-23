@@ -15,16 +15,14 @@
   (package-install 'use-package)
   )
 
-(use-package use-package
-  :init
-  (setq use-package-always-ensure t
-        use-package-always-defer t
-        use-package-verbose t)
-  )
+(require 'bind-key)
+(require 'diminish)
 
-(use-package diminish)
+(setq use-package-always-ensure t
+      use-package-always-defer t
+      use-package-verbose t)
 
-(use-package bind-key)
+(require 'use-package)
 
 (use-package system-packages
   :init
