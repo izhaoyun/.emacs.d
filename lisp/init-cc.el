@@ -29,77 +29,74 @@
     (push '(company-irony-c-headers company-irony)
           company-backends)
     )
+
+  (defun cc/init-ggtags ()
+    (use-package ggtags
+      :bind-keymap
+      ("C-c g" . ggtags-mode-map)
+      :bind
+      (:map ggtags-mode-map
+            ("b"   . ggtags-browse-file-as-hypertext)
+            ("c"   . ggtags-find-tag-dwim)
+            ("d"   . ggtags-find-definition)
+            ("e"   . ggtags-grep)
+            ("f"   . ggtags-find-file)
+            ("g"   . ggtags-save-to-register)
+            ("h"   . ggtags-view-tag-history)
+            ("j"   . ggtags-visit-project-root)
+            ("k"   . ggtags-kill-file-buffers)
+            ("l"   . ggtags-explain-tags)
+            ("o"   . ggtags-find-other-symbol)
+            ("p"   . ggtags-prev-mark)
+            ("<"   . ggtags-prev-mark)
+            ("n"   . ggtags-next-mark)
+            (">"   . ggtags-next-mark)
+            ("q"   . ggtags-idutils-query)
+            ("r"   . ggtags-find-reference)
+            ("s"   . ggtags-grep)
+            ("t"   . ggtags-create-tags)
+            ("u"   . ggtags-update-tags)
+            ("v"   . ggtags-save-project-settings)
+            ("x"   . ggtags-delete-tags)
+            ("M-%" . ggtags-query-replace)
+            ("M-?" . ggtags-show-definition))
+      :init
+      (setq large-file-warning-threshold nil)
+      (ggtags-mode 1)
+      :config
+      (setq-local imenu-create-index-function #'ggtags-build-imenu-index)
+      (setq-local eldoc-documentation-function #'ggtags-eldoc-function)
+      (setq-local hippie-expand-try-functions-list
+                  (cons 'ggtags-try-complete-tag hippie-expand-try-functions-list))
+      )
+
+    (use-package counsel-gtags
+      :bind
+      (:map counsel-gtags-mode-map
+            ("M-s g" . counsel-gtags-find-definition)
+            ("M-s x" . counsel-gtags-find-reference)
+            ("M-s s" . counsel-gtags-find-symbol)
+            ("M-s b" . counsel-gtags-go-backward))
+      )
+    )
+
   :hook
   (((c-mode c++-mode) . cc/init-company)
    ((c-mode c++-mode) . which-function-mode)
    ((c-mode c++-mode) . turn-on-eldoc-mode)
+   ((c-mode c++-mode) . cc/init-ggtags)
+   ((c-mode c++-mode) . google-set-c-style)
+   ((c-mode c++-mode) . google-make-newline-indent)
    ((c-mode c++-mode) . hs-minor-mode))
   :init
   (setq gdb-show-main t
         gdb-many-windows t)
   )
 
-(use-package google-c-style
-  :hook
-  (((c++-mode c-mode) . google-set-c-style)
-   ((c++-mode c-mode) . google-make-newline-indent))
-  )
-
 (use-package modern-cpp-font-lock
   :diminish modern-c++-font-lock-mode
   :hook
   ((c-mode c++-mode) . modern-c++-font-lock-mode)
-  )
-
-(use-package ggtags
-  :bind-keymap
-  ("C-c g" . ggtags-mode-map)
-  :bind
-  (:map ggtags-mode-map
-        ("b"   . ggtags-browse-file-as-hypertext)
-        ("c"   . ggtags-find-tag-dwim)
-        ("d"   . ggtags-find-definition)
-        ("e"   . ggtags-grep)
-        ("f"   . ggtags-find-file)
-        ("g"   . ggtags-save-to-register)
-        ("h"   . ggtags-view-tag-history)
-        ("j"   . ggtags-visit-project-root)
-        ("k"   . ggtags-kill-file-buffers)
-        ("l"   . ggtags-explain-tags)
-        ("o"   . ggtags-find-other-symbol)
-        ("p"   . ggtags-prev-mark)
-        ("<"   . ggtags-prev-mark)
-        ("n"   . ggtags-next-mark)
-        (">"   . ggtags-next-mark)
-        ("q"   . ggtags-idutils-query)
-        ("r"   . ggtags-find-reference)
-        ("s"   . ggtags-grep)
-        ("t"   . ggtags-create-tags)
-        ("u"   . ggtags-update-tags)
-        ("v"   . ggtags-save-project-settings)
-        ("x"   . ggtags-delete-tags)
-        ("M-%" . ggtags-query-replace)
-        ("M-?" . ggtags-show-definition))
-  :hook
-  ((c-mode c++-mode) . ggtags-mode)
-  :init
-  (setq large-file-warning-threshold nil)
-  :config
-  (setq-local imenu-create-index-function #'ggtags-build-imenu-index)
-  (setq-local eldoc-documentation-function #'ggtags-eldoc-function)
-  (setq-local hippie-expand-try-functions-list
-              (cons 'ggtags-try-complete-tag hippie-expand-try-functions-list))
-  )
-
-(use-package counsel-gtags
-  :hook
-  ((c-mode c++-mode) . counsel-gtags-mode)
-  :bind
-  (:map counsel-gtags-mode-map
-        ("M-s g" . counsel-gtags-find-definition)
-        ("M-s x" . counsel-gtags-find-reference)
-        ("M-s s" . counsel-gtags-find-symbol)
-        ("M-s b" . counsel-gtags-go-backward))
   )
 
 (use-package irony

@@ -1,7 +1,6 @@
 ;;; -*- lexical-binding: t -*-
 
-(use-package go-mode-autoloads
-  :ensure go-mode
+(use-package go-mode
   :mode ("\\.go\\'" . go-mode)
   :preface
   (defun go/init-company ()
@@ -29,11 +28,20 @@
     (setenv "PATH" (concat (getenv "PATH") ":" (concat gopath "/bin")))
     (setq exec-path (append exec-path (list (concat gopath "/bin"))))
     )
+
+  (defun go/init-flycheck ()
+    (use-package flycheck-gometalinter
+      :init
+      (flycheck-gometalinter-setup)
+      )
+    (flycheck-mode t)
+    )
   :commands (gofmt-before-save)
   :hook
   ((go-mode . hs-minor-mode)
    (go-mode . go/init-snippets)
    (go-mode . go/init-company)
+   (go-mode . go/init-flycheck)
    (go-mode . go/setup-env-var)
    (go-mode . (lambda ()
                 (add-hook 'before-save-hook 'gofmt-before-save)))
@@ -71,7 +79,7 @@
   :bind
   (:map go-mode-map
         ("C-c t o" . go-direx-pop-to-buffer)
-        ("C-c t s" . go-direx-switch-to-buffer))
+        ("C-c t u" . go-direx-switch-to-buffer))
   )
 
 (use-package go-imports
@@ -102,11 +110,6 @@
 (use-package gorepl-mode
   :hook
   (go-mode . gorepl-mode)
-  )
-
-(use-package flycheck-gometalinter
-  :hook
-  (go-mode . flycheck-gometalinter-setup)
   )
 
 (use-package protobuf-mode
