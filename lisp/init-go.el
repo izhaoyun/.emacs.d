@@ -67,6 +67,15 @@
         ("C-c d s" . go-direx-switch-to-buffer))
   )
 
+(use-package go-imports
+  :after go-mode
+  :defer t
+  :bind
+  (:map go-mode-map
+        ("C-c i i" . go-imports-insert-import)
+        ("C-c i r" . go-imports-reload-packages-list))
+  )
+
 (use-package go-playground
   :after go-mode
   :defer t
