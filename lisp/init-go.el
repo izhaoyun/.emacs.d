@@ -25,27 +25,11 @@
     (setq exec-path (append exec-path (list (concat gopath "/bin"))))
     )
   :commands (gofmt-before-save)
-  :bind
-  (:map go-mode-map
-        ;; ("C-c C-a" . go-import-add)
-        ("C-c C-d" . godef-describe)
-        ("C-c C-j" . godef-jump)
-        ("C-x 4 C-c C-j" . godef-jump-other-window)
-        ("C-c C-f a" . go-goto-arguments)
-        ("C-c C-f d" . go-goto-docstring)
-        ("C-c C-f f" . go-goto-function)
-        ("C-c C-f i" . go-goto-imports)
-        ("C-c C-f m" . go-goto-method-receiver)
-        ("C-c C-f n" . go-goto-function-name)
-        ("C-c C-f r" . go-goto-return-values)
-        )
   :hook
   ((go-mode . go/init-company)
-   ;; (go-mode . flycheck-mode)
+   (go-mode . go/setup-env-var)
    (go-mode . (lambda ()
                 (add-hook 'before-save-hook 'gofmt-before-save))))
-  :init
-  (go/setup-env-var)
   )
 
 (use-package go-eldoc
