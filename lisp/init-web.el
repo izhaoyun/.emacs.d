@@ -1,7 +1,6 @@
 ;;; -*- lexical-binding: t -*-
 
 (use-package web-mode
-  :defer t
   :mode
   (("\\.html?\\'" . web-mode)
    ("\\.phtml\\'" . web-mode)
@@ -47,12 +46,9 @@
         web-mode-enable-current-element-highlight t)
   )
 
-(use-package htmlize
-  :defer t
-  )
+(use-package htmlize)
 
 (use-package yaml-mode
-  :defer t
   :mode ("\\.\\(yml\\|yaml\\)\\'" . yaml-mode)
   :bind
   (:map yaml-mode-map
@@ -61,18 +57,15 @@
 
 (use-package flycheck-yamllint
   :after (flycheck yaml-mode)
-  :defer t
   :hook (yaml-mode . flycheck-yamllint-setup)
   )
 
 (use-package js2-mode
-  :defer t
   :mode ("\\.js\\'" . js2-mode)
   :interpreter ("node" . js2-mode)
   )
 
 (use-package css-mode
-  :defer t
   :preface
   (defun css/init-company ()
     (set (make-local-variable 'company-backends)
@@ -85,21 +78,13 @@
   :hook (css-mode . css/init-company)
   )
 
-(use-package json-mode
-  :defer t
-  )
+(use-package json-mode)
 
-(use-package json-snatcher
-  :defer t
-  )
+(use-package json-snatcher)
 
-(use-package json-reformat
-  :defer t
-  )
+(use-package json-reformat)
 
 (use-package http
-  :after (json-mode json-reformat)
-  :defer t
   :preface
   (defun my/pretty-json-buffer ()
     (json-reformat-region (point-min) (point-max))
@@ -114,7 +99,6 @@
   )
 
 (use-package markdown-mode
-  :defer t
   :commands (markdown-mode gfm-mode)
   :mode
   (("README\\.md\\'" . gfm-mode)
@@ -123,24 +107,19 @@
   )
 
 (use-package vmd-mode
-  :after (markdown-mode)
-  :defer t
+  :after markdown-mode
   ;; :hook (markdown-mode . vmd-mode)
   )
 
 (use-package npm-mode
-  :defer t
   :load-path "site-lisp/npm-mode"
   )
 
 
-(use-package restclient
-  :defer t
-  )
+(use-package restclient)
 
 (use-package company-restclient
-  :after (restclient company)
-  :defer t
+  :after company
   :init
   (add-to-list 'company-backends 'company-restclient)
   )

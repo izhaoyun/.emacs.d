@@ -1,7 +1,6 @@
 ;;; -*- lexical-binding: t -*-
 
 (use-package org
-  :defer t
   :load-path "site-lisp/org-mode/lisp"
   :mode (("\\.org\'" . org-mode))
   :bind
@@ -55,7 +54,6 @@
   )
 
 (use-package ob
-  :defer t
   :load-path "site-lisp/org-mode/lisp"
   :init
   (setq org-preview-latex-default-process 'imagemagick
@@ -82,23 +80,17 @@
   )
 
 (use-package ob-ditaa
-  :after ob
   :load-path "site-lisp/org-mode/lisp"
-  :defer t
   )
 
 (use-package ob-plantuml
-  :after ob
   :load-path "site-lisp/org-mode/lisp"
-  :defer t
   :init
   (setq org-plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
   )
 
 (use-package ob-latex
-  :after ob
   :load-path "site-lisp/org-mode/lisp"
-  :defer t
   :init
   (add-to-list 'org-babel-default-header-args:latex
                '(:imagemagick . "yes"))
@@ -108,18 +100,11 @@
                '(:imoutoptions . "-geometry 400"))
   )
 
-(use-package ob-http
-  :after ob
-  :defer t
-  )
+(use-package ob-http)
 
-(use-package ob-go
-  :after ob
-  :defer t
-  )
+(use-package ob-go)
 
 (use-package ox
-  :defer t
   :load-path "site-lisp/org-mode/lisp"
   :preface
   (defun clear-single-linebreak-in-cjk-string (string)
@@ -136,7 +121,6 @@
   )
 
 (use-package ox-html
-  :defer t
   :load-path "site-lisp/org-mode/lisp"
   :init
   (setq org-html-validation-link nil
@@ -152,7 +136,6 @@
   )
 
 (use-package ox-latex
-  :defer t
   :load-path "site-lisp/org-mode/lisp"
   :init
   (setq org-latex-compiler "xelatex"
@@ -168,12 +151,11 @@
 
 (use-package toc-org
   :load-path "site-lisp/org-mode/lisp"
-  :defer t
-  :hook (org-mode . toc-org-enable)
+  :hook
+  (org-mode . toc-org-enable)
   )
 
 (use-package plantuml-mode
-  :defer t
   :mode ("\\.plantuml\\'")
   :ensure-system-package (plantuml . plantuml)
   :init
@@ -181,7 +163,6 @@
   )
 
 (use-package graphviz-dot-mode
-  :defer t
   :mode ("\\.dot\\'" "\\.gv\\'")
   )
 

@@ -1,7 +1,6 @@
 ;;; -*- lexical-binding: t -*-
 
 (use-package counsel-projectile
-  :defer t
   :bind-keymap
   ("C-c p" . projectile-command-map)
   :init
@@ -9,7 +8,6 @@
   )
 
 (use-package yasnippet
-  :defer t
   :bind
   (:map yas-minor-mode-map
         ("<f2> x" . yas-expand)
@@ -20,11 +18,9 @@
 
 (use-package yasnippet-snippets
   :after yasnippet
-  :defer t
   )
 
 (use-package company
-  :defer t
   :diminish company-mode
   :bind
   ("C-c y" . company-yasnippet)
@@ -39,7 +35,6 @@
 
 (use-package company-quickhelp
   :if window-system
-  :defer t
   :after company
   :bind
   (:map company-active-map
@@ -51,13 +46,11 @@
   )
 
 (use-package comment-dwim-2
-  :defer t
   :bind
   ("M-;" . comment-dwim-2)
   )
 
 (use-package highlight-indent-guides
-  :defer t
   :hook
   (prog-mode . highlight-indent-guides-mode)
   :init
@@ -69,14 +62,12 @@
   )
 
 (use-package clean-aindent-mode
-  :defer t
   :hook prog-mode
   :init
   (setq clean-aindent-is-simple-indent t)
   )
 
 (use-package dtrt-indent
-  :defer t
   :diminish dtrt-indent-mode
   :hook
   (prog-mode . dtrt-indent-mode)
@@ -85,7 +76,6 @@
   )
 
 (use-package aggressive-indent
-  :defer t
   :diminish aggressive-indent-mode
   :hook
   ((emacs-lisp-mode cmake-mode) . aggressive-indent-mode)
@@ -98,13 +88,11 @@
   )
 
 (use-package rainbow-delimiters
-  :defer t
   :hook
   ((prog-mode cmake-mode) . rainbow-delimiters-mode)
   )
 
 (use-package magit
-  :defer t
   :bind
   (("C-x g" . magit-status))
   :config
@@ -112,25 +100,21 @@
   )
 
 (use-package flycheck
-  :defer t
   :diminish flycheck-mode
   :config
   (setq flycheck-check-syntax-automatically '(mode-enabled save))
   )
 
 (use-package hideshow
-  :defer t
   :diminish hs-minor-mode
   )
 
 (use-package diff-hl
-  :defer 15
   :hook
   ((prog-mode vc-dir-mode) . turn-on-diff-hl-mode)
   )
 
 (use-package counsel-etags
-  :defer t
   :init
   ;; Don't ask before rereading the TAGS files if they have changed
   (setq tags-revert-without-query t)
@@ -152,7 +136,6 @@
   )
 
 (use-package eldoc-overlay
-  :defer t
   :bind
   ("<f1> j" . eldoc-overlay-toggle)
   :init
@@ -161,7 +144,6 @@
 
 (use-package inline-docs
   :disabled
-  :defer t
   :init
   (setq eldoc-message-function #'inline-docs)
   )

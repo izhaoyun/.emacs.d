@@ -2,7 +2,6 @@
 
 (use-package go-mode-autoloads
   :ensure go-mode
-  :defer t
   :mode ("\\.go\\'" . go-mode)
   :preface
   (defun go/init-company ()
@@ -32,35 +31,36 @@
     )
   :commands (gofmt-before-save)
   :hook
-  ((go-mode . go/init-snippets)
+  ((go-mode . hs-minor-mode)
+   (go-mode . go/init-snippets)
    (go-mode . go/init-company)
    (go-mode . go/setup-env-var)
    (go-mode . (lambda ()
-                (add-hook 'before-save-hook 'gofmt-before-save))))
+                (add-hook 'before-save-hook 'gofmt-before-save)))
+   )
   )
 
+(use-package go-dlv)
+
+(use-package go-gen-test)
+
 (use-package go-eldoc
-  :after go-mode
-  :defer t
   :hook
   (go-mode . go-eldoc-setup)
   )
 
 (use-package go-guru
-  :after go-mode
-  :defer t
   :hook
   (go-mode . go-guru-hl-identifier-mode)
   )
 
 (use-package go-rename
-  :after go-mode
-  :defer t
+  :bind
+  (:map go-mode-map
+        ("C-c t n" . go-rename))
   )
 
 (use-package go-tag
-  :after go-mode
-  :defer t
   :bind
   (:map go-mode-map
         ("C-c t a" . go-tag-add)
@@ -68,8 +68,6 @@
   )
 
 (use-package go-direx
-  :after go-mode
-  :defer t
   :bind
   (:map go-mode-map
         ("C-c t o" . go-direx-pop-to-buffer)
@@ -77,8 +75,6 @@
   )
 
 (use-package go-imports
-  :after go-mode
-  :defer t
   :bind
   (:map go-mode-map
         ("C-c t i" . go-imports-insert-import)
@@ -86,13 +82,12 @@
   )
 
 (use-package go-fill-struct
-  :after go-mode
-  :defer t
+  :bind
+  (:map go-mode-map
+        ("C-c t f" . go-fill-struct))
   )
 
 (use-package gotest
-  :after go-mode
-  :defer t
   :bind
   (:map go-mode-map
         ("C-c t c" . go-test-current-file)
@@ -102,26 +97,14 @@
         ("C-c t x" . go-run))
   )
 
-(use-package go-playground
-  :after go-mode
-  :defer t
-  )
-
-(use-package go-dlv
-  :after go-mode
-  :defer t
-  )
+(use-package go-playground)
 
 (use-package gorepl-mode
-  :defer t
   :hook
   (go-mode . gorepl-mode)
   )
 
 (use-package flycheck-gometalinter
-  :disabled
-  :after (go-mode flycheck)
-  :defer t
   :hook
   (go-mode . flycheck-gometalinter-setup)
   )

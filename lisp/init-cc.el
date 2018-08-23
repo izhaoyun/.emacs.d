@@ -14,33 +14,21 @@
 
     (use-package company-c-headers
       :after company
-      :defer t
       :init
       (push 'company-c-headers company-backends)
       )
 
     (use-package company-irony
       :after company
-      :defer t
       )
 
     (use-package company-irony-c-headers
       :after company
-      :defer t
       )
 
     (push '(company-irony-c-headers company-irony)
           company-backends)
     )
-
-  :bind
-  (:map c-mode-base-map
-        ("C-c h c" . hs-toggle-hiding)
-        ("C-c h b" . hs-hide-block)
-        ("C-c h s" . hs-show-block)
-        ("C-c h a" . hs-hide-all)
-        ("C-c h d" . hs-show-all)
-        ("C-c h l" . hs-hide-level))
   :hook
   (((c-mode c++-mode) . cc/init-company)
    ((c-mode c++-mode) . which-function-mode)
@@ -52,21 +40,18 @@
   )
 
 (use-package google-c-style
-  :defer t
   :hook
   (((c++-mode c-mode) . google-set-c-style)
    ((c++-mode c-mode) . google-make-newline-indent))
   )
 
 (use-package modern-cpp-font-lock
-  :defer t
   :diminish modern-c++-font-lock-mode
   :hook
   ((c-mode c++-mode) . modern-c++-font-lock-mode)
   )
 
 (use-package ggtags
-  :defer t
   :bind
   (:map ggtags-mode-map
         ("C-c g s" . ggtags-find-other-symbol)
@@ -92,8 +77,6 @@
   )
 
 (use-package counsel-gtags
-  :after (counsel)
-  :defer t
   :hook
   ((c-mode c++-mode) . counsel-gtags-mode)
   :bind
@@ -105,10 +88,9 @@
   )
 
 (use-package irony
-  :defer t
-  :hook (((c-mode c++-mode) . irony-mode)
-         (irony-mode . irony-cdb-autosetup-compile-options))
-  ;; :commands (counsel-irony)
+  :hook
+  (((c-mode c++-mode) . irony-mode)
+   (irony-mode . irony-cdb-autosetup-compile-options))
   :bind
   (:map irony-mode-map
         ([remap completion-at-point] . counsel-irony)
@@ -116,26 +98,18 @@
   )
 
 (use-package irony-eldoc
-  :after irony
-  :defer t
-  :diminish eldoc-mode
   :hook (irony-mode . irony-eldoc)
   )
 
 (use-package flycheck-irony
-  :after (irony flycheck)
-  :defer t
   :hook (flycheck-mode . flycheck-irony-setup)
   )
 
 (use-package flycheck-clang-analyzer
-  :after (flycheck)
-  :defer t
   :hook ((c-mode c++-mode) . flycheck-clang-analyzer-setup)
   )
 
 (use-package clang-format
-  :defer t
   :bind
   (:map c-mode-base-map
         ("C-c u b" . clang-format-buffer)
@@ -143,23 +117,16 @@
   )
 
 (use-package disaster
-  :defer t
   :bind
   (:map c-mode-base-map
         ("C-c d" . disaster))
   )
 
-(use-package demangle-mode
-  :after cc-mode
-  :defer t
-  )
+(use-package demangle-mode)
 
-(use-package elf-mode
-  :defer t
-  )
+(use-package elf-mode)
 
 (use-package cmake-mode
-  :defer t
   :mode
   (("CMakeLists\\.txt\\'" . cmake-mode)
    ("\\.cmake\\'" . cmake-mode))
@@ -177,7 +144,6 @@
   )
 
 (use-package helm-make
-  :defer t
   :init
   (setq helm-make-completion-method 'ivy)
   )
@@ -196,16 +162,12 @@
 
     (use-package company-lua
       :after company
-      :defer t
       :init
       (push 'company-lua company-backends)
       )
     )
-  :hook (lua-mode . lua/init-company)
-  )
-
-(use-package protobuf-mode
-  :defer t
+  :hook
+  (lua-mode . lua/init-company)
   )
 
 (provide 'init-cc)

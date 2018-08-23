@@ -17,27 +17,29 @@
   )
 
 (use-package anaconda-mode
-  :after python
-  :defer t
-  :hook ((python-mode . anaconda-mode)
-         (python-mode . anaconda-eldoc-mode))
+  :hook
+  ((python-mode . anaconda-mode)
+   (python-mode . anaconda-eldoc-mode))
   )
 
 (use-package company-anaconda
-  :after (company anaconda-mode)
-  :defer t
+  :after company
   :init
   (push 'company-anaconda company-backends)
   )
 
 (use-package pyvenv
-  :defer t
-  :hook (python-mode . pyvenv-mode)
+  :hook
+  (python-mode . pyvenv-mode)
   )
 
 (use-package pyenv-mode
-  :hook (python-mode . pyenv-mode)
-  :commands (pyenv-mode-set pyenv-mode-unset pyenv-mode-versions)
+  :hook
+  (python-mode . pyenv-mode)
+  :commands
+  (pyenv-mode-set
+   pyenv-mode-unset
+   pyenv-mode-versions)
   :init
   (defun projectile-pyenv-mode-set ()
     "Set pyenv version matching project name."
@@ -50,34 +52,27 @@
   )
 
 (use-package sphinx-doc
-  :after python
-  :defer t
   :diminish sphinx-doc-mode
-  :hook (python-mode . sphinx-doc-mode)
+  :hook
+  (python-mode . sphinx-doc-mode)
   )
 
 (use-package importmagic
-  :after python
-  :defer t
   :diminish importmagic-mode
-  :hook (python-mode . importmagic-mode)
+  :hook
+  (python-mode . importmagic-mode)
   :init
   (add-to-list 'ivy-ignore-buffers "\\*epc con")
   )
 
-(use-package pip-requirements
-  :defer t
-  )
+(use-package pip-requirements)
 
 (use-package py-autopep8
-  :after python
-  :defer t
-  :hook (python-mode . py-autopep8-enable-on-save)
+  :hook
+  (python-mode . py-autopep8-enable-on-save)
   )
 
-(use-package cython-mode
-  :defer t
-  )
+(use-package cython-mode)
 
 (provide 'init-python)
 ;;; init-python.el ends here

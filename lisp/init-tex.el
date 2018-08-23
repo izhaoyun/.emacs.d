@@ -1,7 +1,6 @@
 ;;; -*- lexical-binding: t -*-
 
 (use-package auctex
-  :defer t
   :preface
   (defun tex/init-company ()
     (set (make-local-variable 'company-backends)
@@ -10,14 +9,14 @@
     (company-mode)
 
     (use-package company-auctex
-      :after company
-      :defer t
-      :hook (company-mode . company-auctex-init)
+      :hook
+      (company-mode . company-auctex-init)
       )
     )
-  :hook ((LaTeX-mode . tex/init-company)
-         (LaTeX-mode . TeX-PDF-mode)
-         (LaTeX-mode . auto-fill-mode))
+  :hook
+  ((LaTeX-mode . tex/init-company)
+   (LaTeX-mode . TeX-PDF-mode)
+   (LaTeX-mode . auto-fill-mode))
   :init
   (setq TeX-auto-save t
         TeX-parse-self t)
@@ -38,12 +37,10 @@
 
 (use-package preview-latex
   :ensure auctex
-  :defer t
   )
 
 (use-package reftex
   :ensure nil
-  :defer t
   :hook (LaTeX-mode . turn-on-reftex)
   )
 

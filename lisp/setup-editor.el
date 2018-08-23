@@ -3,7 +3,6 @@
 (fset 'yes-or-no-p 'y-or-n-p)
 
 (use-package ivy
-  :defer t
   :diminish ivy-mode
   :bind
   ((("C-x b" . ivy-switch-buffer)
@@ -37,7 +36,6 @@
 
 (use-package swiper
   :after ivy
-  :defer t
   :bind
   ((("C-c u a" . swiper-all)
     ("C-r" . swiper)))
@@ -51,7 +49,6 @@
 
 (use-package counsel
   :after swiper
-  :defer t
   :bind
   ((("C-s" . counsel-grep-or-swiper)
     ("M-x" . counsel-M-x)
@@ -92,7 +89,6 @@
   )
 
 (use-package rg
-  :defer t
   ;; :ensure-system-package (rg . ripgrep)
   :hook
   (rg-mode . wgrep-ag-setup)
@@ -100,21 +96,15 @@
   (rg-enable-default-bindings (kbd "M-s r"))
   )
 
-(use-package wgrep-ag
-  :defer t
-  )
+(use-package wgrep-ag)
 
-(use-package hydra
-  :defer t
-  )
+(use-package hydra)
 
 (use-package ivy-hydra
   :after (ivy hydra)
-  :defer t
   )
 
 (use-package avy
-  :defer t
   :bind
   (("C-:" . avy-goto-char)
    ("C-'" . avy-goto-char-2)
@@ -128,29 +118,21 @@
   )
 
 (use-package ace-pinyin
-  :after avy
-  :defer t
   :diminish ace-pinyin-mode
-  :init
-  (ace-pinyin-mode)
   )
 
 (use-package avy-zap
-  :after (avy)
-  :defer t
   :bind
   (("M-z" . avy-zap-to-char-dwim)
    ("M-Z" . avy-zap-up-to-char-dwim))
   )
 
 (use-package ace-link
-  :defer t
   :init
   (ace-link-setup-default)
   )
 
 (use-package window-numbering
-  :defer t
   :init
   (window-numbering-mode)
   )
@@ -191,7 +173,6 @@
   )
 
 (use-package show-marks
-  :defer t
   :bind
   (("<f2> <right>" . forward-mark)
    ("<f2> <left>" . backward-mark)
@@ -199,14 +180,12 @@
   )
 
 (use-package volatile-highlights
-  :defer t
   :diminish volatile-highlights-mode
   :init
   (volatile-highlights-mode)
   )
 
 (use-package highlight-symbol
-  :defer t
   :bind
   (("C-<f3>" . highlight-symbol)
    ("<f3>"   . highlight-symbol-next)
@@ -215,7 +194,6 @@
   )
 
 (use-package which-key
-  :defer t
   :diminish which-key-mode
   :hook
   ((after-init . which-key-mode)
@@ -223,7 +201,6 @@
   )
 
 (use-package ws-butler
-  :defer t
   :diminish ws-butler-mode
   :hook
   (prog-mode . ws-butler-mode)
@@ -231,14 +208,12 @@
 
 (use-package expand-region
   :if window-system
-  :defer t
   :bind
   (("C-=" . er/expand-region)
    ("C--" . er/contract-region))
   )
 
 (use-package undo-tree
-  :defer t
   :diminish undo-tree-mode
   :hook
   ((prog-mode cmake-mode org-mode) . undo-tree-mode)
@@ -253,21 +228,18 @@
 
 (use-package dired-async
   :ensure async
-  :defer t
   :hook
   (dired-mode . dired-async-mode)
   )
 
 (use-package hippie-exp
   :ensure nil
-  :defer t
   :bind
   ("M-/" . hippie-expand)
   )
 
 (use-package paren
   :ensure nil
-  :defer t
   :hook
   (prog-mode . show-paren-mode)
   )
@@ -281,7 +253,6 @@
 (use-package flyspell
   :disabled
   :diminish flyspell-mode
-  :defer 18
   :hook
   ((text-mode . flyspell-mode)
    (prog-mode . flyspell-prog-mode))
@@ -291,7 +262,6 @@
   )
 
 (use-package easy-kill
-  :defer t
   :bind
   (([remap kill-ring-save] . easy-kill)
    ([remap mark-sexp] . easy-mark))
@@ -299,11 +269,9 @@
 
 (use-package help-fns+
   :load-path "site-lisp/help-fns-plus"
-  :defer t
   )
 
 (use-package shell-pop
-  :defer t
   :bind
   ("<f2> t" . shell-pop)
   :init

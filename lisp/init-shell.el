@@ -1,12 +1,10 @@
 ;;; -*- lexical-binding: t -*-
 
 (use-package eshell-bookmark
-  :defer t
-  :hook (eshell-mode . eshell-bookmark-setup)
+  :hook
+  (eshell-mode . eshell-bookmark-setup)
   )
 
-(use-package systemd
-  :defer t
-  )
+(use-package systemd)
 
 (provide 'init-shell)
