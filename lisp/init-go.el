@@ -58,6 +58,15 @@
   :defer t
   )
 
+(use-package go-tag
+  :after go-mode
+  :defer t
+  :bind
+  (:map go-mode-map
+        ("C-c t a" . go-tag-add)
+        ("C-c t r" . go-tag-remove))
+  )
+
 (use-package go-direx
   :after go-mode
   :defer t
