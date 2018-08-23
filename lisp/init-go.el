@@ -72,8 +72,8 @@
   :defer t
   :bind
   (:map go-mode-map
-        ("C-c d p" . go-direx-pop-to-buffer)
-        ("C-c d s" . go-direx-switch-to-buffer))
+        ("C-c t o" . go-direx-pop-to-buffer)
+        ("C-c t s" . go-direx-switch-to-buffer))
   )
 
 (use-package go-imports
@@ -81,8 +81,25 @@
   :defer t
   :bind
   (:map go-mode-map
-        ("C-c i i" . go-imports-insert-import)
-        ("C-c i r" . go-imports-reload-packages-list))
+        ("C-c t i" . go-imports-insert-import)
+        ("C-c t l" . go-imports-reload-packages-list))
+  )
+
+(use-package go-fill-struct
+  :after go-mode
+  :defer t
+  )
+
+(use-package gotest
+  :after go-mode
+  :defer t
+  :bind
+  (:map go-mode-map
+        ("C-c t c" . go-test-current-file)
+        ("C-c t t" . go-test-current-test)
+        ("C-c t p" . go-test-current-project)
+        ("C-c t b" . go-test-current-benchmark)
+        ("C-c t x" . go-run))
   )
 
 (use-package go-playground
