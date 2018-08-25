@@ -48,6 +48,8 @@
   (auto-package-update-maybe)
   )
 
+(use-package delight)
+
 (provide 'setup-packages)
 
 ;; Local Variables:

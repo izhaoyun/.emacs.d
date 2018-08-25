@@ -1,8 +1,14 @@
 ;;; -*- lexical-binding: t -*-
 
-(use-package counsel-projectile
+(use-package projectile
+  :delight '(:eval (concat " " (projectile-project-name)))
   :bind-keymap
   ("C-c p" . projectile-command-map)
+  :init
+  (setq projectile-completion-system 'ivy)
+  )
+
+(use-package counsel-projectile
   :init
   (counsel-projectile-mode)
   )
@@ -51,6 +57,7 @@
   )
 
 (use-package highlight-indent-guides
+  :if window-system
   :hook
   (prog-mode . highlight-indent-guides-mode)
   :init
@@ -101,8 +108,18 @@
 
 (use-package flycheck
   :diminish flycheck-mode
+  :hook
+  (after-init . global-flycheck-mode)
   :config
-  (setq flycheck-check-syntax-automatically '(mode-enabled save))
+  (setq flycheck-check-syntax-automatically
+        '(mode-enabled save))
+  )
+
+(use-package flycheck-pos-tip
+  :if window-system
+  :after flycheck
+  :config
+  (flycheck-pos-tip-mode)
   )
 
 (use-package hideshow
@@ -136,10 +153,10 @@
   )
 
 (use-package eldoc-overlay
-  :bind
-  ("<f1> j" . eldoc-overlay-toggle)
+  :disabled
+  :diminish eldoc-overlay-mode
   :init
-  (diminish 'eldoc-mode)
+  (global-eldoc-overlay-mode)
   )
 
 (use-package inline-docs

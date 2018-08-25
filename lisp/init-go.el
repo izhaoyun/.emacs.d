@@ -16,12 +16,6 @@
       )
     )
 
-  (defun go/init-snippets ()
-    (use-package go-snippets
-      :after yasnippet
-      )
-    )
-
   (defun go/setup-env-var (&optional gopath)
     (unless gopath (setq gopath (concat (getenv "HOME") "/go")))
     (setenv "GOPATH" gopath)
@@ -30,22 +24,27 @@
     )
 
   (defun go/init-flycheck ()
+    (flycheck-mode t)
     (use-package flycheck-gometalinter
       :init
       (flycheck-gometalinter-setup)
       )
-    (flycheck-mode t)
     )
   :commands (gofmt-before-save)
   :hook
   ((go-mode . hs-minor-mode)
-   (go-mode . go/init-snippets)
    (go-mode . go/init-company)
    (go-mode . go/init-flycheck)
    (go-mode . go/setup-env-var)
    (go-mode . (lambda ()
                 (add-hook 'before-save-hook 'gofmt-before-save)))
    )
+  )
+
+(use-package go-snippets
+  :after yasnippets
+  :config
+  (go-snippets-initialize)
   )
 
 (use-package go-dlv)

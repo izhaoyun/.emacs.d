@@ -48,7 +48,8 @@
           (pyenv-mode-set project)
         (pyenv-mode-unset))))
 
-  (add-hook 'projectile-after-switch-project-hook 'projectile-pyenv-mode-set)
+  (add-hook 'projectile-after-switch-project-hook
+            'projectile-pyenv-mode-set)
   )
 
 (use-package sphinx-doc

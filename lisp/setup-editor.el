@@ -54,7 +54,9 @@
     ("M-x" . counsel-M-x)
     ("C-x C-f" . counsel-find-file)
     ("C-x C-r" . counsel-recentf)
-    ("C-x C-b" . counsel-bookmark)
+    ("C-x r b" . counsel-bookmark)
+    ("C-x r d" . counsel-bookmarked-directory)
+    ("C-x C-b" . counsel-ibuffer)
     ("C-c c" . counsel-org-capture)
     ("C-c m" . counsel-imenu)
     ("<f2> f" . counsel-git)
@@ -141,9 +143,6 @@
   :bind-keymap
   ("C-<f2>" . popwin:keymap)
   :config
-  ;; M-x anything
-  (setq anything-samewindow nil)
-  (push '("*anything*" :height 20) popwin:special-display-config)
 
   ;; M-x dired-jump-other-window
   (push '(dired-mode :position top) popwin:special-display-config)
@@ -196,8 +195,9 @@
 (use-package which-key
   :diminish which-key-mode
   :hook
-  ((after-init . which-key-mode)
-   (which-key-mode-hook . which-key-setup-side-window-right-bottom))
+  (after-init . which-key-mode)
+  :init
+  (which-key-setup-side-window-right-bottom)
   )
 
 (use-package ws-butler

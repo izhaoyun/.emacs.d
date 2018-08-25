@@ -88,9 +88,6 @@
    ((c-mode c++-mode) . google-set-c-style)
    ((c-mode c++-mode) . google-make-newline-indent)
    ((c-mode c++-mode) . hs-minor-mode))
-  :init
-  (setq gdb-show-main t
-        gdb-many-windows t)
   )
 
 (use-package modern-cpp-font-lock
@@ -110,15 +107,18 @@
   )
 
 (use-package irony-eldoc
-  :hook (irony-mode . irony-eldoc)
+  :hook
+  (irony-mode . irony-eldoc)
   )
 
 (use-package flycheck-irony
-  :hook (flycheck-mode . flycheck-irony-setup)
+  :hook
+  (flycheck-mode . flycheck-irony-setup)
   )
 
 (use-package flycheck-clang-analyzer
-  :hook ((c-mode c++-mode) . flycheck-clang-analyzer-setup)
+  :hook
+  ((c-mode c++-mode) . flycheck-clang-analyzer-setup)
   )
 
 (use-package clang-format
