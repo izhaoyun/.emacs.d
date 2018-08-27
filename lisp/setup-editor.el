@@ -143,7 +143,6 @@
   :bind-keymap
   ("C-<f2>" . popwin:keymap)
   :config
-
   ;; M-x dired-jump-other-window
   (push '(dired-mode :position top) popwin:special-display-config)
 
@@ -288,7 +287,7 @@
   :preface
   :bind
   (("C-c m c" . mc/edit-lines))
-  :init
+  :config
   (defhydra multiple-cursors-hydra (:hint nil)
     "
      ^Up^            ^Down^        ^Other^
@@ -310,6 +309,8 @@
     ("q" nil)
     )
   )
+
+(use-package ranger)
 
 (provide 'setup-editor)
 

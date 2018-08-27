@@ -23,18 +23,10 @@
     (setq exec-path (append exec-path (list (concat gopath "/bin"))))
     )
 
-  (defun go/init-flycheck ()
-    (flycheck-mode t)
-    (use-package flycheck-gometalinter
-      :init
-      (flycheck-gometalinter-setup)
-      )
-    )
   :commands (gofmt-before-save)
   :hook
   ((go-mode . hs-minor-mode)
    (go-mode . go/init-company)
-   (go-mode . go/init-flycheck)
    (go-mode . go/setup-env-var)
    (go-mode . (lambda ()
                 (add-hook 'before-save-hook 'gofmt-before-save)))
@@ -109,6 +101,12 @@
 (use-package gorepl-mode
   :hook
   (go-mode . gorepl-mode)
+  )
+
+(use-package flycheck-gometalinter
+  :after flycheck
+  :config
+  (flycheck-gometalinter-setup)
   )
 
 (use-package protobuf-mode

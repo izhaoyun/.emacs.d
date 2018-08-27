@@ -132,24 +132,16 @@
   )
 
 (use-package counsel-etags
-  :init
-  ;; Don't ask before rereading the TAGS files if they have changed
-  (setq tags-revert-without-query t)
-  ;; Don't warn when TAGS files are large
-  (setq large-file-warning-threshold nil)
+  :hook
+  (prog-mode . (lambda ()
+                 (add-hook
+                  'after-save-hook
+                  'counsel-etags-virtual-update-tags 'append 'local)))
   :config
-  (progn
-    ;; counsel-etags-ignore-directories does NOT support wildcast
-    (add-to-list 'counsel-etags-ignore-directories "build_clang")
-    (add-to-list 'counsel-etags-ignore-directories "build_clang")
-    ;; counsel-etags-ignore-filenames supports wildcast
-    (add-to-list 'counsel-etags-ignore-filenames "TAGS")
-    (add-to-list 'counsel-etags-ignore-filenames "*.json"))
-  ;; Setup auto update now
-  (add-hook 'prog-mode-hook
-            (lambda ()
-              (add-hook 'after-save-hook
-                        'counsel-etags-virtual-update-tags 'append 'local)))
+  (add-to-list 'counsel-etags-ignore-directories "build_clang")
+  (add-to-list 'counsel-etags-ignore-directories "build_clang")
+  (add-to-list 'counsel-etags-ignore-filenames "TAGS")
+  (add-to-list 'counsel-etags-ignore-filenames "*.json")
   )
 
 (use-package eldoc-overlay
@@ -164,6 +156,8 @@
   :init
   (setq eldoc-message-function #'inline-docs)
   )
+
+(use-package cd-compile)
 
 (provide 'init-prog)
 
