@@ -58,7 +58,7 @@
     ("C-x r d" . counsel-bookmarked-directory)
     ("C-x C-b" . counsel-ibuffer)
     ("C-c c" . counsel-org-capture)
-    ("C-c m" . counsel-imenu)
+    ("<f2> m" . counsel-imenu)
     ("<f2> f" . counsel-git)
     ("<f2> g" . counsel-git-grep)
     ("<f2> s" . counsel-stash)
@@ -282,6 +282,33 @@
   (setq shell-pop-shell-type
         '("ansi-term" "*ansi-term*"
           (lambda nil (ansi-term shell-pop-term-shell))))
+  )
+
+(use-package multiple-cursors
+  :preface
+  :bind
+  (("C-c m c" . mc/edit-lines))
+  :init
+  (defhydra multiple-cursors-hydra (:hint nil)
+    "
+     ^Up^            ^Down^        ^Other^
+----------------------------------------------
+[_p_]   Next    [_n_]   Next    [_l_] Edit lines
+[_P_]   Skip    [_N_]   Skip    [_a_] Mark all
+[_M-p_] Unmark  [_M-n_] Unmark  [_r_] Mark by regexp
+^ ^             ^ ^             [_q_] Quit
+"
+    ("l" mc/edit-lines :exit t)
+    ("a" mc/mark-all-like-this :exit t)
+    ("n" mc/mark-next-like-this)
+    ("N" mc/skip-to-next-like-this)
+    ("M-n" mc/unmark-next-like-this)
+    ("p" mc/mark-previous-like-this)
+    ("P" mc/skip-to-previous-like-this)
+    ("M-p" mc/unmark-previous-like-this)
+    ("r" mc/mark-all-in-region-regexp :exit t)
+    ("q" nil)
+    )
   )
 
 (provide 'setup-editor)
