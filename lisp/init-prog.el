@@ -14,16 +14,15 @@
   )
 
 (use-package yasnippet
+  :diminish yas-minor-mode
   :bind
   (:map yas-minor-mode-map
         ("<f2> x" . yas-expand)
         ("<f2> i" . yas-insert-snippet))
   :hook
   (after-init . yas-global-mode)
-  )
-
-(use-package yasnippet-snippets
-  :after yasnippet
+  :config
+  (yasnippet-snippets-initialize)
   )
 
 (use-package company
@@ -131,17 +130,9 @@
   ((prog-mode vc-dir-mode) . turn-on-diff-hl-mode)
   )
 
-(use-package counsel-etags
-  :hook
-  (prog-mode . (lambda ()
-                 (add-hook
-                  'after-save-hook
-                  'counsel-etags-virtual-update-tags 'append 'local)))
-  :config
-  (add-to-list 'counsel-etags-ignore-directories "build_clang")
-  (add-to-list 'counsel-etags-ignore-directories "build_clang")
-  (add-to-list 'counsel-etags-ignore-filenames "TAGS")
-  (add-to-list 'counsel-etags-ignore-filenames "*.json")
+(use-package eldoc
+  :ensure nil
+  :diminish eldoc-mode
   )
 
 (use-package eldoc-overlay
