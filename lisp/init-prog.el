@@ -57,6 +57,7 @@
 
 (use-package highlight-indent-guides
   :if window-system
+  :diminish highlight-indent-guides-mode
   :hook
   (prog-mode . highlight-indent-guides-mode)
   :init
@@ -149,6 +150,14 @@
   )
 
 (use-package cd-compile)
+
+(use-package rmsbolt)
+
+(use-package which-func
+  :ensure nil
+  :init
+  (which-function-mode 1)
+  )
 
 (provide 'init-prog)
 

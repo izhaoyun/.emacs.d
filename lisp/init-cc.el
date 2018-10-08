@@ -30,62 +30,50 @@
           company-backends)
     )
 
-  (defun cc/init-ggtags ()
-    (use-package ggtags
-      :bind
-      (:map ggtags-mode-map
-            ("C-c g b"   . ggtags-browse-file-as-hypertext)
-            ("C-c g c"   . ggtags-find-tag-dwim)
-            ("C-c g d"   . ggtags-find-definition)
-            ("C-c g e"   . ggtags-grep)
-            ("C-c g f"   . ggtags-find-file)
-            ("C-c g g"   . ggtags-save-to-register)
-            ("C-c g h"   . ggtags-view-tag-history)
-            ("C-c g j"   . ggtags-visit-project-root)
-            ("C-c g k"   . ggtags-kill-file-buffers)
-            ("C-c g l"   . ggtags-explain-tags)
-            ("C-c g o"   . ggtags-find-other-symbol)
-            ("C-c g p"   . ggtags-prev-mark)
-            ("C-c g <"   . ggtags-prev-mark)
-            ("C-c g n"   . ggtags-next-mark)
-            ("C-c g >"   . ggtags-next-mark)
-            ("C-c g q"   . ggtags-idutils-query)
-            ("C-c g r"   . ggtags-find-reference)
-            ("C-c g s"   . ggtags-grep)
-            ("C-c g t"   . ggtags-create-tags)
-            ("C-c g u"   . ggtags-update-tags)
-            ("C-c g v"   . ggtags-save-project-settings)
-            ("C-c g x"   . ggtags-delete-tags)
-            ("C-c g M-%" . ggtags-query-replace)
-            ("C-c g M-?" . ggtags-show-definition))
-      :init
-      (setq large-file-warning-threshold nil)
-      (ggtags-mode 1)
-      :config
-      (setq-local imenu-create-index-function #'ggtags-build-imenu-index)
-      (setq-local eldoc-documentation-function #'ggtags-eldoc-function)
-      (setq-local hippie-expand-try-functions-list
-                  (cons 'ggtags-try-complete-tag hippie-expand-try-functions-list))
-      )
-
-    (use-package counsel-gtags
-      :bind
-      (:map counsel-gtags-mode-map
-            ("M-s g" . counsel-gtags-find-definition)
-            ("M-s x" . counsel-gtags-find-reference)
-            ("M-s s" . counsel-gtags-find-symbol)
-            ("M-s b" . counsel-gtags-go-backward))
-      )
-    )
-
   :hook
   (((c-mode c++-mode) . cc/init-company)
-   ((c-mode c++-mode) . which-function-mode)
    ((c-mode c++-mode) . turn-on-eldoc-mode)
-   ((c-mode c++-mode) . cc/init-ggtags)
    ((c-mode c++-mode) . google-set-c-style)
    ((c-mode c++-mode) . google-make-newline-indent)
    ((c-mode c++-mode) . hs-minor-mode))
+  )
+
+(use-package ggtags
+  :hook
+  ((c-mode c++-mode) . ggtags-mode)
+  :bind
+  (:map ggtags-mode-map
+        ("C-c g b"   . ggtags-browse-file-as-hypertext)
+        ("C-c g c"   . ggtags-find-tag-dwim)
+        ("C-c g d"   . ggtags-find-definition)
+        ("C-c g e"   . ggtags-grep)
+        ("C-c g f"   . ggtags-find-file)
+        ("C-c g g"   . ggtags-save-to-register)
+        ("C-c g h"   . ggtags-view-tag-history)
+        ("C-c g j"   . ggtags-visit-project-root)
+        ("C-c g k"   . ggtags-kill-file-buffers)
+        ("C-c g l"   . ggtags-explain-tags)
+        ("C-c g o"   . ggtags-find-other-symbol)
+        ("C-c g p"   . ggtags-prev-mark)
+        ("C-c g <"   . ggtags-prev-mark)
+        ("C-c g n"   . ggtags-next-mark)
+        ("C-c g >"   . ggtags-next-mark)
+        ("C-c g q"   . ggtags-idutils-query)
+        ("C-c g r"   . ggtags-find-reference)
+        ("C-c g s"   . ggtags-grep)
+        ("C-c g t"   . ggtags-create-tags)
+        ("C-c g u"   . ggtags-update-tags)
+        ("C-c g v"   . ggtags-save-project-settings)
+        ("C-c g x"   . ggtags-delete-tags)
+        ("C-c g M-%" . ggtags-query-replace)
+        ("C-c g M-?" . ggtags-show-definition))
+  :init
+  (setq large-file-warning-threshold nil)
+  :config
+  (setq-local imenu-create-index-function #'ggtags-build-imenu-index)
+  (setq-local eldoc-documentation-function #'ggtags-eldoc-function)
+  (setq-local hippie-expand-try-functions-list
+              (cons 'ggtags-try-complete-tag hippie-expand-try-functions-list))
   )
 
 (use-package modern-cpp-font-lock
@@ -124,6 +112,8 @@
   (:map c-mode-base-map
         ("C-c u b" . clang-format-buffer)
         ("C-c u i" . clang-format-region))
+  :init
+  (setq clang-format-style "file")
   )
 
 (use-package disaster
