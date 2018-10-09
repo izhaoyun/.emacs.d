@@ -78,6 +78,11 @@
   :hook (css-mode . css/init-company)
   )
 
+(use-package rainbow-mode
+  :hook
+  (css-mode . rainbow-turn-on)
+  )
+
 (use-package json-mode)
 
 (use-package json-snatcher)

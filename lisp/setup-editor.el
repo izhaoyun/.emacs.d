@@ -7,7 +7,7 @@
 (use-package ivy
   :diminish ivy-mode
   :bind
-  ((("C-x C-b" . ivy-switch-buffer)
+  ((("C-x b" . ivy-switch-buffer)
     ("<f6>"  . ivy-resume)
     ("C-c C-r" . ivy-resume)))
   :bind
@@ -57,7 +57,7 @@
     ("C-x C-r" . counsel-recentf)
     ("C-x r b" . counsel-bookmark)
     ("C-x r d" . counsel-bookmarked-directory)
-    ("C-x b" . counsel-ibuffer)
+    ("C-x C-b" . counsel-ibuffer)
     ("C-c c" . counsel-org-capture)
     ("<f2> m" . counsel-imenu)
     ("<f2> f" . counsel-git)
@@ -157,21 +157,32 @@
         popwin:special-display-config)
 
   ;; slime
-  (push "*slime-apropos*" popwin:special-display-config)
-  (push "*slime-macroexpansion*" popwin:special-display-config)
-  (push "*slime-description*" popwin:special-display-config)
-  (push '("*slime-compilation*" :noselect t) popwin:special-display-config)
-  (push "*slime-xref*" popwin:special-display-config)
-  (push '(sldb-mode :stick t) popwin:special-display-config)
-  (push 'slime-repl-mode popwin:special-display-config)
-  (push 'slime-connection-list-mode popwin:special-display-config)
+  (push "*slime-apropos*" 
+        popwin:special-display-config)
+  (push "*slime-macroexpansion*" 
+        popwin:special-display-config)
+  (push "*slime-description*" 
+        popwin:special-display-config)
+  (push '("*slime-compilation*" :noselect t) 
+        popwin:special-display-config)
+  (push "*slime-xref*" 
+        popwin:special-display-config)
+  (push '(sldb-mode :stick t) 
+        popwin:special-display-config)
+  (push 'slime-repl-mode 
+        popwin:special-display-config)
+  (push 'slime-connection-list-mode 
+        popwin:special-display-config)
 
   ;; vc
-  (push "*vc-diff*" popwin:special-display-config)
-  (push "*vc-change-log*" popwin:special-display-config)
+  (push "*vc-diff*" 
+        popwin:special-display-config)
+  (push "*vc-change-log*" 
+        popwin:special-display-config)
 
   ;; undo-tree
-  (push '(" *undo-tree*" :width 0.3 :position right) popwin:special-display-config)
+  (push '(" *undo-tree*" :width 0.3 :position right)
+        popwin:special-display-config)
   )
 
 (use-package show-marks

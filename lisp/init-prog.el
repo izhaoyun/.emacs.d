@@ -29,6 +29,8 @@
   :diminish company-mode
   :bind
   ("C-c y" . company-yasnippet)
+  :hook
+  (after-init . global-company-mode)
   :init
   (setq company-tooltip-limit 20
         company-idle-delay .3
