@@ -66,6 +66,12 @@
         ("C-c C-n" . haskell-navigate-imports))
   )
 
+(use-package slime
+  :init
+  (setq inferior-lisp-program "/usr/bin/sbcl"
+        slime-contribs '(slime-fancy))
+  )
+
 (provide 'init-lisp)
 
 ;; Local Variables:

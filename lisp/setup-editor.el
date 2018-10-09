@@ -2,11 +2,12 @@
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
+(if window-system (tool-bar-mode -1))
+
 (use-package ivy
   :diminish ivy-mode
   :bind
-  ((("C-x b" . ivy-switch-buffer)
-    ("C-x B" . ivy-switch-buffer-other-window)
+  ((("C-x C-b" . ivy-switch-buffer)
     ("<f6>"  . ivy-resume)
     ("C-c C-r" . ivy-resume)))
   :bind
@@ -56,7 +57,7 @@
     ("C-x C-r" . counsel-recentf)
     ("C-x r b" . counsel-bookmark)
     ("C-x r d" . counsel-bookmarked-directory)
-    ("C-x C-b" . counsel-ibuffer)
+    ("C-x b" . counsel-ibuffer)
     ("C-c c" . counsel-org-capture)
     ("<f2> m" . counsel-imenu)
     ("<f2> f" . counsel-git)
@@ -79,7 +80,7 @@
     ("C-h l" . counsel-find-library)
     ("C-h L" . counsel-load-library)
     ("C-h b" . counsel-descbinds)
-    ("C-h h" . woman)))
+    ("C-h w" . woman)))
   :bind
   (:map minibuffer-local-map
         ("C-r" . counsel-minibuf-history))
@@ -144,13 +145,16 @@
   ("C-<f2>" . popwin:keymap)
   :config
   ;; M-x dired-jump-other-window
-  (push '(dired-mode :position top) popwin:special-display-config)
+  (push '(dired-mode :position top)
+        popwin:special-display-config)
 
   ;; M-!
-  (push "*Shell Command Output*" popwin:special-display-config)
+  (push "*Shell Command Output*"
+        popwin:special-display-config)
 
   ;; M-x compile
-  (push '(compilation-mode :noselect t) popwin:special-display-config)
+  (push '(compilation-mode :noselect t)
+        popwin:special-display-config)
 
   ;; slime
   (push "*slime-apropos*" popwin:special-display-config)

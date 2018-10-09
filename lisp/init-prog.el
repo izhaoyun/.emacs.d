@@ -108,8 +108,6 @@
 
 (use-package flycheck
   :diminish flycheck-mode
-  :hook
-  (after-init . global-flycheck-mode)
   :config
   (setq flycheck-check-syntax-automatically
         '(mode-enabled save))
@@ -117,9 +115,8 @@
 
 (use-package flycheck-pos-tip
   :if window-system
-  :after flycheck
-  :config
-  (flycheck-pos-tip-mode)
+  :hook
+  (flycheck-mode . flycheck-pos-tip-mode)
   )
 
 (use-package hideshow
