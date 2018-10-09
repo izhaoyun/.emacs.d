@@ -327,6 +327,14 @@
 
 (use-package ranger)
 
+(use-package server
+  :ensure nil
+  :commands (server-running-p)
+  :init
+  (unless (server-running-p)
+    (server-start))
+  )
+
 (provide 'setup-editor)
 
 ;; Local Variables:
