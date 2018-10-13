@@ -232,8 +232,8 @@
   :hook
   ((prog-mode cmake-mode org-mode) . undo-tree-mode)
   :bind
-  (("C-z" . undo)
-   ("C-S-z" . redo))
+  (("<f2> z" . undo)
+   ("<f2> c" . redo))
   :init
   (defalias 'redo 'undo-tree-redo)
   (setq undo-tree-visualizer-diff t
