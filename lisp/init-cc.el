@@ -148,28 +148,6 @@
   (setq helm-make-completion-method 'ivy)
   )
 
-(use-package lua-mode
-  :mode ("\\.lua$" . lua-mode)
-  :preface
-  (defun lua/init-company ()
-    (set (make-local-variable 'company-backends)
-         '(company-etags
-           company-capf
-           company-yasnippet
-           company-dabbrev-code
-           company-keywords))
-    (company-mode)
-
-    (use-package company-lua
-      :after company
-      :init
-      (push 'company-lua company-backends)
-      )
-    )
-  :hook
-  (lua-mode . lua/init-company)
-  )
-
 (provide 'init-cc)
 
 ;; Local Variables:

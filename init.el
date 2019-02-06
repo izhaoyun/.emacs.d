@@ -16,12 +16,12 @@
 (require 'init-lisp)
 (require 'init-cc)
 (require 'init-org)
-(require 'init-python)
 (require 'init-go)
-(require 'init-web)
 (require 'init-tex)
 (require 'init-shell)
 (require 'init-devops)
+(require 'init-web)
+;; (require 'init-python)
 
 ;; Local Variables:
 ;; coding: utf-8

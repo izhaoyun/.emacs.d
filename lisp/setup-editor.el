@@ -135,11 +135,6 @@
   (ace-link-setup-default)
   )
 
-(use-package window-numbering
-  :init
-  (window-numbering-mode)
-  )
-
 (use-package popwin
   :bind-keymap
   ("C-<f2>" . popwin:keymap)
