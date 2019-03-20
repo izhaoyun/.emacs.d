@@ -158,6 +158,12 @@
   (which-function-mode 1)
   )
 
+(use-package smartparens-config
+  :ensure smartparens
+  :hook
+  ((prog-mode markdown-mode) . turn-on-smartparens-strict-mode)
+  )
+
 (provide 'init-prog)
 
 ;; Local Variables:

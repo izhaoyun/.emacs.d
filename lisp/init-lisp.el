@@ -16,60 +16,10 @@
   )
 
 (use-package lispy
+  :disabled
   :diminish lispy-mode
   :hook
   (emacs-lisp-mode . lispy-mode)
-  )
-
-(use-package erlang-start
-  :ensure erlang
-  :preface
-  (defun erlang/init-company ()
-    (set (make-local-variable 'company-backends)
-         '(company-etags
-           company-capf
-           company-yasnippet))
-    (company-mode)
-    )
-  :hook
-  (erlang-mode . erlang/init-company)
-  )
-
-(use-package company-erlang
-  :after company
-  :hook
-  (erlang-mode . company-erlang-init)
-  )
-
-(use-package ivy-erlang-complete
-  :hook
-  ((erlang-mode . ivy-erlang-complete-init)
-   (after-save . ivy-erlang-complete-reparse))
-  )
-
-(use-package haskell-mode-autoloads
-  :ensure haskell-mode
-  :preface
-  (defun haskell/init-company ()
-    (set (make-local-variable 'company-backends)
-         '(company-capf
-           company-dabbrev-code
-           company-yasnippet))
-    (company-mode)
-    )
-  :hook
-  ((haskell-mode . haskell/init-company)
-   (haskell-mode . subword-mode))
-  :bind
-  (:map haskell-mode-map
-        ("C-c C-," . haskell-mode-format-imports)
-        ("C-c C-n" . haskell-navigate-imports))
-  )
-
-(use-package slime
-  :init
-  (setq inferior-lisp-program "/usr/bin/sbcl"
-        slime-contribs '(slime-fancy))
   )
 
 (provide 'init-lisp)

@@ -25,6 +25,7 @@
 (require 'use-package)
 
 (use-package system-packages
+  :disabled
   :init
   (setq system-packages-use-sudo t
         system-packages-package-manager 'apt)

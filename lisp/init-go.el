@@ -25,7 +25,6 @@
   :commands (gofmt-before-save)
   :hook
   ((go-mode . hs-minor-mode)
-   (go-mode . flycheck-mode)
    (go-mode . go/init-company)
    (go-mode . go/setup-env-var)
    (go-mode . (lambda ()
@@ -33,6 +32,8 @@
    )
   :bind
   (:map go-mode-map
+        ("M-." . godef-jump)
+        ("M-?" . godef-jump-other-window)
         ("C-c g a" . go-imports-insert-import)
         ("C-c g p" . go-direx-pop-to-buffer)
         ("C-c g b" . go-direx-switch-to-buffer)
@@ -70,6 +71,11 @@
 (use-package go-guru
   :hook
   (go-mode . go-guru-hl-identifier-mode)
+  )
+
+(use-package go-imenu
+  :hook
+  (go-mode . go-imenu-setup)
   )
 
 (use-package go-playground)

@@ -30,6 +30,4 @@
 
 (use-package ansible-vault)
 
-(use-package vagrant)
-
 (provide 'init-devops)

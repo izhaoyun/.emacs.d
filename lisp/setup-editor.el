@@ -8,7 +8,6 @@
   :diminish ivy-mode
   :bind
   ((("C-x b" . ivy-switch-buffer)
-    ("<f6>"  . ivy-resume)
     ("C-c C-r" . ivy-resume)))
   :bind
   (:map ivy-minibuffer-map
@@ -86,20 +85,18 @@
         ("C-r" . counsel-minibuf-history))
   :init
   (setq counsel-find-file-at-point t)
-  ;; use `rg' instead of `grep'
-  (setq counsel-grep-base-command
-        "rg -i -M 120 --no-heading --line-number --color never '%s' %s")
   )
 
 (use-package rg
   ;; :ensure-system-package (rg . ripgrep)
-  :hook
-  (rg-mode . wgrep-ag-setup)
   :init
   (rg-enable-default-bindings (kbd "M-s r"))
   )
 
-(use-package wgrep-ag)
+(use-package wgrep-ag
+  :hook
+  ((ag-mode rg-mode) . wgrep-ag-setup)
+  )
 
 (use-package hydra)
 
@@ -151,24 +148,6 @@
   (push '(compilation-mode :noselect t)
         popwin:special-display-config)
 
-  ;; slime
-  (push "*slime-apropos*" 
-        popwin:special-display-config)
-  (push "*slime-macroexpansion*" 
-        popwin:special-display-config)
-  (push "*slime-description*" 
-        popwin:special-display-config)
-  (push '("*slime-compilation*" :noselect t) 
-        popwin:special-display-config)
-  (push "*slime-xref*" 
-        popwin:special-display-config)
-  (push '(sldb-mode :stick t) 
-        popwin:special-display-config)
-  (push 'slime-repl-mode 
-        popwin:special-display-config)
-  (push 'slime-connection-list-mode 
-        popwin:special-display-config)
-
   ;; vc
   (push "*vc-diff*" 
         popwin:special-display-config)
@@ -194,6 +173,7 @@
   )
 
 (use-package highlight-symbol
+  :if window-system
   :bind
   (("C-<f3>" . highlight-symbol)
    ("<f3>"   . highlight-symbol-next)
@@ -216,10 +196,10 @@
   )
 
 (use-package expand-region
-  :if window-system
+  ;; :if window-system
   :bind
-  (("C-=" . er/expand-region)
-   ("C--" . er/contract-region))
+  (("<f2> =" . er/expand-region)
+   ("<f2> -" . er/contract-region))
   )
 
 (use-package undo-tree
@@ -257,6 +237,10 @@
   :ensure nil
   :hook
   (after-init . winner-mode)
+  )
+
+(use-package wgrep
+  :defer t
   )
 
 (use-package flyspell
@@ -328,6 +312,10 @@
   :init
   (unless (server-running-p)
     (server-start))
+  )
+
+(use-package window-numbering
+  :defer t
   )
 
 (provide 'setup-editor)

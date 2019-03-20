@@ -7,10 +7,7 @@ FILES=init.el \
 	lisp/init-prog.el \
 	lisp/init-cc.el \
 	lisp/init-org.el \
-	lisp/init-go.el \
-	lisp/init-python.el \
-	lisp/init-web.el
-
+	lisp/init-go.el
 
 all: $(FILES)
 	$(EMACS) --eval '(mapc (lambda (x) (byte-compile-file (symbol-name x))) (quote ($(FILES))))'

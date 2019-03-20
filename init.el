@@ -20,8 +20,6 @@
 (require 'init-tex)
 (require 'init-shell)
 (require 'init-devops)
-(require 'init-web)
-;; (require 'init-python)
 
 ;; Local Variables:
 ;; coding: utf-8
