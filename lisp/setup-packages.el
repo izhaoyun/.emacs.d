@@ -32,15 +32,18 @@
   )
 
 (use-package use-package-ensure-system-package
+  :disabled
   :after (system-packages)
   )
 
 (use-package use-package-chords
+  :disabled
   :init
   (key-chord-mode 1)
   )
 
 (use-package auto-package-update
+  :disabled
   :init
   (setq auto-package-update-delete-old-versions t
         auto-package-update-hide-results t

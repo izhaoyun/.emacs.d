@@ -65,8 +65,6 @@
     ("<f2> b" . counsel-switch-to-shell-buffer)
     ("<f2> a" . counsel-ag)
     ("C-c k" . counsel-ag)
-    ("<f2> r" . counsel-rg)
-    ("C-c r" . counsel-rg)
     ("C-x l" . counsel-locate)
     ("C-x m" . counsel-mark-ring)
     ("M-y" . counsel-yank-pop)
@@ -89,13 +87,9 @@
 
 (use-package rg
   ;; :ensure-system-package (rg . ripgrep)
-  :init
+  :disabled
+  :config
   (rg-enable-default-bindings (kbd "M-s r"))
-  )
-
-(use-package wgrep-ag
-  :hook
-  ((ag-mode rg-mode) . wgrep-ag-setup)
   )
 
 (use-package hydra)
@@ -118,10 +112,12 @@
   )
 
 (use-package ace-pinyin
+  :after avy
   :diminish ace-pinyin-mode
   )
 
 (use-package avy-zap
+  :after avy
   :bind
   (("M-z" . avy-zap-to-char-dwim)
    ("M-Z" . avy-zap-up-to-char-dwim))
@@ -243,6 +239,13 @@
   :defer t
   )
 
+(use-package wgrep-ag
+  :after wgrep
+  :defer t
+  :hook
+  (ag-mode . wgrep-ag-setup)
+  )
+
 (use-package flyspell
   :disabled
   :diminish flyspell-mode
@@ -278,7 +281,7 @@
   )
 
 (use-package multiple-cursors
-  :preface
+  :disabled
   :bind
   (("C-c m c" . mc/edit-lines))
   :config
@@ -304,18 +307,23 @@
     )
   )
 
-(use-package ranger)
+(use-package ranger
+  :defer t
+  )
 
 (use-package server
   :ensure nil
+  :defer t
   :commands (server-running-p)
-  :init
+  :config
   (unless (server-running-p)
     (server-start))
   )
 
 (use-package window-numbering
   :defer t
+  :hook
+  (after-init . window-numbering-mode)
   )
 
 (provide 'setup-editor)
