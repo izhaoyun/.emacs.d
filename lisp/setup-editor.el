@@ -159,7 +159,8 @@
   :bind
   (("<f2> <right>" . forward-mark)
    ("<f2> <left>" . backward-mark)
-   ("<f2> <up>" . show-marks))
+   ("<f2> <up>" . show-marks)
+   ("<f2> m" . set-mark-command))
   )
 
 (use-package volatile-highlights
