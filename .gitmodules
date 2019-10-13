@@ -1,9 +1,0 @@
-[submodule "org-mode"]
-	path = site-lisp/org-mode
-	url = https://code.orgmode.org/bzg/org-mode.git
-[submodule "help-fns-plus"]
-	path = site-lisp/help-fns-plus
-	url = https://github.com/emacsmirror/help-fns-plus
-[submodule "use-package"]
-	path = site-lisp/use-package
-	url = https://github.com/jwiegley/use-package
