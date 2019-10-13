@@ -1,6 +1,7 @@
 ;;; -*- lexical-binding: t -*-
 
-(setq package-enable-at-startup nil)
+(setq load-prefer-newer t
+      package-enable-at-startup nil)
 (autoload 'package-initialize "package")
 (package-initialize)
 
@@ -22,34 +23,17 @@
       use-package-always-defer t
       use-package-verbose t)
 
-(require 'use-package)
-
-(use-package system-packages
-  :disabled
-  :init
-  (setq system-packages-use-sudo t
-        system-packages-package-manager 'apt)
+(eval-when-compile
+  (require 'use-package)
   )
 
-(use-package use-package-ensure-system-package
-  :disabled
-  :after (system-packages)
-  )
-
-(use-package use-package-chords
-  :disabled
+(use-package auto-compile
+  :hook
+  ((emacs-lisp-mode . auto-compile-on-load-mode)
+   (emacs-lisp-mode . auto-compile-on-save-mode))
   :init
-  (key-chord-mode 1)
-  )
-
-(use-package auto-package-update
-  :disabled
-  :init
-  (setq auto-package-update-delete-old-versions t
-        auto-package-update-hide-results t
-        auto-package-update-prompt-before-update t
-        auto-package-update-interval 14)
-  (auto-package-update-maybe)
+  (setq auto-compile-display-buffer nil
+        auto-compile-mode-line-counter t)
   )
 
 (use-package delight)

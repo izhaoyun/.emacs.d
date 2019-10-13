@@ -1,7 +1,8 @@
 ;;; -*- lexical-binding: t -*-
 
 (use-package cc-mode
-  :mode (("\\.h\\'" . c++-mode))
+  :mode
+  (("\\.h\\'" . c++-mode))
   :preface
   (defun cc/init-company ()
     (set (make-local-variable 'company-backends)
@@ -70,8 +71,10 @@
   :init
   (setq large-file-warning-threshold nil)
   :config
-  (setq-local imenu-create-index-function #'ggtags-build-imenu-index)
-  (setq-local eldoc-documentation-function #'ggtags-eldoc-function)
+  (setq-local imenu-create-index-function
+              #'ggtags-build-imenu-index)
+  (setq-local eldoc-documentation-function
+              #'ggtags-eldoc-function)
   (setq-local hippie-expand-try-functions-list
               (cons 'ggtags-try-complete-tag hippie-expand-try-functions-list))
   )

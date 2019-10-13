@@ -2,13 +2,14 @@
 
 (fset 'yes-or-no-p 'y-or-n-p)
 
-(if window-system (tool-bar-mode -1))
+(if window-system
+    (tool-bar-mode -1))
 
 (use-package ivy
   :diminish ivy-mode
   :bind
-  ((("C-x b" . ivy-switch-buffer)
-    ("C-c C-r" . ivy-resume)))
+  (("C-x b" . ivy-switch-buffer)
+   ("C-c C-r" . ivy-resume))
   :bind
   (:map ivy-minibuffer-map
         ("C-c o" . ivy-occur)
@@ -37,8 +38,8 @@
 (use-package swiper
   :after ivy
   :bind
-  ((("C-c u a" . swiper-all)
-    ("C-r" . swiper)))
+  (("C-c u a" . swiper-all)
+   ("C-r" . swiper))
   :bind
   (:map swiper-map
         ("M-q" . swiper-query-replace)
@@ -50,34 +51,34 @@
 (use-package counsel
   :after swiper
   :bind
-  ((("C-s" . counsel-grep-or-swiper)
-    ("M-x" . counsel-M-x)
-    ("C-x C-f" . counsel-find-file)
-    ("C-x C-r" . counsel-recentf)
-    ("C-x r b" . counsel-bookmark)
-    ("C-x r d" . counsel-bookmarked-directory)
-    ("C-x C-b" . counsel-ibuffer)
-    ("C-c c" . counsel-org-capture)
-    ("<f2> m" . counsel-imenu)
-    ("<f2> f" . counsel-git)
-    ("<f2> g" . counsel-git-grep)
-    ("<f2> s" . counsel-stash)
-    ("<f2> b" . counsel-switch-to-shell-buffer)
-    ("<f2> a" . counsel-ag)
-    ("C-c k" . counsel-ag)
-    ("C-x l" . counsel-locate)
-    ("C-x m" . counsel-mark-ring)
-    ("M-y" . counsel-yank-pop)
-    ("C-c f" . counsel-git-log)
-    ("M-s d" . counsel-dired-jump)
-    ("M-s f" . counsel-file-jump)
-    ("C-h a" . counsel-apropos)
-    ("C-h g" . counsel-info-lookup-symbol)
-    ("C-h u" . counsel-unicode-char)
-    ("C-h l" . counsel-find-library)
-    ("C-h L" . counsel-load-library)
-    ("C-h b" . counsel-descbinds)
-    ("C-h w" . woman)))
+  (("C-s" . counsel-grep-or-swiper)
+   ("M-x" . counsel-M-x)
+   ("C-x C-f" . counsel-find-file)
+   ("C-x C-r" . counsel-recentf)
+   ("C-x r b" . counsel-bookmark)
+   ("C-x r d" . counsel-bookmarked-directory)
+   ("C-x C-b" . counsel-ibuffer)
+   ("C-c c" . counsel-org-capture)
+   ("<f2> m" . counsel-imenu)
+   ("<f2> f" . counsel-git)
+   ("<f2> g" . counsel-git-grep)
+   ("<f2> s" . counsel-stash)
+   ("<f2> b" . counsel-switch-to-shell-buffer)
+   ("<f2> a" . counsel-ag)
+   ("C-c k" . counsel-ag)
+   ("C-x l" . counsel-locate)
+   ("C-x m" . counsel-mark-ring)
+   ("M-y" . counsel-yank-pop)
+   ("C-c f" . counsel-git-log)
+   ("M-s d" . counsel-dired-jump)
+   ("M-s f" . counsel-file-jump)
+   ("C-h a" . counsel-apropos)
+   ("C-h g" . counsel-info-lookup-symbol)
+   ("C-h u" . counsel-unicode-char)
+   ("C-h l" . counsel-find-library)
+   ("C-h L" . counsel-load-library)
+   ("C-h b" . counsel-descbinds)
+   ("C-h w" . woman))
   :bind
   (:map minibuffer-local-map
         ("C-r" . counsel-minibuf-history))
@@ -86,10 +87,8 @@
   )
 
 (use-package rg
-  ;; :ensure-system-package (rg . ripgrep)
-  :disabled
-  :config
-  (rg-enable-default-bindings (kbd "M-s r"))
+  :init
+  (rg-enable-default-bindings)
   )
 
 (use-package hydra)
@@ -128,39 +127,12 @@
   (ace-link-setup-default)
   )
 
-(use-package popwin
-  :bind-keymap
-  ("C-<f2>" . popwin:keymap)
-  :config
-  ;; M-x dired-jump-other-window
-  (push '(dired-mode :position top)
-        popwin:special-display-config)
-
-  ;; M-!
-  (push "*Shell Command Output*"
-        popwin:special-display-config)
-
-  ;; M-x compile
-  (push '(compilation-mode :noselect t)
-        popwin:special-display-config)
-
-  ;; vc
-  (push "*vc-diff*" 
-        popwin:special-display-config)
-  (push "*vc-change-log*" 
-        popwin:special-display-config)
-
-  ;; undo-tree
-  (push '(" *undo-tree*" :width 0.3 :position right)
-        popwin:special-display-config)
-  )
-
 (use-package show-marks
   :bind
   (("<f2> <right>" . forward-mark)
    ("<f2> <left>" . backward-mark)
    ("<f2> <up>" . show-marks)
-   ("<f2> m" . set-mark-command))
+   ("<f2> <down>" . set-mark-command))
   )
 
 (use-package volatile-highlights
@@ -247,25 +219,10 @@
   (ag-mode . wgrep-ag-setup)
   )
 
-(use-package flyspell
-  :disabled
-  :diminish flyspell-mode
-  :hook
-  ((text-mode . flyspell-mode)
-   (prog-mode . flyspell-prog-mode))
-  :init
-  ;; settings for ispell
-  (setq ispell-dictionary "en_US")
-  )
-
 (use-package easy-kill
   :bind
   (([remap kill-ring-save] . easy-kill)
    ([remap mark-sexp] . easy-mark))
-  )
-
-(use-package help-fns+
-  :load-path "site-lisp/help-fns-plus"
   )
 
 (use-package shell-pop

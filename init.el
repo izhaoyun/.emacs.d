@@ -11,15 +11,14 @@
 
 (require 'setup-packages)
 (require 'setup-editor)
-
-(require 'init-prog)
 (require 'init-lisp)
+(require 'init-prog)
 (require 'init-cc)
 (require 'init-org)
 (require 'init-go)
+(require 'init-python)
 (require 'init-tex)
 (require 'init-shell)
-(require 'init-devops)
 
 ;; Local Variables:
 ;; coding: utf-8

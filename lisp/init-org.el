@@ -2,7 +2,7 @@
 
 (use-package org
   :load-path "site-lisp/org-mode/lisp"
-  :mode (("\\.org\'" . org-mode))
+  :mode ("\\.org\'" . org-mode)
   :bind
   (("C-c l" . org-store-link)
    ("C-c a" . org-agenda)
@@ -18,7 +18,9 @@
         org-url-hexify-p nil
         org-startup-with-inline-images t
         org-footnote-auto-adjust t)
-  (setq org-highlight-latex-and-related '(latex script entities))
+
+  (setq org-highlight-latex-and-related
+        '(latex script entities))
 
   ;; https://emacs-china.org/t/org-mode/597/11
   (setq org-emphasis-regexp-components
@@ -76,7 +78,8 @@
      (shell      . t)
      (sql        . t)))
   :config
-  (add-hook 'org-babel-after-execute-hook 'org-redisplay-inline-images)
+  (add-hook 'org-babel-after-execute-hook
+            'org-redisplay-inline-images)
   )
 
 (use-package ob-ditaa
@@ -157,7 +160,6 @@
 
 (use-package plantuml-mode
   :mode ("\\.plantuml\\'")
-  :ensure-system-package (plantuml . plantuml)
   :init
   (setq plantuml-jar-path "/usr/share/plantuml/plantuml.jar")
   )
