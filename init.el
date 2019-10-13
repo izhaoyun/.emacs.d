@@ -1,24 +1,26 @@
 ;;; -*- lexical-binding: t -*-
 
-(setq custom-file
-      (expand-file-name "custom.el" user-emacs-directory))
-(when (file-exists-p custom-file)
-  (load custom-file 'noerror))
+;; load custom.el
+(progn
+  (setq custom-file
+        (expand-file-name "custom.el" user-emacs-directory))
+  (when (file-exists-p custom-file)
+    (load custom-file 'noerror))
+)
 
-(add-to-list
- 'load-path
- (expand-file-name "lisp" user-emacs-directory))
+;; install use-package
+(package-initialize)
+(unless (package-installed-p 'use-package)
+  (package-refresh-contents)
+  (package-install 'use-package))
+(eval-when-compile
+  (require 'use-package))
+(require 'bind-key)
 
-(require 'setup-packages)
-(require 'setup-editor)
-(require 'init-lisp)
-(require 'init-prog)
-(require 'init-cc)
+(add-to-list 'load-path
+             (expand-file-name "lisp" user-emacs-directory))
+
 (require 'init-org)
-(require 'init-go)
-(require 'init-python)
-(require 'init-tex)
-(require 'init-shell)
 
 ;; Local Variables:
 ;; coding: utf-8
