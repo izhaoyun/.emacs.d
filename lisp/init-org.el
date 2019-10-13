@@ -1,6 +1,6 @@
 (use-package org
-  :ensure t
-  :load-path "site-lisp/org-mode/lisp"
+  :ensure org-plus-contrib
+  :pin org
 )
 
 (provide 'init-org)

@@ -7,8 +7,9 @@
  '(package-archives
    (quote
     (("gnu" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")
-     ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/"))))
- '(package-selected-packages (quote (use-package))))
+     ("melpa" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")
+     ("org" . "http://mirrors.tuna.tsinghua.edu.cn/elpa/org/"))))
+ '(package-selected-packages (quote (org-plus-contrib use-package))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
