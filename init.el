@@ -14,13 +14,13 @@
   (package-refresh-contents)
   (package-install 'use-package))
 
-(eval-when-compile
-  (require 'use-package)
-  (require 'bind-key))
+(require 'bind-key)
 
 (setq use-package-always-ensure t
       use-package-always-defer t
       use-package-verbose t)
+
+(require 'use-package)
 
 (add-to-list 'load-path
              (expand-file-name "lisp" user-emacs-directory))

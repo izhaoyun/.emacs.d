@@ -42,6 +42,8 @@
   )
 
 (use-package swiper
+  :after ivy
+  :demand t
   :bind
   (("C-c u a" . swiper-all)
    ("C-r" . swiper))
@@ -54,6 +56,7 @@
   )
 
 (use-package counsel
+  :after swiper
   :bind
   (("C-s" . counsel-grep-or-swiper)
    ("M-x" . counsel-M-x)
