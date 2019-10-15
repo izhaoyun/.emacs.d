@@ -13,14 +13,21 @@
 (unless (package-installed-p 'use-package)
   (package-refresh-contents)
   (package-install 'use-package))
+
 (eval-when-compile
-  (require 'use-package))
-(require 'bind-key)
+  (require 'use-package)
+  (require 'bind-key))
+
+(setq use-package-always-ensure t
+      use-package-always-defer t
+      use-package-verbose t)
 
 (add-to-list 'load-path
              (expand-file-name "lisp" user-emacs-directory))
 
-(require 'init-org)
+(require 'init-editor)
+(require 'init-develop)
+(require 'init-writing)
 
 ;; Local Variables:
 ;; coding: utf-8
