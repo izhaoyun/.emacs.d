@@ -16,7 +16,7 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
    (quote
-    (avy counsel swiper ivy org-plus-contrib use-package)))
+    (org-bullets avy counsel swiper ivy org-plus-contrib use-package)))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil))
 (custom-set-faces
