@@ -1,10 +1,6 @@
 ;; configuration for making backup files
 ;; https://stackoverflow.com/questions/151945/how-do-i-control-how-emacs-makes-backup-files
-(defvar my-backup-directory
-  (concat user-emacs-directory "backups"))
-(if (not (file-exists-p my-backup-directory))
-    (make-directory my-backup-directory t))
-(setq backup-directory-alist '(("." . my-backup-directory)))
+(setq backup-directory-alist '(("." . "~/.emacs.d/backups")))
 (setq make-backup-files t               ; backup of a file the first time it is saved.
       backup-by-copying t               ; don't clobber symlinks
       version-control t                 ; version numbers for backup files
@@ -18,6 +14,7 @@
       )
 
 (use-package ivy
+  :diminish ivy-mode
   :bind
   (("C-x b"   . ivy-switch-buffer)
    ("C-c C-r" . ivy-resume))
@@ -96,9 +93,113 @@
 (use-package avy
   :bind
   (("C-:" . avy-goto-char)
-   ("C-'" . avy-goto-char-2))
+   ("C-'" . avy-goto-char-2)
+   ("M-g c" . avy-goto-char)
+   ("M-g f" . avy-goto-line)
+   ("M-g w" . avy-goto-word-1)
+   ("M-g e" . avy-goto-word-0)
+   ("C-c C-j" . avy-resume))
   :init
   (avy-setup-default)
   )
+
+(use-package ace-pinyin
+  :after avy
+  :diminish ace-pinyin-mode
+  )
+
+(use-package ace-window
+  :after avy
+  :bind
+  ("M-o" . ace-window)
+  )
+
+(use-package avy-zap
+  :after avy
+  :bind
+  (("M-z" . avy-zap-to-char-dwim)
+   ("M-Z" . avy-zap-up-to-char-dwim))
+  )
+
+(use-package ace-link
+  :after avy
+  :init
+  (ace-link-setup-default)
+  )
+
+(use-package volatile-highlights
+  :diminish volatile-highlights-mode
+  :init
+  (volatile-highlights-mode)
+  )
+
+(use-package highlight-symbol
+  :if window-system
+  :bind
+  (("C-<f3>" . highlight-symbol)
+   ("<f3>"   . highlight-symbol-next)
+   ("S-<f3>" . highlight-symbol-prev)
+   ("M-<f3>" . highlight-symbol-query-replace))
+  )
+
+(use-package which-key
+  :diminish which-key-mode
+  :hook
+  (after-init . which-key-mode)
+  :init
+  (which-key-setup-side-window-right-bottom)
+  )
+
+(use-package ws-butler
+  :diminish ws-butler-mode
+  :hook
+  (prog-mode . ws-butler-mode)
+  )
+
+(use-package expand-region
+  ;; :if window-system
+  :bind
+  (("<f2> =" . er/expand-region)
+   ("<f2> -" . er/contract-region))
+  )
+
+(use-package undo-tree
+  :diminish undo-tree-mode
+  :hook
+  ((prog-mode cmake-mode org-mode) . undo-tree-mode)
+  :bind
+  (("<f2> z" . undo)
+   ("<f2> c" . redo))
+  :init
+  (defalias 'redo 'undo-tree-redo)
+  (setq undo-tree-visualizer-diff t
+        undo-tree-visualizer-timestamps t)
+  )
+
+(use-package dired-async
+  :ensure async
+  :hook
+  (dired-mode . dired-async-mode)
+  )
+
+(use-package hippie-exp
+  :ensure nil
+  :bind
+  ("M-/" . hippie-expand)
+  )
+
+(use-package paren
+  :ensure nil
+  :hook
+  (prog-mode . show-paren-mode)
+  )
+
+(use-package winner
+  :ensure nil
+  :hook
+  (after-init . winner-mode)
+  )
+
+(use-package diminish)
 
 (provide 'init-editor)

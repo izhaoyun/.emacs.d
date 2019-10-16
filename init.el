@@ -22,6 +22,15 @@
 
 (require 'use-package)
 
+(use-package auto-compile
+  :hook
+  ((emacs-lisp-mode . auto-compile-on-load-mode)
+   (emacs-lisp-mode . auto-compile-on-save-mode))
+  :init
+  (setq auto-compile-display-buffer nil
+        auto-compile-mode-line-counter t)
+  )
+
 (add-to-list 'load-path
              (expand-file-name "lisp" user-emacs-directory))
 
