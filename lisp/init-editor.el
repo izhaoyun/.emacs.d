@@ -187,4 +187,17 @@
 
 (use-package diminish)
 
+(use-package dashboard
+  :init
+  (dashboard-setup-startup-hook)
+  :custom
+  ((initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
+   (dashboard-items '((recents . 5)
+                      (projects . 5)
+                      (bookmarks . 5)
+                      (agenda . 5)
+                      (registers . 5)))
+   (dashboard-footer "Happy coding!"))
+  )
+
 (provide 'init-editor)
