@@ -17,6 +17,12 @@
   ((python-mode c-mode c++-mode) . lsp)
   )
 
+(use-package company-lsp
+  :after (company lsp)
+  :config
+  (push 'company-lsp company-backends)
+  )
+
 (use-package company
   :diminish company-mode
   :bind
@@ -42,6 +48,20 @@
   (company-mode . company-quickhelp-mode)
   :init
   (setq company-quickhelp-delay nil)
+  )
+
+(use-package yasnippet
+  :diminish yas-minor-mode
+  :bind
+  (:map yas-minor-mode-map
+        ("<f2> x" . yas-expand)
+        ("<f2> i" . yas-insert-snippet))
+  :hook
+  (after-init . yas-global-mode)
+  )
+
+(use-package yasnippet-snippets
+  :after yasnippet
   )
 
 (use-package comment-dwim-2
