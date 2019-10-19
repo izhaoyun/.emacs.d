@@ -11,12 +11,13 @@
         ("C-r"   . ivy-previous-line-or-history)
         ("M-r"   . ivy-reverse-i-search)
         ("<return>" . ivy-alt-done))
+  :custom
+  ((ivy-count-format "(%d/%d) ")
+   (ivy-display-style 'fancy)
+   (ivy-use-selectable-prompt t)
+   (ivy-use-virtual-buffers t)
+   (ivy-wrap t))
   :init
-  (setq ivy-count-format "(%d/%d) "
-        ivy-display-style 'fancy
-        ivy-use-selectable-prompt t
-        ivy-use-virtual-buffers t
-        ivy-wrap t)
   (ivy-mode 1)
   :config
   (ivy-set-occur 'swiper 'swiper-occur)
@@ -71,8 +72,8 @@
   :bind
   (:map minibuffer-local-map
         ("C-r" . counsel-minibuf-history))
-  :init
-  (setq counsel-find-file-at-point t)
+  :custom
+  (counsel-find-file-at-point t)
   )
 
 (use-package avy
@@ -157,8 +158,9 @@
    ("<f2> c" . redo))
   :init
   (defalias 'redo 'undo-tree-redo)
-  (setq undo-tree-visualizer-diff t
-        undo-tree-visualizer-timestamps t)
+  :custom
+  ((undo-tree-visualizer-diff t)
+   (undo-tree-visualizer-timestamps t))
   )
 
 (use-package dired-async

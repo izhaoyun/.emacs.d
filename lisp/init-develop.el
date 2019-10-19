@@ -1,18 +1,20 @@
+;; -*- lexical-binding: t; -*-
+
 (use-package projectile
   :delight '(:eval (concat " " (projectile-project-name)))
   :bind-keymap
   ("C-c p" . projectile-command-map)
-  :init
-  (setq projectile-completion-system 'ivy)
+  :custom
+  (projectile-completion-system 'ivy)
   )
 
 (use-package counsel-projectile
+  :after (projectile counsel)
   :init
   (counsel-projectile-mode)
   )
 
 (use-package lsp-mode
-  :commands lsp
   :hook
   ((python-mode c-mode c++-mode) . lsp)
   )
@@ -29,11 +31,11 @@
   ("C-c y" . company-yasnippet)
   :hook
   (after-init . global-company-mode)
-  :init
-  (setq company-tooltip-limit 20
-        company-idle-delay .3
-        company-echo-delay 0
-        company-show-numbers t)
+  :custom
+  ((company-tooltip-limit 20)
+   (company-idle-delay .3)
+   (company-echo-delay 0)
+   (company-show-numbers t))
   ;; :config
   ;; (setq company-begin-commands '(self-insert-command))
   )
@@ -46,8 +48,8 @@
         ("M-h" . company-quickhelp-manual-begin))
   :hook
   (company-mode . company-quickhelp-mode)
-  :init
-  (setq company-quickhelp-delay nil)
+  :custom
+  (company-quickhelp-delay nil)
   )
 
 (use-package yasnippet
@@ -74,26 +76,26 @@
   :diminish highlight-indent-guides-mode
   :hook
   (prog-mode . highlight-indent-guides-mode)
-  :init
-  (setq highlight-indent-guides-method 'character
-        highlight-indent-guides-character ?\|
-        highlight-indent-guides-auto-odd-face-perc 15
-        highlight-indent-guides-auto-even-face-perc 15
-        highlight-indent-guides-auto-character-face-perc 20)
+  :custom
+  ((highlight-indent-guides-method 'character)
+   (highlight-indent-guides-character ?\|)
+   (highlight-indent-guides-auto-odd-face-perc 15)
+   (highlight-indent-guides-auto-even-face-perc 15)
+   (highlight-indent-guides-auto-character-face-perc 20))
   )
 
 (use-package clean-aindent-mode
   :hook prog-mode
-  :init
-  (setq clean-aindent-is-simple-indent t)
+  :custom
+  (clean-aindent-is-simple-indent t)
   )
 
 (use-package dtrt-indent
   :diminish dtrt-indent-mode
   :hook
   (prog-mode . dtrt-indent-mode)
-  :init
-  (setq dtrt-indent-verbosity 0)
+  :custom
+  (dtrt-indent-verbosity 0)
   )
 
 (use-package aggressive-indent

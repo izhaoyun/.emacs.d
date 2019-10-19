@@ -1,4 +1,4 @@
-;;; -*- lexical-binding: t -*-
+;; -*- lexical-binding: t; -*-
 
 ;; load custom.el
 (progn
@@ -6,7 +6,7 @@
         (expand-file-name "custom.el" user-emacs-directory))
   (when (file-exists-p custom-file)
     (load custom-file 'noerror))
-)
+  )
 
 ;; install use-package
 (package-initialize)
