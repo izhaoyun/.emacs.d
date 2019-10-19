@@ -16,7 +16,7 @@
  '(package-enable-at-startup nil)
  '(package-selected-packages
  (quote
-  (yasnippet-snippets yasnippet company-lsp lsp-ui dashboard company magit auto-compile company-quickhelp comment-dwim-2 highlight-indent-guides clean-aindent-mode dtrt-indent aggressive-indent rainbow-delimiters counsel-projectile projectile diminish ace-window which-key highlight-symbol volatile-highlights ace-pinyin ws-butler expand-region undo-tree async avy-zap ace-link lsp-mode org-bullets avy counsel swiper ivy org-plus-contrib use-package)))
+  (helm-make google-c-style demangle-mode disaster elf-mode cmake-mode clang-format modern-cpp-font-lock lsp-treemacs flycheck yasnippet-snippets yasnippet company-lsp lsp-ui dashboard company magit auto-compile company-quickhelp comment-dwim-2 highlight-indent-guides clean-aindent-mode dtrt-indent aggressive-indent rainbow-delimiters counsel-projectile projectile diminish ace-window which-key highlight-symbol volatile-highlights ace-pinyin ws-butler expand-region undo-tree async avy-zap ace-link lsp-mode org-bullets avy counsel swiper ivy org-plus-contrib use-package)))
  '(scroll-bar-mode nil)
  '(tool-bar-mode nil))
 (custom-set-faces

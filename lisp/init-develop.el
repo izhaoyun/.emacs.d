@@ -16,7 +16,21 @@
 
 (use-package lsp-mode
   :hook
-  ((python-mode c-mode c++-mode) . lsp)
+  ((emacs-lisp-mode python-mode c-mode c++-mode) . lsp-deferred)
+  )
+
+(use-package lsp-ui
+  :hook
+  (lsp-mode . lsp-ui-mode)
+  :bind
+  (:map lsp-ui-mode-map
+        ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
+        ([remap xref-find-references] . lsp-ui-peek-find-references)
+        )
+  )
+
+(use-package lsp-treemacs
+  :commands lsp-treemacs-errors-list
   )
 
 (use-package company-lsp
@@ -64,6 +78,20 @@
 
 (use-package yasnippet-snippets
   :after yasnippet
+  )
+
+(use-package flycheck
+  :diminish flycheck-mode
+  )
+
+(use-package hideshow
+  :ensure nil
+  :diminish hs-minor-mode
+  )
+
+(use-package eldoc
+  :ensure nil
+  :diminish eldoc-mode
   )
 
 (use-package comment-dwim-2
@@ -117,10 +145,67 @@
 
 (use-package magit
   :bind
-  (("C-x g" . magit-status))
+  ("C-x g" . magit-status)
   :config
   (setq magit-completing-read-function 'ivy-completing-read)
   )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package cc-mode
+  :demand t
+  )
+
+(use-package google-c-style
+  :hook
+  (((c-mode c++-mode) . google-set-c-style)
+   ((c-mode c++-mode) . google-make-newline-indent))
+  )
+
+(use-package modern-cpp-font-lock
+  :diminish modern-cpp-font-lock-mode
+  :hook
+  ((c-mode c++-mode) . modern-c++-font-lock-mode)
+  )
+
+(use-package clang-format
+  :after cc-mode
+  :bind
+  (:map c-mode-base-map
+        ("C-c u b" . clang-format-buffer)
+        ("C-c u r" . clang-format-region))
+  )
+
+(use-package disaster
+  :after cc-mode
+  :bind
+  (:map c-mode-base-map
+        ("C-c u d" . disaster))
+  )
+
+(use-package elf-mode
+  :defer t
+  )
+
+(use-package demangle-mode
+  :defer t
+  )
+
+(use-package cmake-mode
+  :mode
+  (("CMakeLists\\.txt\\'" . cmake-mode)
+   ("\\.cmake\\'" . cmake-mode))
+  :hook
+  (cmake-mode . cmake-font-lock-activate)
+  )
+
+(use-package helm-make
+  :custom
+  (helm-make-completion-method 'ivy)
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 
 (provide 'init-develop)
 
