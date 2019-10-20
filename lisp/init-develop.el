@@ -16,7 +16,7 @@
 
 (use-package lsp-mode
   :hook
-  ((emacs-lisp-mode python-mode c-mode c++-mode) . lsp-deferred)
+  ((python-mode c-mode c++-mode) . lsp-deferred)
   )
 
 (use-package lsp-ui
@@ -50,8 +50,6 @@
    (company-idle-delay .3)
    (company-echo-delay 0)
    (company-show-numbers t))
-  ;; :config
-  ;; (setq company-begin-commands '(self-insert-command))
   )
 
 (use-package company-quickhelp

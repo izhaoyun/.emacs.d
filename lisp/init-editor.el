@@ -146,7 +146,10 @@
   ;; :if window-system
   :bind
   (("<f2> =" . er/expand-region)
-   ("<f2> -" . er/contract-region))
+   ("<f2> -" . er/contract-region)
+   ("C-=" . er/expand-region)
+   ("C--" . er/contract-region)
+   )
   )
 
 (use-package undo-tree
