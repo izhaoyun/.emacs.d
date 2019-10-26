@@ -39,7 +39,7 @@
   )
 
 (use-package counsel
-  :after swiper
+  :requires swiper
   :bind
   (("C-s" . counsel-grep-or-swiper)
    ("M-x" . counsel-M-x)
@@ -54,7 +54,6 @@
    ("<f2> g" . counsel-git-grep)
    ("<f2> s" . counsel-stash)
    ("<f2> b" . counsel-switch-to-shell-buffer)
-   ("<f2> a" . counsel-ag)
    ("C-c k" . counsel-ag)
    ("C-x l" . counsel-locate)
    ("C-x m" . counsel-mark-ring)
@@ -90,25 +89,25 @@
   )
 
 (use-package ace-pinyin
-  :after avy
+  :requires avy
   :diminish ace-pinyin-mode
   )
 
 (use-package ace-window
-  :after avy
+  :requires avy
   :bind
   ("M-o" . ace-window)
   )
 
 (use-package avy-zap
-  :after avy
+  :requires avy
   :bind
   (("M-z" . avy-zap-to-char-dwim)
    ("M-Z" . avy-zap-up-to-char-dwim))
   )
 
 (use-package ace-link
-  :after avy
+  :requires avy
   :init
   (ace-link-setup-default)
   )
@@ -117,6 +116,12 @@
   :diminish volatile-highlights-mode
   :init
   (volatile-highlights-mode)
+  :config
+  (eval-after-load 'undo-tree
+    '(progn
+       (vhl/define-extension 'undo-tree 'undo-tree-yank 'undo-tree-move)
+       (vhl/install-extension 'undo-tree))
+    )
   )
 
 (use-package highlight-symbol
@@ -192,17 +197,10 @@
 
 (use-package diminish)
 
-(use-package dashboard
-  :init
-  (dashboard-setup-startup-hook)
-  :custom
-  ((initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
-   (dashboard-items '((recents . 5)
-                      (projects . 5)
-                      (bookmarks . 5)
-                      (agenda . 5)
-                      (registers . 5)))
-   (dashboard-footer "Happy coding!"))
+(use-package dired-narrow
+  :disabled
+  :bind
+  (("C-c C-n" . dired-narrow))
   )
 
 (provide 'init-editor)

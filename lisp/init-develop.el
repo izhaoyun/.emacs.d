@@ -14,31 +14,6 @@
   (counsel-projectile-mode)
   )
 
-(use-package lsp-mode
-  :hook
-  ((python-mode c-mode c++-mode) . lsp-deferred)
-  )
-
-(use-package lsp-ui
-  :hook
-  (lsp-mode . lsp-ui-mode)
-  :bind
-  (:map lsp-ui-mode-map
-        ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
-        ([remap xref-find-references] . lsp-ui-peek-find-references)
-        )
-  )
-
-(use-package lsp-treemacs
-  :commands lsp-treemacs-errors-list
-  )
-
-(use-package company-lsp
-  :after (company lsp)
-  :config
-  (push 'company-lsp company-backends)
-  )
-
 (use-package company
   :diminish company-mode
   :bind
@@ -53,8 +28,8 @@
   )
 
 (use-package company-quickhelp
-  :if window-system
-  :after company
+  ;; :if window-system
+  :requires company
   :bind
   (:map company-active-map
         ("M-h" . company-quickhelp-manual-begin))
@@ -75,11 +50,58 @@
   )
 
 (use-package yasnippet-snippets
-  :after yasnippet
+  :requires yasnippet
   )
 
 (use-package flycheck
   :diminish flycheck-mode
+  :hook
+  ((python-mode c-mode c++-mode go-mode) . flycheck-mode)
+  )
+
+(use-package lsp-mode
+  :hook
+  ((python-mode c-mode c++-mode) . lsp-deferred)
+  :custom
+  ((lsp-prefer-flymake nil))
+  )
+
+(use-package lsp-ui
+  :requires lsp-mode
+  :hook
+  (lsp-mode . lsp-ui-mode)
+  :bind
+  (:map lsp-ui-mode-map
+        ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
+        ([remap xref-find-references] . lsp-ui-peek-find-references)
+        ("C-c C-l ." . lsp-ui-peek-find-definitions)
+        ("C-c C-l ?" . lsp-ui-peek-find-references)
+        ("C-c C-l r" . lsp-rename)
+        ("C-c C-l i" . lsp-ui-peek-find-implementation)
+        )
+  :custom
+  ((lsp-ui-doc-enable t)
+   (lsp-ui-flycheck-enable t))
+  )
+
+(use-package lsp-ui-imenu
+  :ensure lsp-ui
+  )
+
+(use-package lsp-treemacs
+  :commands lsp-treemacs-errors-list
+  )
+
+(use-package company-lsp
+  :requires (company lsp)
+  :config
+  (push 'company-lsp company-backends)
+  )
+
+(use-package dap-mode
+  :hook
+  ((go-mode . dap-mode)
+   (go-mode . dap-ui-mode))
   )
 
 (use-package hideshow
@@ -148,6 +170,11 @@
   (setq magit-completing-read-function 'ivy-completing-read)
   )
 
+(use-package dumb-jump
+  :bind
+  (("<f2> o" . dumb-jump-go-other-window))
+  )
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package cc-mode
@@ -193,6 +220,10 @@
   :mode
   (("CMakeLists\\.txt\\'" . cmake-mode)
    ("\\.cmake\\'" . cmake-mode))
+  )
+
+(use-package cmake-font-lock
+  :after cmake-mode
   :hook
   (cmake-mode . cmake-font-lock-activate)
   )
@@ -202,8 +233,49 @@
   (helm-make-completion-method 'ivy)
   )
 
+(use-package dap-lldb
+  :ensure dap-mode
+  )
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(use-package go-mode
+  :mode
+  (("\\.go\\'" . go-mode)
+   ("go\\.mod\\'" . go-dot-mod-mode))
+  :hook
+  ((before-save . gofmt-before-save))
+  )
+
+(use-package company-go
+  :requires (company go-mode)
+  :init
+  (push 'company-go company-backends)
+  )
+
+(use-package dap-go
+  :ensure dap-mode
+  :after go-mode
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package dap-python
+  :ensure dap-mode
+  :after python-mode
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package lispy
+  :diminish lispy-mode
+  :hook
+  (emacs-lisp-mode . lispy-mode)
+  :config
+  (unbind-key "M-o" lispy-mode-map)
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (provide 'init-develop)
 
