@@ -77,21 +77,14 @@
   (:map lsp-ui-mode-map
         ([remap xref-find-definitions] . lsp-ui-peek-find-definitions)
         ([remap xref-find-references] . lsp-ui-peek-find-references)
-        ("C-c C-l ." . lsp-ui-peek-find-definitions)
-        ("C-c C-l ?" . lsp-ui-peek-find-references)
-        ("C-c C-l r" . lsp-rename)
-        ("C-c C-l i" . lsp-ui-peek-find-implementation)
-        )
-  :bind
-  ("<f2> u" . lsp-ui-imenu)
+        ("C-c i" . lsp-ui-peek-find-implementation)
+        ("C-c m" . lsp-ui-imenu))
   :custom
   ((lsp-ui-doc-enable t)
    (lsp-ui-flycheck-enable t)
-   (lsp-ui-imenu-enable t))
-  )
-
-(use-package lsp-ui-imenu
-  :ensure lsp-ui
+   (lsp-ui-imenu-enable t)
+   (lsp-ui-peek-enable t)
+   (lsp-ui-peek-fontify 'on-demand))
   )
 
 (use-package lsp-treemacs
