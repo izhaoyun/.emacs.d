@@ -16,6 +16,7 @@
 
 (use-package company
   :diminish company-mode
+  :demand t
   :bind
   ("C-c y" . company-yasnippet)
   :hook
@@ -60,14 +61,16 @@
   )
 
 (use-package lsp-mode
+  :demand t
   :hook
-  ((python-mode c-mode c++-mode) . lsp-deferred)
+  ((python-mode c-mode c++-mode go-mode) . lsp)
   :custom
   ((lsp-prefer-flymake nil))
   )
 
 (use-package lsp-ui
   :requires lsp-mode
+  :demand t
   :hook
   (lsp-mode . lsp-ui-mode)
   :bind
@@ -79,9 +82,12 @@
         ("C-c C-l r" . lsp-rename)
         ("C-c C-l i" . lsp-ui-peek-find-implementation)
         )
+  :bind
+  ("<f2> u" . lsp-ui-imenu)
   :custom
   ((lsp-ui-doc-enable t)
-   (lsp-ui-flycheck-enable t))
+   (lsp-ui-flycheck-enable t)
+   (lsp-ui-imenu-enable t))
   )
 
 (use-package lsp-ui-imenu
@@ -93,15 +99,19 @@
   )
 
 (use-package company-lsp
-  :requires (company lsp)
-  :config
+  :after (company lsp)
+  :init
   (push 'company-lsp company-backends)
+  :custom
+  ((company-lsp-cache-candidates 'auto)
+   (company-lsp-async t)
+   (company-lsp-enable-snippet t)
+   (company-lsp-enable-recompletion t))
   )
 
 (use-package dap-mode
-  :hook
-  ((go-mode . dap-mode)
-   (go-mode . dap-ui-mode))
+  :requires lsp-mode
+  :demand t
   )
 
 (use-package hideshow
@@ -178,7 +188,18 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (use-package cc-mode
+  :ensure nil
   :demand t
+  :mode
+  (("\\.h\\(h?\\|xx\\|pp\\)\\'" . c++-mode)
+   ("\\.m\\'" . c-mode)
+   ("\\.mm\\'" . c++-mode))
+  )
+
+(use-package company-c-headers
+  :after (company cc-mode)
+  :init
+  (push 'company-c-headers company-backends)
   )
 
 (use-package google-c-style
@@ -188,9 +209,9 @@
   )
 
 (use-package modern-cpp-font-lock
-  :diminish modern-cpp-font-lock-mode
+  :diminish modern-c++-font-lock-mode
   :hook
-  ((c-mode c++-mode) . modern-c++-font-lock-mode)
+  (c++-mode . modern-c++-font-lock-mode)
   )
 
 (use-package clang-format
@@ -208,12 +229,13 @@
         ("C-c u d" . disaster))
   )
 
-(use-package elf-mode
-  :defer t
-  )
+(use-package elf-mode)
 
-(use-package demangle-mode
-  :defer t
+(use-package demangle-mode)
+
+(use-package bpftrace-mode
+  :mode
+  ("\\.bt\\'" . bpftrace-mode)
   )
 
 (use-package cmake-mode
@@ -233,7 +255,7 @@
   (helm-make-completion-method 'ivy)
   )
 
-(use-package dap-lldb
+(use-package dap-gdb-lldb
   :ensure dap-mode
   )
 
@@ -244,11 +266,11 @@
   (("\\.go\\'" . go-mode)
    ("go\\.mod\\'" . go-dot-mod-mode))
   :hook
-  ((before-save . gofmt-before-save))
+  (before-save . gofmt-before-save)
   )
 
 (use-package company-go
-  :requires (company go-mode)
+  :after (company go-mode)
   :init
   (push 'company-go company-backends)
   )
@@ -256,13 +278,39 @@
 (use-package dap-go
   :ensure dap-mode
   :after go-mode
+  :hook
+  ((go-mode . dap-mode)
+   (go-mode . dap-ui-mode)
+   (go-mode . dap-tooltip-mode))
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(use-package python
+  :mode ("\\.py\\'" . python-mode)
+  :interpreter ("python" . python-mode)
+  )
+
 (use-package dap-python
   :ensure dap-mode
   :after python-mode
+  :hook
+  ((python-mode . dap-mode)
+   (python-mode . dap-ui-mode)
+   (python-mode . dap-tooltip-mode))
+  )
+
+(use-package virtualenvwrapper
+  :hook
+  (python-mode . venv-initialize-interactive-shells)
+  )
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(use-package lsp-java
+  :after lsp
+  :hook
+  (java-mode . lsp)
   )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
