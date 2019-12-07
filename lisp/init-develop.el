@@ -231,6 +231,12 @@
   ("\\.bt\\'" . bpftrace-mode)
   )
 
+(use-package systemtap-mode
+  :mode
+  (("\\.stp\\'" . systemtap-mode)
+   ("\\.stpm\\'" . systemtap-mode))
+  )
+
 (use-package cmake-mode
   :mode
   (("CMakeLists\\.txt\\'" . cmake-mode)
