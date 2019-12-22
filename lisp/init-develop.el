@@ -63,7 +63,7 @@
 (use-package lsp-mode
   :demand t
   :hook
-  ((python-mode c-mode c++-mode go-mode) . lsp)
+  ((python-mode go-mode) . lsp)
   :custom
   ((lsp-prefer-flymake nil))
   )
@@ -184,9 +184,54 @@
   :ensure nil
   :demand t
   :mode
-  (("\\.h\\(h?\\|xx\\|pp\\)\\'" . c++-mode)
-   ("\\.m\\'" . c-mode)
-   ("\\.mm\\'" . c++-mode))
+  ("\\.h\\'" . c++-mode)
+  )
+
+(use-package ccls
+  :disabled
+  :hook
+  ((c-mode c++-mode objc-mode cuda-mode) .
+   (lambda () (require 'ccls) (lsp)))
+  )
+
+(use-package ggtags
+  :hook
+  ((c-mode c++-mode) . ggtags-mode)
+  :bind
+  (:map ggtags-mode-map
+        ("C-c g s" . ggtags-find-other-symbol)
+        ("C-c g h" . ggtags-view-tag-history)
+        ("C-c g r" . ggtags-find-reference)
+        ("C-c g f" . ggtags-find-file)
+        ("C-c g c" . ggtags-create-tags)
+        ("C-c g u" . ggtags-update-tags)
+        ("C-c <"   . ggtags-prev-mark)
+        ("C-c >"   . ggtags-next-mark))
+  :config
+  (setq-local imenu-create-index-function
+              #'ggtags-build-imenu-index)
+  (setq-local eldoc-documentation-function
+              #'ggtags-eldoc-function)
+  (setq-local hippie-expand-try-functions-list
+              (cons 'ggtags-try-complete-tag
+                    hippie-expand-try-functions-list))
+  )
+
+(use-package irony
+  :hook
+  ((c-mode c++-mode) . irony-mode)
+  :hook
+  (irony-mode . irony-cdb-autosetup-compile-options)
+  :bind
+  (:map irony-mode-map
+        ([remap completion-at-point] . counsel-irony)
+        ([remap complete-symbol] . counsel-irony))
+  )
+
+(use-package irony-eldoc
+  :after (irony)
+  :hook
+  (irony-mode . irony-eldoc)
   )
 
 (use-package company-c-headers
@@ -255,6 +300,7 @@
   )
 
 (use-package dap-gdb-lldb
+  :disabled
   :ensure dap-mode
   )
 
