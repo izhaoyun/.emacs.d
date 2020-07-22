@@ -2,7 +2,7 @@
 
 (use-package projectile
   :delight '(:eval (concat " " (projectile-project-name)))
-  :bind-keymap
+  :bind-keymap*
   ("C-c p" . projectile-command-map)
   :custom
   (projectile-completion-system 'ivy)
@@ -61,11 +61,13 @@
   )
 
 (use-package lsp-mode
-  :demand t
   :hook
-  ((python-mode go-mode) . lsp)
+  ((c-mode c++-mode python-mode go-mode) . lsp-deferred)
+  :hook
+  (lsp-mode . lsp-enable-which-key-integration)
   :custom
-  ((lsp-prefer-flymake nil))
+  ((lsp-prefer-flymake nil)
+   (lsp-keymap-prefix "C-c l"))
   )
 
 (use-package lsp-ui
@@ -89,6 +91,8 @@
 
 (use-package lsp-treemacs
   :commands lsp-treemacs-errors-list
+  :hook
+  (lsp-mode . lsp-treemacs-sync-mode)
   )
 
 (use-package company-lsp
